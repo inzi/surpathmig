@@ -1,0 +1,16 @@
+{
+  "culture": "en",
+  "texts": {
+    "HostTools": "Host Tools",
+    "ManualDocumentUpload": "Manual Document Upload",
+    "DocumentType": "Document Type",
+    "SelectDocumentType": "Select Document Type",
+    "DrugTest": "Drug Test",
+    "BackgroundCheck": "Background Check",
+    "File": "File",
+    "Upload": "Upload",
+    "FileUploaded": "File uploaded successfully",
+    "FileEmpty": "The file is empty",
+    "ErrorOccurred": "An error occurred"
+  }
+}

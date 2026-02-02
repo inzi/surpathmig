@@ -1,0 +1,25 @@
+﻿@model inzibackend.Web.Areas.App.Models.Layout.AppUserCardOrLogoViewModel
+@using Abp.Timing
+
+@{
+    Layout = null;
+}
+
+
+<div class="@Model.TogglerCssClass" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+  
+    @if (Model.SymbolTextCssClass.Contains("user-top-menu-card"))
+    {
+        <card class="@Model.SymbolTextCssClass">
+            <span class="user-top-menu-card-name">@Html.Raw($"{Model.LoginInformations.User.Name} {Model.LoginInformations.User.Surname}")</span>
+            <span class="user-top-menu-card-email">@Html.Raw(Model.LoginInformations.User.EmailAddress.ToLower())</span>
+        </card>
+
+    }
+    else
+    {
+        <img alt="Logo" src="@Model.GetLogoUrl(ApplicationPath, await GetLogoSkin())"
+             class="@(string.IsNullOrEmpty(Model.LogoClassOverride) ? "header-brand-logo-default" : Model.LogoClassOverride) h-35px logo" />
+    }
+
+</div>

@@ -1,0 +1,9 @@
+Id,TenantId,StatusName,HtmlColor,Default,TenantDepartmentId,CSSCLass,IsDefault
+08da5601-6665-4e91-8bd5-f95fc9ab6493,2,"Unknown (Default)",#bd9a93,0,NULL,,1
+08da5601-666a-4fe0-8e70-250651a168b0,2,"Needs Review",#bfb77e,0,NULL,,0
+08da5601-666d-4839-8a8c-3dc0fb149565,2,"For Approval",#93c967,0,NULL,,0
+08da5601-666f-4e1e-802d-220af22e8e34,2,Accepted,#67c777,0,NULL,,0
+08da5601-6672-443d-8fb6-887f625a8d46,2,"Not Accepted",#ba323b,0,NULL,,0
+08da5601-6674-4a84-8dd8-a36addb5621e,2,"Need more info",#7bced4,0,NULL,,0
+08da5601-6676-4f14-8dfe-e4d17752865f,2,"Under Review",#4b71c9,0,NULL,,0
+08da5601-6679-463b-8f85-60c962006b6e,2,"Needs Signature",#7856dd,0,NULL,,0

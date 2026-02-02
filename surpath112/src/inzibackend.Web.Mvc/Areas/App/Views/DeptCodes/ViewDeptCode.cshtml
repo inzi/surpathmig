@@ -1,0 +1,49 @@
+﻿@using inzibackend.Web.Areas.App.Startup
+@using inzibackend.Web.Areas.App.Models.DeptCodes
+@model DeptCodeViewModel
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.DeptCodes;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/DeptCodes/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+    var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/App/DeptCodes", L("DeptCodes")),
+        new BreadcrumbItem(L("Details")),
+        };
+        }
+        <abp-page-subheader title='@L("Details")' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+
+        <div class="@(await GetContainerClass())">
+            <div class=" card card-custom gutter-b">
+                <div class=" card-body">
+                    <div id="DeptCodeInformationsTab">
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <h6>@L("Code") :</h6>
+                                @Model.DeptCode.Code
+                            </div>
+
+                            <div class="col-6 mb-3">
+                                <h6>(@L("CodeType")) @L("Name") :</h6>
+                                @Model.CodeTypeName
+                            </div>
+                            <div class="col-6 mb-3">
+                                <h6>(@L("TenantDepartment")) @L("Name") :</h6>
+                                @Model.TenantDepartmentName
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

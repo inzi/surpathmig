@@ -1,0 +1,119 @@
+-- select * from backend_integration_partner_client_map;
+
+
+
+-- INSERT INTO surpathlive.backend_integration_partner_client_map
+-- (
+-- backend_integration_partner_id, 
+-- client_id, 
+-- client_department_id, 
+-- backend_integration_partner_client_map_GUID,
+-- partner_client_id,   
+-- partner_client_code, 
+-- last_modified_by, 
+-- require_login,
+-- active) 
+-- VALUES 
+-- (1, 1, 1, UUID(), 'pcclientid2', 'pcclientcode2', 'pctest', 0,1);
+
+-- select * from backend_integration_partner_client_map;
+-- 
+-- select c.client_name, c.client_code, cd.department_name from backend_integration_partner_client_map b
+-- inner join clients c on c.client_id = b.client_id
+-- inner join client_departments cd on cd.client_department_id = b.client_department_id;
+-- -- select * from individual_pids where donor_id in (86081,85718);
+-- 
+-- set @PID = 'aa84hbabfoh';
+-- delete from individual_pids where pid = @PID;
+-- INSERT INTO surpathlive.individual_pids
+-- (donor_id, pid, pid_type_id, individual_pid_type_description, mask_pid) 
+-- VALUES (86081, @PID, 9, 'MCE', 0);
+-- 
+-- set @PID = 'alfjn48shv48';
+-- delete from individual_pids where pid = @PID;
+-- INSERT INTO surpathlive.individual_pids
+-- (donor_id, pid, pid_type_id, individual_pid_type_description, mask_pid) 
+-- VALUES (85718, @PID, 9, 'MCE', 0);
+-- 
+-- 
+-- -- 2863090 -- type 1 lab
+-- -- 3683804 -- type 2 mro
+-- -- 102972	85718	1	1
+-- truncate table backend_integration_partner_release;
+-- INSERT INTO surpathlive.backend_integration_partner_release
+-- (
+-- backend_integration_partner_release_GUID, donor_test_info_id, donor_test_info_id_released, last_modified_by, released_by
+-- ) 
+-- VALUES 
+-- (
+-- UUID(),102972, 1, 'test', 'test'
+-- );
+
+-- 
+-- select * from donor_test_info 
+-- where test_overall_result in (1,2)
+-- order by client_id, client_department_id, donor_test_info_id desc limit 50;
+-- 
+-- select * from donor_test_info 
+-- where test_overall_result in (1,2) and test_status =7
+-- order by donor_test_info_id desc limit 150;
+-- 
+-- 
+-- 
+-- select * from backend_integration_partner_client_map;
+-- 
+-- 
+-- select * from backend_integration_partners;
+-- 
+-- select * from donor_documents order by donor_document_id desc limit 50;
+-- 
+-- select * from backend_integration_partner_donor_documents;
+-- 
+-- 
+-- select * from donor_test_info dti
+-- inner join donor_documents dd on dti.donor_id = dd.donor_id
+-- order by dti.donor_test_info_id desc limit 50;
+-- 
+-- -- DTI    DiD   C   CD
+-- -- 113717	95187	112	384
+-- 
+-- 
+-- -- neg
+-- -- 103437	86081	1	1
+-- -- pos 
+-- -- 102972	85718	1	1
+-- 
+-- -- 1	Project Concert	pckey	pccrypto	10	4/21/2021 6:19:55 PM		SYSTEM	1
+-- -- 2	My Clinical Exchange	mcekey	mcecrypto	9	4/21/2021 6:19:55 PM		SYSTEM	1
+-- 
+-- -- INSERT INTO surpathlive.backend_integration_partner_client_map
+-- -- (backend_integration_partner_id, client_id, client_department_id, partner_client_id, partner_client_code, created_on, last_modified_on, last_modified_by, active) 
+-- -- VALUES (backend_integration_partner_id, client_id, client_department_id, 'partner_client_id', 'partner_client_code', 'created_on', 'last_modified_on', 'last_modified_by', active);
+-- 
+-- -- select * from donor_test_info 
+-- -- where donor_id  in (86081,85718);
+-- select * from donor_documents where donor_document_id = 8570;
+-- 
+-- 
+-- select * from donor_test_info 
+-- 
+-- limit 50;
+
+
+-- select 
+-- d.donor_first_name, 
+-- d.donor_last_name, 
+-- d.donorClearstarProfId,
+-- -- d.ClearStarCode,
+-- dti.client_id, 
+-- dti.client_department_id, 
+-- dtitc.*,
+-- dti.*
+-- from donor_test_info_test_categories dtitc
+-- inner join donor_test_info dti on dti.donor_test_info_id = dtitc.donor_test_info_id
+-- inner join donors d on d.donor_id = dti.donor_id
+-- where dtitc.test_category_id=4 
+-- and d.donorClearstarProfId = '2020080642927207'
+-- order by dtitc.donor_test_info_id desc;
+
+

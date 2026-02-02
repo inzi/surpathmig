@@ -1,0 +1,243 @@
+# Documentation Manifest for inzibackend.Application.Shared
+# Generated: 2025-09-29
+# Total folders to document: 77
+
+folders:
+  # Level 4 - Deepest folders (Dto subfolders)
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Auditing/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Authorization/Accounts/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Authorization/Permissions/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Authorization/Roles/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Authorization/Users/Delegation/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Authorization/Users/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Authorization/Users/Profile/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Caching/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Chat/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Common/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Configuration/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Configuration/Host/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Configuration/Tenants/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/DemoUiComponents/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/DynamicEntityProperties/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/DynamicEntityPropertyValues/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Editions/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Friendships/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Localization/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Logging/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/MultiTenancy/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/MultiTenancy/HostDashboard/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/MultiTenancy/Payments/AuthorizeNet/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/MultiTenancy/Payments/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/MultiTenancy/Payments/PayPal/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/MultiTenancy/Payments/Stripe/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Notifications/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Organizations/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Sessions/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Surpath/Dtos/SlotDtos"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Tenants/Dashboard/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Timing/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/UiCustomization/Dto"
+    level: 4
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/WebHooks/Dto"
+    level: 4
+    status: pending
+
+  # Level 3 - Parent folders
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Auditing"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Authorization/Accounts"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Authorization/Permissions"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Authorization/Roles"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Authorization/Users/Delegation"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Authorization/Users/Profile"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Authorization/Users"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Caching"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Chat"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Common"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Configuration/Host"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Configuration/Tenants"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Configuration"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/DemoUiComponents"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Dto"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/DynamicEntityProperties"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/DynamicEntityPropertyValues"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Editions"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Friendships"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Localization"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Logging"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/MultiTenancy/HostDashboard"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/MultiTenancy/Payments/AuthorizeNet"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/MultiTenancy/Payments/PayPal"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/MultiTenancy/Payments/Stripe"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/MultiTenancy/Payments"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/MultiTenancy"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Notifications"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Organizations"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Sessions"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Surpath/ComplianceDTOs"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Surpath/dashboardDTOs"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Surpath/DTOBases"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Surpath/Dtos"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Surpath/exDtos"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Tenants/Dashboard"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Tenants"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Timing"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/UiCustomization"
+    level: 3
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/WebHooks"
+    level: 3
+    status: pending
+
+  # Level 2 - Top-level feature folders
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Authorization"
+    level: 2
+    status: pending
+  - path: "I:/surpath150/src/inzibackend.Application.Shared/Surpath"
+    level: 2
+    status: pending
+
+  # Level 1 - Root folder
+  - path: "I:/surpath150/src/inzibackend.Application.Shared"
+    level: 1
+    status: pending

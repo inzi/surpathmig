@@ -1,0 +1,168 @@
+﻿
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.LedgerEntries
+@model LedgerEntryViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="LedgerEntryInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3 d-none">
+                <h6>@L("Name") :</h6>
+                @Model.LedgerEntry.Name
+            </div>
+            <div class="col-6 mb-3 d-none">
+                <h6>@L("ServiceType") :</h6>
+                @L("Enum_EnumServiceType_" + (int)Model.LedgerEntry.ServiceType)
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Amount") :</h6>
+                @Model.LedgerEntry.Amount
+            </div>
+            <div class="col-6 mb-3 d-none">
+                <h6>@L("DiscountAmount") :</h6>
+                @Model.LedgerEntry.DiscountAmount
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("TotalPrice") :</h6>
+                @Model.LedgerEntry.TotalPrice
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("PaymentPeriodType") :</h6>
+                @L("Enum_PaymentPeriodType_" + (int)Model.LedgerEntry.PaymentPeriodType)
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ExpirationDate") :</h6>
+                @Model.LedgerEntry.ExpirationDate
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("TransactionName") :</h6>
+                @Model.LedgerEntry.TransactionName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("TransactionKey") :</h6>
+                @Model.LedgerEntry.TransactionKey
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("TransactionId") :</h6>
+                @Model.LedgerEntry.TransactionId
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Settled") :</h6>
+                @Model.LedgerEntry.Settled
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("AmountDue") :</h6>
+                @Model.LedgerEntry.AmountDue
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("PaidAmount") :</h6>
+                @Model.LedgerEntry.PaidAmount
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("PaymentToken") :</h6>
+                @Model.LedgerEntry.PaymentToken
+            </div>
+            <div class="col-6 mb-3 d-none">
+                <h6>@L("AuthNetCustomerProfileId") :</h6>
+                @Model.LedgerEntry.AuthNetCustomerProfileId
+            </div>
+            <div class="col-6 mb-3 d-none">
+                <h6>@L("AuthNetCustomerPaymentProfileId") :</h6>
+                @Model.LedgerEntry.AuthNetCustomerPaymentProfileId
+            </div>
+            <div class="col-6 mb-3 d-none">
+                <h6>@L("AuthNetCustomerAddressId") :</h6>
+                @Model.LedgerEntry.AuthNetCustomerAddressId
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("AccountNumber") :</h6>
+                @Model.LedgerEntry.AccountNumber
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Note") :</h6>
+                @Model.LedgerEntry.Note
+            </div>
+            <div class="col-6 mb-3 d-none">
+                <h6>@L("MetaData") :</h6>
+                @Model.LedgerEntry.MetaData
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("AuthCode") :</h6>
+                @Model.LedgerEntry.AuthCode
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ReferenceTransactionId") :</h6>
+                @Model.LedgerEntry.ReferenceTransactionId
+            </div>
+            <div class="col-6 mb-3 d-none">
+                <h6>@L("TransactionHash") :</h6>
+                @Model.LedgerEntry.TransactionHash
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("AccountType") :</h6>
+                @Model.LedgerEntry.AccountType
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("TransactionCode") :</h6>
+                @Model.LedgerEntry.TransactionCode
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("TransactionMessage") :</h6>
+                @Model.LedgerEntry.TransactionMessage
+            </div>
+            <div class="col-6 mb-3 d-none">
+                <h6>@L("AuthNetTransHashSha2") :</h6>
+                @Model.LedgerEntry.AuthNetTransHashSha2
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("AuthNetNetworkTransId") :</h6>
+                @Model.LedgerEntry.AuthNetNetworkTransId
+            </div>
+            
+            <div class="col-6 mb-3">
+                <h6>@L("PaidInCash") :</h6>
+                @Model.LedgerEntry.PaidInCash
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("AvailableUserBalance") :</h6>
+                @Model.LedgerEntry.AvailableUserBalance
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("CardNameOnCard") :</h6>
+                @Model.LedgerEntry.CardNameOnCard
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("CardLastFour") :</h6>
+                @Model.LedgerEntry.CardLastFour
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("CardZipCode") :</h6>
+                @Model.LedgerEntry.CardZipCode
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("BalanceForward") :</h6>
+                @Model.LedgerEntry.BalanceForward
+            </div>
+
+            <div class="col-6 mb-3">
+                <h6>(@L("User")) @L("Name") :</h6>
+                @Model.UserName
+            </div>
+            <div class="col-6 mb-3 d-none">
+                <h6>(@L("TenantDocument")) @L("Name") :</h6>
+                @Model.TenantDocumentName
+            </div>
+            <div class="col-6 mb-3 d-none">
+                <h6>(@L("Cohort")) @L("Name") :</h6>
+                @Model.CohortName
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

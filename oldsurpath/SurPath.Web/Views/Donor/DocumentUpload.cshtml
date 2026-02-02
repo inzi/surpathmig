@@ -1,0 +1,287 @@
+﻿@model IEnumerable<SurPathWeb.Models.DonorProfileDataModel>
+@using System.Data;
+@using GridMvc.Html
+@{
+    ViewBag.Title = "DocumentManage";
+    //Layout = "~/Views/Shared/_DonorLayout.cshtml";
+}
+
+@section PageScript
+{
+    <script type="text/javascript">
+        var count = 1;
+        var indexCount = 0;
+
+        $(function () {
+            if ("@ViewBag.ServerErr" != "") {
+                $("#divServerErr").show().find("div").html("@ViewBag.ServerErr");
+            }
+
+            if ("@ViewBag.SuccessMsg" != "") {
+                $("#divSuccessMsg").show().find("div").html("@ViewBag.SuccessMsg");
+
+                if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
+                    setTimeout("$('#divSuccessMsg').hide();", 6000);
+                }
+                else {
+                    $("#divSuccessMsg").fadeOut(6000);
+                }
+            }
+
+            var element = document.getElementById('tab');
+
+            if (element.offsetHeight > "500") {
+                $("#tab").css({ "max-height": "500px", "overflow-y": "scroll" });
+            }
+            else {
+                $("#tab").css({ "max-height": "500px", "overflow-y": "hidden" });
+            }
+
+            $('INPUT[type="file"]').change(function () {
+                var ext = this.value.split('.').pop().toLowerCase();
+                switch (ext) {
+                    case 'jpg':
+                    case 'jpeg':
+                    case 'png':
+                    case 'gif':
+                    case 'txt':
+                    case 'ppt':
+                    case 'doc':
+                    case 'docx':
+                    case 'xls':
+                    case 'xlsx':
+                    case 'ods':
+                    case 'pdf':
+                        $('#uploadButton').attr('disabled', false);
+                        break;
+                    default:
+                        this.value = '';
+                }
+            });
+
+            $("#btnAdd").click(function () {
+                $("#upload-empty").hide();
+                $("#document-empty").hide();
+                if (count >= 12) {
+                    return false;
+                }
+                indexCount = indexCount + 1;
+                $("#files").clone(true).attr('id', 'files' + indexCount).insertBefore("#containerTemp");
+                $("#files" + indexCount).find("#documentType").attr("id", "documentType" + indexCount);
+                $("#files" + indexCount).find("#fileName").attr("id", "fileName" + indexCount);
+
+                count = count + 1;
+                return false;
+            });
+
+            $("#btnDelete").click(function (e) {
+                var parentId = $(this).parent().parent().map(function () { return this.id; }).get();
+                if (count > 1 && parentId != 'files') {
+                    $(this).parent().parent().remove();
+                    e.preventDefault();
+                    count = count - 1;
+                    return false;
+                }
+                else {
+                    return false;
+                }
+            });
+
+            $("#documentType").change(function () {
+                if (($(this).val()).length != 0) {
+                    $(this).siblings(".alert-danger").hide();
+                    return true;
+                }
+            })
+
+            $("#fileName").change(function () {
+                if (($(this).val()).length == 0) {
+                    $(this).next().show().html("File format not supported");
+                    return false;
+                }
+                else {
+                    $(this).siblings(".alert-danger").hide();
+                    return true;
+                }
+            })
+
+            $("#btnUpload").click(function () {
+                var status = true;
+
+                if (!IsRequired($('select').map(function () { return this.id }).get().join(','))) {
+                    status = false;
+                }
+
+                if (!IsRequired($("form input:visible[type='file']").map(function () { return this.id }).get().join(','))) {
+                    status = false;
+                }
+
+                return status;
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+    @{using (Html.BeginForm("DocumentUpload", "Donor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+
+            <div class="container" style="width: 126%; margin-left: 50px; margin-right: 50px;">
+                <h3>School Required Documents</h3>
+                <asp:ListView ID="ListView2" runat="server">
+                    <LayoutTemplate>
+                        <div>
+                            <div class="row" style="line-height: 30px;">
+                                <div class="col-sm-2" style="background-color: #428bca;">Document Type</div>
+                                <div class="col-sm-3" style="background-color: #428bca;">Instructions</div>
+                                <div class="col-sm-2" style="background-color: #428bca;">Due Date</div>
+                                <div class="col-sm-1" style="background-color: #428bca;">Required</div>
+                                <div class="col-sm-1" style="background-color: #428bca;">Expires</div>
+                            </div>
+                            <asp:PlaceHolder runat="server" ID="groupPlaceHolder1"></asp:PlaceHolder>
+                        </div>
+                    </LayoutTemplate>
+                    <GroupTemplate>
+                        <tr>
+                            <asp:PlaceHolder runat="server" ID="itemPlaceHolder1"></asp:PlaceHolder>
+                        </tr>
+                    </GroupTemplate>
+                   
+                    @foreach (DataRow row in ViewBag.ClientDeptDocs)
+                    {
+
+                        <ItemTemplate>
+
+                            <div class="row">
+                                <div class="col-sm-2" style="background-color:  #d5f3dd;"> @row["Description"].ToString()</div>
+                                <div class="col-sm-3" style="background-color:  #d5f3dd;">@row["Instructions"].ToString()</div>
+                                <div class="col-sm-2" style="background-color:  #d5f3dd;">@row["duedate"].ToString()</div>
+                                @if (@row["is_required"].ToString() == "1")
+                                {
+                                    <div class="col-sm-1" style="background-color:  #d5f3dd;">Yes</div>
+                                }
+                                else
+                                {
+                                    <div class="col-sm-1" style="background-color:  #d5f3dd;">No</div>
+                                }
+                                
+                                @if (@row["is_doesexpire"].ToString() == "1")
+                                {
+                                    <div class="col-sm-1" style="background-color:  #d5f3dd;">Yes</div>
+                                }
+                                else
+                                {
+                                    <div class="col-sm-1" style="background-color:  #d5f3dd;">No</div>
+                                }
+
+                                
+                            </div>
+
+                        </ItemTemplate>
+
+                    }
+                   
+                   
+
+                </asp:ListView>             
+             </div>
+
+
+                <div class="container">
+                    <div style="display:none" class="alert alert-danger" role="alert" id="divServerErr">
+                        <i class="fa fa-exclamation-triangle fa-1x">@ViewBag.ServerErr</i>
+                    </div>
+
+                    <div style="display:none" class="alert alert-success" role="alert" id="divSuccessMsg">
+                        <i class="fa fa-check fa-1x"></i> @ViewBag.SuccessMsg
+                    </div>
+
+                    <div class="row">
+                        <h3> Records Management - @ViewBag.DonorName</h3>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Select Document Type</label>
+                        </div>
+                    </div>
+                    <div class="row" id="files">
+                        <div class="row top-buffer"></div>
+                        <div class="col-md-4 col-sm-4" data-errormsg="Document type must be selected.">
+                            <select class="form-control" id="documentType" name="documentType">
+                                <option value="">(Select)</option>
+                                @foreach (DataRow row in ViewBag.ClientDeptDocs)
+                                {
+                                    //var Description = @row["Description"].ToString();
+                                    <option value="@row["Description"].ToString();">@row["Description"].ToString()</option>
+                                }
+                               
+                            </select>
+                            <span class="alert-danger" id="document-empty" style="display:none">Document type must be selected.</span>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <input id="fileName" class="form-control" name="fileName" type="file" multiple="multiple" data-errormsg="Upload file can not be empty." />
+                            <span class="alert-danger" id="upload-empty" style="display: none">Upload file can not be empty.</span>
+                        </div>
+                        <div class="col-md-1">
+                            <input type="button" id="btnDelete" class="btn btn-primary form-control" value="Delete" />
+                        </div>
+                        <div class="col-sm-1">
+                            <input type="button" id="btnAdd" class="btn btn-primary" value="Add" />
+                        </div>
+                    </div>
+                    <div id="containerTemp"></div>
+                    <div class="row">
+                        <div class="col-sm-2" style="margin-top:10px">
+                            <input type="submit" class="btn btn-primary" value="Upload" id="btnUpload" />
+                        </div>
+                    </div>
+                    <div class="row top-buffer"></div>
+                    <!-- table starts here -->
+                    <div class="table-responsive table-bordered table-striped" id="tab">
+                        @Html.Grid(Model).Columns(columns =>
+                   {
+                       columns.Add(m => m.DocumentTitle).Titled("Document Title");
+                       columns.Add(m => m.uploaddate).Titled("Date");
+                       columns.Add(m => m.filename).Titled("Date Due");
+
+                       columns.Add(m => m.uploadtime).Titled("Time");
+                       columns.Add().Titled("Approved").Encoded(false).Sanitized(false).RenderValueAs(m => Html.CheckBox("checked", m.Approved, new { @disabled = "disabled", @checked = "checked" }));
+                       //columns.Add(m => m.NeedsApproval).Titled("Needs Approval");
+                       //columns.Add(m => m.Rejected).Titled("Rejected");
+
+                       columns.Add().Titled("Rejected").Encoded(false).Sanitized(false).RenderValueAs(m => Html.CheckBox("checked", m.Rejected, new { @disabled = "disabled", @checked = "checked" }));
+
+
+
+                       ////columns.Add()
+                       //          .Encoded(false)
+                       //          .Sanitized(false)
+                       //          .SetWidth(30)
+                       //          .RenderValueAs(m => Ajax.ActionLink("Download", "ViewDocument", "Donor", new { documentID = m.DocumentID }, null, new { @class = "btn btn-primary" }))
+                       //          .Titled("Action");
+
+                       columns.Add()
+                            .Encoded(false)
+                            .Sanitized(false)
+                            .SetWidth(30)
+                            .RenderValueAs(m => Ajax.ActionLink("Download", "ViewDocument", "Donor", new { documentID = m.DocumentID }, null, new { @class = "btn btn-primary" }))
+                            .Titled("Action");
+
+
+                   }).WithPaging(20)
+                    </div>
+                    <!--- Table ends here -->
+                </div>
+                <div class="row top-buffer"></div>
+                <div class="row top-buffer"></div>
+                <div class="row top-buffer"></div>
+                <div class="row top-buffer"></div>
+                }
+                }
+                }

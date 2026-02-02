@@ -1,0 +1,227 @@
+﻿{
+  "IsRegenerate": true,
+  "MenuPosition": "main",
+  "RelativeNamespace": "Surpath",
+  "EntityName": "LedgerEntryDetail",
+  "EntityNamePlural": "LedgerEntryDetails",
+  "TableName": "LedgerEntryDetails",
+  "PrimaryKeyType": "Guid",
+  "BaseClass": "FullAuditedEntity",
+  "EntityHistory": true,
+  "AutoMigration": false,
+  "UpdateDatabase": false,
+  "CreateUserInterface": true,
+  "CreateViewOnly": true,
+  "CreateExcelExport": true,
+  "IsNonModalCRUDPage": false,
+  "IsMasterDetailPage": false,
+  "GenerateUnitTest": false,
+  "GenerateUiTest": false,
+  "PagePermission": {
+    "Host": true,
+    "Tenant": true
+  },
+  "Properties": [
+    {
+      "Name": "Note",
+      "Type": "string",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    },
+    {
+      "Name": "Amount",
+      "Type": "double",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": true,
+        "MinimumValue": 0.0,
+        "MaximumValue": 9999999.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    },
+    {
+      "Name": "Discount",
+      "Type": "decimal",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": true,
+        "MinimumValue": 0.0,
+        "MaximumValue": 1.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    },
+    {
+      "Name": "DiscountAmount",
+      "Type": "double",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": true,
+        "MinimumValue": 0.0,
+        "MaximumValue": 999999.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    },
+    {
+      "Name": "MetaData",
+      "Type": "string",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    },
+    {
+      "Name": "AmountPaid",
+      "Type": "double",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    },
+    {
+      "Name": "DatePaidOn",
+      "Type": "DateTime",
+      "MaxLength": 0,
+      "MinLength": 0,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": true,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    }
+  ],
+  "NavigationProperties": [
+    {
+      "Namespace": "inzibackend.Surpath",
+      "ForeignEntityName": "LedgerEntry",
+      "IdType": "Guid",
+      "IsNullable": true,
+      "PropertyName": "LedgerEntryId",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "LookupTable",
+      "DisplayPropertyNameInfos": {
+        "IsGeneratedByMasterPage": true,
+        "MergeFormat": "{0}",
+        "DisplayPropertyNames": [
+          "TransactionId"
+        ]
+      }
+    },
+    {
+      "Namespace": "inzibackend.Surpath",
+      "ForeignEntityName": "SurpathService",
+      "IdType": "Guid",
+      "IsNullable": false,
+      "PropertyName": "SurpathServiceId",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "LookupTable",
+      "DisplayPropertyNameInfos": {
+        "MergeFormat": "{0}",
+        "DisplayPropertyNames": [
+          "Name"
+        ]
+      }
+    },
+    {
+      "Namespace": "inzibackend.Surpath",
+      "ForeignEntityName": "TenantSurpathService",
+      "IdType": "Guid",
+      "IsNullable": true,
+      "PropertyName": "TenantSurpathServiceId",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "LookupTable",
+      "DisplayPropertyNameInfos": {
+        "MergeFormat": "{0}",
+        "DisplayPropertyNames": [
+          "Name"
+        ]
+      }
+    }
+  ],
+  "NavigationPropertyOneToManyTables": [],
+  "EnumDefinitions": [],
+  "DbContext": null
+}

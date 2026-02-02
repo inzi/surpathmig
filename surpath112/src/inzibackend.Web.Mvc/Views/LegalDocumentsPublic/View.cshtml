@@ -1,0 +1,32 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">@ViewBag.Title</h3>
+                <div class="card-toolbar">
+                    <a href="javascript:;" class="btn btn-sm btn-primary" id="btnDownload">
+                        <i class="fa fa-download"></i> @L("Download")
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                @Html.Raw(ViewBag.Content)
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function() {
+            $('#btnDownload').click(function() {
+                window.location.href = '@Url.Action("Download", new { id = Context.Request.Query["id"] })';
+            });
+        });
+    </script>
+}

@@ -1,0 +1,67 @@
+﻿
+@using System.Globalization
+@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.TestCategories
+@using inzibackend.Web.Areas.App.Startup
+@model CreateOrEditTestCategoryViewModel
+@using Abp.Extensions
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Host.TestCategories;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/TestCategories/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+    var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/App/TestCategories", L("TestCategories")),
+        new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
+        };
+        }
+        <abp-page-subheader title='@(Model.IsEditMode ? (L("EditTestCategory")) : L("CreateNewTestCategory"))' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+
+        <div class="@(await GetContainerClass())">
+            <div class="card card-custom gutter-b">
+                <form name="TestCategoryInformationsForm" role="form" novalidate class="form-validation">
+                    <div class="card-body">
+                        <div class="form">
+                            <div id="TestCategoryInformationsTab">
+                                @if (Model.IsEditMode)
+                                {
+                                <input type="hidden" name="id" value="@Model.TestCategory.Id" />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="TestCategory_Name">@L("Name")</label>
+                                    <input class="form-control" id="TestCategory_Name" value="@Model.TestCategory.Name" type="text" name="name" required maxlength="@inzibackend.Surpath.TestCategoryConsts.MaxNameLength" minlength="@inzibackend.Surpath.TestCategoryConsts.MinNameLength" />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="TestCategory_InternalName">@L("InternalName")</label>
+                                    <input class="form-control" id="TestCategory_InternalName" value="@Model.TestCategory.InternalName" type="text" name="internalName" required maxlength="@inzibackend.Surpath.TestCategoryConsts.MaxInternalNameLength" minlength="@inzibackend.Surpath.TestCategoryConsts.MinInternalNameLength" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12">
+                                <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                @if (!Model.IsEditMode)
+                                {
+                                <button type="button" id="saveAndNewBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>

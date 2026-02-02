@@ -1,0 +1,340 @@
+{
+	"info": {
+		"_postman_id": "e79f13ce-8c20-4cdc-9404-fc5708ff72c9",
+		"name": "SurPath_Integration_API Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Echo",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "surpathkey",
+						"value": "{{SurpathKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ApiHost}}/api/Integration/echo",
+					"host": [
+						"{{ApiHost}}"
+					],
+					"path": [
+						"api",
+						"Integration",
+						"echo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "clients",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "surpathkey",
+						"value": "{{SurpathKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{ApiHost}}/api/Integration/clients/",
+					"host": [
+						"{{ApiHost}}"
+					],
+					"path": [
+						"api",
+						"Integration",
+						"clients",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "settings",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "surpathkey",
+						"value": "{{SurpathKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{ApiHost}}/api/Integration/settings/",
+					"host": [
+						"{{ApiHost}}"
+					],
+					"path": [
+						"api",
+						"Integration",
+						"settings",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "donors",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "surpathkey",
+						"value": "{{SurpathKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fromDateTime\":\"\",\r\n    \"toDateTime\":\"\",\r\n    \"maxResults\": 0,\r\n    \"partner_client_id\":\"\",\r\n    \"partner_client_code\":\"\",\r\n    \"partner_donor_id\":\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ApiHost}}/api/Integration/donors",
+					"host": [
+						"{{ApiHost}}"
+					],
+					"path": [
+						"api",
+						"Integration",
+						"donors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "donormatch",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "surpathkey",
+						"value": "{{SurpathKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"donor_first_name\": \"\",\r\n    \"donor_last_name\": \"\",\r\n    \"partner_donor_id\": \"chris2@inzi.com\",\r\n    \"partner_client_code\": \"\",\r\n    \"partner_client_id\": \"\",\r\n    \"partner_client_name\": \"\",\r\n    \"maxResults\": 0,\r\n    \"exact_only\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ApiHost}}/api/Integration/donormatch",
+					"host": [
+						"{{ApiHost}}"
+					],
+					"path": [
+						"api",
+						"Integration",
+						"donormatch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verify",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "surpathkey",
+						"value": "{{SurpathKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"donor_email\": \"chris@inzi.com\",\r\n    \"donor_first_name\": \"Chris\",\r\n    \"donor_last_name\": \"Norman\",\r\n    \"partner_donor_id\": \"chris2@inzi.com\",\r\n    \"partner_client_code\": \"ELITEFF\",\r\n    \"partner_client_id\": \"mceclientid\",\r\n    \"partner_client_name\": \"SurScan Test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ApiHost}}/api/Integration/verify",
+					"host": [
+						"{{ApiHost}}"
+					],
+					"path": [
+						"api",
+						"Integration",
+						"verify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Settings",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "surpathkey",
+						"value": "{{SurpathKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"backend_integration_partner_id\": 2,\r\n    \"partner_name\": \"My Clinical Exchange\",\r\n    \"partner_key\": \"44af9269-d320-11eb-b1e0-7c4c58ced981\",\r\n    \"partner_crypto\": \"fb566ea8-1740-823b-4566-d44f8f7b513e\",\r\n    \"html_instructions\": \"\",\r\n    \"login_url\": \"aHR0cHM6Ly9teWNsaW5pY2FsZXhjaGFuZ2UuY29tL1N0dWRlbnRMb2dpbi5hc3B4\",\r\n    \"partner_push\": false,\r\n    \"partner_push_host\": \"\",\r\n    \"partner_push_username\": null,\r\n    \"partner_push_password\": null,\r\n    \"partner_push_port\": null,\r\n    \"partner_push_path\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ApiHost}}/api/Integration/settings",
+					"host": [
+						"{{ApiHost}}"
+					],
+					"path": [
+						"api",
+						"Integration",
+						"settings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "donordoc",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "surpathkey",
+						"value": "{{SurpathKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fromDateTime\":\"\",\r\n    \"toDateTime\":\"\",\r\n    \"maxResults\": 0,\r\n    \"partner_client_id\":\"mceclientid\",\r\n    \"partner_client_code\":\"ELITEFF\",\r\n    \"partner_donor_id\":\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ApiHost}}/api/Integration/donordoc",
+					"host": [
+						"{{ApiHost}}"
+					],
+					"path": [
+						"api",
+						"Integration",
+						"donordoc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "clients",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "surpathkey",
+						"value": "{{SurpathKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"backend_integration_partner_client_map_GUID\": \"2d8f5c08-debd-11eb-945a-7c4c582aa869\",\r\n        \"partner_client_id\": \"mceclientid3\",\r\n        \"partner_client_code\": \"ELITEFF\",\r\n        \"created_on\": \"2021-04-22T16:52:41\",\r\n        \"partner_push_folder\": \"\",\r\n        \"last_modified_on\": \"0001-01-01T00:00:00\",\r\n        \"last_modified_by\": \"test\"\r\n    }\r\n]"
+				},
+				"url": {
+					"raw": "{{ApiHost}}/api/Integration/clients/",
+					"host": [
+						"{{ApiHost}}"
+					],
+					"path": [
+						"api",
+						"Integration",
+						"clients",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "SurpathKey",
+			"value": "44af9269-d320-11eb-b1e0-7c4c58ced981"
+		},
+		{
+			"key": "ApiHost",
+			"value": "https://stage.surpath.com/"
+		}
+	]
+}

@@ -1,0 +1,108 @@
+﻿{
+  "IsRegenerate": false,
+  "MenuPosition": "main",
+  "RelativeNamespace": "Surpath",
+  "EntityName": "TenantDocument",
+  "EntityNamePlural": "TenantDocuments",
+  "TableName": "TenantDocuments",
+  "PrimaryKeyType": "Guid",
+  "BaseClass": "Entity",
+  "EntityHistory": true,
+  "AutoMigration": false,
+  "UpdateDatabase": true,
+  "CreateUserInterface": true,
+  "CreateViewOnly": true,
+  "CreateExcelExport": true,
+  "IsNonModalCRUDPage": false,
+  "IsMasterDetailPage": true,
+  "PagePermission": {
+    "Host": true,
+    "Tenant": true
+  },
+  "Properties": [
+    {
+      "Name": "Name",
+      "Type": "string",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null
+    },
+    {
+      "Name": "AuthorizedOnly",
+      "Type": "bool",
+      "MaxLength": 0,
+      "MinLength": 0,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null
+    },
+    {
+      "Name": "Description",
+      "Type": "string",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null
+    }
+  ],
+  "NavigationProperties": [
+    {
+      "Namespace": "inzibackend.Surpath",
+      "ForeignEntityName": "LibraryCategory",
+      "IdType": "Guid",
+      "IsNullable": true,
+      "PropertyName": "LibraryCategoryId",
+      "DisplayPropertyName": "Name",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "LookupTable"
+    }
+  ],
+  "NavigationPropertyOneToManyTables": [
+            {
+                "EntityJson": "Surpath.Record.json",
+                "ForeignPropertyName": "TenantLibraryId",
+                "IsNullable": "True",
+                "DisplayPropertyName": "Name",
+                "ViewType": "LookupTable"
+            },
+        ],
+  "EnumDefinitions": [],
+  "DbContext": null
+}

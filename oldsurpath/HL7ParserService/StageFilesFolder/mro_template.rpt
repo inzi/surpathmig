@@ -1,0 +1,16 @@
+MSH||USMRO|US|||DATE3DATE3DATE3||ORU||P|2.3
+PID|1|SPECSPECSPEC|SPECSPECSPEC|SAMPSAMPSAMP|LNAMELNAMELNAME^FNAMEFNAMEFNAME^MIMIMI|||||||||||||LABLABLAB|PIDPIDPID
+ORC|RE|SPECSPECSPEC|SPECSPECSPEC||RESRESRES|||||||513504|||||||||Not in XML-Collection site name|Not in XML-Collection site address|Not in XML-Collection Phone
+OBR|1|SPECSPECSPEC|SPECSPECSPEC|M2BUNCRUN30T7||202106160000||||Not in XML-Collection site name||LABLABLAB|Clinical Reference Lab|000101010000|Not in XML-Test type|||202106220000|Not in XML-Date Completed - Date the case was finalized|F|||||||||||3^RANDOM SELECTION|Steven Paschall M.D.
+OBX|1||1^AMPHETAMINES||NEG||||||Final
+OBX|2||8^BARBITURATES||NEG||||||Final
+OBX|3||9^BENZODIAZEPINES||NEG||||||Final
+OBX|4||3^COCAINE METABOLITES||RES2RES2RES2||||||Final
+OBX|5||I3-3^CREATININE||NEGATIVE||||||Final
+OBX|6||4^MARIJUANA (THC)||NEG||||||Final
+OBX|7||I3S^Methadone||NEG||||||Final
+OBX|8||13^OPIATES||NEG||||||Final
+OBX|9||I3S^Oxycodones||NEG||||||Final
+OBX|10||5^PHENCYCLIDINE (PCP)||NEG||||||Final
+OBX|11||I3S^Propoxyphene||NEG||||||Final
+NTE|Generated from HL7BabbleFish

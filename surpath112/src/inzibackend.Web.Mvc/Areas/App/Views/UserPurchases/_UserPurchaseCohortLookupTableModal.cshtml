@@ -1,0 +1,37 @@
+﻿@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.UserPurchases
+@model UserPurchaseCohortLookupTableViewModel
+@{
+    Layout = null;
+}
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("PickCohort")))
+
+<div class="modal-body">
+    <div class="hor-row">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <input type="text" id="CohortTableFilter" class="form-control margin-bottom-10" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                    <span class="input-group-btn">
+                        <button id="GetCohortButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1" aria-label="@L("Search")"></i></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hor-row">
+        <table id="CohortTable" class="display table table-striped table-bordered table-hover dt-responsive nowrap">
+            <thead>
+                <tr>
+                    <th>@L("Actions")</th>
+                    <th>@L("Name")</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default pull-left" data-bs-dismiss="modal">@L("Cancel")</button>
+</div>

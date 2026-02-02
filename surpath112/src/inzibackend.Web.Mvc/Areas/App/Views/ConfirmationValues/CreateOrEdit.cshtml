@@ -1,0 +1,101 @@
+﻿@using inzibackend.Surpath;
+
+@using System.Globalization
+@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.ConfirmationValues
+@using inzibackend.Web.Areas.App.Startup
+@model CreateOrEditConfirmationValueViewModel
+@using Abp.Extensions
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Host.ConfirmationValues;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/ConfirmationValues/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+    var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/App/ConfirmationValues", L("ConfirmationValues")),
+        new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
+        };
+        }
+        <abp-page-subheader title='@(Model.IsEditMode ? (L("EditConfirmationValue")) : L("CreateNewConfirmationValue"))' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+
+        <div class="@(await GetContainerClass())">
+            <div class="card card-custom gutter-b">
+                <form name="ConfirmationValueInformationsForm" role="form" novalidate class="form-validation">
+                    <div class="card-body">
+                        <div class="form">
+                            <div id="ConfirmationValueInformationsTab">
+                                @if (Model.IsEditMode)
+                                {
+                                <input type="hidden" name="id" value="@Model.ConfirmationValue.Id" />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="DrugName">@L("Drug")</label>
+                                    <div class="input-group">
+                                        <input class="form-control" id="DrugName" name="drugName" value="@Model.DrugName" type="text" disabled>
+                                        <button class="btn btn-primary blue" id="OpenDrugLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                        <button class="btn btn-danger btn-icon" type="button" id="ClearDrugNameButton"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+
+                                @if (Model.IsEditMode)
+                                {
+                                <input class="form-control" id="ConfirmationValue_DrugId" value="@Model.ConfirmationValue.DrugId" type="text" name="drugId" required hidden />
+                                }
+                                else
+                                {
+                                <input class="form-control" id="ConfirmationValue_DrugId" value="" type="text" name="drugId" required hidden />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="testCategoryId">@L("TestCategory")</label>
+                                    @Html.DropDownList("testCategoryId", new SelectList(Model.ConfirmationValueTestCategoryList,"Id","DisplayName", (Model.IsEditMode ? Model.ConfirmationValue.TestCategoryId.ToString() : "")),@L("SelectATestCategory"), new { @class = "form-control" , @required="required" })
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="ConfirmationValue_ScreenValue">@L("ScreenValue")</label>
+                                    <input class="form-control m-input" id="ConfirmationValue_ScreenValue" value="@Model.ConfirmationValue.ScreenValue.ToString(CultureInfo.InvariantCulture)" type="number" name="screenValue" />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="ConfirmationValue_ConfirmValue">@L("ConfirmValue")</label>
+                                    <input class="form-control m-input" id="ConfirmationValue_ConfirmValue" value="@Model.ConfirmationValue.ConfirmValue.ToString(CultureInfo.InvariantCulture)" type="number" name="confirmValue" />
+                                </div>
+
+                                @{
+                                var selectListUnitOfMeasurement = Html.GetEnumSelectList(typeof(EnumUnitOfMeasurement));
+                                foreach (var selectOption in selectListUnitOfMeasurement) { selectOption.Text = L("Enum_EnumUnitOfMeasurement_" + selectOption.Value); }
+                                }
+                                <div class="my-3 m-form__group">
+                                    <label class="form-label" for="ConfirmationValue_UnitOfMeasurement">@L("UnitOfMeasurement")</label>
+                                    <select class="form-select m-input m-input--square" name="unitOfMeasurement" id="ConfirmationValue_UnitOfMeasurement" asp-for="@Model.ConfirmationValue.UnitOfMeasurement" asp-items="@selectListUnitOfMeasurement">
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12">
+                                <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                @if (!Model.IsEditMode)
+                                {
+                                <button type="button" id="saveAndNewBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>

@@ -1,0 +1,37 @@
+﻿
+@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.RecordCategories
+@model MasterDetailChild_RecordRequirement_CreateOrEditRecordCategoryModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditRecordCategory")) : L("CreateNewRecordCategory")))
+
+<div class="modal-body">
+    <div id="RecordCategoryInformationsTab">
+        <form name="RecordCategoryInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.RecordCategory.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="recordCategoryRuleId">@L("RecordCategoryRule")</label>
+                @Html.DropDownList("recordCategoryRuleId", new SelectList(Model.RecordCategoryRecordCategoryRuleList,"Id","DisplayName", (Model.IsEditMode ? Model.RecordCategory.RecordCategoryRuleId.ToString() : "")),@L("SelectARecordCategoryRule"), new { @class = "form-control" })
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="RecordCategory_Name">@L("Name")</label>
+                <input class="form-control" id="RecordCategory_Name" value="@Model.RecordCategory.Name" type="text" name="name" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="RecordCategory_Instructions">@L("Instructions")</label>
+                <input class="form-control" id="RecordCategory_Instructions" value="@Model.RecordCategory.Instructions" type="text" name="instructions" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

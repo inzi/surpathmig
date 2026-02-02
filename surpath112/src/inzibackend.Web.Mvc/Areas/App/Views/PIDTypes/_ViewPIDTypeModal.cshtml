@@ -1,0 +1,58 @@
+﻿
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.PidTypes
+@model PidTypeViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="PidTypeInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("Name") :</h6>
+                @Model.PidType.Name
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Description") :</h6>
+                @Model.PidType.Description
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("MaskPid") :</h6>
+                @Model.PidType.MaskPid
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("CreatedOn") :</h6>
+                @Model.PidType.CreatedOn
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ModifiedOn") :</h6>
+                @Model.PidType.ModifiedOn
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("CreatedBy") :</h6>
+                @Model.PidType.CreatedBy
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("LastModifiedBy") :</h6>
+                @Model.PidType.LastModifiedBy
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("IsActive") :</h6>
+                @Model.PidType.IsActive
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("PidInputMask") :</h6>
+                @Model.PidType.PidInputMask
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Required") :</h6>
+                @Model.PidType.Required
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

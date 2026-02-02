@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://clearstar.net/Gateway/Streamline/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://clearstar.net/Gateway/Streamline/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://clearstar.net/Gateway/Streamline/">
+      <s:element name="GetStreamlineLog">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sProfNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStreamlineLogResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStreamlineLogResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStreamlineOrders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sProfNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStreamlineOrdersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStreamlineOrdersResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlaceSuggestedOrdersOverloaded">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sSuggestXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sProfNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlaceSuggestedOrdersOverloadedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PlaceSuggestedOrdersOverloadedResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlaceSuggestedOrders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nSuggestID" type="tns:ArrayOfInt" />
+            <s:element minOccurs="0" maxOccurs="1" name="bPlaceOrder" type="tns:ArrayOfBoolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="sUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sProfNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBoolean">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="boolean" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PlaceSuggestedOrdersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PlaceSuggestedOrdersResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConfiguration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConfigurationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConfigurationResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetStreamlineLogSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStreamlineLog" />
+  </wsdl:message>
+  <wsdl:message name="GetStreamlineLogSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStreamlineLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStreamlineOrdersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStreamlineOrders" />
+  </wsdl:message>
+  <wsdl:message name="GetStreamlineOrdersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStreamlineOrdersResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaceSuggestedOrdersOverloadedSoapIn">
+    <wsdl:part name="parameters" element="tns:PlaceSuggestedOrdersOverloaded" />
+  </wsdl:message>
+  <wsdl:message name="PlaceSuggestedOrdersOverloadedSoapOut">
+    <wsdl:part name="parameters" element="tns:PlaceSuggestedOrdersOverloadedResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaceSuggestedOrdersSoapIn">
+    <wsdl:part name="parameters" element="tns:PlaceSuggestedOrders" />
+  </wsdl:message>
+  <wsdl:message name="PlaceSuggestedOrdersSoapOut">
+    <wsdl:part name="parameters" element="tns:PlaceSuggestedOrdersResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConfigurationSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConfiguration" />
+  </wsdl:message>
+  <wsdl:message name="GetConfigurationSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConfigurationResponse" />
+  </wsdl:message>
+  <wsdl:portType name="StreamlineSoap">
+    <wsdl:operation name="GetStreamlineLog">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns Auto SLOrder Audit log in XML format</wsdl:documentation>
+      <wsdl:input message="tns:GetStreamlineLogSoapIn" />
+      <wsdl:output message="tns:GetStreamlineLogSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStreamlineOrders">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get XML Containing suggested orders.</wsdl:documentation>
+      <wsdl:input message="tns:GetStreamlineOrdersSoapIn" />
+      <wsdl:output message="tns:GetStreamlineOrdersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PlaceSuggestedOrders">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XML indicating successes and failures placing Suggested Orders.</wsdl:documentation>
+      <wsdl:input name="PlaceSuggestedOrdersOverloaded" message="tns:PlaceSuggestedOrdersOverloadedSoapIn" />
+      <wsdl:output name="PlaceSuggestedOrdersOverloaded" message="tns:PlaceSuggestedOrdersOverloadedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PlaceSuggestedOrders">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XML indicating successes and failures placing Suggested Orders.</wsdl:documentation>
+      <wsdl:input message="tns:PlaceSuggestedOrdersSoapIn" />
+      <wsdl:output message="tns:PlaceSuggestedOrdersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguration">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XMLNode indicating what streamline features, if any, are active on the passed customer.</wsdl:documentation>
+      <wsdl:input message="tns:GetConfigurationSoapIn" />
+      <wsdl:output message="tns:GetConfigurationSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="StreamlineSoap" type="tns:StreamlineSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetStreamlineLog">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Streamline/GetStreamlineLog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStreamlineOrders">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Streamline/GetStreamlineOrders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceSuggestedOrders">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Streamline/PlaceSuggestedOrdersOverloaded" style="document" />
+      <wsdl:input name="PlaceSuggestedOrdersOverloaded">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="PlaceSuggestedOrdersOverloaded">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceSuggestedOrders">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Streamline/PlaceSuggestedOrders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguration">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Streamline/GetConfiguration" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="StreamlineSoap12" type="tns:StreamlineSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetStreamlineLog">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Streamline/GetStreamlineLog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStreamlineOrders">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Streamline/GetStreamlineOrders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceSuggestedOrders">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Streamline/PlaceSuggestedOrdersOverloaded" style="document" />
+      <wsdl:input name="PlaceSuggestedOrdersOverloaded">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="PlaceSuggestedOrdersOverloaded">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceSuggestedOrders">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Streamline/PlaceSuggestedOrders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguration">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Streamline/GetConfiguration" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Streamline">
+    <wsdl:port name="StreamlineSoap" binding="tns:StreamlineSoap">
+      <soap:address location="https://gateway.clearstar.net/csgwStreamline/Streamline.asmx" />
+    </wsdl:port>
+    <wsdl:port name="StreamlineSoap12" binding="tns:StreamlineSoap12">
+      <soap12:address location="https://gateway.clearstar.net/csgwStreamline/Streamline.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

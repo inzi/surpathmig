@@ -1,0 +1,99 @@
+﻿@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.CohortUsers
+@using inzibackend.Web.Areas.App.Startup
+@model MasterDetailChild_Cohort_CohortUsersViewModel
+@{
+Layout = null;
+}
+<script abp-src="/view-resources/Areas/App/Views/MasterDetailChild_Cohort_CohortUsers/Index.js" asp-append-version="true"></script>
+<input type="hidden" class="" id="MasterDetailChild_Cohort_CohortUsersId_@Model.CohortId" value="@Model.CohortId" />
+<input type="hidden" class="unclaimed" id="MasterDetailChild_Cohort_CohortUsersId_Payload" value="@Model.CohortId" />
+<div class="card card-custom gutter-b">
+
+    <div class="card-header border-0 py-5">
+        <h3 class="card-title align-items-start flex-column">
+            <span class="card-label font-weight-bolder text-dark">@L("Members")</span>
+            @*<span class="text-muted mt-3 font-weight-bold font-size-sm">@L("CohortUsersHeaderInfo")</span>*@
+        </h3>
+        <div class="card-toolbar">
+            <div class="btn-group">
+                <button type="button" class="btn btn-outline btn-outline-success btn-active-light-success dropdown-toggle me-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="far fa-file-excel btn-md-icon"></i>
+                    <span class="d-none d-md-inline-block mb-md-0">
+                        @L("ExcelOperations")
+                    </span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" id="ExportCohortComplianceSummaryButton_@Model.CohortId" href="#">@L("CohortComplianceSummary")</a>
+                    <a class="dropdown-item" id="ExportCohortImmunizationReportButton_@Model.CohortId" href="#">@L("CohortImmunizationReport")</a>
+                    @if (IsGranted(AppPermissions.Pages_Administration_Host_BGCExport))
+                    {
+                        <a class="dropdown-item" id="ExportToBGCButton_@Model.CohortId" href="#">@L("ExportToBGC")</a>
+                    }
+                </div>
+            </div>
+
+            @if (IsGranted(AppPermissions.Pages_CohortUsers_Create))
+            {
+            <button id="CreateNewCohortUserButton_@Model.CohortId" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("AddCohortMember")</button>
+            }
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="form">
+            <div class="row align-items-center mb-4">
+                <div class="col-xl-12">
+
+                    <div class="my-3">
+                        <div class="input-group">
+                            <input type="text" id="MasterDetailChild_Cohort_CohortUsersTableFilter_@Model.CohortId" class="form-control m-input" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                            <button id="GetCohortUsersButton_@Model.CohortId" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div id="MasterDetailChild_Cohort_AdvacedAuditFiltersArea_@Model.CohortId" style="display: none" class="row mb-4">
+            <div class="col-md-12">
+
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="MasterDetailChild_Cohort_UserNameFilterId_@Model.CohortId">(@L("User")) @L("Name")</label>
+                    <input type="text" class="form-control" name="userNameFilter" id="MasterDetailChild_Cohort_UserNameFilterId_@Model.CohortId">
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-xl-12">
+                <span id="MasterDetailChild_Cohort_ShowAdvancedFiltersSpan_@Model.CohortId" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                <span id="MasterDetailChild_Cohort_HideAdvancedFiltersSpan_@Model.CohortId" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <table id="MasterDetailChild_Cohort_CohortUsersTable_@Model.CohortId" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                <thead>
+                    <tr>
+                        <th></th>
+
+                        <th>@L("Actions")</th>
+                        <th>@L("FirstName")</th>
+                        <th>@L("LastName")</th>
+                        <th>@L("DrugScreen")</th>
+                        <th>@L("BackgroundCheck")</th>
+                        <th>@L("Immunizations")</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+console.log('my script');
+ //$(document).ready(function () {
+ //    console.log('doing something');
+ //}
+</script>

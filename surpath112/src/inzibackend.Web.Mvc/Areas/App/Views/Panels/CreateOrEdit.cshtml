@@ -1,0 +1,77 @@
+﻿
+@using System.Globalization
+@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.Panels
+@using inzibackend.Web.Areas.App.Startup
+@model CreateOrEditPanelViewModel
+@using Abp.Extensions
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Host.Panels;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/Panels/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+    var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/App/Panels", L("Panels")),
+        new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
+        };
+        }
+        <abp-page-subheader title='@(Model.IsEditMode ? (L("EditPanel")) : L("CreateNewPanel"))' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+
+        <div class="@(await GetContainerClass())">
+            <div class="card card-custom gutter-b">
+                <form name="PanelInformationsForm" role="form" novalidate class="form-validation">
+                    <div class="card-body">
+                        <div class="form">
+                            <div id="PanelInformationsTab">
+                                @if (Model.IsEditMode)
+                                {
+                                <input type="hidden" name="id" value="@Model.Panel.Id" />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="testCategoryId">@L("TestCategory")</label>
+                                    @Html.DropDownList("testCategoryId", new SelectList(Model.PanelTestCategoryList,"Id","DisplayName", (Model.IsEditMode ? Model.Panel.TestCategoryId.ToString() : "")),@L("SelectATestCategory"), new { @class = "form-control" })
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="Panel_Name">@L("Name")</label>
+                                    <input class="form-control" id="Panel_Name" value="@Model.Panel.Name" type="text" name="name" required maxlength="@inzibackend.Surpath.PanelConsts.MaxNameLength" minlength="@inzibackend.Surpath.PanelConsts.MinNameLength" />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="Panel_Cost">@L("Cost")</label>
+                                    <input class="form-control m-input" id="Panel_Cost" value="@Model.Panel.Cost.ToString(CultureInfo.InvariantCulture)" type="number" name="cost" min="@inzibackend.Surpath.PanelConsts.MinCostValue" max="@inzibackend.Surpath.PanelConsts.MaxCostValue" />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="Panel_Description">@L("Description")</label>
+                                    <input class="form-control" id="Panel_Description" value="@Model.Panel.Description" type="text" name="description" maxlength="@inzibackend.Surpath.PanelConsts.MaxDescriptionLength" minlength="@inzibackend.Surpath.PanelConsts.MinDescriptionLength" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12">
+                                <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                @if (!Model.IsEditMode)
+                                {
+                                <button type="button" id="saveAndNewBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>

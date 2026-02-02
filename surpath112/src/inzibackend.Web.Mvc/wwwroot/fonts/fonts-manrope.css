@@ -1,0 +1,14 @@
+﻿@font-face {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./Manrope/Manrope-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('./Manrope/Manrope-Regular.ttf') format('truetype'); /* Safari, Android, iOS */
+}
+@font-face {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 500;
+    src: url('./Manrope/Manrope-Medium.woff2') format('woff2'), /* Super Modern Browsers */
+    url('./Manrope/Manrope-Medium.ttf') format('truetype'); /* Safari, Android, iOS */
+}

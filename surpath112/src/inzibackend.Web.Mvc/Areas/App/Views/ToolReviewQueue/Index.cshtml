@@ -1,0 +1,134 @@
+﻿@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.RecordStates
+@using inzibackend.Web.Areas.App.Startup
+@model RecordStatesViewModel
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.RecordStates;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/ToolReviewQueue/Index.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    <abp-page-subheader title='@L("RecordStates")' description='@L("RecordStatesHeaderInfo")'>
+        <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+
+        @if (IsGranted(AppPermissions.Pages_RecordStates_Create))
+        {
+        <button id="CreateNewRecordStateButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewRecordState")</button>
+        }
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form GetRecordStatesButtonFilterArea">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-xl-12">
+
+                            <div class="my-3">
+                                <div class="input-group">
+                                    <input type="text" id="RecordStatesTableFilter" class="form-control" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                    <button id="GetRecordStatesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4 filterarea">
+                    <div class="col-md-12">
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label" for="StateFilterId">@L("State")</label>
+                        <select class="form-select" name="StateFilter" id="StateFilterId">
+                            <option value="-1">@L("All")</option>
+                            <option value="0">@L("Enum_EnumRecordState_0")</option>
+
+                            <option value="1">@L("Enum_EnumRecordState_1")</option>
+
+                            <option value="2">@L("Enum_EnumRecordState_2")</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="NotesFilterId">@L("Notes")</label>
+                            <input type="text" class="form-control" name="notesFilter" id="NotesFilterId">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="RecordfilenameFilterId">(@L("Record")) @L("filename")</label>
+                            <input type="text" class="form-control" name="recordfilenameFilter" id="RecordfilenameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="RecordCategoryNameFilterId">(@L("RecordCategory")) @L("Name")</label>
+                            <input type="text" class="form-control" name="recordCategoryNameFilter" id="RecordCategoryNameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="UserNameFilterId">(@L("User")) @L("Name")</label>
+                            <input type="text" class="form-control" name="userNameFilter" id="UserNameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="RecordStatusStatusNameFilterId">(@L("RecordStatus")) @L("StatusName")</label>
+                            <input type="text" class="form-control" name="recordStatusStatusNameFilter" id="RecordStatusStatusNameFilterId">
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <table id="RecordStatesTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th style="width:50px"></th>
+
+                                <th >@L("Actions")</th>
+                                
+                               <th>@L("Notes")</th>
+                                <th>@L("RecordCategoryName")</th>
+                                <th>@L("UserName")</th>
+                                <th>@L("State")</th>
+                              @*  <th>@L("UserName")</th>
+                                
+                               
+                                <th>@L("Recordfilename")</th>
+                                <th>@L("RecordCategoryName")</th>
+                                
+                                <th>@L("RecordStatusStatusName")</th>
+                                    <th>???</th>
+                                    <th>???</th>
+
+                                    <th>???</th>*@
+
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="d-non" id="statbarholder">
+<div id="statbar">
+    <div id="statbarsub statbarleft"></div>
+    <div id="statbarsub statbarmid"></div>
+    <div id="statbarsub statbarright"></div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

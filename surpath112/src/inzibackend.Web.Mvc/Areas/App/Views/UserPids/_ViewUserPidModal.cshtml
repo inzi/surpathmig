@@ -1,0 +1,35 @@
+﻿
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.UserPids
+@model UserPidViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="UserPidInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("Pid") :</h6>
+                @Model.UserPid.Pid
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Validated") :</h6>
+                @Model.UserPid.Validated
+            </div>
+
+            <div class="col-6 mb-3">
+                <h6>(@L("PidType")) @L("Name") :</h6>
+                @Model.PidTypeName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("User")) @L("Name") :</h6>
+                @Model.UserName
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

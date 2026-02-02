@@ -1,0 +1,51 @@
+﻿
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.RecordNotes
+@model RecordNoteViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="RecordNoteInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("Note") :</h6>
+                @Model.RecordNote.Note
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Created") :</h6>
+                @Model.RecordNote.Created
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("AuthorizedOnly") :</h6>
+                @Model.RecordNote.AuthorizedOnly
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("HostOnly") :</h6>
+                @Model.RecordNote.HostOnly
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("SendNotification") :</h6>
+                @Model.RecordNote.SendNotification
+            </div>
+
+            <div class="col-6 mb-3">
+                <h6>(@L("RecordState")) @L("Notes") :</h6>
+                @Model.RecordStateNotes
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("User")) @L("Name") :</h6>
+                @Model.UserName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("User")) @L("Name") :</h6>
+                @Model.UserName2
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

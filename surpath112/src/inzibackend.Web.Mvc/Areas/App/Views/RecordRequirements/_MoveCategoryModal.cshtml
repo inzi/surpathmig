@@ -1,0 +1,90 @@
+@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.RecordRequirements
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@model MoveCategoryModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("MoveCategories")))
+
+<div class="modal-body">
+    <form id="moveCategoryForm">
+        <input type="hidden" id="moveCategoryIds" value="@string.Join(",", Model.CategoryIds)" />
+        
+        <div class="form-group mb-3">
+            <label class="form-label">@L("SelectedCategories")</label>
+            <div class="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>@L("Name")</th>
+                            <th>@L("RecordCount")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var category in Model.SelectedCategories)
+                        {
+                            <tr>
+                                <td>@category.CategoryName</td>
+                                <td class="text-center">
+                                    <span class="badge badge-light">@category.RecordStatesCount</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label class="form-label">@L("TargetRequirement")</label>
+            <div class="input-group">
+                <select id="targetRequirementId" name="targetRequirementId" class="form-control">
+                    <option value="">@L("SelectRequirement")</option>
+                    @foreach (var requirement in Model.AvailableTargetRequirements)
+                    {
+                        <option value="@requirement.Id">@requirement.Name</option>
+                    }
+                </select>
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-outline-secondary" id="createNewRequirementBtn">
+                        <i class="fa fa-plus"></i> @L("CreateNew")
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="newRequirementSection" class="form-group mb-3" style="display: none;">
+            <label class="form-label">@L("NewRequirementName")</label>
+            <input type="text" id="newRequirementName" name="newRequirementName" class="form-control" placeholder="@L("EnterRequirementName")" />
+            <div class="form-group mt-2">
+                <label class="form-label">@L("Description")</label>
+                <textarea id="newRequirementDescription" name="newRequirementDescription" class="form-control" rows="2" placeholder="@L("EnterRequirementDescription")"></textarea>
+            </div>
+        </div>
+        
+        <div id="validationSection" class="alert alert-warning" style="display: none;">
+            <h6><i class="fa fa-exclamation-triangle"></i> @L("ValidationWarnings")</h6>
+            <ul id="validationWarnings"></ul>
+        </div>
+        
+        <div id="impactAnalysisSection" class="alert alert-info" style="display: none;">
+            <h6><i class="fa fa-info-circle"></i> @L("ImpactAnalysis")</h6>
+            <p id="impactAnalysisText"></p>
+        </div>
+        
+        <div id="confirmationSection" class="form-group" style="display: none;">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="confirmRequirementDeletion" />
+                <label class="form-check-label" for="confirmRequirementDeletion">
+                    @L("ConfirmRequirementDeletion")
+                </label>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@L("Cancel")</button>
+    <button type="button" class="btn btn-primary" id="confirmMoveBtn" disabled>
+        <i class="fa fa-arrows-alt"></i> @L("MoveCategories")
+    </button>
+</div> 

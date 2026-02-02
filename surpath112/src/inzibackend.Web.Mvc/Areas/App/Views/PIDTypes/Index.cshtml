@@ -1,0 +1,158 @@
+﻿@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.PidTypes
+@using inzibackend.Web.Areas.App.Startup
+@model PidTypesViewModel
+@{
+ViewBag.CurrentPageName = AppPageNames.Host.PidTypes;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/PidTypes/Index.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    <abp-page-subheader title='@L("PidTypes")' description='@L("PidTypesHeaderInfo")'>
+        <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+
+        @if (IsGranted(AppPermissions.Pages_PidTypes_Create))
+        {
+        <button id="CreateNewPidTypeButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewPidType")</button>
+        }
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-xl-12">
+
+                            <div class="my-3">
+                                <div class="input-group">
+                                    <input type="text" id="PidTypesTableFilter" class="form-control" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                    <button id="GetPidTypesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="NameFilterId">@L("Name")</label>
+                            <input type="text" class="form-control" name="nameFilter" id="NameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="DescriptionFilterId">@L("Description")</label>
+                            <input type="text" class="form-control" name="descriptionFilter" id="DescriptionFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label" for="MaskPidFilterId">@L("MaskPid")</label>
+                        <select class="form-select" name="MaskPidFilter" id="MaskPidFilterId">
+                            <option value="-1">@L("All")</option>
+                            <option value="0">@L("False")</option>
+                            <option value="1">@L("True")</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinCreatedOnFilterId">@L("CreatedOnRange")</label>
+                            <div class="input-group">
+                                <input class="form-control m-input date-picker startDate date-picker-filter" type="text" placeholder="@L("MinValue")" id="MinCreatedOnFilterId">
+                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                                <input class="form-control m-input date-picker endDate date-picker-filter" type="text" placeholder="@L("MaxValue")" id="MaxCreatedOnFilterId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinModifiedOnFilterId">@L("ModifiedOnRange")</label>
+                            <div class="input-group">
+                                <input class="form-control m-input date-picker startDate date-picker-filter" type="text" placeholder="@L("MinValue")" id="MinModifiedOnFilterId">
+                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                                <input class="form-control m-input date-picker endDate date-picker-filter" type="text" placeholder="@L("MaxValue")" id="MaxModifiedOnFilterId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinCreatedByFilterId">@L("MinMax") @L("CreatedBy")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input" placeholder="@L("MinValue")" name="minCreatedByFilter" id="MinCreatedByFilterId" />
+                                <input type="number" class="form-control m-input" placeholder="@L("MaxValue")" name="maxCreatedByFilter" id="MaxCreatedByFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinLastModifiedByFilterId">@L("MinMax") @L("LastModifiedBy")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input" placeholder="@L("MinValue")" name="minLastModifiedByFilter" id="MinLastModifiedByFilterId" />
+                                <input type="number" class="form-control m-input" placeholder="@L("MaxValue")" name="maxLastModifiedByFilter" id="MaxLastModifiedByFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label" for="IsActiveFilterId">@L("IsActive")</label>
+                        <select class="form-select" name="IsActiveFilter" id="IsActiveFilterId">
+                            <option value="-1">@L("All")</option>
+                            <option value="0">@L("False")</option>
+                            <option value="1">@L("True")</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="PidInputMaskFilterId">@L("PidInputMask")</label>
+                            <input type="text" class="form-control" name="pidInputMaskFilter" id="PidInputMaskFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label" for="RequiredFilterId">@L("Required")</label>
+                        <select class="form-select" name="RequiredFilter" id="RequiredFilterId">
+                            <option value="-1">@L("All")</option>
+                            <option value="0">@L("False")</option>
+                            <option value="1">@L("True")</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="row my-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <table id="PidTypesTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th></th>
+
+                                <th>@L("Actions")</th>
+                                <th>@L("Name")</th>
+                                <th>@L("Description")</th>
+                                <th>@L("MaskPid")</th>
+                                <th>@L("CreatedOn")</th>
+                                <th>@L("ModifiedOn")</th>
+                                <th>@L("CreatedBy")</th>
+                                <th>@L("LastModifiedBy")</th>
+                                <th>@L("IsActive")</th>
+                                <th>@L("PidInputMask")</th>
+                                <th>@L("Required")</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+credit / debit
+	-- need to track price at time of purchase
+	-- balance due that can be negative
+		-- went from $25 bc to $20 BC
+			-- Reset them and they have to pay again or contact us, and someone with permission to TransferPayment could re-assign the ledger entry to the new department, a note / reason would be required
+		-- Went from $20 to $25 BC
+			-- Reset them and they would have to pay the difference of $5
+			
+			
+	-- Billing needs to be by Dept, NOT cohort [VERY KEY]
+	
+birthday fix and state
+-- done - social security report

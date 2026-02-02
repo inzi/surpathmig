@@ -1,0 +1,93 @@
+﻿
+@using System.Globalization
+@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.CohortUsers
+@using inzibackend.Web.Areas.App.Startup
+@model CreateOrEditCohortUserViewModel
+@using Abp.Extensions
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.CohortUsers;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/CohortUsers/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+    var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/App/CohortUsers", L("CohortUsers")),
+        new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
+        };
+        }
+        <abp-page-subheader title='@(Model.IsEditMode ? (L("EditCohortUser")) : L("CreateNewCohortUser"))' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+
+        <div class="@(await GetContainerClass())">
+            <div class="card card-custom gutter-b">
+                <form name="CohortUserInformationsForm" role="form" novalidate class="form-validation">
+                    <div class="card-body">
+                        <div class="form">
+                            <div id="CohortUserInformationsTab">
+                                @if (Model.IsEditMode)
+                                {
+                                <input type="hidden" name="id" value="@Model.CohortUser.Id" />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="CohortDescription">@L("Cohort")</label>
+                                    <div class="input-group">
+                                        <input class="form-control" id="CohortDescription" name="cohortDescription" value="@Model.CohortDescription" type="text" disabled>
+                                        <button class="btn btn-primary blue" id="OpenCohortLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                        <button class="btn btn-danger btn-icon" type="button" id="ClearCohortDescriptionButton"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+
+                                @if (Model.IsEditMode)
+                                {
+                                <input class="form-control" id="CohortUser_CohortId" value="@Model.CohortUser.CohortId" type="text" name="cohortId" hidden />
+                                }
+                                else
+                                {
+                                <input class="form-control" id="CohortUser_CohortId" value="" type="text" name="cohortId" hidden />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="UserName">@L("User")</label>
+                                    <div class="input-group">
+                                        <input class="form-control" id="UserName" name="userName" value="@Model.UserName" type="text" disabled>
+                                        <button class="btn btn-primary blue" id="OpenUserLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                        <button class="btn btn-danger btn-icon" type="button" id="ClearUserNameButton"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+
+                                @if (Model.IsEditMode)
+                                {
+                                <input class="form-control" id="CohortUser_UserId" value="@Model.CohortUser.UserId" type="text" name="userId" required hidden />
+                                }
+                                else
+                                {
+                                <input class="form-control" id="CohortUser_UserId" value="" type="text" name="userId" required hidden />
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12">
+                                <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                @if (!Model.IsEditMode)
+                                {
+                                <button type="button" id="saveAndNewBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>

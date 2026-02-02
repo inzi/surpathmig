@@ -1,0 +1,103 @@
+﻿@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.CohortUsers
+@using inzibackend.Web.Areas.App.Startup
+@model CohortUsersViewModel
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.CohortUsers;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/CohortUsers/Index.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    <abp-page-subheader title='@L("CohortUsers")' description='@L("CohortUsersHeaderInfo")'>
+        <div class="btn-group">
+            <button type="button" class="btn btn-outline btn-outline-success btn-active-light-success dropdown-toggle me-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="far fa-file-excel btn-md-icon"></i>
+                <span class="d-none d-md-inline-block mb-md-0">
+                    @L("ExcelOperations")
+                </span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" id="ExportToExcelButton" href="#">@L("ExportToExcel")</a>
+                @if (IsGranted(AppPermissions.Pages_Administration_Host_BGCExport))
+                {
+                    <a class="dropdown-item" id="ExportToBGCButton" href="#">@L("ExportToBGC")</a>
+                }
+            </div>
+        </div>
+
+        @if (IsGranted(AppPermissions.Pages_CohortUsers_Create))
+        {
+        <a href="\App\CohortUsers\CreateOrEdit" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("AddCohortMember")</a>
+        }
+    </abp-page-subheader>
+    <input class="form-control" id="cohortId" value="@Model.CohortId" type="text" name="CohortId" hidden />
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-xl-12">
+
+                            <div class="my-3">
+                                <div class="input-group">
+                                    <input type="text" id="CohortUsersTableFilter" class="form-control" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                    <button id="GetCohortUsersButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="CohortDescriptionFilterId">(@L("Cohort")) @L("Description")</label>
+                            <input type="text" class="form-control" name="cohortDescriptionFilter" id="CohortDescriptionFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="UserNameFilterId">(@L("User")) @L("Name")</label>
+                            <input type="text" class="form-control" name="userNameFilter" id="UserNameFilterId">
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <table id="CohortUsersTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th></th>
+
+                                <th>@L("Actions")</th>
+                                <th>@L("FirstName")</th>
+                                <th>@L("LastName")</th>
+                                <th>@L("Cohort")</th>
+                                <th>@L("DrugScreen")</th>
+                                <th>@L("BackgroundCheck")</th>
+                                <th>@L("Immunizations")</th>
+                                <th>@L("Tenant")</th>
+
+
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

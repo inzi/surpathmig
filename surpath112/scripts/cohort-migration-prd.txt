@@ -1,0 +1,203 @@
+# Cohort Migration Between Departments Feature - Product Requirements Document
+
+## Project Overview
+Implement a comprehensive cohort migration system for the inzibackend application that allows administrators to move cohorts between departments with proper requirement category mapping, compliance state preservation, and data integrity management through a guided step-by-step workflow.
+
+## Problem Statement
+Currently, when cohorts need to be moved between departments (e.g., LVN-RN Bridge cohorts from ADN department to LVN-RN Bridge department), there is no systematic way to handle department-specific requirements, user upload associations with requirement categories, compliance state preservation, and data integrity during complex migrations. This creates manual processes that are error-prone and can result in data inconsistencies and compliance calculation issues.
+
+## Technical Stack
+- ASP.NET Zero 11.4 framework
+- ASP.NET Core MVC with Razor views
+- Entity Framework Core
+- C# application services and DTOs
+- JavaScript/jQuery for frontend wizards
+- Bootstrap modals and components
+- SQL Server database with JSON support
+- ABP Framework patterns (abp.services.app)
+
+## Core Features Required
+
+### 1. Backend Infrastructure
+- Create CohortMigrationAppService with comprehensive interface
+- Implement detailed DTOs for migration operations and analysis
+- Add proper permissions and authorization for migration operations
+- Ensure transaction management and atomic operations
+- Implement comprehensive audit logging and rollback capability
+
+### 2. Cohort Migration Analysis
+- Analyze cohort migration impact before execution
+- Identify all requirement categories that need mapping
+- Provide smart suggestions for category mapping
+- Calculate affected users and record states count
+- Validate migration feasibility and constraints
+
+### 3. Department Management
+- Support migration to existing departments
+- Support creation of new departments during migration
+- Provide department lookup with statistics
+- Validate department selection and constraints
+- Handle multi-tenant department scenarios
+
+### 4. Requirement Category Mapping
+- Map existing categories to target department categories
+- Copy categories to target department with new requirements
+- Skip categories (with data loss warnings)
+- Provide smart matching suggestions for similar categories
+- Support bulk mapping operations for efficiency
+
+### 5. Compliance State Preservation
+- Maintain all user compliance states during migration
+- Ensure compliance calculations remain accurate
+- Handle compliance recalculation after migration
+- Preserve record states and file associations
+- Validate compliance integrity post-migration
+
+### 6. User Interface - Step-by-Step Wizard
+- Multi-step wizard modal with progress indicator
+- Department Selection Step (existing vs new department)
+- Requirement Mapping Step (detailed category mapping)
+- Migration Confirmation Step (impact summary and execution)
+- Clear navigation between steps with validation
+- Progress tracking during migration execution
+
+### 7. Data Integrity and Safety
+- Comprehensive validation at each step
+- Impact analysis with detailed warnings
+- Confirmation dialogs for destructive operations
+- Atomic transaction management
+- Rollback capability for failed migrations
+- Complete audit trail for all operations
+
+## Detailed Workflow Requirements
+
+### Step 1: Department Selection
+- Radio button selection: Existing Department vs New Department
+- Existing Department: Dropdown with department statistics
+- New Department: Form fields for name and description
+- Validation of department selection
+- Display of target department information
+
+### Step 2: Requirement Category Mapping
+- DataTable showing all categories requiring mapping
+- For each category display:
+  - Source category and requirement information
+  - Affected users and record states count
+  - Mapping action selection (Map/Copy/Skip)
+  - Target category dropdown (for Map action)
+  - New requirement/category names (for Copy action)
+- Smart suggestions for similar categories
+- Bulk action capabilities
+- Real-time validation of mapping selections
+
+### Step 3: Migration Confirmation
+- Complete summary of migration plan
+- Impact analysis (users affected, records migrated)
+- List of all mapping decisions
+- Warnings for data loss or destructive operations
+- Final confirmation checkbox
+- Execute migration with progress tracking
+
+## Business Rules
+1. Cohorts can only belong to one department at a time
+2. All cohort users must maintain their record states during migration
+3. Compliance states must be preserved throughout migration
+4. Every requirement category mapping must be explicitly decided
+5. Users must confirm all destructive operations
+6. Complete audit trail must be maintained for all migrations
+7. Failed migrations must be rollback-capable
+
+## Performance Requirements
+- Migration analysis should complete within 10 seconds
+- Category mapping suggestions should load within 5 seconds
+- Migration execution should complete within 2 minutes for typical cohorts
+- UI should remain responsive during all operations
+- Progress feedback must be provided for long-running operations
+- Database operations should be optimized and chunked for large datasets
+
+## Security Requirements
+- Proper permission checks for all migration operations
+- Multi-tenant data isolation throughout migration
+- Comprehensive audit logging for security compliance
+- Input validation and sanitization for all user inputs
+- Secure handling of sensitive cohort and user data
+
+## Integration Requirements
+- Integration with existing compliance calculation system
+- Compatibility with current cohort management workflows
+- Support for existing department and requirement management
+- Maintain compatibility with existing record state management
+- Integration with existing audit and logging systems
+
+## Data Migration Requirements
+- Preserve all cohort metadata and relationships
+- Maintain all user-cohort associations
+- Preserve all record states and file uploads
+- Update all department-specific references
+- Maintain referential integrity across all tables
+- Handle requirement category associations properly
+
+## Testing Requirements
+- Unit tests for all service methods and DTOs
+- Integration tests for end-to-end migration workflows
+- UI tests for wizard functionality and step navigation
+- Performance tests for large cohort migrations
+- Data integrity tests for all migration scenarios
+- Rollback and recovery testing
+- Multi-tenant migration testing
+
+## Error Handling Requirements
+- Graceful handling of all error scenarios
+- Clear error messages for users
+- Automatic rollback on migration failures
+- Detailed error logging for troubleshooting
+- Recovery procedures for partial failures
+- User notification of error conditions
+
+## Audit and Compliance Requirements
+- Complete audit trail for all migration operations
+- Tracking of all user decisions and mappings
+- Before/after state capture for rollback capability
+- Compliance with data retention policies
+- Integration with existing audit systems
+- Detailed logging of all database changes
+
+## Success Criteria
+1. Administrators can successfully migrate cohorts between departments
+2. All requirement categories are properly mapped or copied
+3. Compliance states are preserved throughout migration
+4. Data integrity is maintained across all operations
+5. User interface provides clear guidance and prevents errors
+6. All operations complete within performance requirements
+7. Complete audit trail and rollback capability is available
+8. System handles error scenarios gracefully
+9. Multi-tenant scenarios work correctly
+10. Integration with existing systems remains intact
+
+## Future Enhancements
+- Bulk migration for multiple cohorts simultaneously
+- Migration templates for common department scenarios
+- Advanced analytics and reporting for migration history
+- REST API for external system integrations
+- Automated mapping suggestions using machine learning
+- Migration scheduling and background processing
+- Advanced rollback capabilities with selective restoration
+- Integration with external compliance systems
+
+## Risk Mitigation
+- Comprehensive testing strategy to prevent data loss
+- Rollback capability for all migration operations
+- Detailed validation at each step to prevent errors
+- Clear user guidance to prevent incorrect decisions
+- Performance optimization to handle large datasets
+- Security measures to protect sensitive data
+- Audit trails for compliance and troubleshooting
+
+## Dependencies
+- Existing cohort management system
+- Department management functionality
+- Requirement and category management systems
+- Compliance calculation engine
+- User management and authentication
+- Audit and logging infrastructure
+- File upload and storage systems 

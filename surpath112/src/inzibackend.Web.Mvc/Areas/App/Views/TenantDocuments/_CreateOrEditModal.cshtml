@@ -1,0 +1,103 @@
+﻿
+@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.Records
+@model CreateOrEditRecordModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditRecord")) : L("CreateNewRecord")))
+
+<div class="modal-body">
+    <div id="RecordInformationsTab">
+        <form name="RecordInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.Record.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="TenantDocumentCategoryName">@L("TenantDocumentCategory")</label>
+                <div class="input-group">
+                    <input class="form-control" id="TenantDocumentCategoryName" name="tenantDocumentCategoryName" value="@Model.TenantDocumentCategoryName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenTenantDocumentCategoryLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearTenantDocumentCategoryNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="Record_TenantDocumentCategoryId" value="@Model.Record.TenantDocumentCategoryId" type="text" name="tenantDocumentCategoryId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="Record_TenantDocumentCategoryId" value="" type="text" name="tenantDocumentCategoryId" hidden />
+            }
+
+            <div class="my-3">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroupFileAddon01">@L("filedata")</span>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="Record_filedata" id="Record_filedata" aria-describedby="inputGroupFileAddon01" accept="@Model.filedataFileAcceptedTypes" />
+                        <label class="custom-file-label" for="@L("filedata")" id="Record_filedataLabel">@L("ChooseAFile")</label>
+                    </div>
+                </div>
+
+                <div id="div_current_file" style="background-color: #e5e5e5; padding: 5px @(Model.filedataFileName.IsNullOrEmpty()?" ;display:none":"")">
+                    <span class="font-weight-bold">@L("CurrentFile") :</span>
+                    <div class="alert alert-custom alert-white alert-bold m-1" role="alert">
+                        <div class="alert-text">
+                            <a href="@(" /File/DownloadBinaryFile?id=" + Model.Record.filedata)" target="_blank">@Model.filedataFileName</a>
+                        </div>
+                        <div class="alert-close">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="Record_filedata_Remove">
+                                <span aria-hidden="true">
+                                    <i class="la la-close fa-1x"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Record_filename">@L("filename")</label>
+                <input class="form-control" id="Record_filename" value="@Model.Record.filename" type="text" name="filename" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Record_physicalfilepath">@L("physicalfilepath")</label>
+                <input class="form-control" id="Record_physicalfilepath" value="@Model.Record.physicalfilepath" type="text" name="physicalfilepath" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Record_metadata">@L("metadata")</label>
+                <input class="form-control" id="Record_metadata" value="@Model.Record.metadata" type="text" name="metadata" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Record_BinaryObjId">@L("BinaryObjId")</label>
+                <input class="form-control" id="Record_BinaryObjId" value="@Model.Record.BinaryObjId" type="text" name="binaryObjId" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Record_DateUploaded">@L("DateUploaded")</label>
+                <input class="form-control m-input date-picker date-picker-filter" id="Record_DateUploaded" type="text" name="dateUploaded" value="@Model.Record.DateUploaded" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Record_DateLastUpdated">@L("DateLastUpdated")</label>
+                <input class="form-control m-input date-picker date-picker-filter" id="Record_DateLastUpdated" type="text" name="dateLastUpdated" value="@Model.Record.DateLastUpdated" />
+            </div>
+
+            <label class="form-check form-check-custom">
+                <input id="Record_InstructionsConfirmed" name="instructionsConfirmed" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.Record.InstructionsConfirmed ?"checked=\"checked\"":"") />
+                <span class="form-check-label">
+                    @L("InstructionsConfirmed")
+                </span>
+            </label>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

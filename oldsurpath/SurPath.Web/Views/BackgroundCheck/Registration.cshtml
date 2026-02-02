@@ -1,0 +1,324 @@
+﻿@model SurPathWeb.Models.RegistrationDataModel
+@using CaptchaMvc.HtmlHelpers;
+
+@{
+    ViewBag.Title = "SurScan Background Check Registration";
+    Layout = "~/Views/Shared/_LayoutBackground.cshtml";
+
+    var captcha = Html.Captcha("Refresh", "", 5, "Is required field.", true);
+}
+
+@section PageScript
+{
+    <script type="text/javascript">
+        $(function () {
+            if ("@ViewBag.ServerErr" != "") {
+                $("#divServerErr").show().find("div").html("@ViewBag.ServerErr");
+            }
+
+            $("#CaptchaInputText").attr({ class: "form-control", placeholder: "Type the code from image" });
+
+            $("#ClientCode").focus();
+
+            if ("@ViewBag.ServerError" == "TRUE") {
+                $("#divPage1,#divPage2,#divPage3,#divPage4").hide();
+                $("#divPage5").show();
+                $(".field-validation-error").addClass("alert-danger");
+            }
+            $("form input").keydown(function () {
+                var n = $(this.id).next();
+                if (n.is(".alert-danger")) {
+                    n.hide();
+                }
+                ClearBorder(this.id);
+            });
+
+            $("#ClientCode").keydown(function (e) {
+                if (e.keyCode == 13) {
+                    $("#btnPage1").click();
+                    return false;
+                }
+            });
+
+            $("#btnPage1").click(function () {
+                if (IsRequired("ClientCode")) {
+                    $.ajax({
+                        url: '@Url.Action("CheckClientCode")',
+                        data: { clientCode: $("#ClientCode").val() },
+                        type: "post",
+                        success: function (data) {
+                            if (data != null && data.Success != -1) {
+                                $("#divPage1").hide();
+                                $("#divPage2").show();
+                                $("#EmailID").focus();
+                            }
+                            else {
+                                $("#ClientCode").next().show().html("Client Code doesn't exist.");
+                            }
+                        },
+                        error: function () {
+                            $("#ClientCode").next().html("Client Code doesn't exist.");
+                        }
+                    });
+                }
+            });
+
+            $("#EmailID").keydown(function (e) {
+                if (e.keyCode == 13) {
+                    $("#btnPage2").click();
+                    return false;
+                }
+            });
+
+            $("#btnPage2").click(function () {
+                if (IsRequired("EmailID")) {
+                    if (!IsEmailValid("EmailID")) {
+                        $("#EmailID").next().show().html("Invalid format of Email Address.");
+                    }
+                    else {
+                        $.ajax({
+                            url: '@Url.Action("CheckDonorEmail")',
+                            data: { donorEmail: $("#EmailID").val() },
+                            type: "post",
+                            success: function (data) {
+                                if (data != null && data.Success != -1) {
+                                    $("#divPage2").hide();
+                                    $("#divPage3").show();
+                                    $("#FirstName").focus();
+                                }
+                                else {
+                                    $("#EmailID").next().show().html(data.ErrorMsg);
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+
+            $("#FirstName").keydown(function (e) {
+                if (e.keyCode == 13) {
+                    $("#btnPage3").click();
+                    return false;
+                }
+            });
+
+            $("#btnPage3").click(function () {
+                if (IsRequired("FirstName")) {
+                    $("#divPage3").hide();
+                    $("#divPage4").show();
+                    $("#LastName").focus();
+                }
+            });
+
+            $("#LastName").keydown(function (e) {
+                if (e.keyCode == 13) {
+                    $("#btnPage4").click();
+                    return false;
+                }
+            });
+
+            $("#btnPage4").click(function () {
+                if (IsRequired("LastName")) {
+                    $("#divPage4").hide();
+                    $("#divPage5").show();
+
+                    $("#ClientCode1").val($("#ClientCode").val());
+                    $("#EmailID1").val($("#EmailID").val());
+                    $("#FirstName1").val($("#FirstName").val());
+                    $("#LastName1").val($("#LastName").val());
+
+                    $("#ClientCode1").focus();
+                }
+            });
+
+            $("#btnSubmit").click(function () {
+                if (IsRequired($("form input:visible[type='text']").map(function () { return this.id }).get().join(','))) {
+                    $("#ClientCode2").val($("#ClientCode2").val().toUpperCase());
+                    $("#ClientCode1").val($("#ClientCode1").val().toUpperCase());
+                    if (!IsMatch("ClientCode1", "ClientCode2")) {
+                        $("#ClientCode2").next().show().html("Client code doesn't match.");
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                }
+                return false;
+            });
+        });
+    </script>
+}
+
+@{using (Html.BeginForm())
+{
+    <div class="container">
+        <div id="loginbox"  class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div style="display:none" class="alert alert-danger" role="alert" id="divServerErr">
+                <i class="fa fa-exclamation-triangle fa-1x"></i>  @ViewBag.ServerErr
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">Background Check Registration</div>
+                </div>
+                <div style="padding-top: 30px" class="panel-body">
+                    <div style="display: none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                    <div id="divPage1">
+                        <p class="text-primary">If you have the client code, enter the code below.</p>
+                        <div class="clearfix"></div>
+                        <p class="text-primary">Need Help? Call <span style="color:#B5121B; font-weight: bold;">Sur</span><span style="color: #000; font-weight: bold;">Scan</span> (972.633.1388) </p>
+                        <div class="row top-buffer"></div>
+                        <label><sup>* </sup>Enter the Client code </label>
+                        @Html.TextBoxFor(m => m.ClientCode, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter the Client Code",
+                       data_ErrorMsg = "Client Code can not be empty."
+                   })
+                        <span class="alert-danger" style="display: none">Client code doesn't exist</span>
+                        <div class="row top-buffer"></div>
+                        <div style="margin-top: 10px" class="form-group">
+                            <!-- Button -->
+                            <div class="col-sm-3 col-centered">
+                                <input type="button" id="btnPage1" value="Next" class="btn btn-primary"  />
+                                <span class="text-danger" style="display: none;">Client code is Incorrect </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divPage2" style="display: none">
+                        <label><sup>* </sup>Enter your Email Address </label>
+                        @Html.TextBoxFor(m => m.EmailID, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter your Email Address",
+                       data_ErrorMsg = "Email Address can not be empty."
+                   })
+                        <span class="alert-danger" style="display: none">Email Address already exist</span>
+                        <div class="row top-buffer"></div>
+                        <div style="margin-top: 10px" class="form-group">
+                            <!-- Button -->
+                            <div class="col-sm-3 col-centered">
+                                <input type="button" id="btnPage2" value="Next" class="btn btn-primary"/>
+                            </div>
+                            <div class="row top-buffer"></div>
+                        </div>
+                    </div>
+                    <div id="divPage3" style="display: none">
+                        <label><sup>* </sup>Enter your First Name</label>
+                        @Html.TextBoxFor(m => m.FirstName, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter your First Name",
+                       data_ErrorMsg = "First Name can not be empty."
+                   })
+                        <span class="alert-danger" style="display: none"></span>
+                        <div style="margin-top: 10px" class="form-group">
+                            <div class="row top-buffer"></div>
+                            <!-- Button -->
+                            <div class="col-sm-3 col-centered">
+                                <input type="button" id="btnPage3" value="Next" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divPage4" style="display: none">
+                        <label><sup>* </sup>Enter your Last Name </label>
+                        @Html.TextBoxFor(m => m.LastName, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter your Last Name",
+                       data_ErrorMsg = "Last Name can not be empty."
+                   })
+                        <span class="alert-danger" style="display: none"></span>
+                        <div style="margin-top: 10px" class="form-group">
+                            <div class="row top-buffer"></div>
+                            <!-- Button -->
+                            <div class="col-sm-3 col-centered">
+                                <input type="button" id="btnPage4" value="Next" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="divPage5" style="display: none">
+                        <h4 class="text-primary">Re-enter the Client code and proceed. </h4>
+                        <div class="row top-buffer"></div>
+                        <div style="display: none" class="alert alert-danger col-sm-12"></div>
+                        <label>Client Code </label>
+                        @Html.TextBoxFor(m => m.ClientCode, new
+                   {
+                       id = "ClientCode1",
+                       type = "password",
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "*****",
+                       @readonly = "readonly"
+                   })
+                        <div class="row top-buffer"></div>
+                        <label><sup>*</sup>Re-enter the Client Code</label>
+                        <input id="ClientCode2" name="ClientCode" type="text" data-errormsg="Client Code can not be empty." autocomplete="off" class="form-control" placeholder="Re-enter the Client Code" autofocus style="border:3px solid #ff0000;" />
+                        <span class="alert-danger" style="display: none">Client code doesn't match</span>
+                        <div class="row top-buffer"></div>
+                        <label>Email Address </label>
+                        @Html.TextBoxFor(m => m.EmailID, new
+                   {
+                       id = "EmailID1",
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter your Email Address",
+                       @readonly = "readonly"
+                   })
+                        <div class="row top-buffer"></div>
+                        <label>First Name </label>
+                        @Html.TextBoxFor(m => m.FirstName, new
+                   {
+                       id = "FirstName1",
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter your First Name",
+                       @readonly = "readonly"
+                   })
+                        <div class="row top-buffer"></div>
+                        <label>Last Name </label>
+                        @Html.TextBoxFor(m => m.LastName, new
+                   {
+                       id = "LastName1",
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter your Last Name",
+                       @readonly = "readonly"
+                   })
+                        <div class="row top-buffer"></div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div id="Captcha">
+                                    @{
+                                        @captcha
+                                        @Html.ValidationMessage(captcha.BuildInfo.InputElementId)
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Button -->
+                        <div class="row top-buffer"></div>
+                        <div class="row">
+                            <div class="col-sm-4 col-centered">
+                                <button id="btnSubmit" class="btn btn-primary" name="button" value="Submit">Confirm</button>
+                            </div>
+                        </div>
+
+                        <!-- Login End Here -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row top-buffer"></div>
+    <div class="row top-buffer"></div>
+}
+}
+
+

@@ -1,0 +1,1182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://clearstar.net/Gateway/Macro" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://clearstar.net/Gateway/Macro" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://clearstar.net/Gateway/Macro">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="AddProfileMacro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMacroName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMacroText" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iTemplateFieldIDs" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddProfileMacroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddProfileMacroResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddProfileMacroCustomerAccess">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iMacroID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="bIsAvailableToAllCustomers" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustomerIDs" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddProfileMacroCustomerAccessResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddProfileMacroCustomerAccessResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddServiceMacro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSourceID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sServiceNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMacroName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMacroText" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iTemplateFieldIDs" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddServiceMacroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddServiceMacroResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddStatusMacro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMacroName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMacroText" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="availableToSupplier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="availableToCustomer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iTemplateFieldIDs" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddStatusMacroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddStatusMacroResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteProfileMacro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iMacroID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteProfileMacroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteProfileMacroResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteServiceMacro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iMacroID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteServiceMacroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteServiceMacroResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteStatusMacro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iMacroID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteStatusMacroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteStatusMacroResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMacroTemplateFields">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="cMappedTo" type="s1:char" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMacroTemplateFieldsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMacroTemplateFieldsResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetServiceMacroTemplateFields">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sServiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetServiceMacroTemplateFieldsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetServiceMacroTemplateFieldsResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProfileMacro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iMacroID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProfileMacroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProfileMacroResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProfileMacros">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProfileMacrosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProfileMacrosResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetServiceMacro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iMacroID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetServiceMacroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetServiceMacroResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetServiceMacros">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSourceID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sServiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetServiceMacrosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetServiceMacrosResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatusMacro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iMacroID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatusMacroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStatusMacroResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatusMacros">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatusMacrosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStatusMacrosResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcessProfileMacro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iMacroID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sProfNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcessProfileMacroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProcessProfileMacroResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcessServiceMacro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iMacroID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSourceID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sServiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcessServiceMacroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProcessServiceMacroResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcessStatusMacro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iMacroID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSourceID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcessStatusMacroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProcessStatusMacroResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateProfileMacro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iMacroID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMacroName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMacroText" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iTemplateFieldIDs" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateProfileMacroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateProfileMacroResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateServiceMacro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iMacroID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSourceID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMacroName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMacroText" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iTemplateFieldIDs" type="tns:ArrayOfInt" />
+            <s:element minOccurs="0" maxOccurs="1" name="sServiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateServiceMacroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateServiceMacroResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateStatusMacro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iMacroID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMacroName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMacroText" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="availableToSupplier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="availableToCustomer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iTemplateFieldIDs" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateStatusMacroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateStatusMacroResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="char">
+        <s:restriction base="s:unsignedShort" />
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AddProfileMacroSoapIn">
+    <wsdl:part name="parameters" element="tns:AddProfileMacro" />
+  </wsdl:message>
+  <wsdl:message name="AddProfileMacroSoapOut">
+    <wsdl:part name="parameters" element="tns:AddProfileMacroResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddProfileMacroCustomerAccessSoapIn">
+    <wsdl:part name="parameters" element="tns:AddProfileMacroCustomerAccess" />
+  </wsdl:message>
+  <wsdl:message name="AddProfileMacroCustomerAccessSoapOut">
+    <wsdl:part name="parameters" element="tns:AddProfileMacroCustomerAccessResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddServiceMacroSoapIn">
+    <wsdl:part name="parameters" element="tns:AddServiceMacro" />
+  </wsdl:message>
+  <wsdl:message name="AddServiceMacroSoapOut">
+    <wsdl:part name="parameters" element="tns:AddServiceMacroResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddStatusMacroSoapIn">
+    <wsdl:part name="parameters" element="tns:AddStatusMacro" />
+  </wsdl:message>
+  <wsdl:message name="AddStatusMacroSoapOut">
+    <wsdl:part name="parameters" element="tns:AddStatusMacroResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteProfileMacroSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteProfileMacro" />
+  </wsdl:message>
+  <wsdl:message name="DeleteProfileMacroSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteProfileMacroResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteServiceMacroSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteServiceMacro" />
+  </wsdl:message>
+  <wsdl:message name="DeleteServiceMacroSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteServiceMacroResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteStatusMacroSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteStatusMacro" />
+  </wsdl:message>
+  <wsdl:message name="DeleteStatusMacroSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteStatusMacroResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMacroTemplateFieldsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMacroTemplateFields" />
+  </wsdl:message>
+  <wsdl:message name="GetMacroTemplateFieldsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMacroTemplateFieldsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetServiceMacroTemplateFieldsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetServiceMacroTemplateFields" />
+  </wsdl:message>
+  <wsdl:message name="GetServiceMacroTemplateFieldsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetServiceMacroTemplateFieldsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProfileMacroSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProfileMacro" />
+  </wsdl:message>
+  <wsdl:message name="GetProfileMacroSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProfileMacroResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProfileMacrosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProfileMacros" />
+  </wsdl:message>
+  <wsdl:message name="GetProfileMacrosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProfileMacrosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetServiceMacroSoapIn">
+    <wsdl:part name="parameters" element="tns:GetServiceMacro" />
+  </wsdl:message>
+  <wsdl:message name="GetServiceMacroSoapOut">
+    <wsdl:part name="parameters" element="tns:GetServiceMacroResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetServiceMacrosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetServiceMacros" />
+  </wsdl:message>
+  <wsdl:message name="GetServiceMacrosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetServiceMacrosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStatusMacroSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStatusMacro" />
+  </wsdl:message>
+  <wsdl:message name="GetStatusMacroSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStatusMacroResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStatusMacrosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStatusMacros" />
+  </wsdl:message>
+  <wsdl:message name="GetStatusMacrosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStatusMacrosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProcessProfileMacroSoapIn">
+    <wsdl:part name="parameters" element="tns:ProcessProfileMacro" />
+  </wsdl:message>
+  <wsdl:message name="ProcessProfileMacroSoapOut">
+    <wsdl:part name="parameters" element="tns:ProcessProfileMacroResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProcessServiceMacroSoapIn">
+    <wsdl:part name="parameters" element="tns:ProcessServiceMacro" />
+  </wsdl:message>
+  <wsdl:message name="ProcessServiceMacroSoapOut">
+    <wsdl:part name="parameters" element="tns:ProcessServiceMacroResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProcessStatusMacroSoapIn">
+    <wsdl:part name="parameters" element="tns:ProcessStatusMacro" />
+  </wsdl:message>
+  <wsdl:message name="ProcessStatusMacroSoapOut">
+    <wsdl:part name="parameters" element="tns:ProcessStatusMacroResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProfileMacroSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateProfileMacro" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProfileMacroSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateProfileMacroResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateServiceMacroSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateServiceMacro" />
+  </wsdl:message>
+  <wsdl:message name="UpdateServiceMacroSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateServiceMacroResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateStatusMacroSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateStatusMacro" />
+  </wsdl:message>
+  <wsdl:message name="UpdateStatusMacroSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateStatusMacroResponse" />
+  </wsdl:message>
+  <wsdl:portType name="MacroSoap">
+    <wsdl:operation name="AddProfileMacro">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the Macro ID of the newly created Profile Macro.</wsdl:documentation>
+      <wsdl:input message="tns:AddProfileMacroSoapIn" />
+      <wsdl:output message="tns:AddProfileMacroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddProfileMacroCustomerAccess">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the Macro ID of the newly created Profile Macro.</wsdl:documentation>
+      <wsdl:input message="tns:AddProfileMacroCustomerAccessSoapIn" />
+      <wsdl:output message="tns:AddProfileMacroCustomerAccessSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddServiceMacro">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the Macro ID of the newly created Service Macro.</wsdl:documentation>
+      <wsdl:input message="tns:AddServiceMacroSoapIn" />
+      <wsdl:output message="tns:AddServiceMacroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddStatusMacro">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the Macro ID of the newly created Order Status Macro.</wsdl:documentation>
+      <wsdl:input message="tns:AddStatusMacroSoapIn" />
+      <wsdl:output message="tns:AddStatusMacroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProfileMacro">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the Deleting is succeeded or not.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteProfileMacroSoapIn" />
+      <wsdl:output message="tns:DeleteProfileMacroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteServiceMacro">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the Deleting is succeeded or not.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteServiceMacroSoapIn" />
+      <wsdl:output message="tns:DeleteServiceMacroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteStatusMacro">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the Deleting is succeeded or not.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteStatusMacroSoapIn" />
+      <wsdl:output message="tns:DeleteStatusMacroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMacroTemplateFields">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of available macro template fields.</wsdl:documentation>
+      <wsdl:input message="tns:GetMacroTemplateFieldsSoapIn" />
+      <wsdl:output message="tns:GetMacroTemplateFieldsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceMacroTemplateFields">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of available service macro template fields.</wsdl:documentation>
+      <wsdl:input message="tns:GetServiceMacroTemplateFieldsSoapIn" />
+      <wsdl:output message="tns:GetServiceMacroTemplateFieldsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProfileMacro">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the properties of the Profile Macro and a list of its template fields.</wsdl:documentation>
+      <wsdl:input message="tns:GetProfileMacroSoapIn" />
+      <wsdl:output message="tns:GetProfileMacroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProfileMacros">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of available Profile Macros for the BO.</wsdl:documentation>
+      <wsdl:input message="tns:GetProfileMacrosSoapIn" />
+      <wsdl:output message="tns:GetProfileMacrosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceMacro">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the properties of the Service Macro and a list of its template fields.</wsdl:documentation>
+      <wsdl:input message="tns:GetServiceMacroSoapIn" />
+      <wsdl:output message="tns:GetServiceMacroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceMacros">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of available Service Macros for the service and the supplier and its sub-suppliers.</wsdl:documentation>
+      <wsdl:input message="tns:GetServiceMacrosSoapIn" />
+      <wsdl:output message="tns:GetServiceMacrosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStatusMacro">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the properties of the Status Macro and a list of its template fields.</wsdl:documentation>
+      <wsdl:input message="tns:GetStatusMacroSoapIn" />
+      <wsdl:output message="tns:GetStatusMacroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStatusMacros">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of available Status Macros for the service and the supplier and its sub-suppliers.</wsdl:documentation>
+      <wsdl:input message="tns:GetStatusMacrosSoapIn" />
+      <wsdl:output message="tns:GetStatusMacrosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcessProfileMacro">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the processed text for a Profile Macro.</wsdl:documentation>
+      <wsdl:input message="tns:ProcessProfileMacroSoapIn" />
+      <wsdl:output message="tns:ProcessProfileMacroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcessServiceMacro">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the processed text for a Service Macro.</wsdl:documentation>
+      <wsdl:input message="tns:ProcessServiceMacroSoapIn" />
+      <wsdl:output message="tns:ProcessServiceMacroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcessStatusMacro">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the processed text for a Status Macro.</wsdl:documentation>
+      <wsdl:input message="tns:ProcessStatusMacroSoapIn" />
+      <wsdl:output message="tns:ProcessStatusMacroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProfileMacro">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the Updating is succeeded or not.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateProfileMacroSoapIn" />
+      <wsdl:output message="tns:UpdateProfileMacroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateServiceMacro">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the Updating is succeeded or not.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateServiceMacroSoapIn" />
+      <wsdl:output message="tns:UpdateServiceMacroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateStatusMacro">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the Updating is succeeded or not.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateStatusMacroSoapIn" />
+      <wsdl:output message="tns:UpdateStatusMacroSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MacroSoap" type="tns:MacroSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddProfileMacro">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/AddProfileMacro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddProfileMacroCustomerAccess">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/AddProfileMacroCustomerAccess" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddServiceMacro">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/AddServiceMacro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddStatusMacro">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/AddStatusMacro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProfileMacro">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/DeleteProfileMacro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteServiceMacro">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/DeleteServiceMacro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteStatusMacro">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/DeleteStatusMacro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMacroTemplateFields">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/GetMacroTemplateFields" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceMacroTemplateFields">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/GetServiceMacroTemplateFields" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProfileMacro">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/GetProfileMacro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProfileMacros">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/GetProfileMacros" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceMacro">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/GetServiceMacro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceMacros">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/GetServiceMacros" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatusMacro">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/GetStatusMacro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatusMacros">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/GetStatusMacros" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessProfileMacro">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/ProcessProfileMacro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessServiceMacro">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/ProcessServiceMacro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessStatusMacro">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/ProcessStatusMacro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProfileMacro">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/UpdateProfileMacro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateServiceMacro">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/UpdateServiceMacro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateStatusMacro">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Macro/UpdateStatusMacro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MacroSoap12" type="tns:MacroSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddProfileMacro">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/AddProfileMacro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddProfileMacroCustomerAccess">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/AddProfileMacroCustomerAccess" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddServiceMacro">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/AddServiceMacro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddStatusMacro">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/AddStatusMacro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProfileMacro">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/DeleteProfileMacro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteServiceMacro">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/DeleteServiceMacro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteStatusMacro">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/DeleteStatusMacro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMacroTemplateFields">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/GetMacroTemplateFields" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceMacroTemplateFields">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/GetServiceMacroTemplateFields" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProfileMacro">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/GetProfileMacro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProfileMacros">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/GetProfileMacros" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceMacro">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/GetServiceMacro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceMacros">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/GetServiceMacros" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatusMacro">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/GetStatusMacro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatusMacros">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/GetStatusMacros" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessProfileMacro">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/ProcessProfileMacro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessServiceMacro">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/ProcessServiceMacro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessStatusMacro">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/ProcessStatusMacro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProfileMacro">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/UpdateProfileMacro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateServiceMacro">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/UpdateServiceMacro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateStatusMacro">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Macro/UpdateStatusMacro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Macro">
+    <wsdl:port name="MacroSoap" binding="tns:MacroSoap">
+      <soap:address location="https://gateway.clearstar.net/csgwMacro/Macro.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MacroSoap12" binding="tns:MacroSoap12">
+      <soap12:address location="https://gateway.clearstar.net/csgwMacro/Macro.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

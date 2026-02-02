@@ -1,0 +1,45 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Surpath.Clearstar.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Surpath_Clearstar_CS_Customer_Customer" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://Gateway.clearstar.net/CSGWCustomer/Customer.asmx</Value>
+    </Setting>
+    <Setting Name="Surpath_Clearstar_CS_Document_Document" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://gateway.clearstar.net/csgwDocument/Document.asmx</Value>
+    </Setting>
+    <Setting Name="Surpath_Clearstar_CS_Invoice_Invoice" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://gateway.clearstar.net/csgwInvoice/Invoice.asmx</Value>
+    </Setting>
+    <Setting Name="Surpath_Clearstar_CS_Lookup_LookUp" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://gateway.clearstar.net/csgwLookup/Lookup.asmx</Value>
+    </Setting>
+    <Setting Name="Surpath_Clearstar_net_clearstar_gateway_Macro" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://gateway.clearstar.net/csgwMacro/Macro.asmx</Value>
+    </Setting>
+    <Setting Name="Surpath_Clearstar_CS_MFA_MFA" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://gateway.clearstar.net/CSGWMFA/MFA.asmx</Value>
+    </Setting>
+    <Setting Name="Surpath_Clearstar_CS_Order_Order" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://gateway.clearstar.net/csgworder/order.asmx</Value>
+    </Setting>
+    <Setting Name="Surpath_Clearstar_CS_PostMaster_PostMaster" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://gateway.clearstar.net/CSGWPostMaster/PostMaster.asmx</Value>
+    </Setting>
+    <Setting Name="Surpath_Clearstar_CS_Service_Service" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://gateway.clearstar.net/csgwservice/service.asmx</Value>
+    </Setting>
+    <Setting Name="Surpath_Clearstar_CS_Streamline_Streamline" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://gateway.clearstar.net/csgwStreamline/Streamline.asmx</Value>
+    </Setting>
+    <Setting Name="Surpath_Clearstar_CS_Supplier_Supplier" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://gateway.clearstar.net/CSGWSupplier/Supplier.asmx</Value>
+    </Setting>
+    <Setting Name="Surpath_Clearstar_CS_User_User" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://gateway.clearstar.net/csgwUser/User.asmx</Value>
+    </Setting>
+    <Setting Name="Surpath_Clearstar_CS_Profile_Profile" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://gateway.clearstar.net/CSGWProfile/Profile.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

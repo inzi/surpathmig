@@ -1,0 +1,86 @@
+﻿@using inzibackend.Surpath;
+
+@using System.Globalization
+@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.TenantDepartments
+@using inzibackend.Web.Areas.App.Startup
+@*@model CreateOrEditTenantDepartmentViewModel*@
+@model CreateOrEditTenantDepartmentModalViewModel
+@using Abp.Extensions
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.TenantDepartments;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/TenantDepartments/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+    var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/App/TenantDepartments", L("TenantDepartments")),
+        new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
+        };
+        }
+        <abp-page-subheader title='@(Model.IsEditMode ? (L("EditTenantDepartment")) : L("CreateNewTenantDepartment"))' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+
+        <div class="@(await GetContainerClass())">
+            <div class="card card-custom gutter-b">
+                <form name="TenantDepartmentInformationsForm" role="form" novalidate class="form-validation">
+                    <div class="card-body">
+                        <div class="form">
+                            <div id="TenantDepartmentInformationsTab">
+                                @if (Model.IsEditMode)
+                                {
+                                <input type="hidden" name="id" value="@Model.TenantDepartment.Id" />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="TenantDepartment_Name">@L("Name")</label>
+                                    <input class="form-control" id="TenantDepartment_Name" value="@Model.TenantDepartment.Name" type="text" name="name" required />
+                                </div>
+
+                                <label class="form-check form-check-custom">
+                                    <input id="TenantDepartment_Active" name="active" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.TenantDepartment.Active ?"checked=\"checked\"":"") />
+                                    <span class="form-check-label">
+                                        @L("Active")
+                                    </span>
+                                </label>
+
+                                @{
+                                var selectListMROType = Html.GetEnumSelectList(typeof(EnumClientMROTypes));
+                                foreach (var selectOption in selectListMROType) { selectOption.Text = L("Enum_EnumClientMROTypes_" + selectOption.Value); }
+                                }
+                                <div class="my-3 m-form__group">
+                                    <label class="form-label" for="TenantDepartment_MROType">@L("MROType")</label>
+                                    <select class="form-select m-input m-input--square" name="mroType" id="TenantDepartment_MROType" asp-for="@Model.TenantDepartment.MROType" asp-items="@selectListMROType">
+                                    </select>
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="TenantDepartment_Description">@L("Description")</label>
+                                    <input class="form-control" id="TenantDepartment_Description" value="@Model.TenantDepartment.Description" type="text" name="description" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12">
+                                <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                @if (!Model.IsEditMode)
+                                {
+                                <button type="button" id="saveAndNewBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>

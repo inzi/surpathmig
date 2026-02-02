@@ -1,0 +1,319 @@
+﻿@using inzibackend.Surpath;
+
+@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.RecordStates
+@model CreateOrEditRecordStateModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditRecordState")) : L("CreateNewRecordState")))
+
+<div class="modal-body">
+    <div id="RecordStateInformationsTab">
+        <div id="stepperDiv">
+            <!--begin::Stepper-->
+            <div class="stepper stepper-pills" id="kt_stepper_example_basic">
+                <!--begin::Nav-->
+                <div class="stepper-nav flex-center flex-nowrap mb-10">
+                    <!--begin::Step 1-->
+                    <div class="stepper-item mx-8 my-4 current" data-kt-stepper-element="nav">
+                        <!--begin::Wrapper-->
+                        <div class="stepper-wrapper d-flex align-items-center">
+                            <!--begin::Icon-->
+                            @*                                <div class="stepper-icon w-40px h-40px">
+                                <i class="stepper-check fas fa-check"></i>
+                                <span class="stepper-number">1</span>
+                                </div>*@
+
+                            <!--end::Icon-->
+                            <!--begin::Label-->
+                            <div class="stepper-label">
+                                @*<label class="form-label" >@L("User")</label>*@
+                                <h4 class="stepper-title">
+                                    @L("ChooseCategory")
+                                </h4>
+                                @*
+                                    <div class="stepper-desc">
+                                    @L("ChooseCategoryDescription")
+                                    </div>*@
+                            </div>
+                            <!--end::Label-->
+                        </div>
+                        <!--end::Wrapper-->
+                        <!--begin::Line-->
+                        <div class="stepper-line h-40px"></div>
+                        <!--end::Line-->
+                    </div>
+                    <!--end::Step 1-->
+                    <!--begin::Step 2-->
+                    <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
+                        <!--begin::Wrapper-->
+                        <div class="stepper-wrapper d-flex align-items-center">
+                            <!--begin::Icon-->
+                            @*                         <div class="stepper-icon w-40px h-40px">
+                                <i class="stepper-check fas fa-check"></i>
+                                <span class="stepper-number">2</span>
+                                </div>*@
+                            <!--begin::Icon-->
+                            <!--begin::Label-->
+                            <div class="stepper-label">
+                                <h4 class="stepper-title">
+                                    @L("ConfirmCategory")
+                                </h4>
+
+                                @*                               <div class="stepper-desc">
+                                    @L("ConfirmCategoryDescription")
+                                    </div>*@
+                            </div>
+                            <!--end::Label-->
+                        </div>
+                        <!--end::Wrapper-->
+                        <!--begin::Line-->
+                        <div class="stepper-line h-40px"></div>
+                        <!--end::Line-->
+                    </div>
+                    <!--end::Step 2-->
+                    <!--begin::Step 3-->
+                    <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
+                        <!--begin::Wrapper-->
+                        <div class="stepper-wrapper d-flex align-items-center">
+                            <!--begin::Icon-->
+                            @*                            <div class="stepper-icon w-40px h-40px">
+                                <i class="stepper-check fas fa-check"></i>
+                                <span class="stepper-number">3</span>
+                                </div>*@
+                            <!--begin::Icon-->
+                            <!--begin::Label-->
+                            <div class="stepper-label">
+                                <h3 class="stepper-title">
+                                    @L("ReviewInstructions")
+                                </h3>
+
+                                @*                                    <div class="stepper-desc">
+                                    @L("ReviewInstructionsDescription")
+                                    </div>*@
+                            </div>
+                            <!--end::Label-->
+                        </div>
+                        <!--end::Wrapper-->
+                        <!--begin::Line-->
+                        <div class="stepper-line h-40px"></div>
+                        <!--end::Line-->
+                    </div>
+                    <!--end::Step 3-->
+                    <!--begin::Step 4-->
+                    <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
+                        <!--begin::Wrapper-->
+                        <div class="stepper-wrapper d-flex align-items-center">
+                            <!--begin::Icon-->
+                            @*<div class="stepper-icon w-40px h-40px">
+                                <i class="stepper-check fas fa-check"></i>
+                                <span class="stepper-number">4</span>
+                                </div>*@
+                            <!--begin::Icon-->
+                            <!--begin::Label-->
+                            <div class="stepper-label">
+                                <h3 class="stepper-title">
+                                    @L("UploadFile")
+                                </h3>
+
+                                @*                                    <div class="stepper-desc">
+                                    @L("UploadFileDescription")
+                                    </div>*@
+                            </div>
+                            <!--end::Label-->
+                        </div>
+                        <!--end::Wrapper-->
+                        <!--begin::Line-->
+                        <div class="stepper-line h-40px"></div>
+                        <!--end::Line-->
+                    </div>
+                    <!--end::Step 4-->
+                </div>
+                <!--end::Nav-->
+                <!--begin::Form-->
+                @*<form class="form w-lg-500px mx-auto" novalidate="novalidate" id="kt_stepper_example_basic_form">*@
+                <form name="RecordStateInformationsForm" role="form" novalidate class="form-validation">
+                    <div id="hiddeninputs" class="d-none">
+                        <input class="form-control" id="Recordfilename" name="recordfilename" value="@Model.Recordfilename" type="text" disabled>
+                        <input class="form-control" id="RecordState_RecordId" value="" type="text" name="recordId" hidden />
+                        <input class="form-control" id="RecordState_RecordCategoryId" value="" type="text" name="recordCategoryId" hidden />
+                        <input class="form-control" id="UserName" name="userName" value="@Model.UserName" type="text" disabled>
+                        <input class="form-control" id="RecordState_UserId" value="@AbpSession.UserId" type="text" name="userId" hidden />
+
+                        @*@Html.DropDownList("recordStatusId", new SelectList(Model.RecordStateRecordStatusList,"Id","DisplayName", Model.IsEditMode ? Model.RecordState.RecordStatusId.ToString() : Model.RecordStateRecordStatusList.Where(r=>r.IsDefault).First()),@L(Model.RecordStateRecordStatusList.Where(r=>r.IsDefault).First().DisplayName), new { @class = "form-control" , @required="required" })*@
+                        @{
+                            var _default = Model.RecordStateRecordStatusList.Where(r => r.IsDefault).First();
+                            @Html.DropDownList("recordStatusId", new SelectList(Model.RecordStateRecordStatusList, "Id", "DisplayName", _default.Id.ToString()), new { @class = "form-control" , @required="required" })
+                        }
+                        <div class="my-3">
+                            <label class="form-label" for="Record_physicalfilepath">@L("physicalfilepath")</label>
+                            <input class="form-control" id="Record_physicalfilepath" value="@Model.RecordState.RecordDto.physicalfilepath" type="text" name="physicalfilepath" />
+                        </div>
+
+                        <div class="my-3">
+                            <label class="form-label" for="Record_metadata">@L("metadata")</label>
+                            <input class="form-control" id="Record_metadata" value="@Model.RecordState.RecordDto.metadata" type="text" name="metadata" />
+                        </div>
+
+                        <div class="my-3">
+                            <label class="form-label" for="Record_BinaryObjId">@L("BinaryObjId")</label>
+                            <input class="form-control" id="Record_BinaryObjId" value="@Model.RecordState.RecordDto.BinaryObjId" type="text" name="binaryObjId" />
+                        </div>
+
+                        <div class="my-3">
+                            <label class="form-label" for="Record_DateUploaded">@L("DateUploaded")</label>
+                            <input class="form-control m-input date-picker date-picker-filter" id="Record_DateUploaded" type="text" name="dateUploaded" value="@Model.RecordState.RecordDto.DateUploaded" />
+                        </div>
+
+                        <div class="my-3">
+                            <label class="form-label" for="Record_DateLastUpdated">@L("DateLastUpdated")</label>
+                            <input class="form-control m-input date-picker date-picker-filter" id="Record_DateLastUpdated" type="text" name="dateLastUpdated" value="@Model.RecordState.RecordDto.DateLastUpdated" />
+                        </div>
+                    </div>
+                    <!--begin::Group-->
+                    <div class="mb-5">
+                        <!--begin::Step 1-->
+                        <div class="flex-column current" data-kt-stepper-element="content">
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <!--begin::Label-->
+                                <label class="form-label" for="RecordCategoryName">@L("RecordCategory")</label>
+                                <div class="input-group">
+                                    <input class="form-control" id="RecordCategoryName" name="recordCategoryName" value="@Model.RecordCategoryName" type="text" disabled>
+                                    <button class="btn btn-primary blue" id="OpenRecordCategoryLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                    <button class="btn btn-danger btn-icon" type="button" id="ClearRecordCategoryNameButton"><i class="fa fa-times"></i></button>
+                                </div>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                        <!--begin::Step 1-->
+                        <!--begin::Step 1-->
+                        <div class="flex-column" data-kt-stepper-element="content">
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <label class="form-label" for="ConfirmRecordCategoryName">@L("ConfirmRecordCategory")</label>
+                                <div class="input-group">
+                                    <input class="form-control" id="ConfirmRecordCategoryName" name="confirmRecordCategoryName" value="" type="text" disabled>
+                                    <button class="btn btn-primary blue" id="OpenRecordCategoryConfirmLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                    <button class="btn btn-danger btn-icon" type="button" id="ClearConfirmRecordCategoryNameButton"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                        <!--begin::Step 1-->
+                        <!--begin::Step 1-->
+                        <div class="flex-column" data-kt-stepper-element="content">
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <textarea id="RecordCategoryInstructions" name="recordCategoryInstructions" class="form-control surpath_category_instructions" readonly></textarea>
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <!--begin::Label-->
+                                <label class="form-label">Confirm you have read the instructions</label>
+                                <!--end::Label-->
+                                <!--begin::Switch-->
+                                <label class="form-check form-switch form-check-custom form-check-solid">
+                                    <input id="IHaveReadInstructionsSwitch" class="form-check-input" type="checkbox" />
+                                    <span class="form-check-label">
+                                        @L("IHaveReadTheInstructions")
+                                    </span>
+                                </label>
+                                <!--end::Switch-->
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                        <!--begin::Step 1-->
+                        <!--begin::Step 1-->
+                        <div class="flex-column" data-kt-stepper-element="content">
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <!--begin::Label-->
+                                <label class="form-label">
+                                    <label class="custom-file-label" for="@L("filedata")" id="Record_filedataLabel">@L("ChooseAFile")</label>
+                                </label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="file" class="custom-file-input" name="Record_filedata" id="Record_filedata" aria-describedby="inputGroupFileAddon01" accept="@Model.CreateOrEditRecordModalViewModel.filedataFileAcceptedTypes" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <!--begin::Label-->
+                                <label class="form-label">
+                                    <label class="form-label" for="Record_filename">@L("filename")</label>
+                                </label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control" id="Record_filename" value="@Model.RecordState.RecordDto.filename" type="text" name="filename" readonly />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <!--begin::Label-->
+                                <label class="form-label d-flex align-items-center">
+                                    <label class="form-label" for="RecordState_Notes">@L("Notes")</label>
+
+                                </label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control" id="RecordState_Notes" value="@Model.RecordState.Notes" type="text" name="notes" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                        </div>
+                        <!--begin::Step 1-->
+                    </div>
+                    <!--end::Group-->
+                    <!--begin::Actions-->
+                    <div class="d-flex flex-stack">
+                        <!--begin::Wrapper-->
+                        <div class="me-2">
+                            <button id="stepper_back_button" type="button" class="btn btn-light btn-active-light-primary" data-kt-stepper-action="previous">
+                                Back
+                            </button>
+                        </div>
+                        <!--end::Wrapper-->
+                        <!--begin::Wrapper-->
+                        <div>
+                            @*                            <button type="button" class="btn btn-primary" data-kt-stepper-action="submit">
+                                <span class="indicator-label">
+                                Submit
+                                </span>
+                                <span class="indicator-progress">
+                                Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </span>
+                                </button>*@
+                                <div id="stepper_next_button_tooltip" data-bs-toggle="tooltip" data-bs-html="true" title="@L("SelectTheCategoryToGotoNextStep")">
+                                    <button id="stepper_next_button" type="button" class="btn btn-primary" data-kt-stepper-action="next" disabled>
+                                        Continue
+                                    </button>
+                                </div>
+
+@*                            <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Tooltip</em> <u>with</u> <b>HTML</b>">
+                        Tooltip with HTML
+                    </button>
+*@                        </div>
+                        <!--end::Wrapper-->
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Stepper-->
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

@@ -1,0 +1,12 @@
+<Playlist Version="1.0">
+<Add Test="SurPath.Backend.Tests.MessagingTests.AddSMSToDB" />
+<Add Test="SurPath.Backend.Tests.MessagingTests.CreateClientSMSAutoresponse" />
+<Add Test="SurPath.Backend.Tests.MessagingTests.SetClientSMSData" />
+<Add Test="SurPath.Backend.Tests.MessagingTests.GetClientSMSData" />
+<Add Test="SurPath.Backend.Tests.MessagingTests.RemoveClientSMSAutoresponse" />
+<Add Test="SurPath.Backend.Tests.MessagingTests.RemoveClientSMSData" />
+<Add Test="SurPath.Backend.Tests.MessagingTests.GetUnsentSMS" />
+<Add Test="SurPath.Backend.Tests.MessagingTests.daysofweek" />
+<Add Test="SurPath.Backend.Tests.MessagingTests.MarkSMSSent" />
+<Add Test="SurPath.Backend.Tests.MessagingTests.AddReplyToMessage" />
+</Playlist>

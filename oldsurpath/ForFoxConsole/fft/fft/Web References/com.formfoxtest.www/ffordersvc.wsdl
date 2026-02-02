@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="https://www.formfox.com/v2/ffordersvc" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="https://www.formfox.com/v2/ffordersvc" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="https://www.formfox.com/v2/ffordersvc">
+      <s:element name="CreateOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderXML" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateOrderResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SiteSearch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrentLocation" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Radius" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="LabCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PSCOnly" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="NumSites" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProcessType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ServicesXML" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SiteSearchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SiteSearchResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CreateOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrder" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="SiteSearchSoapIn">
+    <wsdl:part name="parameters" element="tns:SiteSearch" />
+  </wsdl:message>
+  <wsdl:message name="SiteSearchSoapOut">
+    <wsdl:part name="parameters" element="tns:SiteSearchResponse" />
+  </wsdl:message>
+  <wsdl:portType name="FFOrderSvcSoap">
+    <wsdl:operation name="CreateOrder">
+      <wsdl:input message="tns:CreateOrderSoapIn" />
+      <wsdl:output message="tns:CreateOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SiteSearch">
+      <wsdl:input message="tns:SiteSearchSoapIn" />
+      <wsdl:output message="tns:SiteSearchSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FFOrderSvcSoap" type="tns:FFOrderSvcSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateOrder">
+      <soap:operation soapAction="https://www.formfox.com/v2/ffordersvc/CreateOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SiteSearch">
+      <soap:operation soapAction="https://www.formfox.com/v2/ffordersvc/SiteSearch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FFOrderSvcSoap12" type="tns:FFOrderSvcSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateOrder">
+      <soap12:operation soapAction="https://www.formfox.com/v2/ffordersvc/CreateOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SiteSearch">
+      <soap12:operation soapAction="https://www.formfox.com/v2/ffordersvc/SiteSearch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FFOrderSvc">
+    <wsdl:port name="FFOrderSvcSoap" binding="tns:FFOrderSvcSoap">
+      <soap:address location="http://www.formfoxtest.com/ffordersvc/v2/ffordersvc.asmx" />
+    </wsdl:port>
+    <wsdl:port name="FFOrderSvcSoap12" binding="tns:FFOrderSvcSoap12">
+      <soap12:address location="http://www.formfoxtest.com/ffordersvc/v2/ffordersvc.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

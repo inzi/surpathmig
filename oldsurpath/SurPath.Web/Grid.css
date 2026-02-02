@@ -1,0 +1,27 @@
+﻿/* Grid */
+.grd-outer.paged { padding: 0; border: 1px solid #CCC; font-family: "Segoe UI" , Arial; }
+.grd-wrap-header { background: #EEE; padding: 6px 5px; color: #666; }
+.grd-wrap { padding: 6px 0 0 0; position: relative; }
+.grid-empty-text  { color: #666; }
+
+/* Grid headers */
+table.grid-table { border-collapse: collapse; border: none; width: 100%; }
+table.grid-table th { text-align: left; padding: 5px; font-size: 0.83em; border: none; font-weight: bold; text-transform: uppercase; background: none; }
+table.grid-table th a { color: black; }
+table.grid-table th a:hover { text-decoration: underline; }
+table.grid-table .grd-header.sorted-asc .grd-sort-arrow:after { content: " \2193"; }
+table.grid-table .grd-header.sorted-desc .grd-sort-arrow:after { content: " \2191"; }
+
+/* Grid body */
+table.grid-table tr.grd-row { }
+table.grid-table tr.grd-row-selected td { background: #1BA1E2!important; color: white; }
+table.grid-table tr.grd-row-selected a { color: white; }
+
+table.grid-table tr:hover td { background: #caecfd; }
+table.grid-table tr td { border: none; padding: 6px 5px; }
+table.grid-table .grd-header-sorted { }
+
+/* Grid pager */
+.grd-pager { background: #EEE; padding: 6px 5px; color: #666; font-family: "Segoe UI" , Arial; }
+.grd-pager a.pager-link, .grd-pager span.pager-text { color: inherit; padding: 0 5px 0 0; }
+.grd-pager a.pager-link:hover { text-decoration: underline; }

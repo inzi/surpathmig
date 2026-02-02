@@ -1,0 +1,149 @@
+﻿@model SurPathWeb.Models.DonorProfileDataModel
+@using SurPath.Enum
+@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Views/Shared/_AttorneyLayout.cshtml";
+}
+@section PageScript
+{
+    <script src='@Url.Content("~/Scripts/jquery.maskedinput.min.js")'></script>
+
+    <script type="text/javascript">
+        $(function () {
+            if ("@ViewBag.ServerErr" != "") {
+                $("#divServerErr").show().find("div").html("@ViewBag.ServerErr");
+            }
+
+            if ("@ViewBag.emailerr" != "") {
+                $("#emailalreadyerror").show();
+            }
+            else {
+                $("#emailalreadyerror").hide();
+            }
+
+            $("#Phone1").mask("(999) 999-9999");
+            $("#Fax").mask("(999) 999-9999");
+
+            $("#submit").click(function () {
+                var e = $("form sup").parent().next(),
+                    status = true;
+
+                e.keydown(function () {
+                    ClearBorder(this.id);
+                });
+
+                if ($("#EmailID").val() != null && $("#EmailID").val() != "") {
+                    if (!IsEmailValid("EmailID")) {
+                        $("#EmailID").next().show().html("Invalid format of Email Address.");
+                        return false;
+                    }
+                }
+
+                if (!IsRequired(e.map(function () { return this.id }).get().join(','))) {
+                    status = false;
+                }
+                return status;
+            });
+
+
+        });
+    </script>
+
+}
+@{using (Html.BeginForm())
+{
+    <div class="container">
+        <div class="row">
+                    <h3 class="text-primary"> Manage Profile </h3>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4">
+                    <label>User Name</label>
+                    @Html.TextBoxFor(m => m.Username, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter your User Name",
+                       data_ErrorMsg = "User Name can not be empty",
+                       @readonly = "readonly"
+                   })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label><sup>*</sup>First Name</label>
+                    @Html.TextBoxFor(m => m.FirstName, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter your First Name",
+                       data_ErrorMsg = "First Name can not be empty",
+                   })
+                    <span class="alert-danger" style="display: none"></span>
+
+                </div>
+                <div class="col-md-4">
+                    <label><sup>*</sup>Last Name</label>
+                    @Html.TextBoxFor(m => m.LastName, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter your Last Name",
+                       data_ErrorMsg = "Last Name can not be empty",
+                   })
+                    <span class="alert-danger" style="display: none"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Phone</label>
+                    @Html.TextBoxFor(m => m.Phone1, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter your Phone",
+                       data_ErrorMsg = "Phone can not be empty",
+                   })
+                    <span class="alert-danger" style="display: none"></span>
+                </div>
+                <div class="col-md-4">
+                    <label>Fax</label>
+                    @Html.TextBoxFor(m => m.Fax, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter your  Fax",
+                       data_ErrorMsg = "Fax can not be empty",
+                   })
+                    <span class="alert-danger" style="display: none"></span>
+                </div>
+                <div class="col-md-4">
+                    <label><sup>*</sup>Email Address</label>
+                    @Html.TextBoxFor(m => m.EmailID, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter your Email Address",
+                       data_ErrorMsg = "Email Address can not be empty.",
+                   })
+                    <span class="alert-danger" id="emailalreadyerror" style="display: none">Email address already exist</span>
+                </div>
+            </div>
+            <div class="row top-buffer"></div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div style="margin-top:10px" class="form-group">
+                    <div class="col-md-6 col-md-offset-5">
+                        <button id="submit" type="submit" value="Update" class="btn btn-primary">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row top-buffer"></div>
+        <div class="row top-buffer"></div>
+
+    </div>
+}
+
+}

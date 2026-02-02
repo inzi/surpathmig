@@ -1,0 +1,134 @@
+﻿@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.RecordNotes
+@using inzibackend.Web.Areas.App.Startup
+@model MasterDetailChild_RecordState_RecordNotesViewModel
+@{
+    Layout = null;
+}
+<script abp-src="/view-resources/Areas/App/Views/MasterDetailChild_RecordState_RecordNotes/Index.js" asp-append-version="true"></script>
+<input type="hidden" id="MasterDetailChild_RecordState_RecordNotesId" value="@Model.RecordStateId" />
+
+<div class="card card-custom gutter-b">
+
+    <div class="card-header border-0 py-5 ">
+        <h3 class="card-title align-items-start flex-column">
+            <span class="card-label font-weight-bolder text-dark">@L("RecordNotes")</span>
+            <span class="text-muted mt-3 font-weight-bold font-size-sm">@L("RecordNotesHeaderInfo")</span>
+        </h3>
+        <div class="card-toolbar">
+            <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+
+  
+        </div>
+    </div>
+
+    <div class="note-card-body card-body">
+        <div class="GetRecordNotesButtonFilterArea form">
+            <div class="row align-items-center mb-4">
+                <div class="col-xl-8">
+
+                    <div class="my-3">
+                        <div class="input-group">
+                            <input type="text" id="MasterDetailChild_RecordState_RecordNotesTableFilter" class="form-control m-input" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                            <button id="GetRecordNotesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xl-4">
+
+                    <div class="my-3">
+                      @if (IsGranted(AppPermissions.Pages_RecordNotes_Create))
+                        {
+                            <button id="CreateNewRecordNoteButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewRecordNote")</button>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div id="MasterDetailChild_RecordState_AdvacedAuditFiltersArea" class="row mb-4">
+            <div class="col-md-12">
+            </div>
+
+            <div class="col-md-3 d-none">
+                <div class="form-group">
+                    <label for="MasterDetailChild_RecordState_NoteFilterId">@L("Note")</label>
+                    <input type="text" class="form-control" name="noteFilter" id="MasterDetailChild_RecordState_NoteFilterId">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="MasterDetailChild_RecordState_MinCreatedFilterId">@L("CreatedRange")</label>
+                    <div class="input-group">
+                        <input class="form-control m-input datetime-picker" type="text" placeholder="@L("MinValue")" id="MasterDetailChild_RecordState_MinCreatedFilterId">
+                        <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                        <input class="form-control m-input datetime-picker" type="text" placeholder="@L("MaxValue")" id="MasterDetailChild_RecordState_MaxCreatedFilterId">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 d-none">
+                <label for="MasterDetailChild_RecordState_AuthorizedOnlyFilterId">@L("AuthorizedOnly")</label>
+                <select class="form-select" name="AuthorizedOnlyFilter" id="MasterDetailChild_RecordState_AuthorizedOnlyFilterId">
+                    <option value="-1">@L("All")</option>
+                    <option value="0">@L("False")</option>
+                    <option value="1">@L("True")</option>
+                </select>
+            </div>
+            @if (IsGranted(AppPermissions.Surpath_View_Host_Only_notes))
+            {
+                <div class="col-md-3  d-none">
+                <label for="MasterDetailChild_RecordState_HostOnlyFilterId">@L("HostOnly")</label>
+                <select class="form-select" name="HostOnlyFilter" id="MasterDetailChild_RecordState_HostOnlyFilterId">
+                    <option value="-1">@L("All")</option>
+                    <option value="0">@L("False")</option>
+                    <option value="1">@L("True")</option>
+                </select>
+            </div>
+                
+            }
+            
+            <div class="col-md-3  d-none">
+                <label for="MasterDetailChild_RecordState_SendNotificationFilterId">@L("SendNotification")</label>
+                <select class="form-select" name="SendNotificationFilter" id="MasterDetailChild_RecordState_SendNotificationFilterId">
+                    <option value="-1">@L("All")</option>
+                    <option value="0">@L("False")</option>
+                    <option value="1">@L("True")</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="MasterDetailChild_RecordState_UserNameFilterId">(@L("User")) @L("Name")</label>
+                    <input type="text" class="form-control" name="userNameFilter" id="MasterDetailChild_RecordState_UserNameFilterId">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="MasterDetailChild_RecordState_UserName2FilterId">(@L("User")) @L("Name")</label>
+                    <input type="text" class="form-control" name="userName2Filter" id="MasterDetailChild_RecordState_UserName2FilterId">
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4 ">
+            <div class="col-xl-12">
+                <span id="MasterDetailChild_RecordState_ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                <span id="MasterDetailChild_RecordState_HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <table id="MasterDetailChild_RecordState_RecordNotesTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer dataTablev">
+                <thead>
+                    <tr>
+                        <th></th>
+
+                        <th>@L("UserName")</th>
+                        <th>@L("Note")</th>
+                        <th>@L("Created")</th>
+                        
+
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>

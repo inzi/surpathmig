@@ -1,0 +1,347 @@
+﻿@using inzibackend.Surpath
+@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Startup
+@using inzibackend.Web.Areas.App.Models.Records
+@using inzibackend.Web.Areas.App.Models.RecordStates
+@using inzibackend.Surpath.Dtos
+@model CreateOrEditRecordStateModalViewModel
+
+@using inzibackend.Web.TagHelpers
+@{
+    ViewBag.CurrentPageName = AppPageNames.Common.Records;
+    var _recordDto = Model.RecordState.RecordDto;
+
+
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/RecordStates/Review.js" asp-append-version="true"></script>
+}
+
+
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+        var breadcrumbs = new List<BreadcrumbItem>()
+    {
+    new BreadcrumbItem("/App/Records", L("Records")),
+    new BreadcrumbItem(L("Details")),
+    };
+    }
+    <abp-page-subheader title='@L("Details")' breadcrumbs="breadcrumbs">
+    </abp-page-subheader>
+    <form name="ReviewRecordStateForm" role="form" novalidate class="form-validation d-flex flex-column flex-column-fluid"  autocomplete="off">
+
+        <div class="@(await GetContainerClass()) d-flex flex-column flex-column-fluid">
+            <div id="recordStateIdsDiv" class="d-none">
+                <input type="hidden" id="id" name="id" value="@Model.RecordState.Id" />
+
+                <input type="hidden" name="RecordState_RecordDto_Id" value="@Model.RecordState.RecordDto.Id" />
+                <input class="form-control" id="RecordNote_NotifyUserId" value="" type="text" name="notifyUserId" hidden />
+
+                <input class="form-control" id="RecordState_Notes" value="@Model.RecordState.Notes" type="text" name="notes" />
+                <input class="form-control" id="RecordState_UserId" value="@Model.RecordState.UserId" type="text" name="userId" hidden />
+                <input class="form-control" id="UserName" name="userName" value="@Model.UserName" type="text" disabled>
+                <input class="form-control" id="RecordState_RecordCategoryId" value="@Model.RecordState.RecordCategoryId" type="text" name="recordCategoryId" hidden />
+                <input class="form-control" id="RecordCategoryName" name="recordCategoryName" value="@Model.RecordCategoryName" type="text" disabled>
+                <input class="form-control" id="RecordState_RecordId" value="@Model.RecordState.RecordId" type="text" name="recordId" hidden />
+                <input class="form-control" id="Recordfilename" name="recordfilename" value="@Model.Recordfilename" type="text" disabled>
+
+            </div>
+            <div class="accordion  accordion-icon-toggle" id="kt_accordion_2">
+                <!--begin::Item-->
+                <div class="mb-5 icon-circle-arrow-down card card-custom gutter-b">
+                    <!--begin::Header-->
+                    @*<div class="accordion-header py-3 d-flex" data-bs-toggle="collapse" data-bs-target="#kt_accordion_2_item_1">
+                        <span class="accordion-icon"><span class="svg-icon svg-icon-4"><svg>...</svg></span></span>
+                        <h3 class="fs-4 fw-semibold mb-0 ms-4">The best way to quick start business</h3>
+                        </div>*@
+                    <div class="accordion-header py-3 d-flex card-header ribbon ribbon-end ribbon-clip" data-bs-toggle="collapse" data-bs-target="#kt_accordion_2_item_1" aria-expanded="false">
+                        <span class="accordion-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
+                            <span class="svg-icon svg-icon-4">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
+                                    <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        @*<h3 class="fs-4 fw-semibold mb-0 ms-4">@Model.Recordfilename</h3>*@
+                        <div class="card-title flex-column-fluid">
+                            <div class="d-flex flex-column flex-row-auto">
+                                <div class="d-flex flex-column-auto">@L("RecordRequirementName"): @Model.RecordRequirementName</div>
+                                <div class="d-flex flex-column-auto">@L("RecordCategoryName"): @Model.RecordCategoryName</div>
+                                <div class="d-flex flex-column-auto">@L("filename"): @Model.Recordfilename</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    @*                    <div id="kt_accordion_2_item_1" class="fs-6 collapse show ps-10" data-bs-parent="#kt_accordion_2">
+                        ...
+                        </div>*@
+                    <div id="kt_accordion_2_item_1" class="card-body collapse show" data-bs-parent="#kt_accordion_2">
+                        <div id="RecordInformationsTab">
+                            <div class="row">
+                                @* <div class="col-6 mb-3">
+                                    <h6>@L("filedata") :</h6>
+                                    <a href="@("/File/ViewBinaryFile?id=" + Model.Record.filedata)" target="_blank">@Model.Record.filedataFileName</a>
+                                    </div>*@
+                                <div class="my-12 mb-3">
+                                    <label class="form-label" for="recordStatusId">@L("RecordStatus")</label>
+                                    @foreach (var recordStatus in Model.RecordStateRecordStatusList)
+                                    {
+                                        //var _id = Html.IdFor<RecordStateRecordStatusLookupTableDto>(Function(recordStatus) model.Id);
+                                        //var _id = Html.IdFor(recordStatus=>recordStatus.id)
+                                        var _idx = Model.RecordStateRecordStatusList.IndexOf(recordStatus);
+                                        var _id = Html.IdFor(r => Model.RecordStateRecordStatusList[_idx].Id);
+                                        var _name = Html.NameFor(r => Model.RecordStateRecordStatusList[_idx].Id);
+                                        <input type="hidden" class="recordstate_@recordStatus.Id" id="@_id" name="@_name" value="@recordStatus.RequireNoteOnSet.ToString()" data-displayname="@recordStatus.DisplayName" />
+                                    }
+
+                                    @Html.DropDownList("recordStatusId", new SelectList(Model.RecordStateRecordStatusList,"Id","DisplayName", (Model.IsEditMode ? Model.RecordState.RecordStatusId.ToString() : "")),@L("SelectARecordStatus"), new { @class = "form-control" , @required="required", @data_requirenoteonset ="false"})
+                                    @*@Html.DropDownList("recordStatusId", new SelectList(Model.RecordStateRecordStatusList,"Id","DisplayName", (Model.IsEditMode ? Model.RecordState.RecordStatusId.ToString() : ""), new Dictionary<string, string)(){} ),@L("SelectARecordStatus"), new { @class = "form-control" , @required="required"})*@
+                                    @*@Html.DropDownList("recordStatusId", new SelectList(Model.RecordStateRecordStatusList,"Id","DisplayName", (Model.IsEditMode ? Model.RecordState.RecordStatusId.ToString() : ""), null, @Model.RecordStateRecordStatusList[].RequireNoteOnSet),@L("SelectARecordStatus"), new { @class = "form-control" , @required="required", @data_bind="value:RequireNoteOnSet" })*@
+                                </div>
+                                <div class="my-12 mb-3">
+                                 <label class="form-label">@L("Expiration")</label>
+                                   
+                                    @if(Model.RecordState.RecordCategoryDto.RecordCategoryRule.Expires==true)
+                                    {
+                                       
+                                        <input type="hidden" id="@Html.IdFor(r => Model.RecordState.RecordDto.Id)" name="@Html.NameFor(r=>Model.RecordState.RecordDto.Id)" value="@Model.RecordState.RecordDto.Id" />
+                                        <div class="my-12 mb-3">
+
+                                            @{
+                                               
+                                                var _id = Html.IdFor(r => Model.RecordState.RecordDto.EffectiveDate);
+                                                var _name = Html.NameFor(r => Model.RecordState.RecordDto.EffectiveDate);
+                                                var _effectiveDate = Model.RecordState.RecordDto.EffectiveDate==null? DateTime.MinValue : (DateTime)Model.RecordState.RecordDto.EffectiveDate;
+                                                var _effectiveDateStr = "";
+                                                if (_effectiveDate != DateTime.MinValue)
+                                                {
+                                                    _effectiveDateStr = ((DateTime)_effectiveDate).ToString("MM/dd/yyyy");
+                                                }
+                                              }
+
+                                            <label class="form-label" for="@_name">@L("EffectiveDate")</label>
+
+                                            <input class="form-control m-input date-picker effectivedate date-picker-filter" type="text" value="@_effectiveDateStr" id="@_id" name="@_name" autocomplete="no"/>
+                                        </div>
+                                        <div class="my-12 mb-3">
+                                            <label class="form-label" for="expirePreset">@L("ExpirationPresets")</label>
+
+                                            <select name="expirePreset" id="expirePreset" class="form-control" disabled>
+                                                <option value="" selected>Expiration Presets</option>
+                                                <option value="1y">1 year</option>
+                                                <option value="2y">2 years</option>
+                                                <option value="10y">10 years</option>
+                                                <option value="1m">1 month</option>
+                                                <option value="3m">3 months</option>
+                                                <option value="6m">6 months</option>
+                                                <option value="9m">9 months</option>
+                                            </select>
+                                        </div>
+                                        <div class="my-12 mb-3">
+                                             @{
+                                                    _id = Html.IdFor(r => Model.RecordState.RecordDto.ExpirationDate);
+                                                    _name = Html.NameFor(r => Model.RecordState.RecordDto.ExpirationDate); 
+                                                    //var _expirationDate = (DateTime)Model.RecordState.RecordDto.ExpirationDate;
+                                                    var _expirationDate = Model.RecordState.RecordDto.ExpirationDate == null ? DateTime.MinValue : (DateTime)Model.RecordState.RecordDto.ExpirationDate;
+
+                                                    var _expirationDateStr = "";
+                                                    if (_expirationDate != DateTime.MinValue)
+                                                    {
+                                                        _expirationDateStr = ((DateTime)_expirationDate).ToString("MM/dd/yyyy");
+                                                    }                                                    
+                                                }
+                                            <label class="form-label" for="@_name">@L("ExpirationDate")</label>
+
+                                            <input disabled class="form-control m-input date-picker expirationdate date-picker-filter" type="text" value="@_expirationDateStr" id="@_id" name="@_name" autocomplete="no"/>
+                                        </div>
+                                      @*  <div class="my-12 mb-3">
+                                            @{
+                                            var _id = Html.IdFor(r => Model.RecordState.RecordDto.EffectiveDate);
+                                            var _name = Html.NameFor(r => Model.RecordState.RecordDto.EffectiveDate);
+                                            }
+                                            <input class="form-control m-input date-picker effectivedate date-picker-filter" type="text" value="@Model.RecordState.RecordDto.EffectiveDate.ToString()" id="@_id" name="@_name" autocomplete="no"/>
+                                        </div>
+                                        <!--(1mo, 3mo, 6mo, 9mo 1yr, 2yr, 10yr)-->
+                                        <select name="expirePreset" id="expirePreset" disabled>
+                                            <option value="" selected>Expiration Presets</option>
+                                            <option value="1y">1 year</option>
+                                            <option value="2y">2 years</option>
+                                            <option value="10y">10 years</option>
+                                            <option value="1m">1 month</option>
+                                            <option value="3m">3 months</option>
+                                            <option value="6m">6 months</option>
+                                            <option value="9m">9 months</option>
+                                        </select>
+                                        @{
+                                            _id = Html.IdFor(r => Model.RecordState.RecordDto.ExpirationDate);
+                                            _name = Html.NameFor(r => Model.RecordState.RecordDto.ExpirationDate);                                        
+                                        }
+
+                                        <input disabled class="form-control m-input date-picker expirationdate date-picker-filter" type="text" value="@Model.RecordState.RecordDto.ExpirationDate.ToString()" id="@_id" name="@_name" autocomplete="no"/>
+                                *@
+                                    }
+                                    else
+                                    {
+                                        <div class="my-12 mb-3">
+
+                                        <span>The rule for this category of document does not expire</span>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="col-4 mb-3 text-center">
+                                    @if (IsGranted(AppPermissions.Pages_RecordNotes_Create))
+                                    {
+                                        <button id="CreateNewRecordNoteButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("AddNote")</button>
+                                    }
+                                </div>
+
+                                <div class="col-4 mb-3 text-center">
+                                    <button class="btn btn-primary btn-xs"><i class="fa fa-comment"></i>Send Message</button>
+                                </div>
+                                <div class="col-4 mb-3 text-center">
+                                    <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                </div>
+
+                                @*<div class="col-6 mb-3">
+                                    <h6>@L("physicalfilepath") :</h6>
+                                    @Model.Record.physicalfilepath
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                    <h6>@L("metadata") :</h6>
+                                    @Model.Record.metadata
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                    <h6>@L("BinaryObjId") :</h6>
+                                    @Model.Record.BinaryObjId
+                                    </div>*@
+
+                                <div class="col-12 mb-3">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Body-->
+                </div>
+                <!--end::Item-->
+            </div>
+
+            <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_record">Record</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2">Requirements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_3">Notes</a>
+                </li>
+            </ul>
+            <div class="tab-content d-flex flex-column flex-column-fluid" id="myTabContent">
+
+
+                <div class="tab-pane fade show active surpath-flex-tab-pane d-flex flex-column flex-column-fluid" id="kt_tab_pane_record" role="tabpanel">
+                    <div class="my-12 mt-1 mb-1">
+                        <a href="/File/ViewBinaryFile?id=@Model.RecordState.RecordDto.BinaryObjId" target="_blank" class="badge badge-primary fas fa-external-link-alt surpath-icon-margin-left" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-delay-show="1500" title="@L("HoldShiftToOpenInNewWindow")"> Open</a>
+                    </div>
+                    <div class="surpath-record_view">
+                        <iframe id="recordIframe" name="RecordIframe" src="@("/File/ViewBinaryFile?id=" + Model.RecordState.RecordDto.BinaryObjId)#view=fitH" class="surpath-record-iframe" frameborder="0"></iframe>
+                    </div>
+                </div>
+                <div class="tab-pane fade surpath-flex-tab-pane d-flex flex-column flex-column-fluid" id="kt_tab_pane_2" role="tabpanel">
+                    <div class="card shadow-sm">
+                        <div class="card-header">
+                            <h3 class="card-title">@Model.RecordCategoryName</h3>
+                            <div class="card-toolbar">
+                                <button type="button" class="btn btn-sm btn-light d-none">
+                                    View Requirements
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            @Model.RecordState.RecordCategoryDto.Instructions
+                        </div>
+                        <div class="card-footer">
+                            @Model.RecordState.RecordCategoryDto.Name
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade surpath-flex-tab-pane d-flex flex-column flex-column-fluid" id="kt_tab_pane_3" role="tabpanel">
+                    <div class="my-12 mt-1 mb-1">
+                        @if (IsGranted(AppPermissions.Pages_RecordNotes_Create))
+                        {
+                            @*<button type="button" id="allRequirementNotes" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("AllRequirementNotes")</button>*@
+                            <label class="form-check form-switch form-check-custom form-check-solid">
+                                <input id="allRequirementNotes" class="form-check-input" type="checkbox" />
+                                <span class="form-check-label">
+                                    @L("AllRequirementNotes")
+                                </span>
+                            </label>
+                            <a href="#" id="CreateNewRecordNoteButton" class="badge badge-primary fas fa-plus surpath-icon-margin-left">@L("AddNote")</a>
+
+                        }
+
+                    </div>
+                    <div class="mb-9">
+
+                        @*<table id="RecordNotesTable" class="table align-middle fs-6 gy-5 dataTable no-footer notecards">*@
+                        <table id="RecordNotesTable" class="table align-middle fs-6 gy-1 dataTable no-footer notestable">
+                            <thead>
+                                <tr>
+                                    @*<th>@L("UserName")</th>*@
+
+                                    <th></th>
+                                    @*                                    <th>@L("Created")</th>*@
+                                </tr>
+                            </thead>
+                        </table>
+                        @*<div id="NoteCardTemplateWho1" class="d-none">*@
+
+
+
+                        <!--begin::Card-->
+                        @*<div id="NoteCardTemplate" class="card card-bordered w-100 d-none">*@
+                        <div id="NoteCardTemplate" class="card d-none">
+	<div class="row no-gutters">
+		<div id="NoteCardTemplateWho" class="col-sm-3 card flex-center">
+			@*<span class="text-muted fw-semibold fs-6 NoteCardTemplateAgo"></span>*@
+
+			<div class="row">
+				<span class="badge badge-success surpath-note-authorizedOnly d-none w-auto">@L("AuthorizedOnly")</span>
+			</div>
+			<div class="row">
+				<span class="badge badge-danger surpath-note-hostonly d-none w-auto">@L("HostOnly")</span>
+			</div>
+			<div class="flex row">
+				<span class="text-gray-800 fw-bold fs-5 me-3 surpath-username">username area</span>
+			</div>
+			<div class="row">
+				<span class="badge badge-light-dark NoteCardTemplateAgo w-auto"></span>
+			</div>
+		</div>
+		<div class="col-sm-9">
+			<div class="card-body">
+				<p class="card-text note-body"></p>
+			</div>
+		</div>
+	</div>
+
+	<!--end::Body-->
+</div>
+                        <!--end::Card-->
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+
+</div>

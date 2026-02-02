@@ -1,0 +1,123 @@
+﻿@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.Cohorts
+@using inzibackend.Web.Areas.App.Startup
+@model CohortsViewModel
+@{
+    ViewBag.CurrentPageName = AppPageNames.Common.Cohorts;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/Cohorts/Index.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    <abp-page-subheader title='@L("Cohorts")' description='@L("CohortsHeaderInfo")'>
+        <div class="btn-group">
+            <button type="button" class="btn btn-outline btn-outline-success btn-active-light-success dropdown-toggle me-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="far fa-file-excel btn-md-icon"></i>
+                <span class="d-none d-md-inline-block mb-md-0">
+                    @L("ExcelOperations")
+                </span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" id="ExportCohortsButton" href="#">@L("ExportCohorts")</a>
+                <a class="d-none dropdown-item" id="ExportCohortsComplianceSummaryButton" href="#">@L("CohortsComplianceSummary")</a>
+                <a class="d-none dropdown-item" id="ExportCohortsImmunizationReportButton" href="#">@L("CohortsImmunizationReport")</a>
+            </div>
+        </div>
+
+        @if (IsGranted(AppPermissions.Pages_Cohorts_Create) && false==IsGranted(AppPermissions.Pages_Administration_Host_Dashboard))
+        {
+            <button id="CreateNewCohortButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewCohort")</button>
+        }
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-xl-12">
+
+                            <div class="my-3">
+                                <div class="input-group">
+                                    <input type="text" id="CohortsTableFilter" class="form-control" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                    <button id="GetCohortsButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="NameFilterId">@L("Name")</label>
+                            <input type="text" class="form-control" name="nameFilter" id="NameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="DescriptionFilterId">@L("Description")</label>
+                            <input type="text" class="form-control" name="descriptionFilter" id="DescriptionFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label" for="DefaultCohortFilterId">@L("DefaultCohort")</label>
+                        <select class="form-select" name="DefaultCohortFilter" id="DefaultCohortFilterId">
+                            <option value="-1">@L("All")</option>
+                            <option value="0">@L("False")</option>
+                            <option value="1">@L("True")</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="TenantDepartmentNameFilterId">(@L("TenantDepartment")) @L("Name")</label>
+                            <input type="text" class="form-control" name="tenantDepartmentNameFilter" id="TenantDepartmentNameFilterId">
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+                <div id="NoCohortsfoundSearchingUsers" class="d-none">
+                    <div class="col-xl-12">
+                        <h5 class="text-dark font-weight-bold mt-2 mb-2 me-2">No cohorts found in search, searched for users instead.</h5>
+                        </div>
+                </div>
+                @{
+                    var _TenantNameDNone = "d-none";
+                    @if (IsGranted(AppPermissions.Pages_Administration_Host_Dashboard))
+                    {
+                        _TenantNameDNone = "";
+                    }
+                }
+                <div class="row align-items-center">
+                    <table id="CohortsTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th></th>
+
+                                <th ></th>
+                                <th>@L("Actions")</th>
+                                <th>@L("Name")</th>
+                                <th>@L("Description")</th>
+                                <th>@L("DefaultCohort")</th>
+                                <th>@L("TenantDepartmentName")</th>
+                                <th>@L("TenantName")</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

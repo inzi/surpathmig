@@ -1,0 +1,110 @@
+﻿@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.TenantDocuments
+@using inzibackend.Web.Areas.App.Startup
+@model TenantDocumentsViewModel
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.TenantDocuments;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/TenantDocuments/Index.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    <abp-page-subheader title='@L("TenantDocuments")' description='@L("TenantDocumentsHeaderInfo")'>
+        <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+
+        @if (IsGranted(AppPermissions.Pages_TenantDocuments_Create))
+        {
+        @*<a href="\App\TenantDocuments\CreateOrEdit?catid=@Model.DocumentCategoryId" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewTenantDocument")</a>*@
+        @*<a href="\App\TenantDocuments\CreateOrEdit?catid=@Model.TenantDocumentCategoryId" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewTenantDocument")</a>*@
+        @*<a href="\App\Records\CreateOrEdit?catid=@Model.TenantDocumentCategoryId" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewTenantDocument")</a>*@
+        <button id="CreateNewRecordButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewTenantDocument")</button>
+        }
+
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-xl-12">
+
+                            <div class="my-3">
+                                <div class="input-group">
+                                    <input type="text" id="TenantDocumentsTableFilter" class="form-control" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                    <button id="GetTenantDocumentsButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="NameFilterId">@L("Name")</label>
+                            <input type="text" class="form-control" name="nameFilter" id="NameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label" for="AuthorizedOnlyFilterId">@L("AuthorizedOnly")</label>
+                        <select class="form-select" name="AuthorizedOnlyFilter" id="AuthorizedOnlyFilterId">
+                            <option value="-1">@L("All")</option>
+                            <option value="0">@L("False")</option>
+                            <option value="1">@L("True")</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="DescriptionFilterId">@L("Description")</label>
+                            <input type="text" class="form-control" name="descriptionFilter" id="DescriptionFilterId">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 d-none">
+                        <div class="my-3">
+                            <label class="form-label" for="TenantDocumentCategoryNameFilterId">(@L("TenantDocumentCategory")) @L("Name")</label>
+                            <input type="text" class="form-control" name="tenantDocumentCategoryNameFilter" id="TenantDocumentCategoryNameFilterId" value="">
+                            <input type="hidden" class="form-control" name="tenantDocumentCategoryIdFilter" id="TenantDocumentCategoryIdFilterId" value="@Model.TenantDocumentCategoryId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="RecordfilenameFilterId">(@L("Record")) @L("filename")</label>
+                            <input type="text" class="form-control" name="recordfilenameFilter" id="RecordfilenameFilterId">
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <table id="TenantDocumentsTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th></th>
+
+                                <th>@L("Actions")</th>
+                                <th>@L("Name")</th>
+                                <th>@L("AuthorizedOnly")</th>
+                                <th>@L("Description")</th>
+                                <th>@L("TenantDocumentCategoryName")</th>
+                                <th>@L("Recordfilename")</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

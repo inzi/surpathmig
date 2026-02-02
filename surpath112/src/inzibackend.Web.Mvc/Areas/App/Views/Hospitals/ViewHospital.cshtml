@@ -1,0 +1,70 @@
+﻿@using inzibackend.Web.Areas.App.Startup
+@using inzibackend.Web.Areas.App.Models.Hospitals
+@model HospitalViewModel
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.Hospitals;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/Hospitals/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+@{
+var breadcrumbs = new List<BreadcrumbItem>()
+    {
+    new BreadcrumbItem("/App/Hospitals", L("Hospitals")),
+    new BreadcrumbItem(L("Details")),
+    };
+    }
+    <abp-page-subheader title='@L("Details")' breadcrumbs="breadcrumbs">
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class=" card card-custom gutter-b">
+            <div class=" card-body">
+                <div id="HospitalInformationsTab">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <h6>@L("Name") :</h6>
+                            @Model.Hospital.Name
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("PrimaryContact") :</h6>
+                            @Model.Hospital.PrimaryContact
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("PrimaryContactPhone") :</h6>
+                            @Model.Hospital.PrimaryContactPhone
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("PrimaryContactEmail") :</h6>
+                            @Model.Hospital.PrimaryContactEmail
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("Address1") :</h6>
+                            @Model.Hospital.Address1
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("Address2") :</h6>
+                            @Model.Hospital.Address2
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("City") :</h6>
+                            @Model.Hospital.City
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("State") :</h6>
+                            @L("Enum_enumUSStates_" + (int)Model.Hospital.State)
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("ZipCode") :</h6>
+                            @Model.Hospital.ZipCode
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>

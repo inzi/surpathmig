@@ -1,0 +1,1262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://clearstar.net/Gateway/Order" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" targetNamespace="http://clearstar.net/Gateway/Order" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://clearstar.net/Gateway/Order">
+      <s:element name="SearchOrders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sSearchValue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sSearchField" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="bExactMatch" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchOrdersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchOrdersResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderFields">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sProfNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderFieldsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderFieldsResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderNotification">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderNotificationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderNotificationResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderResults">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderResultsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderResultsResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderStatusDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderStatusDetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderStatusDetailResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderDueDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderDueDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderDueDateResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateOrderDueDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="dtDueDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateOrderDueDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateOrderDueDateResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OrderNotificationRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sNotificationType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sNotificationValue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sProfNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OrderNotificationRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OrderNotificationRequestResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReassignOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iNewSourceID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReassignOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReassignOrderResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResendOrderNotification">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResendOrderNotificationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ResendOrderNotificationResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SuppressOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sInvoiceSuppressed" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SuppressOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SuppressOrderResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SuppressCompleteWebCCFOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sInvoiceSuppressed" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SuppressCompleteWebCCFOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SuppressCompleteWebCCFOrderResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UnSuppressOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UnSuppressOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UnSuppressOrderResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderAdjustments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderAdjustmentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderAdjustmentsResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddOrderAdjustment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sDescription" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dAmount" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddOrderAdjustmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddOrderAdjustmentResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateOrderAdjustment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iAdjID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sDescription" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dAmount" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateOrderAdjustmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateOrderAdjustmentResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteOrderAdjustment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iAdjID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteOrderAdjustmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteOrderAdjustmentResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateOrderSrcBONote">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sNoteType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sNote" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateOrderSrcBONoteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateOrderSrcBONoteResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateOrderSrcBONote2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sNoteType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sNote" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="bIsFromCustomer" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bIncludeInReport" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateOrderSrcBONote2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateOrderSrcBONote2Result">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderSrcBONotesHistory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sNoteType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderSrcBONotesHistoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderSrcBONotesHistoryResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSourceID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderDetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderDetailResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddOrderFees">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sDescription" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dAmount" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddOrderFeesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddOrderFeesResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBOOrderSummary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBOOrderSummaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBOOrderSummaryResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SearchOrdersSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchOrders" />
+  </wsdl:message>
+  <wsdl:message name="SearchOrdersSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchOrdersResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderFieldsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderFields" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderFieldsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderFieldsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderNotificationSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderNotification" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderNotificationSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderNotificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderResultsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderResults" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderResultsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderResultsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderStatusDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderStatusDetail" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderStatusDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderStatusDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderDueDateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderDueDate" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderDueDateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderDueDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateOrderDueDateSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateOrderDueDate" />
+  </wsdl:message>
+  <wsdl:message name="UpdateOrderDueDateSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateOrderDueDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="OrderNotificationRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:OrderNotificationRequest" />
+  </wsdl:message>
+  <wsdl:message name="OrderNotificationRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:OrderNotificationRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReassignOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:ReassignOrder" />
+  </wsdl:message>
+  <wsdl:message name="ReassignOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:ReassignOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="ResendOrderNotificationSoapIn">
+    <wsdl:part name="parameters" element="tns:ResendOrderNotification" />
+  </wsdl:message>
+  <wsdl:message name="ResendOrderNotificationSoapOut">
+    <wsdl:part name="parameters" element="tns:ResendOrderNotificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="SuppressOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:SuppressOrder" />
+  </wsdl:message>
+  <wsdl:message name="SuppressOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:SuppressOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="SuppressCompleteWebCCFOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:SuppressCompleteWebCCFOrder" />
+  </wsdl:message>
+  <wsdl:message name="SuppressCompleteWebCCFOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:SuppressCompleteWebCCFOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="UnSuppressOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:UnSuppressOrder" />
+  </wsdl:message>
+  <wsdl:message name="UnSuppressOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:UnSuppressOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderAdjustmentsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderAdjustments" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderAdjustmentsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderAdjustmentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddOrderAdjustmentSoapIn">
+    <wsdl:part name="parameters" element="tns:AddOrderAdjustment" />
+  </wsdl:message>
+  <wsdl:message name="AddOrderAdjustmentSoapOut">
+    <wsdl:part name="parameters" element="tns:AddOrderAdjustmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateOrderAdjustmentSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateOrderAdjustment" />
+  </wsdl:message>
+  <wsdl:message name="UpdateOrderAdjustmentSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateOrderAdjustmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteOrderAdjustmentSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteOrderAdjustment" />
+  </wsdl:message>
+  <wsdl:message name="DeleteOrderAdjustmentSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteOrderAdjustmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateOrderSrcBONoteSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateOrderSrcBONote" />
+  </wsdl:message>
+  <wsdl:message name="UpdateOrderSrcBONoteSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateOrderSrcBONoteResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateOrderSrcBONote2SoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateOrderSrcBONote2" />
+  </wsdl:message>
+  <wsdl:message name="UpdateOrderSrcBONote2SoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateOrderSrcBONote2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSrcBONotesHistorySoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderSrcBONotesHistory" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSrcBONotesHistorySoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderSrcBONotesHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderDetail" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddOrderFeesSoapIn">
+    <wsdl:part name="parameters" element="tns:AddOrderFees" />
+  </wsdl:message>
+  <wsdl:message name="AddOrderFeesSoapOut">
+    <wsdl:part name="parameters" element="tns:AddOrderFeesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBOOrderSummarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetBOOrderSummary" />
+  </wsdl:message>
+  <wsdl:message name="GetBOOrderSummarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetBOOrderSummaryResponse" />
+  </wsdl:message>
+  <wsdl:portType name="OrderSoap">
+    <wsdl:operation name="SearchOrders">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing Orders that matches search criteria.</wsdl:documentation>
+      <wsdl:input message="tns:SearchOrdersSoapIn" />
+      <wsdl:output message="tns:SearchOrdersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderFields">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing OrderFields and their values.</wsdl:documentation>
+      <wsdl:input message="tns:GetOrderFieldsSoapIn" />
+      <wsdl:output message="tns:GetOrderFieldsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderNotification">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing order notification information.</wsdl:documentation>
+      <wsdl:input message="tns:GetOrderNotificationSoapIn" />
+      <wsdl:output message="tns:GetOrderNotificationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderResults">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing Order results.</wsdl:documentation>
+      <wsdl:input message="tns:GetOrderResultsSoapIn" />
+      <wsdl:output message="tns:GetOrderResultsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderStatusDetail">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing Order status details.</wsdl:documentation>
+      <wsdl:input message="tns:GetOrderStatusDetailSoapIn" />
+      <wsdl:output message="tns:GetOrderStatusDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderDueDate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing Order DueDate.</wsdl:documentation>
+      <wsdl:input message="tns:GetOrderDueDateSoapIn" />
+      <wsdl:output message="tns:GetOrderDueDateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrderDueDate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Updates an Order's DueDate.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateOrderDueDateSoapIn" />
+      <wsdl:output message="tns:UpdateOrderDueDateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OrderNotificationRequest">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create an Order Notification Request.</wsdl:documentation>
+      <wsdl:input message="tns:OrderNotificationRequestSoapIn" />
+      <wsdl:output message="tns:OrderNotificationRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReassignOrder">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Reassign an Order to a different SourceID.</wsdl:documentation>
+      <wsdl:input message="tns:ReassignOrderSoapIn" />
+      <wsdl:output message="tns:ReassignOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ResendOrderNotification">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing resend order notification information.</wsdl:documentation>
+      <wsdl:input message="tns:ResendOrderNotificationSoapIn" />
+      <wsdl:output message="tns:ResendOrderNotificationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SuppressOrder">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Suppresses an Order.</wsdl:documentation>
+      <wsdl:input message="tns:SuppressOrderSoapIn" />
+      <wsdl:output message="tns:SuppressOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SuppressCompleteWebCCFOrder">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Suppresses and completes a webccf order.</wsdl:documentation>
+      <wsdl:input message="tns:SuppressCompleteWebCCFOrderSoapIn" />
+      <wsdl:output message="tns:SuppressCompleteWebCCFOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UnSuppressOrder">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">UnSuppresses an Order.</wsdl:documentation>
+      <wsdl:input message="tns:UnSuppressOrderSoapIn" />
+      <wsdl:output message="tns:UnSuppressOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderAdjustments">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing Order Adjustments.</wsdl:documentation>
+      <wsdl:input message="tns:GetOrderAdjustmentsSoapIn" />
+      <wsdl:output message="tns:GetOrderAdjustmentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddOrderAdjustment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Adds an Order Adjustment.</wsdl:documentation>
+      <wsdl:input message="tns:AddOrderAdjustmentSoapIn" />
+      <wsdl:output message="tns:AddOrderAdjustmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrderAdjustment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Updates an Order Adjustment.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateOrderAdjustmentSoapIn" />
+      <wsdl:output message="tns:UpdateOrderAdjustmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteOrderAdjustment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Deletes an Order Adjustment.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteOrderAdjustmentSoapIn" />
+      <wsdl:output message="tns:DeleteOrderAdjustmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrderSrcBONote">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Updates an Order Supplier or BO Note.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateOrderSrcBONoteSoapIn" />
+      <wsdl:output message="tns:UpdateOrderSrcBONoteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrderSrcBONote2">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Updates an Order Supplier or BO Note.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateOrderSrcBONote2SoapIn" />
+      <wsdl:output message="tns:UpdateOrderSrcBONote2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSrcBONotesHistory">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing Order Adjustments.</wsdl:documentation>
+      <wsdl:input message="tns:GetOrderSrcBONotesHistorySoapIn" />
+      <wsdl:output message="tns:GetOrderSrcBONotesHistorySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderDetail">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns order information.</wsdl:documentation>
+      <wsdl:input message="tns:GetOrderDetailSoapIn" />
+      <wsdl:output message="tns:GetOrderDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddOrderFees">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Adds an Order Fee.</wsdl:documentation>
+      <wsdl:input message="tns:AddOrderFeesSoapIn" />
+      <wsdl:output message="tns:AddOrderFeesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBOOrderSummary">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Order Summary for BO</wsdl:documentation>
+      <wsdl:input message="tns:GetBOOrderSummarySoapIn" />
+      <wsdl:output message="tns:GetBOOrderSummarySoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OrderSoap" type="tns:OrderSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SearchOrders">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/SearchOrders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderFields">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/GetOrderFields" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderNotification">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/GetOrderNotification" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderResults">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/GetOrderResults" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderStatusDetail">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/GetOrderStatusDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderDueDate">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/GetOrderDueDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrderDueDate">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/UpdateOrderDueDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OrderNotificationRequest">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/OrderNotificationRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReassignOrder">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/ReassignOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResendOrderNotification">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/ResendOrderNotification" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuppressOrder">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/SuppressOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuppressCompleteWebCCFOrder">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/SuppressCompleteWebCCFOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnSuppressOrder">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/UnSuppressOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderAdjustments">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/GetOrderAdjustments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrderAdjustment">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/AddOrderAdjustment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrderAdjustment">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/UpdateOrderAdjustment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteOrderAdjustment">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/DeleteOrderAdjustment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrderSrcBONote">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/UpdateOrderSrcBONote" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrderSrcBONote2">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/UpdateOrderSrcBONote2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSrcBONotesHistory">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/GetOrderSrcBONotesHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderDetail">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/GetOrderDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrderFees">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/AddOrderFees" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBOOrderSummary">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Order/GetBOOrderSummary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="OrderSoap12" type="tns:OrderSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SearchOrders">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/SearchOrders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderFields">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/GetOrderFields" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderNotification">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/GetOrderNotification" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderResults">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/GetOrderResults" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderStatusDetail">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/GetOrderStatusDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderDueDate">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/GetOrderDueDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrderDueDate">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/UpdateOrderDueDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OrderNotificationRequest">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/OrderNotificationRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReassignOrder">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/ReassignOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResendOrderNotification">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/ResendOrderNotification" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuppressOrder">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/SuppressOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuppressCompleteWebCCFOrder">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/SuppressCompleteWebCCFOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnSuppressOrder">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/UnSuppressOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderAdjustments">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/GetOrderAdjustments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrderAdjustment">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/AddOrderAdjustment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrderAdjustment">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/UpdateOrderAdjustment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteOrderAdjustment">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/DeleteOrderAdjustment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrderSrcBONote">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/UpdateOrderSrcBONote" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrderSrcBONote2">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/UpdateOrderSrcBONote2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSrcBONotesHistory">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/GetOrderSrcBONotesHistory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderDetail">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/GetOrderDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrderFees">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/AddOrderFees" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBOOrderSummary">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Order/GetBOOrderSummary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Order">
+    <wsdl:port name="OrderSoap" binding="tns:OrderSoap">
+      <soap:address location="https://gateway.clearstar.net/csgworder/order.asmx" />
+    </wsdl:port>
+    <wsdl:port name="OrderSoap12" binding="tns:OrderSoap12">
+      <soap12:address location="https://gateway.clearstar.net/csgworder/order.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

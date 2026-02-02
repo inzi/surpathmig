@@ -1,0 +1,69 @@
+﻿@using inzibackend.Web.Areas.App.Startup
+@using inzibackend.Web.Areas.App.Models.Records
+@model RecordViewModel
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.Records;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/Records/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+    var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/App/Records", L("Records")),
+        new BreadcrumbItem(L("Details")),
+        };
+        }
+        <abp-page-subheader title='@L("Details")' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+
+        <div class="@(await GetContainerClass()) d-flex flex-column flex-column-fluid">
+            <div class=" card card-custom gutter-b">
+                <div class=" card-body">
+                    <div id="RecordInformationsTab">
+                        <div class="row">
+@*                            <div class="col-6 mb-3">
+                                <h6>@L("filedata") :</h6>
+                                <a href="@(" /File/ViewBinaryFile?id=" + Model.Record.filedata)" target="_blank">@Model.Record.filedataFileName</a>
+                            </div>*@
+                            <div class="col-6 mb-3">
+                                <h6>@L("filename") :</h6>
+                                @Model.Record.filename
+                            </div>
+                           @* <div class="col-6 mb-3">
+                                <h6>@L("physicalfilepath") :</h6>
+                                @Model.Record.physicalfilepath
+                            </div>
+                            <div class="col-6 mb-3">
+                                <h6>@L("metadata") :</h6>
+                                @Model.Record.metadata
+                            </div>
+                            <div class="col-6 mb-3">
+                                <h6>@L("BinaryObjId") :</h6>
+                                @Model.Record.BinaryObjId
+                            </div>*@
+                           @* <div class="col-6 mb-3">
+                                <h6>@L("DateUploaded") :</h6>
+                                @Model.Record.DateUploaded
+                            </div>
+                            <div class="col-6 mb-3">
+                                <h6>@L("DateLastUpdated") :</h6>
+                                @Model.Record.DateLastUpdated
+                            </div>*@
+
+                            <div class="col-6 mb-3">
+                                <h6>(@L("TenantDocumentCategory")) @L("Name") :</h6>
+                                @Model.TenantDocumentCategoryName
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

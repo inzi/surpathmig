@@ -1,0 +1,49 @@
+﻿@using inzibackend.Web.Areas.App.Startup
+@using inzibackend.Web.Areas.App.Models.DrugTestCategories
+@model DrugTestCategoryViewModel
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Host.DrugTestCategories;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/DrugTestCategories/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+    var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/App/DrugTestCategories", L("DrugTestCategories")),
+        new BreadcrumbItem(L("Details")),
+        };
+        }
+        <abp-page-subheader title='@L("Details")' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+
+        <div class="@(await GetContainerClass())">
+            <div class=" card card-custom gutter-b">
+                <div class=" card-body">
+                    <div id="DrugTestCategoryInformationsTab">
+                        <div class="row">
+
+                            <div class="col-6 mb-3">
+                                <h6>(@L("Drug")) @L("Name") :</h6>
+                                @Model.DrugName
+                            </div>
+                            <div class="col-6 mb-3">
+                                <h6>(@L("Panel")) @L("Name") :</h6>
+                                @Model.PanelName
+                            </div>
+                            <div class="col-6 mb-3">
+                                <h6>(@L("TestCategory")) @L("Name") :</h6>
+                                @Model.TestCategoryName
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

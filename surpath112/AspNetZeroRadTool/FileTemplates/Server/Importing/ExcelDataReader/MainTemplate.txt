@@ -1,0 +1,76 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Text;
+using Abp.Localization;
+using Abp.Localization.Sources;
+using System.Linq;
+using Abp.Collections.Extensions;
+using {{Namespace_Here}}.DataExporting.Excel.MiniExcel;
+using {{Namespace_Here}}.DataImporting.Excel;
+using {{Namespace_Here}}.{{Namespace_Relative_Full_Here}}.Importing.Dto;
+
+namespace {{Namespace_Here}}.{{Namespace_Relative_Full_Here}}
+{
+    public class {{Entity_Name_Here}}ListExcelDataReader(ILocalizationManager localizationManager)
+        : MiniExcelExcelImporterBase<Import{{Entity_Name_Here}}Dto>, IExcelDataReader<Import{{Entity_Name_Here}}Dto>
+    {
+        private readonly ILocalizationSource _localizationSource = localizationManager.GetSource({{Project_Name_Here}}Consts.LocalizationSourceName);
+
+        public List<Import{{Entity_Name_Here}}Dto> GetEntitiesFromExcel(byte[] fileBytes)
+        {
+            return ProcessExcelFile(fileBytes, ProcessExcelRow);
+        }
+
+        private Import{{Entity_Name_Here}}Dto ProcessExcelRow(dynamic row)
+        {
+
+            var exceptionMessage = new StringBuilder();
+            var {{entity_Name_Here}} = new Import{{Entity_Name_Here}}Dto();
+
+            try
+            {
+                {{Get_Excel_Columns_Here}}                
+            }
+            catch (Exception exception)
+            {
+                {{entity_Name_Here}}.Exception = exception.Message;
+            }
+
+            return {{entity_Name_Here}};
+        }
+
+        private string GetRequiredValueFromRowOrNull(
+            dynamic row,
+            string columnName,
+            StringBuilder exceptionMessage)
+        {
+            var cellValue = (row as ExpandoObject).GetOrDefault(columnName)?.ToString();
+            if (cellValue != null && !string.IsNullOrWhiteSpace(cellValue))
+            {
+                return cellValue;
+            }
+
+            exceptionMessage.Append(GetLocalizedExceptionMessagePart(columnName));
+            return null;
+        }
+
+        private string GetOptionalValueFromRowOrNull(dynamic row, string columnName, StringBuilder exceptionMessage)
+        {
+            var cellValue = (row as ExpandoObject).GetOrDefault(columnName)?.ToString();
+            if (cellValue != null && !string.IsNullOrWhiteSpace(cellValue))
+            {
+                return cellValue;
+            }
+
+            exceptionMessage.Append(GetLocalizedExceptionMessagePart(columnName));
+            return String.Empty;
+        }
+
+        private string GetLocalizedExceptionMessagePart(string parameter)
+        {
+            return _localizationSource.GetString("{0}IsInvalid", _localizationSource.GetString(parameter)) + "; ";
+        }
+        
+    }
+}

@@ -1,0 +1,74 @@
+﻿@using inzibackend;
+
+@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.MedicalUnits
+@model CreateOrEditMedicalUnitModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditMedicalUnit")) : L("CreateNewMedicalUnit")))
+
+<div class="modal-body">
+    <div id="MedicalUnitInformationsTab">
+        <form name="MedicalUnitInformationsForm" role="form" novalidate class="form-validation" disabled>
+
+            <input type="hidden" name="MedicalUnitHospitalListCount" value="@Model.MedicalUnitHospitalList.Count" />
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.MedicalUnit.Id" />
+            }
+            <div class="my-3">
+                <label class="form-label" for="hospitalId">@L("Hospital")</label>
+                @Html.DropDownList("hospitalId", new SelectList(Model.MedicalUnitHospitalList,"Id","DisplayName", (Model.IsEditMode ? Model.MedicalUnit.HospitalId.ToString() : "")),@L("SelectAHospital"), new { @class = "form-control" , @required="required" })
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="MedicalUnit_Name">@L("Name")</label>
+                <input class="form-control" id="MedicalUnit_Name" value="@Model.MedicalUnit.Name" type="text" name="name" required />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="MedicalUnit_PrimaryContact">@L("PrimaryContact")</label>
+                <input class="form-control" id="MedicalUnit_PrimaryContact" value="@Model.MedicalUnit.PrimaryContact" type="text" name="primaryContact" required />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="MedicalUnit_PrimaryContactPhone">@L("PrimaryContactPhone")</label>
+                <input class="form-control" id="MedicalUnit_PrimaryContactPhone" value="@Model.MedicalUnit.PrimaryContactPhone" type="text" name="primaryContactPhone" required />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="MedicalUnit_PrimaryContactEmail">@L("PrimaryContactEmail")</label>
+                <input class="form-control" id="MedicalUnit_PrimaryContactEmail" value="@Model.MedicalUnit.PrimaryContactEmail" type="text" name="primaryContactEmail" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="MedicalUnit_Address1">@L("Address1")</label>
+                <input class="form-control" id="MedicalUnit_Address1" value="@Model.MedicalUnit.Address1" type="text" name="address1" required />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="MedicalUnit_Address2">@L("Address2")</label>
+                <input class="form-control" id="MedicalUnit_Address2" value="@Model.MedicalUnit.Address2" type="text" name="address2" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="MedicalUnit_City">@L("City")</label>
+                <input class="form-control" id="MedicalUnit_City" value="@Model.MedicalUnit.City" type="text" name="city" required />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="MedicalUnit_State">@L("State")</label>
+                @Html.EnumDropDownListFor(m => m.MedicalUnit.State, "state", typeof(enumUSStates), new { @class = "form-select m-input m-input--square", id = "MedicalUnit_State" })
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="MedicalUnit_ZipCode">@L("ZipCode")</label>
+                <input class="form-control" id="MedicalUnit_ZipCode" value="@Model.MedicalUnit.ZipCode" type="text" name="zipCode" required />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

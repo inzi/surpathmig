@@ -1,0 +1,32 @@
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.Tenants
+@model ImportTenantUsersViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("ImportTenantUsers")))
+
+<div class="modal-body">
+    <p class="text-muted">@L("ImportTenantUsers_Description")</p>
+
+    <div class="form-group mb-3">
+        <button id="ExportTenantUsersButton" type="button" class="btn btn-primary">
+            <i class="fa fa-download"></i> @L("ExportUsers")
+        </button>
+        <span class="form-text text-muted">@L("ExportUsers_Hint")</span>
+    </div>
+
+    <div class="form-group">
+        <label>@L("ExcelFile")</label>
+        <input id="ImportTenantUsersFileInput" type="file" accept=".xlsx,.xls" class="form-control" />
+        <span class="form-text text-muted">@L("ExcelFileUpload_Hint")</span>
+        <small class="form-text text-muted">
+            @Html.Raw(L("ImportToExcelSampleFileDownloadInfo", "<a href='" + ApplicationPath + "assets/SampleFiles/BulkImportSampleFile.xlsx'>" + L("ClickHere") + "</a>"))
+        </small>
+    </div>
+
+    <input type="hidden" id="TenantId" value="@Model.TenantId" />
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-light-primary font-weight-bold close-button" data-bs-dismiss="modal">@L("Cancel")</button>
+    <button id="ImportButton" type="button" class="btn btn-primary"><i class="fa fa-upload"></i> <span>@L("Import")</span></button>
+</div>

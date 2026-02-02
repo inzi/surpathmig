@@ -1,0 +1,62 @@
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.TenantSurpathServices
+@model SetAllServicesPriceModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("SetPricingForAllServices")))
+
+<div class="modal-body">
+    <form name="SetAllServicesPriceForm" role="form" novalidate class="form-validation">
+        <input type="hidden" id="TargetType" value="@Model.TargetType" />
+        <input type="hidden" id="TargetId" value="@Model.TargetId" />
+        <input type="hidden" id="TenantId" value="@Model.TenantId" />
+        
+        <div class="mb-4">
+            <div class="alert alert-warning">
+                <h5 class="alert-heading">@L("Warning")</h5>
+                <p class="mb-0">
+                    @L("ThisWillSetTheSamePriceForAllServices")
+                </p>
+                <hr>
+                <p class="mb-0">
+                    <strong>@L("ApplyingTo"):</strong> @Model.TargetName<br />
+                    <strong>@L("Level"):</strong> @L(Model.TargetType.Substring(0, 1).ToUpper() + Model.TargetType.Substring(1))<br />
+                    <strong>@L("TotalServices"):</strong> @Model.Services.Count
+                </p>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label" for="UniformPrice">@L("PriceForAllServices")</label>
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="number" id="UniformPrice" name="uniformPrice" class="form-control" 
+                       min="0" max="999999" step="0.01" required />
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">@L("ServicesAffected")</label>
+            <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>@L("Service")</th>
+                            <th>@L("CurrentBasePrice")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var service in Model.Services)
+                        {
+                            <tr>
+                                <td>@service.Name</td>
+                                <td>$@service.Price.ToString("F2")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

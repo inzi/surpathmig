@@ -1,0 +1,495 @@
+﻿@model SurPathWeb.Models.TestInfoDataModel
+@using SurPath.Enum
+@{
+    ViewBag.Title = "TestInfo";
+    Layout = "~/Views/Shared/_VendorLayout.cshtml";
+}
+@section PageScript
+{
+    <script type="text/javascript">
+  
+      
+        $(function () {
+            if ('@Model.IsTemperatureInRange' == "Yes") {
+            $('#rdTemperatureOfSpecimenYes').prop('checked', true);
+        }
+        else if ('@Model.IsTemperatureInRange' == "No") {
+            $('#rdTemperatureOfSpecimenNo').prop('checked', true);
+            $('#divTemperatureOfSpecimen').show();
+        }
+
+        if ('@Model.IsAdulterationSign' == "Yes") {
+            $('#rdAdulterationYes').prop('checked', true);
+        }
+        else if ('@Model.IsAdulterationSign' == "No") {
+            $('#rdAdulterationNo').prop('checked', true);
+        }
+
+        if ('@Model.IsQuantitySufficient' == "Yes") {
+            $('#rdSufficentYes').prop('checked', true);
+        }
+        else if ('@Model.IsQuantitySufficient' == "No") {
+            $('#rdSufficentNo').prop('checked', true);
+        }
+
+        $("#liDashboard").removeClass("active");
+        $("#liDonorInfo").removeClass("active");
+        $("#liTestInfo").addClass("active");
+        $("#liVendorSearch").removeClass("active");
+        $("#ScreeningDate").val('');
+        $("#txtScreeningTime").val('');
+
+        $('#divFormType').hide();
+        $('#divTestingAuthority').hide();
+
+
+        if ("@ViewBag.ServerErr" != "") {
+            canShowSpecimanId();
+            $("#divServerErr").show().find("div").html("@ViewBag.ServerErr");
+        }
+
+        if ("@ViewBag.SpecimenIdExists" != "") {
+            canShowSpecimanId();
+            $("#divSpecimenIdExists").show().find("div").html("@ViewBag.divSpecimenIdExists");
+        }
+
+        if ($('#txtFormType').val() == "Federal") {
+            $('#divFormType').show();
+            $('#divTestingAuthority').show();
+        }
+
+        $("#txtTemperatureOfSpecimen").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //$("#ZipCode").siblings("#error").hide();
+                return false;
+            }
+        });
+
+        $("#btnSubmit").click(function () {
+            
+            var returnVal = true;
+            var temperatureOfSpecimen = $("input[name='rdTemperatureOfSpecimen']:checked").val();
+            var adulteration = $("input[name='rdAdulteration']:checked").val();
+            var sufficent = $("input[name='rdSufficent']:checked").val();
+            var tempOfSpecimenValue = $('#txtTemperatureOfSpecimen').val();
+
+            $('#spnHsi').hide(); $('#spnNodUA').hide(); $('#spnSq').hide();
+            $('#spnTemperatureVal').hide(); $('#spnInvalidTemperatureVal').hide();
+            $('#divReasonErr').hide();
+
+            if ($('#StrReasonForTest').val() == "" || $('#StrReasonForTest').val() == "None") {
+                $('#divReasonErr').show();
+                returnVal = false;
+            }
+
+            if (typeof temperatureOfSpecimen === "undefined") {
+                $('#spnSq').show();
+                returnVal = false;
+            }
+            if (temperatureOfSpecimen === "temperatureOfSpecimenNo") {
+                if ($('#txtTemperatureOfSpecimen').val() == "") {
+                    $('#spnTemperatureVal').show();
+                    returnVal = false;
+                }
+                if (tempOfSpecimenValue >= 90 && tempOfSpecimenValue <= 100) {
+                    $('#spnInvalidTemperatureVal').show();
+                    returnVal = false;
+                }
+            }
+
+            if ($("#divSpecimenId1").is(":visible")) {
+                if ($('#SpecimenIdUA').val() == "") {
+                    $('#spnNodUA').show();
+                    returnVal = false;
+                }
+            }
+            if ($("#divSpecimenId2").is(":visible")) {
+                if ($('#SpecimenIdHair').val() == "") {
+                    $('#spnHsi').show();
+                    returnVal = false;
+                }
+            }
+
+            return returnVal;
+        });
+    });
+
+        function canShowSpecimanId() {
+            debugger;
+        var temperatureOfSpecimen = $("input[name='rdTemperatureOfSpecimen']:checked").val();
+        var adulteration = $("input[name='rdAdulteration']:checked").val();
+        var sufficent = $("input[name='rdSufficent']:checked").val();
+        var observed = $("input[name='rdObserved']:checked").val();
+
+        var canShowSpecimanId = false;
+
+        $('#divSpecimenId1').hide();
+        $('#divSpecimenId2').hide();
+        $('#divTemperatureOfSpecimen').hide();
+
+        $('#ScreeningDate').val('');
+        $('#txtScreeningTime').val('');
+
+        if (temperatureOfSpecimen == 'temperatureOfSpecimenNo') {
+            $('#divTemperatureOfSpecimen').show();
+        }
+
+        if (typeof temperatureOfSpecimen !== "undefined" && typeof adulteration !== "undefined" && typeof sufficent !== "undefined" && typeof observed !== "undefined") {
+            canShowSpecimanId = true;
+        }
+
+        if (temperatureOfSpecimen == "temperatureOfSpecimenYes" && adulteration == "adulterationNo" && sufficent == "QuantitySufficentYes") {
+            canShowSpecimanId = true;
+            var currentdate = new Date();
+            $('#ScreeningDate').val((currentdate.getMonth() + 1) + "-" + currentdate.getDate() + "-" + currentdate.getFullYear());
+            $('#txtScreeningTime').val(currentdate.getHours() + ":" + (currentdate.getMinutes()) + ":" + currentdate.getSeconds());
+        }
+        else {
+            canShowSpecimanId = false;
+        }
+
+        if (canShowSpecimanId == true) {
+            $('#divSpecimenId1').show();
+            $('#divSpecimenId2').show();
+        }
+    }
+
+    function isDonorRefuses() {
+
+        var retval = true;
+        var r = confirm("Did  the donor refuse to take the test according to standards?");
+        if (r == true) {
+            $('#hidDonorRefused').val("Yes");
+            retval = true;
+        } else {
+            retval = false;
+        }
+        return retval;
+    }
+
+    </script>
+
+}
+@{using (Html.BeginForm())
+{
+
+    <div class="container">
+        <div style="display:none" class="alert alert-danger" role="alert" id="divSpecimenIdExists">
+            <i class="fa fa-exclamation-triangle fa-1x"></i> @ViewBag.SpecimenIdExists
+        </div>
+        <div style="display:none" class="alert alert-danger" role="alert" id="divServerErr">
+            <i class="fa fa-exclamation-triangle fa-1x"></i> @ViewBag.ServerErr
+        </div>
+        <div style="display:none" class="alert alert-danger" role="alert" id="divReasonErr">
+            <i class="fa fa-exclamation-triangle fa-1x"></i> Reason for test is not available. Please contact your TPA.
+        </div>
+        <div class="row top-buffer"></div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="text-uppercase" style="font-weight:bold"> Test Information </p>
+                <hr>
+            </div>
+        </div>
+        @for (var i = 0; i < Model.TestInfoTestCategories.Count; i++)
+        {
+            if (Model.TestInfoTestCategories[i].TestCategoryId == TestCategories.UA)
+            {
+                <div class="row">
+                    <div class="col-md-3">
+                        <label> Test Type</label>
+                        @Html.TextBoxFor(m => m.TestInfoTestCategories[i].TestCategoryId, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       @readonly = "readonly"
+
+                   })
+                    </div>
+                    <div class="col-md-3">
+                        <label> Test Panel Name</label>
+                        @Html.TextBoxFor(m => m.TestInfoTestCategories[i].TestPanelName, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       @readonly = "readonly"
+
+                   })
+                    </div>
+                    <div class="col-md-3" id="divSpecimenId1" style="display:none">
+                        <label><sup>*</sup> UA Specimen ID #</label><span class="alert-danger" id="spnNodUA" style="display: none">&nbsp;Enter Specimen<br></span>
+                        @Html.TextBoxFor(m => m.TestInfoTestCategories[i].SpecimenId, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       @id = "SpecimenIdUA"
+
+                   })
+                    </div>
+                </div>
+            }
+            else if (Model.TestInfoTestCategories[i].TestCategoryId == TestCategories.Hair)
+            {
+                <div class="row">
+                    <div class="col-md-3">
+                        <label> Test Type</label>
+                        @Html.TextBoxFor(m => m.TestInfoTestCategories[i].TestCategoryId, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       @readonly = "readonly"
+
+                   })
+                    </div>
+                    <div class="col-md-3">
+                        <label> Test Panel Name</label>
+                        @Html.TextBoxFor(m => m.TestInfoTestCategories[i].TestPanelName, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       @readonly = "readonly"
+
+                   })
+                    </div>
+
+                    <div class="col-md-3">
+                        <label> # Days</label>
+                        @Html.TextBoxFor(m => m.TestInfoTestCategories[i].HairTestPanelDays, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       @readonly = "readonly"
+
+                   })
+                    </div>
+                    <div class="col-md-3" id="divSpecimenId2" style="display:none">
+                        <label> <sup>*</sup>Hair Specimen ID #</label><span class="alert-danger" id="spnHsi" style="display: none">&nbsp;Enter Specimen<br></span>
+                        @Html.TextBoxFor(m => m.TestInfoTestCategories[i].SpecimenId, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       @id = "SpecimenIdHair"
+
+                   })
+                    </div>
+
+                </div>
+            }
+            else if (Model.TestInfoTestCategories[i].TestCategoryId == TestCategories.DNA)
+            {
+                <div class="row">
+                    <div class="col-md-3">
+                        <label> Test Type</label>
+                        @Html.TextBoxFor(m => m.TestInfoTestCategories[i].TestCategoryId, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       @readonly = "readonly"
+
+                   })
+                    </div>
+                </div>
+            }
+            <div style="display: none">
+                @Html.HiddenFor(m => m.TestInfoTestCategories[i].DonorTestTestCategoryId)
+                @Html.HiddenFor(m => m.TestInfoTestCategories[i].TestPanelCost)
+                @Html.HiddenFor(m => m.TestInfoTestCategories[i].TestPanelPrice)
+                @Html.HiddenFor(m => m.TestInfoTestCategories[i].HairTestPanelDays)
+            </div>
+        }
+        <div class="row top-buffer"></div>
+        <div class="row">
+            <div class="col-md-3">
+                <label> Reason For Test </label>
+            </div>
+            <div class="col-md-3">
+                <label>Specimen Collection Cup</label>
+            </div>
+            <div class="col-md-3">
+                <label> Observed</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 pull-left">
+                @Html.TextBoxFor(m => m.StrReasonForTest, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       @readonly = "readonly"
+                   })
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.StrSpecimenCollectionCup, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       @readonly = "readonly"
+                   })
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.IsObserved, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       @readonly = "readonly"
+                   })
+            </div>
+        </div>
+        <div class="row top-buffer"></div>
+        <div class="row">
+            <div class="col-md-3">
+                <label> Form Type</label>
+            </div>
+            <div class="col-md-3" id="divTestingAuthority">
+                <label> Testing Authority </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.StrFormType, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       @readonly = "readonly",
+                       @id = "txtFormType"
+                   })
+            </div>
+            <div class="col-md-3" id="divFormType" style="display: none">
+                @Html.TextBoxFor(m => m.TestingAuthorityName, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       @readonly = "readonly"
+                   })
+            </div>
+        </div>
+        <div class="row top-buffer"></div>
+        <div class="row top-buffer"></div>
+        <div class="row">
+            <div class="col-md-4">
+                <p class="text-uppercase" style="font-weight:bold"> Test Questions </p>
+                <span class="alert-danger" id="spnSq" style="display: none">Select test questions<br></span>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <p class="form-horizontal">
+                    <sup>*</sup>Is the temperature between 90&deg;F and 100&deg;F?
+                    <label class="radio-inline">
+                        <input type="radio" name="rdTemperatureOfSpecimen" id="rdTemperatureOfSpecimenYes" class="form-horizontal" value="temperatureOfSpecimenYes" onclick="canShowSpecimanId()">
+                        Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="rdTemperatureOfSpecimen" id="rdTemperatureOfSpecimenNo" class=" form-horizontal" value="temperatureOfSpecimenNo" onclick="canShowSpecimanId()">
+                        No
+                    </label>
+                </p>
+            </div>
+            <div id="divTemperatureOfSpecimen" class="col-md-2 pull-left" style="display: none">
+                @Html.TextBoxFor(m => m.TemperatureOfSpecimen, new
+                       {
+                           autocomplete = "off",
+                           @class = "form-control",
+                           @id = "txtTemperatureOfSpecimen"
+                       })
+                <span id="spnTemperatureVal" style="display: none" class="alert-danger">&nbsp;Required</span>
+                <span id="spnInvalidTemperatureVal" style="display: none" class="alert-danger">&nbsp;Temperature should not between 90&deg;F and 100&deg;F</span>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <p class="form-horizontal">
+                    <sup>*</sup>Are there any signs of Adulteration?
+                    <label class="radio-inline" style="padding-left: 78px;">
+                        <input type="radio" name="rdAdulteration" id="rdAdulterationYes" class="form-horizontal" value="adulterationYes" onclick="canShowSpecimanId()">
+                        Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="rdAdulteration" id="rdAdulterationNo" class="form-horizontal" value="adulterationNo" onclick="canShowSpecimanId()">
+                        No
+                    </label>
+                </p>
+            </div>
+            <div class="col-md-2 pull-left">
+                @*<input type="submit" class="button" value="Donor refuses test">*@
+                <button class="btn btn-primary" onclick="return isDonorRefuses()"> Donor refuses test</button>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <p class="form-horizontal">
+                    <sup>*</sup> Is the specimen quantity sufficent?
+                    <label class="radio-inline" style="padding-left: 83px;">
+                        <input type="radio" name="rdSufficent" id="rdSufficentYes" class="form-horizontal" value="QuantitySufficentYes" onclick="canShowSpecimanId()">
+                        Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="rdSufficent" id="rdSufficentNo" class="form-horizontal" value="QuantitySufficentNo" onclick="canShowSpecimanId()">
+                        No
+                    </label>
+                </p>
+            </div>
+        </div>
+        <div class="row top-buffer"></div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="text-uppercase" style="font-weight:bold"> Collection Site Information</p>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label> Screening Date</label>
+                @Html.TextBoxFor(m => m.ScreeningDate, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       @readonly = "readonly",
+                       @id = "ScreeningDate"
+
+                   })
+            </div>
+            <div class="col-md-4">
+                <label> Time</label>
+                <input type="text" class="form-control" readonly id="txtScreeningTime">
+            </div>
+            <div class="col-md-4">
+                <label>Collector Name</label>
+                @Html.TextBoxFor(m => m.CollectorName, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       @readonly = "readonly"
+
+                   })
+            </div>
+        </div>
+        <div class="row top-buffer"></div>
+
+
+        <div class="row">
+            <div class="col-md-2">
+                <button id="btnSubmit" class="btn btn-primary" name="button" value="Submit">Submit</button>
+            </div>
+        </div>
+
+        <div class="row top-buffer"></div>
+        <input type="hidden" id="hidDonorRefused" name="hidDonorRefused" value="No">
+        @Html.HiddenFor(m => m.DonorId)
+        @Html.HiddenFor(m => m.DonorTestInfoId)
+        @Html.HiddenFor(m => m.ClientDepartmentId)
+        @Html.HiddenFor(m => m.TotalPaymentAmount)
+
+        @Html.HiddenFor(m => m.ReasonForTestId)
+        @Html.HiddenFor(m => m.SpecimenCollectionCupId)
+        @Html.HiddenFor(m => m.IsObserved)
+        @Html.HiddenFor(m => m.FormTypeId)
+        @Html.HiddenFor(m => m.TestingAuthorityId)
+        @Html.HiddenFor(m => m.OtherReason)
+        <div class="row top-buffer"></div>
+        <div class="row top-buffer"></div>
+    </div>
+}
+}

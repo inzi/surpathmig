@@ -1,0 +1,64 @@
+﻿
+@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.TenantDocumentCategories
+@*@model CreateOrEditTenantDocumentCategoryModalViewModel*@
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditTenantDocumentCategory")) : L("CreateNewTenantDocumentCategory")))
+
+<div class="modal-body">
+    <div id="TenantDocumentCategoryInformationsTab">
+       @* <form name="TenantDocumentCategoryInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.TenantDocumentCategory.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="UserName">@L("User")</label>
+                <div class="input-group">
+                    <input class="form-control" id="UserName" name="userName" value="@Model.UserName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenUserLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearUserNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="TenantDocumentCategory_UserId" value="@Model.TenantDocumentCategory.UserId" type="text" name="userId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="TenantDocumentCategory_UserId" value="" type="text" name="userId" hidden />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="TenantDocumentCategory_Name">@L("Name")</label>
+                <input class="form-control" id="TenantDocumentCategory_Name" value="@Model.TenantDocumentCategory.Name" type="text" name="name" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="TenantDocumentCategory_Description">@L("Description")</label>
+                <input class="form-control" id="TenantDocumentCategory_Description" value="@Model.TenantDocumentCategory.Description" type="text" name="description" />
+            </div>
+
+            <label class="form-check form-check-custom">
+                <input id="TenantDocumentCategory_AuthorizedOnly" name="authorizedOnly" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.TenantDocumentCategory.AuthorizedOnly ?"checked=\"checked\"":"") />
+                <span class="form-check-label">
+                    @L("AuthorizedOnly")
+                </span>
+            </label>
+
+            <label class="form-check form-check-custom">
+                <input id="TenantDocumentCategory_HostOnly" name="hostOnly" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.TenantDocumentCategory.HostOnly ?"checked=\"checked\"":"") />
+                <span class="form-check-label">
+                    @L("HostOnly")
+                </span>
+            </label>
+
+        </form>*@
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

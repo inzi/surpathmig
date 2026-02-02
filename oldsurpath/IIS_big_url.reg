@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\HTTP\Parameters]
+"MaxFieldLength"=dword:0000fffe
+"MaxRequestBytes"=dword:01000000
+"UriMaxUriBytes"=dword:01000000
+"UrlSegmentMaxLength"=dword:00007ffe

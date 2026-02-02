@@ -1,0 +1,50 @@
+﻿{
+  "IsRegenerate": false,
+  "MenuPosition": "main",
+  "RelativeNamespace": "Surpath",
+  "EntityName": "TenantDepartmentUser",
+  "EntityNamePlural": "TenantDepartmentUsers",
+  "TableName": "TenantDepartmentUsers",
+  "PrimaryKeyType": "Guid",
+  "BaseClass": "Entity",
+  "EntityHistory": true,
+  "AutoMigration": false,
+  "UpdateDatabase": false,
+  "CreateUserInterface": true,
+  "CreateViewOnly": true,
+  "CreateExcelExport": true,
+  "IsNonModalCRUDPage": false,
+  "IsMasterDetailPage": false,
+  "PagePermission": {
+    "Host": true,
+    "Tenant": true
+  },
+  "Properties": [],
+  "NavigationProperties": [
+    {
+      "Namespace": "inzibackend.Authorization.Users",
+      "ForeignEntityName": "User",
+      "IdType": "long",
+      "IsNullable": false,
+      "PropertyName": "UserId",
+      "DisplayPropertyName": "Name",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "LookupTable"
+    },
+    {
+      "Namespace": "inzibackend.Surpath",
+      "ForeignEntityName": "TenantDepartment",
+      "IdType": "Guid",
+      "IsNullable": false,
+      "PropertyName": "TenantDepartmentId",
+      "DisplayPropertyName": "Name",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "LookupTable"
+   ,"IsGeneratedByMasterPage": true }
+  ],
+  "NavigationPropertyOneToManyTables": [],
+  "EnumDefinitions": [],
+  "DbContext": null
+}

@@ -1,0 +1,109 @@
+﻿@using inzibackend;
+
+@using System.Globalization
+@using inzibackend.Authorization
+@using inzibackend.Surpath
+@using inzibackend.Web.Areas.App.Models.Hospitals
+@using inzibackend.Web.Areas.App.Startup
+@model CreateOrEditHospitalViewModel
+@using Abp.Extensions
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.Hospitals;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/Hospitals/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+    var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/App/Hospitals", L("Hospitals")),
+        new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
+        };
+        }
+        <abp-page-subheader title='@(Model.IsEditMode ? (L("EditHospital")) : L("CreateNewHospital"))' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+
+        <div class="@(await GetContainerClass())">
+            <div class="card card-custom gutter-b">
+                <form name="HospitalInformationsForm" role="form" novalidate class="form-validation">
+                    <div class="card-body">
+                        <div class="form">
+                            <div id="HospitalInformationsTab">
+                                @if (Model.IsEditMode)
+                                {
+                                <input type="hidden" name="id" value="@Model.Hospital.Id" />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="Hospital_Name">@L("Name")</label>
+                                    <input class="form-control" id="Hospital_Name" value="@Model.Hospital.Name" type="text" name="name" required />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="Hospital_PrimaryContact">@L("PrimaryContact")</label>
+                                    <input class="form-control" id="Hospital_PrimaryContact" value="@Model.Hospital.PrimaryContact" type="text" name="primaryContact" required />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="Hospital_PrimaryContactPhone">@L("PrimaryContactPhone")</label>
+                                    <input class="form-control" id="Hospital_PrimaryContactPhone" value="@Model.Hospital.PrimaryContactPhone" type="text" name="primaryContactPhone" required />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="Hospital_PrimaryContactEmail">@L("PrimaryContactEmail")</label>
+                                    <input class="form-control" id="Hospital_PrimaryContactEmail" value="@Model.Hospital.PrimaryContactEmail" type="text" name="primaryContactEmail" />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="Hospital_Address1">@L("Address1")</label>
+                                    <input class="form-control" id="Hospital_Address1" value="@Model.Hospital.Address1" type="text" name="address1" required />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="Hospital_Address2">@L("Address2")</label>
+                                    <input class="form-control" id="Hospital_Address2" value="@Model.Hospital.Address2" type="text" name="address2" />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="Hospital_City">@L("City")</label>
+                                    <input class="form-control" id="Hospital_City" value="@Model.Hospital.City" type="text" name="city" required />
+                                </div>
+
+                                @{
+                                var selectListState = Html.GetEnumSelectList(typeof(enumUSStates));
+                                foreach (var selectOption in selectListState) { selectOption.Text = L("Enum_enumUSStates_" + selectOption.Value); }
+                                }
+                                <div class="my-3 m-form__group">
+                                    <label class="form-label" for="Hospital_State">@L("State")</label>
+                                    <select class="form-select m-input m-input--square" name="state" id="Hospital_State" asp-for="@Model.Hospital.State" asp-items="@selectListState">
+                                    </select>
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="Hospital_ZipCode">@L("ZipCode")</label>
+                                    <input class="form-control" id="Hospital_ZipCode" value="@Model.Hospital.ZipCode" type="text" name="zipCode" required />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12">
+                                <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                @if (!Model.IsEditMode)
+                                {
+                                <button type="button" id="saveAndNewBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>

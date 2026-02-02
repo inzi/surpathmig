@@ -1,0 +1,167 @@
+﻿@{
+    ViewBag.Title = "SurScan - Program Selection";
+    Layout = "~/Views/Shared/_LayoutBackground.cshtml";
+}
+
+@section PageScript
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            function disableBack() { window.history.forward() }
+            disableBack();
+            window.onload = disableBack();
+            window.onpageshow = function (evt) { if (evt.persisted) disableBack() }
+            window.onunload = function () { void (0) }
+        });
+
+        $(function () {
+            if ("@ViewBag.ServerErr" != "") {
+                $("#divServerErr").show().find("div").html("@ViewBag.ServerErr");
+            }
+
+            if ("@ViewBag.SuccessMsg" != "") {
+                $("#divSuccessMsg").show().find("div").html("@ViewBag.SuccessMsg");
+
+                if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
+                    setTimeout("$('#divSuccessMsg').hide();", 6000);
+                }
+                else {
+                    $("#divSuccessMsg").fadeOut(6000);
+                }
+            }
+
+            $("#Program1").prop("disabled", false);
+            $("#Program2").prop("disabled", true);
+            $("#btnSubmit").prop("disabled", false);
+
+            if ("@Session["isPaymentStatus"].ToString()" == "No") {
+                $("#Program1").prop("disabled", true);
+                $("#btnSubmit").prop("disabled", true);
+            }
+
+            $("#Program1").change(function () {
+                $("#divOriginal").hide();
+                $("#divDummy").show();
+                $("#Program1").prop("disabled", true);
+                $("#Program2").prop("disabled", false);
+            });
+
+            $("#Program2").change(function () {
+                if (!IsMatch("Program1", "Program2")) {
+                    $("#divErr").show();
+                    $("#Program2").css("borderColor", "red");
+                }
+                else {
+                    $("#divErr").hide();
+                    $("#Program2").css("borderColor", "");
+                }
+
+                var program2Value = $("#Program2 option:selected").val()
+                if (program2Value == 0) {
+                    $("#Program2").next().show().html("Program can not be empty.");
+                    $("#Program2").css("borderColor", "red");
+                    return false;
+                }
+                else {
+                    $("#Program2").next().hide();
+                }
+            });
+
+            $("#btnSubmit").click(function () {
+
+
+                var program1Value = $("#Program1 option:selected").val()
+                var program2Value = $("#Program2 option:selected").val()
+
+                if (program1Value == 0) {
+                    $("#Program1").next().show().html("Program can not be empty.");
+                    $("#Program1").css("borderColor", "red");
+                    return false;
+                }
+                else {
+                    $("#Program1").next().hide();
+                    $("#Program1").css("borderColor", "");
+                }
+
+                if (program2Value == 0) {
+                    $("#Program2").next().show().html("Program can not be empty.");
+                    $("#Program2").css("borderColor", "red");
+                    return false;
+                }
+                else {
+                    $("#Program2").next().hide();
+                    $("#Program2").css("borderColor", "");
+                }
+
+                if (!IsMatch("Program1", "Program2")) {
+                    $("#Program2").next().show().html("Program code doesn't match.");
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            });
+        });
+    </script>
+}
+
+@{using (Html.BeginForm())
+{
+    <div class="row top-buffer"></div>
+    if (Session["isPaymentStatus"].ToString() == "No")
+    {
+        <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-danger" role="alert">
+                <i class="fa fa-exclamation-triangle fa-1x"></i> You have pending payment <a href="@Url.Action("PaymentSelection", "BackgroundCheck")">Click here to Pay </a>
+            </div>
+        </div>
+    }
+    <div class="container">
+        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div style="display:none" class="alert alert-danger" role="alert" id="divServerErr">
+                <i class="fa fa-exclamation-triangle fa-1x"></i> @ViewBag.ServerErr
+            </div>
+
+            <div style="display:none" class="alert alert-success" role="alert" id="divSuccessMsg">
+                <i class="fa fa-check-circle fa-1x"></i> @ViewBag.SuccessMsg
+            </div>
+            <div style="display:none" class="alert alert-danger" role="alert" id="divErr">
+                <i class="fa fa-exclamation-triangle fa-1x"></i>Re-Select your program <a href="@Url.Action("ProgramSelection", "BackgroundCheck")">click here</a>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">Program Selection</div>
+                </div>
+                <div style="padding-top:30px" class="panel-body">
+                    <div class="row top-buffer"></div>
+                    <label><sup>*</sup>Select your program </label>
+                    <div id="divOriginal">
+                        @Html.DropDownList("Program1", (IEnumerable<SelectListItem>)ViewBag.Department, new { @class = "form-control", onfocus = "select" })
+                        <span class="alert-danger" style="display: none"></span>
+                    </div>
+                    <div id="divDummy" style="display: none">
+                        <select class="form-control" name="ProgramDummy" id="ProgramDummy" disabled required>
+                            <option value="">********************************************</option>
+                        </select>
+                    </div>
+                    <div class="row top-buffer"></div>
+                    <label><sup>*</sup>Confirm your program </label>
+                    @Html.DropDownList("Program2", (IEnumerable<SelectListItem>)ViewBag.ShuffledDepartment, new { @class = "form-control", onfocus = "select" })
+                    <span class="alert-danger" style="display: none"></span>
+                    <div class="row top-buffer"></div>
+                    <div class="row">
+                        <div style="margin-top:10px" class="form-group">
+                            <div class="col-md-6 col-sm-offset-5">
+                                <button id="btnSubmit" class="btn btn-primary" name="button" value="Submit">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row top-buffer"></div>
+    <div class="row top-buffer"></div>
+}
+}

@@ -1,0 +1,51 @@
+﻿
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.RecordRequirements
+@model RecordRequirementViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="RecordRequirementInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("Name") :</h6>
+                @Model.RecordRequirement.Name
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Description") :</h6>
+                @Model.RecordRequirement.Description
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Metadata") :</h6>
+                @Model.RecordRequirement.Metadata
+            </div>
+@*            <div class="col-6 mb-3">
+                <h6>@L("IsSurpathOnly") :</h6>
+                @Model.RecordRequirement.IsSurpathOnly
+            </div>*@
+
+            <div class="col-6 mb-3">
+                <h6>(@L("TenantDepartment")) @L("Name") :</h6>
+                @Model.TenantDepartmentName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("Cohort")) @L("Name") :</h6>
+                @Model.CohortName
+            </div>
+@*            <div class="col-6 mb-3">
+                <h6>(@L("SurpathService")) @L("Name") :</h6>
+                @Model.SurpathServiceName
+            </div>*@
+@*            <div class="col-6 mb-3">
+                <h6>(@L("TenantSurpathService")) @L("Name") :</h6>
+                @Model.TenantSurpathServiceName
+            </div>*@
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

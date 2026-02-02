@@ -1,0 +1,40 @@
+﻿
+@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.TenantDepartmentUsers
+@model MasterDetailChild_TenantDepartment_CreateOrEditTenantDepartmentUserModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditTenantDepartmentUser")) : L("CreateNewTenantDepartmentUser")))
+
+<div class="modal-body">
+    <div id="TenantDepartmentUserInformationsTab">
+        <form name="TenantDepartmentUserInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.TenantDepartmentUser.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="UserName">@L("User")</label>
+                <div class="input-group">
+                    <input class="form-control" id="UserName" name="userName" value="@Model.UserName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenUserLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearUserNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="TenantDepartmentUser_UserId" value="@Model.TenantDepartmentUser.UserId" type="text" name="userId" required hidden />
+            }
+            else
+            {
+            <input class="form-control" id="TenantDepartmentUser_UserId" value="" type="text" name="userId" required hidden />
+            }
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

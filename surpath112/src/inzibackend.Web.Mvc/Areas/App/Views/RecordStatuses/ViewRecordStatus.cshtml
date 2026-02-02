@@ -1,0 +1,72 @@
+﻿@using inzibackend.Web.Areas.App.Startup
+@using inzibackend.Web.Areas.App.Models.RecordStatuses
+@using Abp.MultiTenancy
+
+@model RecordStatusViewModel
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.RecordStatuses;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/RecordStatuses/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+@{
+var breadcrumbs = new List<BreadcrumbItem>()
+    {
+    new BreadcrumbItem("/App/RecordStatuses", L("RecordStatuses")),
+    new BreadcrumbItem(L("Details")),
+    };
+    }
+    <abp-page-subheader title='@L("Details")' breadcrumbs="breadcrumbs">
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class=" card card-custom gutter-b">
+            <div class=" card-body">
+                <div id="RecordStatusInformationsTab">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <h6>@L("StatusName") :</h6>
+                            @Model.RecordStatus.StatusName
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("HtmlColor") :</h6>
+                            @Model.RecordStatus.HtmlColor
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("CSSCLass") :</h6>
+                            @Model.RecordStatus.CSSCLass
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("IsDefault") :</h6>
+                            @Model.RecordStatus.IsDefault
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("RequireNoteOnSet") :</h6>
+                            @Model.RecordStatus.RequireNoteOnSet
+                        </div>
+                    @if (AbpSession.MultiTenancySide == MultiTenancySides.Host)
+                    {
+                        <div class="col-6 mb-3">
+                            <h6>@L("IsSurpathServiceStatus") :</h6>
+                            @Model.RecordStatus.IsSurpathServiceStatus
+                        </div>
+                    }
+                        <div class="col-6 mb-3">
+                            <h6>@L("ComplianceImpact") :</h6>
+                            @L("Enum_EnumStatusComplianceImpact_" + (int)Model.RecordStatus.ComplianceImpact)
+                        </div>
+
+                        <div class="col-6 mb-3">
+                            <h6>(@L("TenantDepartment")) @L("Name") :</h6>
+                            @Model.TenantDepartmentName
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>

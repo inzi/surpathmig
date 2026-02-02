@@ -1,0 +1,58 @@
+{
+"propertyTemplates":[
+		{
+			"placeholder" : "{{Get_Excel_Columns_Here}}",
+			"templates" : [
+					{
+						"type" : "long",
+						"content" : "{{entity_Name_Here}}.{{Property_Name_Here}} = Convert.ToInt64(GetRequiredValueFromRowOrNull(row,  nameof({{entity_Name_Here}}.{{Property_Name_Here}}), exceptionMessage));
+						"
+					},
+					{
+						"type" : "int",
+						"content" : "{{entity_Name_Here}}.{{Property_Name_Here}} = Convert.ToInt32(GetRequiredValueFromRowOrNull(row,  nameof({{entity_Name_Here}}.{{Property_Name_Here}}), exceptionMessage));
+						"
+					},
+					{
+						"type" : "short",
+						"content" : "{{entity_Name_Here}}.{{Property_Name_Here}} = Convert.ToInt16(GetRequiredValueFromRowOrNull(row,  nameof({{entity_Name_Here}}.{{Property_Name_Here}}), exceptionMessage));
+						"
+					},
+					{
+						"type" : "byte",
+						"content" : "{{entity_Name_Here}}.{{Property_Name_Here}} = Convert.ToByte(GetRequiredValueFromRowOrNull(row,  nameof({{entity_Name_Here}}.{{Property_Name_Here}}), exceptionMessage));
+						"
+					},
+					{
+						"type" : "double",
+						"content" : "{{entity_Name_Here}}.{{Property_Name_Here}} = Convert.ToDouble(GetRequiredValueFromRowOrNull(row,  nameof({{entity_Name_Here}}.{{Property_Name_Here}}), exceptionMessage));
+						"
+					},
+					{
+						"type" : "decimal",
+						"content" : "{{entity_Name_Here}}.{{Property_Name_Here}} = Convert.ToDecimal(GetRequiredValueFromRowOrNull(row,  nameof({{entity_Name_Here}}.{{Property_Name_Here}}), exceptionMessage));
+						"
+					},
+					{
+						"type" : "bool",
+						"content" : "{{entity_Name_Here}}.{{Property_Name_Here}} = Convert.ToBoolean(GetRequiredValueFromRowOrNull(row,  nameof({{entity_Name_Here}}.{{Property_Name_Here}}), exceptionMessage));
+						"
+					},
+					{
+						"type" : "DateTime",
+						"content" : "{{entity_Name_Here}}.{{Property_Name_Here}} = Convert.ToDateTime(GetRequiredValueFromRowOrNull(row,  nameof({{entity_Name_Here}}.{{Property_Name_Here}}), exceptionMessage));
+						"
+					},
+					{
+						"type" : "string",
+						"content" : "{{entity_Name_Here}}.{{Property_Name_Here}} = GetRequiredValueFromRowOrNull(row,  nameof({{entity_Name_Here}}.{{Property_Name_Here}}), exceptionMessage);
+						"
+					}
+				]
+		},
+	],
+"navigationPropertyTemplates":[
+	],
+	"conditionalTemplates":[
+	]
+}

@@ -1,0 +1,75 @@
+﻿@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.TenantDepartmentUsers
+@using inzibackend.Web.Areas.App.Startup
+@model MasterDetailChild_TenantDepartment_TenantDepartmentUsersViewModel
+@{
+Layout = null;
+}
+<script abp-src="/view-resources/Areas/App/Views/MasterDetailChild_TenantDepartment_TenantDepartmentUsers/Index.js" asp-append-version="true"></script>
+<input type="hidden" id="MasterDetailChild_TenantDepartment_TenantDepartmentUsersId" value="@Model.TenantDepartmentId" />
+
+<div class="card card-custom gutter-b">
+
+    <div class="card-header border-0 py-5">
+        <h3 class="card-title align-items-start flex-column">
+            <span class="card-label font-weight-bolder text-dark">@L("TenantDepartmentUsers")</span>
+            <span class="text-muted mt-3 font-weight-bold font-size-sm">@L("TenantDepartmentUsersHeaderInfo")</span>
+        </h3>
+        <div class="card-toolbar">
+            <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+
+            @if (IsGranted(AppPermissions.Pages_TenantDepartmentUsers_Create))
+            {
+            <button id="CreateNewTenantDepartmentUserButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewTenantDepartmentUser")</button>
+            }
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="form">
+            <div class="row align-items-center mb-4">
+                <div class="col-xl-12">
+
+                    <div class="my-3">
+                        <div class="input-group">
+                            <input type="text" id="MasterDetailChild_TenantDepartment_TenantDepartmentUsersTableFilter" class="form-control m-input" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                            <button id="GetTenantDepartmentUsersButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div id="MasterDetailChild_TenantDepartment_AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+            <div class="col-md-12">
+
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="MasterDetailChild_TenantDepartment_UserNameFilterId">(@L("User")) @L("Name")</label>
+                    <input type="text" class="form-control" name="userNameFilter" id="MasterDetailChild_TenantDepartment_UserNameFilterId">
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-xl-12">
+                <span id="MasterDetailChild_TenantDepartment_ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                <span id="MasterDetailChild_TenantDepartment_HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <table id="MasterDetailChild_TenantDepartment_TenantDepartmentUsersTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                <thead>
+                    <tr>
+                        <th></th>
+
+                        <th>@L("Actions")</th>
+                        <th>@L("UserName")</th>
+
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>

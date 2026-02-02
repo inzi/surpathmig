@@ -1,0 +1,57 @@
+﻿
+@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.Cohorts
+@model CreateOrEditCohortModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditCohort")) : L("CreateNewCohort")))
+
+<div class="modal-body">
+    <div id="CohortInformationsTab">
+        <form name="CohortInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.Cohort.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="TenantDepartmentName">@L("TenantDepartment")</label>
+                <div class="input-group">
+                    <input class="form-control" id="TenantDepartmentName" name="tenantDepartmentName" value="@Model.TenantDepartmentName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenTenantDepartmentLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearTenantDepartmentNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="Cohort_TenantDepartmentId" value="@Model.Cohort.TenantDepartmentId" type="text" name="tenantDepartmentId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="Cohort_TenantDepartmentId" value="" type="text" name="tenantDepartmentId" hidden />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="Cohort_Name">@L("Name")</label>
+                <input class="form-control" id="Cohort_Name" value="@Model.Cohort.Name" type="text" name="name" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Cohort_Description">@L("Description")</label>
+                <input class="form-control" id="Cohort_Description" value="@Model.Cohort.Description" type="text" name="description" />
+            </div>
+
+            <label class="form-check form-check-custom">
+                <input id="Cohort_DefaultCohort" name="defaultCohort" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.Cohort.DefaultCohort ?"checked=\"checked\"":"") />
+                <span class="form-check-label">
+                    @L("DefaultCohort")
+                </span>
+            </label>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

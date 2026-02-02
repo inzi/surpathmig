@@ -1,0 +1,150 @@
+﻿@using System.Globalization
+@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.RecordCategoryRules
+@using inzibackend.Web.Areas.App.Startup
+@model CreateOrEditRecordCategoryRuleViewModel
+@using Abp.Extensions
+@using Abp.MultiTenancy
+@using inzibackend.Features
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.RecordCategoryRules;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/RecordCategoryRules/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+    var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/App/RecordCategoryRules", L("RecordCategoryRules")),
+        new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
+        };
+        }
+        <abp-page-subheader title='@(Model.IsEditMode ? (L("EditRecordCategoryRule")) : L("CreateNewRecordCategoryRule"))' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+
+        <div class="@(await GetContainerClass())">
+            <div class="card card-custom gutter-b">
+                <form name="RecordCategoryRuleInformationsForm" role="form" novalidate class="form-validation">
+                    <div class="card-body">
+                        <div class="form">
+                            <div id="RecordCategoryRuleInformationsTab">
+                                @if (Model.IsEditMode)
+                                {
+                                <input type="hidden" name="id" value="@Model.RecordCategoryRule.Id" />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="RecordCategoryRule_Name">@L("Name")</label>
+                                    <input class="form-control" id="RecordCategoryRule_Name" value="@Model.RecordCategoryRule.Name" type="text" name="name" />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="RecordCategoryRule_Description">@L("Description")</label>
+                                    <input class="form-control" id="RecordCategoryRule_Description" value="@Model.RecordCategoryRule.Description" type="text" name="description" />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-check form-check-custom form-check-solid">
+                                        <input id="RecordCategoryRule_Notify" type="checkbox" name="notify" class="form-check-input" value="true" @(Model.RecordCategoryRule.Notify ? "checked=\"checked\"" : "")>
+                                        <span class="form-check-label">
+                                            @L("Notify")
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="RecordCategoryRule_ExpireInDays">@L("ExpireInDays")</label>
+                                    <input class="form-control" id="RecordCategoryRule_ExpireInDays" value="@Model.RecordCategoryRule.ExpireInDays" type="number" name="expireInDays" />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="RecordCategoryRule_WarnDaysBeforeFirst">@L("WarnDaysBeforeFirst")</label>
+                                    <input class="form-control" id="RecordCategoryRule_WarnDaysBeforeFirst" value="@Model.RecordCategoryRule.WarnDaysBeforeFirst" type="number" name="warnDaysBeforeFirst" />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="FirstWarnStatusId">@L("FirstWarnStatus")</label>
+                                    @Html.DropDownList("firstWarnStatusId", new SelectList(Model.RecordStatusList, "Id", "StatusName", Model.RecordCategoryRule.FirstWarnStatusId), @L("DoNotChangeStatus"), new { @class = "form-control" })
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="RecordCategoryRule_WarnDaysBeforeSecond">@L("WarnDaysBeforeSecond")</label>
+                                    <input class="form-control" id="RecordCategoryRule_WarnDaysBeforeSecond" value="@Model.RecordCategoryRule.WarnDaysBeforeSecond" type="number" name="warnDaysBeforeSecond" />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="SecondWarnStatusId">@L("SecondWarnStatus")</label>
+                                    @Html.DropDownList("secondWarnStatusId", new SelectList(Model.RecordStatusList, "Id", "StatusName", Model.RecordCategoryRule.SecondWarnStatusId), @L("DoNotChangeStatus"), new { @class = "form-control" })
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="RecordCategoryRule_WarnDaysBeforeFinal">@L("WarnDaysBeforeFinal")</label>
+                                    <input class="form-control" id="RecordCategoryRule_WarnDaysBeforeFinal" value="@Model.RecordCategoryRule.WarnDaysBeforeFinal" type="number" name="warnDaysBeforeFinal" />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="FinalWarnStatusId">@L("FinalWarnStatus")</label>
+                                    @Html.DropDownList("finalWarnStatusId", new SelectList(Model.RecordStatusList, "Id", "StatusName", Model.RecordCategoryRule.FinalWarnStatusId), @L("DoNotChangeStatus"), new { @class = "form-control" })
+                                </div>
+
+                                <div class="my-3 d-none">
+                                    <label class="form-label" for="RecordCategoryRule_MetaData">@L("MetaData")</label>
+                                    <input class="form-control" id="RecordCategoryRule_MetaData" value="@Model.RecordCategoryRule.MetaData" type="text" name="metaData" />
+                                </div>
+                                
+                                <div class="my-3">
+                                    <label class="form-check form-check-custom form-check-solid">
+                                        <input id="RecordCategoryRule_Expires" type="checkbox" name="expires" class="form-check-input" value="true" @(Model.RecordCategoryRule.Expires ? "checked=\"checked\"" : "")>
+                                        <span class="form-check-label">
+                                            @L("Expires")
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <div class="my-3" id="expiredStatusContainer" style="display: @(Model.RecordCategoryRule.Expires ? "block" : "none")">
+                                    <label class="form-label" for="ExpiredStatusId">@L("ExpiredStatus")</label>
+                                    @Html.DropDownList("expiredStatusId", new SelectList(Model.RecordStatusList, "Id", "StatusName", Model.RecordCategoryRule.ExpiredStatusId), @L("SelectExpiredStatus"), new { @class = "form-control" })
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-check form-check-custom form-check-solid">
+                                        <input id="RecordCategoryRule_Required" type="checkbox" name="required" class="form-check-input" value="true" @(Model.RecordCategoryRule.Required ? "checked=\"checked\"" : "")>
+                                        <span class="form-check-label">
+                                            @L("Required")
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-check form-check-custom form-check-solid">
+                                        <input id="RecordCategoryRule_IsSurpathOnly" type="checkbox" name="isSurpathOnly" class="form-check-input" value="true" @(Model.RecordCategoryRule.IsSurpathOnly ? "checked=\"checked\"" : "")>
+                                        <span class="form-check-label">
+                                            @L("IsSurpathOnly")
+                                        </span>
+                                    </label>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12">
+                                <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                @if (!Model.IsEditMode)
+                                {
+                                <button type="button" id="saveAndNewBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>

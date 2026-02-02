@@ -1,0 +1,58 @@
+﻿[
+  {
+    "Code": "FF00086443",
+    "Name": "DOT Medical and Drug Testing Services - Grand Prairie",
+    "City": "Grand Prairie",
+    "State": "TX",
+    "Zip": "75050-4229",
+    "Address1": "3435 Roy Orr Blvd Ste 200",
+    "Address2": "",
+    "Phone": "9725915931",
+    "Fax": "2142388091",
+    "HoursOfOperation": "M  08:00 - 17:00  T  08:00 - 17:00  W  08:00 - 17:00  TH  08:00 - 17:00  F  08:00 - 17:00",
+    "MasterAccount": 1801,
+    "TimeZone": "CST",
+    "TZOffset": -6,
+    "Distance": 2.2,
+    "FormFoxEnabled": true,
+    "MarketplaceEnabled": true,
+    "IsMPOnly": false,
+    "Rating": 5,
+    "Services": [
+      {
+        "Code": "NDOTU",
+        "Rank": 4.989,
+        "PriceList": "Platinum"
+      }
+    ],
+    "Amenities": []
+  },
+  {
+    "Code": "FF00087652",
+    "Name": "34519 Concentra Las Colinas",
+    "City": "Irving",
+    "State": "TX",
+    "Zip": "75039-3886",
+    "Address1": "5910 N MacArthur Blvd Ste 133",
+    "Address2": "",
+    "Phone": "9725548494",
+    "Fax": "9724384647",
+    "HoursOfOperation": "M  08:00 - 17:00  T  08:00 - 17:00  W  08:00 - 17:00  TH  08:00 - 17:00  F  08:00 - 17:00",
+    "MasterAccount": 1516,
+    "TimeZone": "CST",
+    "TZOffset": -6,
+    "Distance": 7.1,
+    "FormFoxEnabled": true,
+    "MarketplaceEnabled": true,
+    "IsMPOnly": false,
+    "Rating": 5,
+    "Services": [
+      {
+        "Code": "NDOTU",
+        "Rank": 1.985,
+        "PriceList": "Gold"
+      }
+    ],
+    "Amenities": []
+  }
+]

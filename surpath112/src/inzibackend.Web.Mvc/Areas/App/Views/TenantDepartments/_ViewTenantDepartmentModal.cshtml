@@ -1,0 +1,34 @@
+﻿
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.TenantDepartments
+@model TenantDepartmentViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="TenantDepartmentInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("Name") :</h6>
+                @Model.TenantDepartment.Name
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Active") :</h6>
+                @Model.TenantDepartment.Active
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("MROType") :</h6>
+                @L("Enum_EnumClientMROTypes_" + (int)Model.TenantDepartment.MROType)
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Description") :</h6>
+                @Model.TenantDepartment.Description
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

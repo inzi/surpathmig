@@ -1,0 +1,79 @@
+FHS|^~\&|Clinical Reference Laboratory|CLS|||201602260912
+MSH|^~\&|Clinical Reference Laboratory|CLS|||201602260912||ORU|1|P|2.3|||NE|NE|US|ASCII|ENG
+PID|1|2030843073|98579159|455-73-9397|PARKER^KRISTOPHER|||N|||||||||||455739397|N/S
+PR1|1||PA66^9DSP/OX/ECS/6AM|||D
+OBR|1|N/S|||||201602250000|||CLS.0VN.001Z^N/S^N/S^^^^^^SUR-SCAN DOT|L|||201602260558||0VN.MALL.SURSCAN||||9\S\URN DRUG SCREEN (9 PANEL)|URINALYSIS|||LAB|F||||||RA^RANDOM
+OBX|1|ST|T214^URN CREATININE||24.8|mg%|20.0-300.0||||F
+OBR|2|N/S|||||201602250000|||CLS.0VN.001Z^N/S^N/S^^^^^^SUR-SCAN DOT|L|||201602260558||0VN.MALL.SURSCAN||||9\S\URN DRUG SCREEN (9 PANEL)|INITIAL TEST|||LAB|F||||||RA^RANDOM
+OBX|2|ST|N961^AMPHETAMINE(CLASS) SCR (500)||NEG|ng/mL|500||||F
+OBX|3|ST|N963^ECSTASY SCREEN         (500)||NEG|ng/mL|500||||F
+OBX|4|ST|N962^COCAINE METABOLITE SCR (150)||NEG|ng/mL|150||||F
+OBX|5|ST|T614^BARBITURATES||NEG|ng/mL|300||||F
+OBX|6|ST|T611^BENZODIAZEPINES||NEG|ng/mL|300||||F
+OBX|7|ST|N975^OPIATES SCREEN        (2000)||NEG|ng/mL|2000||||F
+OBX|8|ST|T615^MARIJUANA METABOLITE||NEG|ng/mL|50||||F
+OBX|9|ST|N974^6-AM SCREEN             (10)||NEG|ng/mL|10||||F
+OBX|10|ST|T618^PHENCYCLIDINE||NEG|ng/mL|25||||F
+OBX|11|ST|T620^PROPOXYPHENE/METABOLITE||NEG|ng/mL|300||||F
+OBX|12|ST|T612^METHADONE||NEG|ng/mL|300||||F
+OBX|13|ST|K465^OXYCODONE/OXYMORPHONE SCRN, UR||NEG|ng/mL|100||||F
+DSP|1||26-Feb-2016              Clinical Reference Laboratory                     09:12
+DSP|2||                 CLIA #17D2005163, SAMHSA #0007, CAP #30211-03
+DSP|3
+DSP|4||SUR-SCAN                     NAME: PARKER, KRISTOPHER        SAMPLE ID: 98579159
+DSP|5||RANDY BARNETT D.O.           DOB: N/S                        COLLECTED: 02/25/16
+DSP|6||2837 SOUTHAMPTON RD          SSN/ID: 455-73-9397             RECEIVED:  02/26/16
+DSP|7||PHILADELPHIA, PA 19154       GENDER: N/S                     REPORTED:  02/26/16
+DSP|8||                             SLIP ID: 2030843073             FAX: (215) 637-6998
+DSP|9||PH: (215) 637-6800           REF ID: N/S
+DSP|10||COLL. SITE ID: 0VN001Z       REFERENCE 1: SUR SCAN-MRO ALL REVIEW
+DSP|11||                             REFERENCE 2:
+DSP|12
+DSP|13||SITE ADDR: SUR-SCAN                       SITE BRANCH: SUR-SCAN DOT
+DSP|14||           2030 AVE G STE 1102            SITE PHONE:  (972) 633-1388
+DSP|15||           PLANO, TX 75074                SITE FAX:    (775) 370-3031
+DSP|16
+DSP|17||                 REASON FOR TESTING:  RANDOM
+DSP|18||                        SAMPLE TYPE:  URN DRUG SCREEN (9 PANEL)
+DSP|19
+DSP|20||URINALYSIS                       RESULT / STATUS          CUTOFF/EXPECTED VALUES
+DSP|21||----------                     -------------------        ----------------------
+DSP|22||  URN CREATININE                   24.8                   20.0-300.0 mg%
+DSP|23
+DSP|24||INITIAL TEST                     RESULT / STATUS          CUTOFF/EXPECTED VALUES
+DSP|25||------------                   -------------------        ----------------------
+DSP|26||  AMPHETAMINE(CLASS) SCR (500) ........   NEGATIVE        500 ng/mL
+DSP|27||  ECSTASY SCREEN         (500) ........   NEGATIVE        500 ng/mL
+DSP|28||  COCAINE METABOLITE SCR (150) ........   NEGATIVE        150 ng/mL
+DSP|29||  BARBITURATES                 ........   NEGATIVE        300 ng/mL
+DSP|30||  BENZODIAZEPINES              ........   NEGATIVE        300 ng/mL
+DSP|31||  OPIATES SCREEN        (2000) ........   NEGATIVE        2000 ng/mL
+DSP|32||  MARIJUANA METABOLITE         ........   NEGATIVE        50 ng/mL
+DSP|33||  6-AM SCREEN             (10) ........   NEGATIVE        10 ng/mL
+DSP|34||  PHENCYCLIDINE                ........   NEGATIVE        25 ng/mL
+DSP|35||  PROPOXYPHENE/METABOLITE      ........   NEGATIVE        300 ng/mL
+DSP|36||  METHADONE                    ........   NEGATIVE        300 ng/mL
+DSP|37||  OXYCODONE/OXYMORPHONE SCRN,  ........   NEGATIVE        100 ng/mL
+DSP|38
+DSP|39
+DSP|40||               LAB DIRECTOR: DR. DAVID KUNTZ, PHD, DABFT
+DSP|41
+DSP|42
+DSP|43
+DSP|44||               REPORT CERTIFIED BY KATHLEEN E. DANIELS
+DSP|45
+DSP|46
+DSP|47
+DSP|48
+DSP|49
+DSP|50
+DSP|51
+DSP|52||                                    Page  1
+DSP|53
+DSP|54||      Copyright 2016 Clinical Reference Laboratory.  All Rights Reserved.
+DSP|55||           8433 Quivira Road.  Lenexa, Kansas 66215.  (913) 492-3652
+DSP|56
+DSP|57||                           FCB: CLS.0VN.MALL.SURSCAN
+DSP|58
+DSP|59||                              [  end of report  ]
+FTS|1|CRL HL7 Format Implementation

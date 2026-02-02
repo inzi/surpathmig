@@ -1,0 +1,77 @@
+FHS|^~\&|Clinical Reference Laboratory|CLS|||DATE3DATE3DATE3
+MSH|^~\&|Clinical Reference Laboratory|CLS^CRL, 8433 Quivira Road Lenexa, Kansas 66215^L|||DATE3DATE3DATE3||ORU|1|P|2.3|||NE|NE|US|ASCII|ENG
+PID|1|SPECSPECSPEC|SAMPSAMPSAMP|PIDPIDPID|LNAMELNAMELNAME^FNAMEFNAMEFNAME^MIMIMI|||N|||||||||||PIDPIDPID|N/S
+PR1|1||V909^9DSP/OXY|||D
+OBR|1|N/S|||||201908060000|||CLS.0VN.001Z^N/S^N/S^^^^^^SUR-SCAN DOT|L|||DATE3DATE3DATE3||LABLABLAB||||0\S\URN DRUG SCREEN (10 PANEL|URINALYSIS|201908081149||LAB|F||||||OT^OTHER|STEVEN PASCHALL MD|MELINDA WHITING
+OBX|1|ST|T214^URN CREATININE||86.0|mg/dL|20.0-300.0||||F
+OBR|2|N/S|||||201908060000|||CLS.0VN.001Z^N/S^N/S^^^^^^SUR-SCAN DOT|L|||DATE3DATE3DATE3||LABLABLAB||||0\S\URN DRUG SCREEN (10 PANEL|INITIAL TEST|201908081149||LAB|F||||||OT^OTHER|STEVEN PASCHALL MD|MELINDA WHITING
+OBX|2|ST|T535^COCAINE METABOLITES||RES2RES2RES2|ng/mL|300||||F
+OBX|3|ST|T619^AMPHETAMINES (CLASS)||NEG|ng/mL|1000||||F
+OBX|4|ST|T614^BARBITURATES||NEG|ng/mL|300||||F
+OBX|5|ST|T611^BENZODIAZEPINES||NEG|ng/mL|300||||F
+OBX|6|ST|T615^MARIJUANA METABOLITE||NEG|ng/mL|50||||F
+OBX|7|ST|T617^OPIATES||NEG|ng/mL|2000||||F
+OBX|8|ST|T618^PHENCYCLIDINE||NEG|ng/mL|25||||F
+OBX|9|ST|T620^PROPOXYPHENE/METABOLITE||NEG|ng/mL|300||||F
+OBX|10|ST|T612^METHADONE||NEG|ng/mL|300||||F
+OBX|11|ST|K465^OXYCODONE/OXYMORPHONE SCRN, UR||NEG|ng/mL|100||||F
+DSP|1||DATE2DATE2DATE2             Clinical Reference Laboratory                     11:51
+DSP|2||                 CLIA #17D2005163, SAMHSA #0007, CAP #30211-03
+DSP|3
+DSP|4||SUR-SCAN                     NAME: LNAMELNAMELNAME, FNAMEFNAMEFNAME MIMIMI.       SAMPLE ID: SAMPSAMPSAMP
+DSP|5||STEVEN PASCHALL MD           DOB: N/S                        COLLECTED: DATEDATEDATE
+DSP|6||7160 GRAHAM RD               SSN/ID: PIDPIDPID             RECEIVED:  DATEDATEDATE
+DSP|7||INDIANAPOLIS, IN 46250       GENDER: N/S                     REPORTED:  DATEDATEDATE
+DSP|8||                             SLIP ID: SPECSPECSPEC             FAX: (317) 983-7212
+DSP|9||PH: (317) 547-8620           REF ID: N/S
+DSP|10||COLL. SITE ID: 0VN001Z       REFERENCE 1: OKC COM COLLEGE
+DSP|11||                             REFERENCE 2: OKC COM COLLEGE-SPEECH
+DSP|12
+DSP|13||SITE ADDR: SUR-SCAN                       SITE BRANCH: SUR-SCAN DOT
+DSP|14||           2030 AVE G STE 1102            SITE PHONE:  (972) 633-1388
+DSP|15||           PLANO, TX 75074                SITE FAX:    (775) 370-3031
+DSP|16
+DSP|17||                 REASON FOR TESTING:  OTHER
+DSP|18||                        SAMPLE TYPE:  URN DRUG SCREEN (10 PANEL
+DSP|19
+DSP|20||URINALYSIS                       RESULT / STATUS          CUTOFF/EXPECTED VALUES
+DSP|21||----------                     -------------------        ----------------------
+DSP|22||  URN CREATININE                   86.0                   20.0-300.0 mg/dL
+DSP|23
+DSP|24||INITIAL TEST                     RESULT / STATUS          CUTOFF/EXPECTED VALUES
+DSP|25||------------                   -------------------        ----------------------
+DSP|26||  COCAINE METABOLITES          ........   RESRESRES        300 ng/mL
+DSP|27||  AMPHETAMINES (CLASS)         ........   NEGATIVE        1000 ng/mL
+DSP|28||  BARBITURATES                 ........   NEGATIVE        300 ng/mL
+DSP|29||  BENZODIAZEPINES              ........   NEGATIVE        300 ng/mL
+DSP|30||  MARIJUANA METABOLITE         ........   NEGATIVE        50 ng/mL
+DSP|31||  OPIATES                      ........   NEGATIVE        2000 ng/mL
+DSP|32||  PHENCYCLIDINE                ........   NEGATIVE        25 ng/mL
+DSP|33||  PROPOXYPHENE/METABOLITE      ........   NEGATIVE        300 ng/mL
+DSP|34||  METHADONE                    ........   NEGATIVE        300 ng/mL
+DSP|35||  OXYCODONE/OXYMORPHONE SCRN,  ........   NEGATIVE        100 ng/mL
+DSP|36
+DSP|37
+DSP|38||               LAB DIRECTOR: DAVID KUNTZ, PHD, F-ABFT
+DSP|39
+DSP|40
+DSP|41
+DSP|42||               REPORT CERTIFIED BY MELINDA WHITING
+DSP|43
+DSP|44
+DSP|45
+DSP|46
+DSP|47
+DSP|48
+DSP|49
+DSP|50
+DSP|51
+DSP|52||                                    Page  1
+DSP|53
+DSP|54||      Copyright 2019 Clinical Reference Laboratory.  All Rights Reserved.
+DSP|55||           8433 Quivira Road.  Lenexa, Kansas 66215.  (913) 492-3652
+DSP|56
+DSP|57||                         FCB: CLS.0VN.MPOS.OCCC.SPEECH
+DSP|58
+DSP|59||                              [  end of report  ]
+FTS|1|CRL HL7 Format Implementation

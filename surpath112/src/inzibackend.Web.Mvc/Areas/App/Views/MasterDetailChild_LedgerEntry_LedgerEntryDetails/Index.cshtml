@@ -1,0 +1,155 @@
+﻿@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.LedgerEntryDetails
+@using inzibackend.Web.Areas.App.Startup
+@model MasterDetailChild_LedgerEntry_LedgerEntryDetailsViewModel
+@{
+Layout = null;
+}
+<script abp-src="/view-resources/Areas/App/Views/MasterDetailChild_LedgerEntry_LedgerEntryDetails/Index.js" asp-append-version="true"></script>
+<input type="hidden" id="MasterDetailChild_LedgerEntry_LedgerEntryDetailsId" value="@Model.LedgerEntryId" />
+
+<div class="card card-custom gutter-b">
+
+    <div class="card-header border-0 py-5">
+        <h3 class="card-title align-items-start flex-column">
+            <span class="card-label font-weight-bolder text-dark">@L("LedgerEntryDetails")</span>
+            <span class="d-none text-muted mt-3 font-weight-bold font-size-sm">@L("LedgerEntryDetailsHeaderInfo")</span>
+        </h3>
+        <div class="card-toolbar">
+            <button id="ExportToExcelButton" class="d-none btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+
+            @if (IsGranted(AppPermissions.Pages_LedgerEntryDetails_Create))
+            {
+            <button id="CreateNewLedgerEntryDetailButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewLedgerEntryDetail")</button>
+            }
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="d-none form">
+            <div class="row align-items-center mb-4">
+                <div class="col-xl-12">
+
+                    <div class="my-3">
+                        <div class="input-group">
+                            <input type="text" id="MasterDetailChild_LedgerEntry_LedgerEntryDetailsTableFilter" class="form-control m-input" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                            <button id="GetLedgerEntryDetailsButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div id="MasterDetailChild_LedgerEntry_AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+            <div class="col-md-12">
+
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="MasterDetailChild_LedgerEntry_NoteFilterId">@L("Note")</label>
+                    <input type="text" class="form-control" name="noteFilter" id="MasterDetailChild_LedgerEntry_NoteFilterId">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="MasterDetailChild_LedgerEntry_MinAmountFilterId">@L("MinMax") @L("Amount")</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control m-input" placeholder="@L(" MinValue")" name="minAmountFilter" id="MasterDetailChild_LedgerEntry_MinAmountFilterId" />
+                        <input type="number" class="form-control m-input" placeholder="@L(" MaxValue")" name="maxAmountFilter" id="MasterDetailChild_LedgerEntry_MaxAmountFilterId" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="MasterDetailChild_LedgerEntry_MinDiscountFilterId">@L("MinMax") @L("Discount")</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control m-input" placeholder="@L(" MinValue")" name="minDiscountFilter" id="MasterDetailChild_LedgerEntry_MinDiscountFilterId" />
+                        <input type="number" class="form-control m-input" placeholder="@L(" MaxValue")" name="maxDiscountFilter" id="MasterDetailChild_LedgerEntry_MaxDiscountFilterId" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="MasterDetailChild_LedgerEntry_MinDiscountAmountFilterId">@L("MinMax") @L("DiscountAmount")</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control m-input" placeholder="@L(" MinValue")" name="minDiscountAmountFilter" id="MasterDetailChild_LedgerEntry_MinDiscountAmountFilterId" />
+                        <input type="number" class="form-control m-input" placeholder="@L(" MaxValue")" name="maxDiscountAmountFilter" id="MasterDetailChild_LedgerEntry_MaxDiscountAmountFilterId" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="MasterDetailChild_LedgerEntry_MetaDataFilterId">@L("MetaData")</label>
+                    <input type="text" class="form-control" name="metaDataFilter" id="MasterDetailChild_LedgerEntry_MetaDataFilterId">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="MasterDetailChild_LedgerEntry_MinAmountPaidFilterId">@L("MinMax") @L("AmountPaid")</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control m-input" placeholder="@L(" MinValue")" name="minAmountPaidFilter" id="MasterDetailChild_LedgerEntry_MinAmountPaidFilterId" />
+                        <input type="number" class="form-control m-input" placeholder="@L(" MaxValue")" name="maxAmountPaidFilter" id="MasterDetailChild_LedgerEntry_MaxAmountPaidFilterId" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="MasterDetailChild_LedgerEntry_MinDatePaidOnFilterId">@L("DatePaidOnRange")</label>
+                    <div class="input-group">
+                        <input class="form-control m-input date-picker date-picker-filter" type="text" placeholder="@L(" MinValue")" id="MasterDetailChild_LedgerEntry_MinDatePaidOnFilterId">
+                        <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                        <input class="form-control m-input date-picker date-picker-filter" type="text" placeholder="@L(" MaxValue")" id="MasterDetailChild_LedgerEntry_MaxDatePaidOnFilterId">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="MasterDetailChild_LedgerEntry_SurpathServiceNameFilterId">(@L("SurpathService")) @L("Name")</label>
+                    <input type="text" class="form-control" name="surpathServiceNameFilter" id="MasterDetailChild_LedgerEntry_SurpathServiceNameFilterId">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="MasterDetailChild_LedgerEntry_TenantSurpathServiceNameFilterId">(@L("TenantSurpathService")) @L("Name")</label>
+                    <input type="text" class="form-control" name="tenantSurpathServiceNameFilter" id="MasterDetailChild_LedgerEntry_TenantSurpathServiceNameFilterId">
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4 d-none">
+            <div class="col-xl-12">
+                <span id="MasterDetailChild_LedgerEntry_ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                <span id="MasterDetailChild_LedgerEntry_HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <table id="MasterDetailChild_LedgerEntry_LedgerEntryDetailsTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                <thead>
+                    <tr>
+                        <th></th>
+
+                        <th>@L("Actions")</th>
+                        <th>@L("Amount")</th>
+                        <th>@L("AmountPaid")</th>
+                        <th>@L("DatePaidOn")</th>
+                        <th>@L("SurpathServiceName")</th>
+                        <th>@L("Note")</th>
+
+
+@*                        <th>@L("Actions")</th>
+                        <th>@L("Note")</th>
+                        <th>@L("Amount")</th>
+                        <th>@L("Discount")</th>
+                        <th>@L("DiscountAmount")</th>
+                        <th>@L("MetaData")</th>
+                        <th>@L("AmountPaid")</th>
+                        <th>@L("DatePaidOn")</th>
+                        <th>@L("SurpathServiceName")</th>
+                        <th>@L("TenantSurpathServiceName")</th>*@
+
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>

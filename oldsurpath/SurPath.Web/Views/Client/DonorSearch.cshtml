@@ -1,0 +1,1033 @@
+﻿@model IEnumerable<SurPathWeb.Models.TestResultDataModel>
+@using SurPath.Enum
+@using GridMvc.Html
+
+@{
+    ViewBag.Title = "DonorSearch";
+    Layout = "~/Views/Shared/_ClientLayout.cshtml";
+    int dobyear = 1950;
+    int dobdiff = Convert.ToInt32(DateTime.Now.Year) - dobyear + 1;
+    int DRyear = 2015;
+    int DRdiff = Convert.ToInt32(DateTime.Now.Year) - DRyear + 1;
+
+
+
+}
+
+@section PageScript
+{
+    <script src='@Url.Content("~/Scripts/popup.js")'></script>
+    <link href='@Url.Content("~/Content/Gridmvc.css")' rel="stylesheet" type="text/css" />
+    <link href='@Url.Content("~/Content/themes/base/datepicker.css")' rel="stylesheet" type="text/css" />
+    <link href='@Url.Content("~/Content/themes/base/datepicker3.css")' rel="stylesheet" type="text/css" />
+    <script src='@Url.Content("~/Scripts/bootstrap-datepicker.js")'></script>
+    <script src='@Url.Content("~/Scripts/jquery.maskedinput.min.js")'></script>
+}
+
+@{using (Html.BeginForm())
+    {
+        <div class="container">
+            <div style="display:none" class="alert alert-danger" role="alert" id="divServerErr">
+                <i class="fa fa-exclamation-triangle fa-1x"></i> @ViewBag.ServerErr
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h3> Search </h3>
+                </div>
+            </div>
+            <hr />
+            <div class="form-group">
+                <div class="row">
+                    <div id="search" class="col-md-3 col-sm-3">
+                        <label>First Name</label>
+                        @*<input type="text" class="form-control" name="FirstName" id="txtFirstName" value="@ViewBag.FirstName" placeholder="">*@
+                        <input type="text" class="form-control" name="FirstName" id="txtFirstName" value="@Session["Firstname"]" placeholder="">
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" name="LastName" id="txtLastName" value="@Session["LastName"]" placeholder="" />
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <label>SSN</label>
+                        <input type="text" class="form-control" name="SSN" id="txtSSN" placeholder="" value="@Session["SSN"]" maxlength="4" />
+                        <span class="alert-danger" id="error" style="display:none">Enter correct SSN.</span>
+                    </div>
+                    <div id="txtDOB">
+                        <div class="col-md-1 col-sm-1">
+                            <label>D.O.B</label>
+                            <span> @Html.DropDownList("DOBMonth", Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "MM")</span>
+                        </div>
+                        <div class="col-md-1 col-sm-1">
+                            <div class="row top-buffer"></div>
+                            <div class="row top-buffer"></div>
+                            <span> @Html.DropDownList("DOBDate", Enumerable.Range(1, 31).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "dd")</span>
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                            <div class="row top-buffer"></div>
+                            <div class="row top-buffer"></div>
+                            <span>  @Html.DropDownList("DOBYear", Enumerable.Range(dobyear, dobdiff).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "yyyy")</span>
+                            <span class="alert-danger" id="doberror" style="display:none">Choose correct date.</span>
+                            <span class="alert-danger" id="invalid" style="display:none">Invalid date.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-3">
+                        <label>Client</label>
+                        <div id="divClient">
+                            @Html.DropDownList("Clients", (IEnumerable<SelectListItem>)ViewBag.Clients, new { @class = "form-control", name = "Clients", onfocus = "select" })
+                            <span class="alert-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <label>Program</label>
+                        <select class="form-control" id="Departments" name="Departments" disabled="true">
+                            <option value="" id="first">Select Program</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <label>Specimen ID</label>
+                        <input type="text" class="form-control" name="SpecimenId" id="txtSpecimenId" value="@Session["SpecimenID"]" />
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <label>Test Reason</label>
+                        <select class="form-control" id="TestReason" name="reason">
+                            <option value="">Select Reason</option>
+                            <option value="1">Pre-Employment</option>
+                            <option value="2">Random</option>
+                            <option value="3">Reasonable Suspicion Cause</option>
+                            <option value="4">Post-Accident</option>
+                            <option value="5">Return to Duty</option>
+                            <option value="6">Follow-Up</option>
+                            <option value="7">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-3">
+                        <label>TestType</label>
+                        <select class="form-control" id="TestType" name="TestType">
+                            <option value="">Select Test type</option>
+                            <option value="1">UA</option>
+                            <option value="2">Hair</option>
+                            <option value="3">DNA</option>
+                            <option value="4">BC</option>
+                            <option value="5">RC</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 col-sm-3">
+                        <label>Result</label>
+                        <select class="form-control" id="Result" name="result">
+                            <option value="">Select Result</option>
+                            <option value="1">Positive</option>
+                            <option value="2">Negative</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row top-buffer"></div>
+                <div class="row hidden">
+                    <div class="col-md-2 col-sm-2">
+                        <input type="radio" name="Noofdays" id="3days" value="@Session["Day3"]" checked="@Session["Day3"]" />
+                        <input type="text" name="3daytext" id="3daytext" style="display:none" />
+                        <label> Last 3 Days</label>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <input type="radio" name="Noofdays" id="7days" value="@Session["Day7"]" checked="@Session["Day7"]" />
+                        <input type="text" name="7daytext" id="7daytext" style="display:none" />
+                        <label> Last 7 Days</label>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <input type="radio" name="Noofdays" id="30days" value="@Session["Day30"]" checked="@Session["Day30"]" />
+                        <input type="text" name="30daytext" id="30daytext" style="display:none" />
+                        <label> Last 30 Days</label>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <input type="radio" name="Noofdays" id="60days" value="@Session["Day60"]" checked="@Session["Day60"]" />
+                        <input type="text" name="60daytext" id="60daytext" style="display:none" />
+                        <label> Last 60 Days</label>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <input type="radio" name="Noofdays" id="90days" value="@Session["Day90"]" checked="@Session["Day90"]" />
+                        <input type="text" name="90daytext" id="90daytext" style="display:none" />
+                        <label> Last 90 Days</label>
+                    </div>
+                </div>
+                <div class="row hidden">
+                    <div class="col-md-2 col-sm-2" style="padding-left:15px">
+                        <input type="radio" name="Noofdays" id="daterange" value="@Session["Daterange"]" checked="@Session["Daterange"]" />
+                        <input type="text" name="daterangetxt" id="daterangetxt" style="display:none" />
+                        <label> Date Range</label>
+                    </div>
+                    <div id="datestart" style="display:none">
+                        <div class="col-md-1 col-sm-1">
+                            <span> @Html.DropDownList("StartMonth", Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "MM")</span>
+                        </div>
+                        <div class="col-md-1 col-sm-1">
+                            <span> @Html.DropDownList("StartDate", Enumerable.Range(1, 31).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "dd")</span>
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                            <span>  @Html.DropDownList("StartYear", Enumerable.Range(DRyear, DRdiff).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "yyyy")</span>
+                            <span class="alert-danger" id="starterror" style="display:none">Choose correct date.</span>
+                        </div>
+                    </div>
+                    <div id="dateend" style="display:none">
+                        <div class="col-md-1 col-sm-1">
+                            <span> @Html.DropDownList("EndMonth", Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "MM")</span>
+                        </div>
+                        <div class="col-md-1 col-sm-1">
+                            <span> @Html.DropDownList("EndDate", Enumerable.Range(1, 31).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "dd")</span>
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                            <span>  @Html.DropDownList("EndYear", Enumerable.Range(DRyear, DRdiff).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "yyyy")</span>
+                            <span class="alert-danger" id="enderror" style="display:none">Choose correct date.</span>
+                            <span class="alert-danger" id="invaliderror" style="display:none">Invalid date.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="cbFilterLabelRow" style="display:inline">
+                        <div class="col-md-2 col-sm-2">
+                            <label for="DonorSearchFilterList">Filter By</label>
+                        </div>
+                    </div>
+                    <div id="lblFilterAfter" style="display:none">
+                        <div class="col-md-3 col-sm-3">
+                            <label>After</label>
+                        </div>
+                    </div>
+                    <div id="lblFilterBefore" style="display:none">
+                        <div class="col-md-3 col-sm-3">
+                            <label>Before</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="cbFilter" style="display:inline">
+                        <div class="col-md-2 col-sm-2">
+                            @Html.DropDownList("DonorSearchFilterList",
+                                EnumHelper.GetSelectList(typeof(DonorSearchFilterList)),
+                                new {@class = "form-control"}
+                                )
+
+                            @*@Html.EnumDropDownListFor(m=>m.v </span>*@
+                        </div>
+                    </div>
+                    <div id="dateAfter" style="display:none">
+                        <div class="col-md-3 col-sm-3">
+                            <span>
+                                <input type="text" id="afterDateFilter" name="afterDateFilter" data-provide="datepicker" value="@Session["afterDateFilter"]">
+                            </span>
+                        </div>
+                    </div>
+                    <div id="datebefore" style="display:none">
+                        <div class="col-md-3 col-sm-3">
+                            <span>
+                                <input type="text" id="beforeDateFilter" name="beforeDateFilter" data-provide="datepicker" value="@Session["beforeDateFilter"]">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row hidden" id="daterangepresets" name="daterangepresets">
+                    <div class="col-md-2 col-sm-2">
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <button class="form-control btn btn-primary daysfilterpreset" type="button" name="button" id="day3preset" data-dayminus="-3">Last 3 Days</button>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <button class="form-control btn btn-primary daysfilterpreset" type="button" name="button" id="day7preset" data-dayminus="-7">Last 7 Days</button>
+
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <button class="form-control btn btn-primary daysfilterpreset" type="button" name="button" id="day30preset" data-dayminus="-30">Last 30 Days</button>
+
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <button class="form-control btn btn-primary daysfilterpreset" type="button" name="button" id="day60preset" data-dayminus="-60">Last 60 Days</button>
+
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <button class="form-control btn btn-primary daysfilterpreset" type="button" name="button" id="day90preset" data-dayminus="-90">Last 90 Days</button>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2">
+                        <input type="checkbox" id="chkArchived" name="IncludeArchived" value="@Session["includearchived"]" checked="@Session["includearchived"]" />
+                        <label> Include Archived </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-3">
+                        <label>Export Format</label>
+                        <select class="form-control" id="exportformat" name="format">
+                            <option value="0">PDF</option>
+                            <option value="1">Word</option>
+                            <option value="2">Excel</option>
+                            <option value="3">CSV</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 buffer">
+                        <button class="form-control btn btn-primary" type="button" name="button" value="submit" id="btnExport">Export Summary</button>
+                    </div>
+                    <div class="col-sm-2 buffer">
+                        <button class="form-control btn btn-primary" type="button" name="button" value="submit" id="btnPrintPdf">Print All Results to PDF</button>
+                    </div>
+                    <div class="col-sm-2 buffer">
+                        <button class="form-control btn btn-primary" type="button" name="button" value="submit" id="btnReset">Reset</button>
+                    </div>
+                    <div class="col-sm-2 buffer">
+                        <button class="form-control btn btn-primary" name="button" value="Submit" id="btnSearch">Search</button>
+                    </div>
+                </div>
+                <div class="row top-buffer">
+                    <input type="hidden" name="started" id="sd" />
+                    <input type="hidden" name="ended" id="ed" />
+                    <input type="hidden" name="DOB" id="hdDOB" />
+                    <input type="hidden" name="searchvalue" id="searchvalue" />
+                    <input type="hidden" name="searchvalue1" id="searchvalue1" />
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row top-buffer"></div>
+            <div>
+
+                @*
+                        columns.Add().Titled("Option").Encoded(false)
+                    .Sanitized(false)
+                    .SetWidth("30%")
+                    .RenderValueAs(o=>(
+                    Html.ActionLink("View","UserDetails", "Administration", new {id = o.UserID}, new {@class = "btn btn-default"}).ToHtmlString()
+                    + Html.ActionLink("Delete","NewInvestment", "Administration", new {id = o.UserID}, new {@class = "btn btn-default"}).ToHtmlString()
+                    )
+                    );*@
+                <table id="tabsearch" class="table table-bordered table-condensed fixed_headers">
+
+                    @Html.Grid(Model).Columns(columns =>
+               {
+
+                   columns.Add()
+                      .Encoded(false)
+                      .Sanitized(false)
+                      .RenderValueAs(m => m.DownloadLink)
+                      .Titled("Download Actions");
+
+                   columns.Add()
+                    .Encoded(false)
+                    .Sanitized(false)
+                    .RenderValueAs(m => m.MRODownloadLink);
+
+
+                   columns.Add(m => m.SpecimenId).Sortable(true).Titled("Specimen ID");
+                   columns.Add(m => m.FirstName).Sortable(true).Titled("First Name");
+                   columns.Add(m => m.LastName).Sortable(true).Titled("Last Name");
+                   columns.Add(m => m.TestStatus).Sortable(true).Titled("Test Status");
+                   columns.Add(m => m.StrOverallResult).Sortable(true).Titled("Final Result");
+                   columns.Add(m => m.TestDate).Sortable(true).Titled("Tested Date");
+                   columns.Add(m => m.StrTestType).Sortable(true).Titled("Test Type(s)");
+                   columns.Add()
+                     .Encoded(false)
+                     .Sanitized(false)
+                     .RenderValueAs(m => m.DonorClearStarProfId)
+                     .Titled("Background");
+                   columns.Add()
+                     .Encoded(false)
+                     .Sanitized(false)
+                     .RenderValueAs(m => m.RecordKeepingLink)
+                     .Titled("RecordKeeping");
+                   //columns.Add(m => m.DonorClearStarProfId).Sortable(true).Titled("Background");
+
+                   columns.Add(m => m.StrTestreason).Sortable(true).Titled("Immunization");
+                   columns.Add(m => m.SSN).Titled("SSN");
+                   columns.Add(m => m.DOB).Sortable(true).Titled("D.O.B");
+                   columns.Add(m => m.ClientName).Sortable(true).Titled("Client Name");
+                   columns.Add(m => m.DepartmentName).Sortable(true).Titled("Program");
+
+                   columns.Add().Titled("Send In").Encoded(false)
+                         .Sanitized(false)
+                         .RenderValueAs(o =>
+                                o.show_web_notify_button ?
+                              Html.Raw("<button type='button' donor_test_info_id=" + o.DonorTestInfoId + " Notified_by_email_timestamp='" + o.Notified_by_email_timestamp.ToString() + "' backend_notifications_id=" + o.backend_notifications_id.ToString() + " class ='form-control btn-notify " + (string.IsNullOrEmpty(o.has_been_notified) ? "btn btn-primary" : "btn btn-warning") + "'>" + (string.IsNullOrEmpty(o.has_been_notified) ? "Notify" : "Re-Notify") + "</button>")
+                              : o.TestStatus.Equals("completed", StringComparison.InvariantCultureIgnoreCase) ? Html.Raw("Completed") :
+                              Html.Raw("Contact SurScan")
+                         );
+
+
+
+               }).WithPaging(6, 20)
+
+
+                </table>
+
+            </div>
+            <div class="row top-buffer"></div>
+            <div class="row top-buffer"></div>
+            <div class="row top-buffer"></div>
+            <div class="row top-buffer"></div>
+        </div>
+        <!-- Modal -->
+        <div id="myModal" class="modal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_close_modal_info"><span aria-hidden="true">&times;</span></button>
+                        <h3><div id="modalHeaderMessage" style="font-weight: normal;"></div></h3>
+                    </div>
+                    <div class="modal-body">
+
+                        <div id="modalMessage" style="font-weight: normal;"></div>
+                    </div>
+                    <div class="modal-footer" id="footer_modal">
+                        <button id="modalYes" type="button" class="btn btn-primary">Yes</button>
+                        <button id="modalNo" type="button" class="btn btn-secondary">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+<style>
+    .important {
+        background-color: red !important;
+        color: white;
+        font-weight: 600;
+        padding: 5px;
+    }
+
+    .notice {
+        color: blue;
+    }
+
+    .btn-profile {
+        color: white;
+        background-color: green;
+        border-color: green;
+    }
+
+    tr.important {
+        background-color: rgba(205, 92, 92, 0.5) !important;
+    }
+
+    .fixed_headers {
+        table-layout: fixed;
+        border-collapse: collapse;
+    }
+
+        .fixed_headers th {
+            text-decoration: underline;
+        }
+
+        .fixed_headers th,
+        .fixed_headers td {
+            padding: 5px;
+            text-align: left;
+        }
+
+        .fixed_headers thead {
+            background-color: darkgrey;
+            color: #fdfdfd;
+        }
+
+            .fixed_headers thead tr {
+                display: block;
+                position: relative;
+            }
+
+        .fixed_headers tbody {
+            display: block;
+            overflow: auto;
+            width: 100%;
+            height: 350px;
+        }
+
+            .fixed_headers tbody tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+
+        .fixed_headers td:nth-child(1),
+        .fixed_headers th:nth-child(1) {
+            min-width: 150px;
+            max-width: 150px;
+        }
+
+        .fixed_headers td:nth-child(2),
+        .fixed_headers th:nth-child(2) {
+            min-width: 150px;
+            max-width: 150px;
+            text-align: left;
+        }
+
+        .fixed_headers td:nth-child(3),
+        .fixed_headers th:nth-child(3) {
+            min-width: 160px;
+            max-width: 160px;
+            text-align: left;
+        }
+
+        .fixed_headers td:nth-child(4),
+        .fixed_headers th:nth-child(4) {
+            min-width: 120px;
+            max-width: 120px;
+            text-align: left;
+        }
+
+        .fixed_headers td:nth-child(5),
+        .fixed_headers th:nth-child(5) {
+            min-width: 120px;
+            max-width: 120px;
+            text-align: left;
+        }
+
+        .fixed_headers td:nth-child(6),
+        .fixed_headers th:nth-child(6) {
+            min-width: 120px;
+            max-width: 120px;
+            text-align: left;
+        }
+
+        .fixed_headers td:nth-child(7),
+        .fixed_headers th:nth-child(7) {
+            min-width: 100px;
+            max-width: 100px;
+            text-align: center;
+        }
+
+        .fixed_headers td:nth-child(8),
+        .fixed_headers th:nth-child(8) {
+            min-width: 100px;
+            max-width: 100px;
+            text-align: center;
+        }
+
+        .fixed_headers td:nth-child(9),
+        .fixed_headers th:nth-child(9) {
+            min-width: 120px;
+            max-width: 120px;
+            text-align: left;
+        }
+
+        .fixed_headers td:nth-child(10),
+        .fixed_headers th:nth-child(10) {
+            min-width: 120px;
+            max-width: 120px;
+            text-align: left;
+        }
+
+        .fixed_headers td:nth-child(11),
+        .fixed_headers th:nth-child(11) {
+            min-width: 100px;
+            max-width: 100px;
+            text-align: left;
+        }
+
+        .fixed_headers td:nth-child(12),
+        .fixed_headers th:nth-child(12) {
+            min-width: 240px;
+            max-width: 240px;
+            text-align: left;
+        }
+
+        .fixed_headers td:nth-child(13),
+        .fixed_headers th:nth-child(13) {
+            min-width: 180px;
+            max-width: 180px;
+            text-align: left;
+        }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //$('#tabsearch').DataTable()
+        //$('#tabsearch').DataTable({
+        //    'bSort': false,
+        //    'order': [[1, "asc"]],
+
+
+        //    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        //});
+        //console.log("document ready jquery");
+    });
+
+
+    function doNotify(donor_test_info_id, NotifyNow, Queued) {
+
+        var notifyModel =
+        {
+            "donor_test_info_id": donor_test_info_id,
+            "NotifyNow": NotifyNow,
+            "Queued": Queued,
+            "Msg": ""
+        };
+
+
+         $.ajax({
+            url: '@Url.Action("NotifyDonor")',
+             data: notifyModel ,
+            type: "post",
+            success: function (notiData) {
+                alert(notiData.Msg);
+            }
+         });
+        $("#myModal").modal("hide");
+
+    }
+
+    $("#modalYes").click(function () {
+        var donor_test_info_id = $(this).attr("donor_test_info_id");
+        var NotifyNow = false;
+        var Queued = false;
+        $("#modalYes").attr("modalAction", "now");
+        $("#modalNo").attr("modalAction", "now");
+        if ($(this).attr("modalAction") == "now") {
+            NotifyNow = true;
+            doNotify(donor_test_info_id, true, false);
+        }
+        else {
+            Queued = true;
+            doNotify(donor_test_info_id, false, true);
+        }
+
+
+
+    });
+
+
+    function ConfirmDialogNow(message, message2) {
+        console.log('confim');
+        backend_notifications_id = $("#myModal").attr("backend_notifications_id");
+        if (backend_notifications_id == "0") {
+            $("#modalHeaderMessage").text("Notify?");
+        }
+        else {
+            $("#modalHeaderMessage").text( "Notify Again?");
+        }
+        $("#modalMessage").text(message)
+        $("#modalYes").attr("modalAction", "now");
+        $("#modalNo").attr("modalAction", "now");
+
+        $("#modalNo").click(function () {
+            if ($(this).attr("modalAction") == "now") {
+                $("#modalNo").attr("modalAction", "sched");
+                $("#modalMessage").text(message2)
+                console.log('no');
+                console.log(Math.random());
+            } else {
+                console.log('no2');
+                $("#modalYes").attr("modalAction", "now");
+                $("#modalNo").attr("modalAction", "now");
+                $("#myModal").modal("hide");
+            }
+
+
+        });
+
+        $("#myModal").modal({keyboard: true});
+    };
+
+    $(function () {
+
+        $(".btn-notify").click(function () {
+
+            var donor_test_info_id = $(this).attr("donor_test_info_id");
+            var backend_notifications_id = $(this).attr("backend_notifications_id");
+            var Notified_by_email_timestamp = $(this).attr("Notified_by_email_timestamp");
+            console.log(Notified_by_email_timestamp);
+            $("#modalYes").attr("donor_test_info_id", donor_test_info_id);
+            $("#myModal").attr("backend_notifications_id", backend_notifications_id);
+            $("#myModal").attr("Notified_by_email_timestamp", Notified_by_email_timestamp);
+            ConfirmDialogNow("Notify Immediately?", "Schedule for notification next department window?");
+
+        });
+
+        if ("@ViewBag.ServerErr" != "") {
+            $("#divServerErr").show().find("div").html("@ViewBag.ServerErr");
+        }
+        $("#invaliderror").hide();
+
+        if ("@ViewBag.daterange" != "") {
+            $("#invaliderror").show();
+        }
+        else {
+            $("#invaliderror").hide();
+        }
+
+        if ("@ViewBag.doberr" != "") {
+            $("#invalid").show();
+        }
+        else {
+            $("#invalid").hide();
+        }
+
+        $("#searchvalue").val('0');
+        $("#searchvalue").val('0');
+
+        $("#invaliderror").hide();
+
+        var element = document.getElementById('tabsearch');
+
+        if (element.offsetHeight > "500") {
+            $("#tabsearch").css({ "max-height": "500px", "overflow-y": "scroll" });
+        }
+        else {
+            $("#tabsearch").css({ "max-height": "500px", "overflow-y": "hidden" });
+        }
+
+        var download = '@Session["Download"]';
+        if (document.body.clientWidth > 750) {
+            if (download != "") {
+                window.scrollBy(0, 300);
+            }
+        }
+        else {
+            if (download != "") {
+                window.scrollBy(0, 1250);
+            }
+        }
+
+        var client = '@Session["client"]';
+        var departmentviewbag = '@Session["department"]';
+        var reasonss = '@Session["Testreasons"]';
+        var category = '@Session["categorytest"]';
+        var resultTest = '@Session["resulttest"]';
+        var start_date = '@Session["startdated"]';
+        var start_month = '@Session["startmonth"]';
+        var start_year = '@Session["startyear"]';
+        var end_date = '@Session["enddated"]';
+        var end_month = '@Session["endmonth"]';
+        var end_year = '@Session["endyear"]';
+        var dob_day = '@Session["dobday"]';
+        var dob_month = '@Session["dobmonth"]';
+        var dob_year = '@Session["dobyear"]';
+
+
+    // FILTER Functions
+
+        var DonorSearchFilterList = @Session["DonorSearchFilterList"];
+
+        $('#DonorSearchFilterList').on('change', function (e) {
+
+            if (e.currentTarget.selectedIndex != 0) {
+                $('#dateAfter').css('display', 'inline');
+                $('#datebefore').css('display', 'inline');
+                $('#lblFilterAfter').css('display', 'inline');
+                $('#lblFilterBefore').css('display', 'inline');
+                $('#daterangepresets').removeClass('hidden');
+            }
+            else {
+                $('#dateAfter').css('display', 'none');
+                $('#datebefore').css('display', 'none');
+                $('#lblFilterAfter').css('display', 'none');
+                $('#lblFilterBefore').css('display', 'none');
+                $('#daterangepresets').addClass('hidden');
+            }
+
+        })
+
+        $("#afterDateFilter").datepicker({
+            endDate: '@Session["beforeDateFilter"]',
+            useCurrent: false
+        }).change(afterChanged).on('changeDate', afterChanged);
+
+        $("#beforeDateFilter").datepicker({
+            startDate: '@Session["afterDateFilter"]',
+            useCurrent: false
+        }).change(beforeChanged).on('changeDate', beforeChanged);
+
+
+        function afterChanged(e) {
+            //debugger;
+            $('#beforeDateFilter').datepicker('setStartDate', $("#afterDateFilter").data('datepicker').getDate())
+        }
+        function beforeChanged(e) {
+            //debugger;
+            $('#afterDateFilter').datepicker('setEndDate', $("#beforeDateFilter").data('datepicker').getDate())
+        }
+        $("#DonorSearchFilterList").val(DonorSearchFilterList);
+        $("#DonorSearchFilterList").trigger("change");
+
+        $(".daysfilterpreset").on("click", function (e) {
+
+            //var sVal = '234';
+            //var iNum = parseInt(sVal); //Output will be 234.
+            //var _days = parseint();
+            var _this = e.target;
+            var __days = $(_this).data("dayminus");
+            console.log(__days);
+
+            var _days = parseInt(__days);
+            console.log(__days);
+
+            SetDates(_days)
+        })
+
+        function SetDates(_days) {
+            console.log('SetDates');
+            // Set before to today
+            $('#beforeDateFilter').datepicker().datepicker('setDate', 'today');
+            var d = new Date($("#beforeDateFilter").data('datepicker').getDate()); //+ _days;
+            console.log(d);
+            
+            
+
+            d.setDate(d.getDate() + _days);
+            console.log(d);
+            var fd = (d.getMonth()+1) + "/" + d.getDate() + "/" + d.getFullYear();
+            console.log(fd);
+            $('#afterDateFilter').datepicker().datepicker('setDate', fd);
+            // subtract _days from today
+            //var _after = $("#beforeDateFilter").data('datepicker').getDate().addda
+            // set after to this.
+            //$('#afterDateFilter').datepicker('setEndDate', ($("#beforeDateFilter").data('datepicker').getDate() - _days));
+        }
+    // END FILTER Functions
+
+
+        $("#Clients").val(client);
+        if (reasonss != 0) {
+            $("#TestReason").val(reasonss);
+        }
+        else {
+            $("#TestReason").val('');
+        }
+
+        if (category != 0) {
+            $("#TestType").val(category);
+        }
+        else {
+            $("#TestType").val('');
+        }
+
+        if (resultTest != 0) {
+            $("#Result").val(resultTest);
+        }
+        else {
+            $("#Result").val('');
+        }
+
+        if ($("#daterangetxt").val() != "false") {
+            $("#StartDate").val(start_date);
+            $("#StartMonth").val(start_month);
+            $("#StartYear").val(start_year);
+            $("#EndDate").val(end_date);
+            $("#EndMonth").val(end_month);
+            $("#EndYear").val(end_year);
+        }
+
+        $("#DOBDate").val(dob_day);
+        $("#DOBMonth").val(dob_month);
+        $("#DOBYear").val(dob_year);
+
+        $("#liDashboard").removeClass("active");
+        $("#liDonorSearch").addClass("active");
+
+        if ($("#Clients").val() != null && $("#Clients").val() != "") {
+            $.ajax({
+                url: '@Url.Action("GetDepartments")',
+                data: { ClientName: $("#Clients").val() },
+                type: "post",
+                success: function (data1) {
+                    if (data1 != null && data1.department != null && data1.Success != -1) {
+                        $("#Departments").removeAttr('disabled', 'disabled');
+                        $.each(data1.department, function (Value, department) {
+                            $('#Departments').append($('<option></option>').val(department.Value).html(department.Text));
+                            $("#first").hide();
+                            $("#Departments").val(departmentviewbag);
+                        });
+                    }
+                }
+            });
+        }
+
+        $("#divClient").change(function () {
+
+            $("#Departments").empty();
+            $.ajax({
+                url: '@Url.Action("GetDepartments")',
+                data: { ClientName: $("#Clients").val() },
+                type: "post",
+                success: function (data1) {
+                    if (data1 != null && data1.department != null && data1.Success != -1) {
+                        $("#Departments").removeAttr('disabled', 'disabled');
+                        $.each(data1.department, function (Value, department) {
+                            $('#Departments').append($('<option></option>').val(department.Value).html(department.Text));
+                        });
+                    }
+                    else {
+
+                        $("#Departments").attr('disabled', 'disabled');
+                    }
+                }
+            });
+        });
+
+        if ($("#daterange").is(':checked')) {
+            $("#datestart").show();
+            $("#dateend").show();
+        }
+        else {
+            $("#datestart").hide();
+            $("#dateend").hide();
+        }
+
+        $("#daterange").click(function () {
+            $("#daterange").val('true');
+            if ($("#daterange").val() == "true") {
+                $("#datestart").show();
+                $("#dateend").show();
+                $("#invaliderror").hide();
+                $("#starterror").hide();
+                $("#enderror").hide();
+            }
+        });
+
+        $("#3days").click(function () {
+            $("#daterange").val('false');
+            if ($("#daterange").val() != "true") {
+                $("#datestart").hide();
+                $("#dateend").hide();
+            }
+        });
+
+        $("#7days").click(function () {
+            $("#daterange").val('false');
+            if ($("#daterange").val() != "true") {
+                $("#datestart").hide();
+                $("#dateend").hide();
+            }
+        });
+
+        $("#30days").click(function () {
+            $("#daterange").val('false');
+            if ($("#daterange").val() != "true") {
+                $("#datestart").hide();
+                $("#dateend").hide();
+            }
+        });
+
+        $("#60days").click(function () {
+            $("#daterange").val('false');
+            if ($("#daterange").val() != "true") {
+                $("#datestart").hide();
+                $("#dateend").hide();
+            }
+        });
+
+        $("#90days").click(function () {
+            $("#daterange").val('false');
+            if ($("#daterange").val() != "true") {
+                $("#datestart").hide();
+                $("#dateend").hide();
+            }
+        });
+
+        $("#txtSSN").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $("#txtSSN").siblings("#error").hide();
+                return false;
+            }
+        });
+
+        $("#btnExport").click(function () {
+            var expo = $("#exportformat").val();
+            var location = 'Export?ExportFormat=' + expo;
+            window.location.href = location;
+        });
+        $("#btnPrintPdf").click(function () {
+            var expo = $("#exportformat").val();
+            var location = 'PrintPDFAll?ExportFormat=' + expo;
+            window.location.href = location;
+        });
+        $("#btnReset").click(function () {
+
+            var url = '@Url.Action("Resetdonorsearch", "Client")';
+            window.location.href = url;
+        });
+
+        $("#btnSearch").click(function () {
+
+            status = true;
+            $("#searchvalue").val('1');
+            $("#searchvalue1").val('1');
+            $("#EndYear").siblings(".invaliderror").hide();
+
+            if ((($("#DOBDate").val() != "") && ($("#DOBMonth").val() != "") && ($("#DOBYear").val() != ""))) {
+                var start = $("#DOBYear").val() + "-" + $("#DOBMonth").val() + "-" + $("#DOBDate").val();
+                $("#doberror").hide();
+                $("#hdDOB").val(start);
+                status = true;
+
+            }
+            else {
+                if ((($("#DOBDate").val() == "") && ($("#DOBMonth").val() == "") && ($("#DOBYear").val() == ""))) {
+                    $("#hdDOB").val('');
+                    status = true;
+                }
+                else {
+                    $("#doberror").show();
+                    return false;
+                }
+            }
+
+            $("#chkArchived").val($("#chkArchived").is(':checked') ? "true" : "false");
+
+            $("#3days").val($("#3days").is(':checked') ? "true" : "false");
+            $("#3daytext").val($("#3days").val());
+            $("#7days").val($("#7days").is(':checked') ? "true" : "false");
+            $("#7daytext").val($("#7days").val());
+            $("#30days").val($("#30days").is(':checked') ? "true" : "false");
+            $("#30daytext").val($("#30days").val());
+            $("#60days").val($("#60days").is(':checked') ? "true" : "false");
+            $("#60daytext").val($("#60days").val());
+            $("#90days").val($("#90days").is(':checked') ? "true" : "false");
+            $("#90daytext").val($("#90days").val());
+            $("#daterange").val($("#daterange").is(':checked') ? "true" : "false");
+            $("#daterangetxt").val($("#daterange").val());
+
+            if ($("#daterangetxt").val() != "false") {
+                $("#invaliderror").hide();
+
+                if ((($("#StartDate").val() == "") || ($("#StartMonth").val() == "") || ($("#StartYear").val() == ""))) {
+                    $("#starterror").show();
+                    return false;
+                }
+                else {
+                    var start = $("#StartYear").val() + "-" + $("#StartMonth").val() + "-" + $("#StartDate").val();
+                    $("#starterror").hide();
+                    $("#sd").val(start);
+                    status = true;
+                }
+
+                if ((($("#EndDate").val() == "") || ($("#EndMonth").val() == "") || ($("#EndYear").val() == ""))) {
+                    $("#enderror").show();
+                    return false;
+                }
+                else {
+                    var end = $("#EndYear").val() + "-" + $("#EndMonth").val() + "-" + $("#EndDate").val();
+                    $("#enderror").hide();
+                    $("#ed").val(end);
+                    status = true;
+                }
+
+                var start = $("#StartYear").val() + "-" + $("#StartMonth").val() + "-" + $("#StartDate").val();
+                var end = $("#EndYear").val() + "-" + $("#EndMonth").val() + "-" + $("#EndDate").val();
+
+                if (start > end) {
+                    $("#invaliderror").show();
+                    return false;
+                }
+
+            }
+            return status;
+        });
+
+
+    });
+
+</script>
+
+
+
+
+
+

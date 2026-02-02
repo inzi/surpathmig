@@ -1,0 +1,1551 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://clearstar.net/Gateway/User" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://clearstar.net/Gateway/User" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://clearstar.net/Gateway/User">
+      <s:element name="AuthorizeUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthorizeUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthorizeUserResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthorizeCustomerGroupUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustomerGroup" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthorizeCustomerGroupUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthorizeCustomerGroupUserResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sOldPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sNewPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdatePasswordResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ForgotPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ForgotPasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ForgotPasswordResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUsers">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUsersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUsersResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUsersByType">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sTypeOfUser" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUsersByTypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUsersByTypeResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserDetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserDetailResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMFAUserDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMFAUserDetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMFAUserDetailResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserRestriction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserRestrictionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserRestrictionResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteRestrictionSvcGrps">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iRestrictionID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iServiceGroupID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteRestrictionSvcGrpsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteRestrictionSvcGrpsResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserRestrictionsSvcGrps">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserRestrictionsSvcGrpsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserRestrictionsSvcGrpsResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddRestrictionSvcGrps">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iRestrictionID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iServiceGroupID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddRestrictionSvcGrpsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddRestrictionSvcGrpsResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFirstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMI" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sUserPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAddr1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAddr2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCity" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sState" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sZip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPhone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sExtension" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFax" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sEmail" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="bArchiveProfiles" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bCancelProfiles" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bCreateProfiles" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bEditProfiles" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bSubmitDrafts" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bViewOrders" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bViewProfiles" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="iDistributorID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateUserResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateMFAUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFirstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMI" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sUserPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAddr1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAddr2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCity" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sState" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sZip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPhone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sExtension" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFax" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sEmail" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="bArchiveProfiles" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bCancelProfiles" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bCreateProfiles" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bEditProfiles" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bSubmitDrafts" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bViewOrders" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bViewProfiles" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="iDistributorID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCellPhone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sIPAddressStart" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sIPAddressEnd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateMFAUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateMFAUserResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetUserRestriction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="bArchiveProfiles" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bCancelProfiles" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bCreateProfiles" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bEditProfiles" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bSubmitDrafts" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bViewOrders" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="bViewProfiles" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetUserRestrictionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetUserRestrictionResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EditUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iWebUserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFirstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMI" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAddr1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAddr2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCity" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sState" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sZip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPhone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sExtension" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFax" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sEmail" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="bIsSuspended" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="iDistributorID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EditUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EditUserResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EditMFAUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iWebUserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFirstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMI" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAddr1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAddr2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCity" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sState" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sZip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPhone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sExtension" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFax" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sEmail" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="bIsSuspended" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="iDistributorID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCellPhone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sIPAddressStart" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sIPAddressEnd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EditMFAUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EditMFAUserResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddCustomerAccess">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iWebUserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sAddCustID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddCustomerAccessResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddCustomerAccessResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveCustomerAccess">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iWebUserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sRemoveCustID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveCustomerAccessResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RemoveCustomerAccessResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SuspendUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iWebUserID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SuspendUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SuspendUserResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UnsuspendUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iWebUserID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UnsuspendUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UnsuspendUserResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateHiddenProfFieldsSetting">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iWebUserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sValue" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateHiddenProfFieldsSettingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateHiddenProfFieldsSettingResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWebUserAuthIPAddresses">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iWebUserID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWebUserAuthIPAddressesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWebUserAuthIPAddressesResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWebUserAuthIPAddressesForConfiguration">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iWebUserID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWebUserAuthIPAddressesForConfigurationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWebUserAuthIPAddressesForConfigurationResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetWebUserAuthIPAddress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iAddressID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iWebUserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sIPAddressStart" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sIPAddressEnd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sNote" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetWebUserAuthIPAddressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetWebUserAuthIPAddressResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteWebUserAuthIPAddress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iAddressID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteWebUserAuthIPAddressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteWebUserAuthIPAddressResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableInternalSuppliers">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableInternalSuppliersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAvailableInternalSuppliersResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AuthorizeUserSoapIn">
+    <wsdl:part name="parameters" element="tns:AuthorizeUser" />
+  </wsdl:message>
+  <wsdl:message name="AuthorizeUserSoapOut">
+    <wsdl:part name="parameters" element="tns:AuthorizeUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="AuthorizeCustomerGroupUserSoapIn">
+    <wsdl:part name="parameters" element="tns:AuthorizeCustomerGroupUser" />
+  </wsdl:message>
+  <wsdl:message name="AuthorizeCustomerGroupUserSoapOut">
+    <wsdl:part name="parameters" element="tns:AuthorizeCustomerGroupUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdatePassword" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="ForgotPasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:ForgotPassword" />
+  </wsdl:message>
+  <wsdl:message name="ForgotPasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:ForgotPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUsersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUsers" />
+  </wsdl:message>
+  <wsdl:message name="GetUsersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUsersResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUsersByTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUsersByType" />
+  </wsdl:message>
+  <wsdl:message name="GetUsersByTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUsersByTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserDetail" />
+  </wsdl:message>
+  <wsdl:message name="GetUserDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMFAUserDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMFAUserDetail" />
+  </wsdl:message>
+  <wsdl:message name="GetMFAUserDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMFAUserDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserRestrictionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserRestriction" />
+  </wsdl:message>
+  <wsdl:message name="GetUserRestrictionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserRestrictionResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteRestrictionSvcGrpsSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteRestrictionSvcGrps" />
+  </wsdl:message>
+  <wsdl:message name="DeleteRestrictionSvcGrpsSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteRestrictionSvcGrpsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserRestrictionsSvcGrpsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserRestrictionsSvcGrps" />
+  </wsdl:message>
+  <wsdl:message name="GetUserRestrictionsSvcGrpsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserRestrictionsSvcGrpsResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddRestrictionSvcGrpsSoapIn">
+    <wsdl:part name="parameters" element="tns:AddRestrictionSvcGrps" />
+  </wsdl:message>
+  <wsdl:message name="AddRestrictionSvcGrpsSoapOut">
+    <wsdl:part name="parameters" element="tns:AddRestrictionSvcGrpsResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateUserSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateUser" />
+  </wsdl:message>
+  <wsdl:message name="CreateUserSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateMFAUserSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateMFAUser" />
+  </wsdl:message>
+  <wsdl:message name="CreateMFAUserSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateMFAUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetUserRestrictionSoapIn">
+    <wsdl:part name="parameters" element="tns:SetUserRestriction" />
+  </wsdl:message>
+  <wsdl:message name="SetUserRestrictionSoapOut">
+    <wsdl:part name="parameters" element="tns:SetUserRestrictionResponse" />
+  </wsdl:message>
+  <wsdl:message name="EditUserSoapIn">
+    <wsdl:part name="parameters" element="tns:EditUser" />
+  </wsdl:message>
+  <wsdl:message name="EditUserSoapOut">
+    <wsdl:part name="parameters" element="tns:EditUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="EditMFAUserSoapIn">
+    <wsdl:part name="parameters" element="tns:EditMFAUser" />
+  </wsdl:message>
+  <wsdl:message name="EditMFAUserSoapOut">
+    <wsdl:part name="parameters" element="tns:EditMFAUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddCustomerAccessSoapIn">
+    <wsdl:part name="parameters" element="tns:AddCustomerAccess" />
+  </wsdl:message>
+  <wsdl:message name="AddCustomerAccessSoapOut">
+    <wsdl:part name="parameters" element="tns:AddCustomerAccessResponse" />
+  </wsdl:message>
+  <wsdl:message name="RemoveCustomerAccessSoapIn">
+    <wsdl:part name="parameters" element="tns:RemoveCustomerAccess" />
+  </wsdl:message>
+  <wsdl:message name="RemoveCustomerAccessSoapOut">
+    <wsdl:part name="parameters" element="tns:RemoveCustomerAccessResponse" />
+  </wsdl:message>
+  <wsdl:message name="SuspendUserSoapIn">
+    <wsdl:part name="parameters" element="tns:SuspendUser" />
+  </wsdl:message>
+  <wsdl:message name="SuspendUserSoapOut">
+    <wsdl:part name="parameters" element="tns:SuspendUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="UnsuspendUserSoapIn">
+    <wsdl:part name="parameters" element="tns:UnsuspendUser" />
+  </wsdl:message>
+  <wsdl:message name="UnsuspendUserSoapOut">
+    <wsdl:part name="parameters" element="tns:UnsuspendUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateHiddenProfFieldsSettingSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateHiddenProfFieldsSetting" />
+  </wsdl:message>
+  <wsdl:message name="UpdateHiddenProfFieldsSettingSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateHiddenProfFieldsSettingResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWebUserAuthIPAddressesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWebUserAuthIPAddresses" />
+  </wsdl:message>
+  <wsdl:message name="GetWebUserAuthIPAddressesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWebUserAuthIPAddressesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWebUserAuthIPAddressesForConfigurationSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWebUserAuthIPAddressesForConfiguration" />
+  </wsdl:message>
+  <wsdl:message name="GetWebUserAuthIPAddressesForConfigurationSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWebUserAuthIPAddressesForConfigurationResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetWebUserAuthIPAddressSoapIn">
+    <wsdl:part name="parameters" element="tns:SetWebUserAuthIPAddress" />
+  </wsdl:message>
+  <wsdl:message name="SetWebUserAuthIPAddressSoapOut">
+    <wsdl:part name="parameters" element="tns:SetWebUserAuthIPAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteWebUserAuthIPAddressSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteWebUserAuthIPAddress" />
+  </wsdl:message>
+  <wsdl:message name="DeleteWebUserAuthIPAddressSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteWebUserAuthIPAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableInternalSuppliersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAvailableInternalSuppliers" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableInternalSuppliersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAvailableInternalSuppliersResponse" />
+  </wsdl:message>
+  <wsdl:portType name="UserSoap">
+    <wsdl:operation name="AuthorizeUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing whether loginname is authorized for customer.</wsdl:documentation>
+      <wsdl:input message="tns:AuthorizeUserSoapIn" />
+      <wsdl:output message="tns:AuthorizeUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AuthorizeCustomerGroupUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing whether loginname is authorized for customer group.</wsdl:documentation>
+      <wsdl:input message="tns:AuthorizeCustomerGroupUserSoapIn" />
+      <wsdl:output message="tns:AuthorizeCustomerGroupUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePassword">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing whether password has been updated.</wsdl:documentation>
+      <wsdl:input message="tns:UpdatePasswordSoapIn" />
+      <wsdl:output message="tns:UpdatePasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ForgotPassword">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing whether password has been reset.</wsdl:documentation>
+      <wsdl:input message="tns:ForgotPasswordSoapIn" />
+      <wsdl:output message="tns:ForgotPasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUsers">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing users associated to customer.</wsdl:documentation>
+      <wsdl:input message="tns:GetUsersSoapIn" />
+      <wsdl:output message="tns:GetUsersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUsersByType">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing users by type associated to customer.</wsdl:documentation>
+      <wsdl:input message="tns:GetUsersByTypeSoapIn" />
+      <wsdl:output message="tns:GetUsersByTypeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDetail">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing user detailed information.</wsdl:documentation>
+      <wsdl:input message="tns:GetUserDetailSoapIn" />
+      <wsdl:output message="tns:GetUserDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMFAUserDetail">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing MFA user detailed information.</wsdl:documentation>
+      <wsdl:input message="tns:GetMFAUserDetailSoapIn" />
+      <wsdl:output message="tns:GetMFAUserDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserRestriction">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing user restriction.</wsdl:documentation>
+      <wsdl:input message="tns:GetUserRestrictionSoapIn" />
+      <wsdl:output message="tns:GetUserRestrictionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRestrictionSvcGrps">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing if deletion of service groups for restriction was successful.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteRestrictionSvcGrpsSoapIn" />
+      <wsdl:output message="tns:DeleteRestrictionSvcGrpsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserRestrictionsSvcGrps">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing user restriction service groups.</wsdl:documentation>
+      <wsdl:input message="tns:GetUserRestrictionsSvcGrpsSoapIn" />
+      <wsdl:output message="tns:GetUserRestrictionsSvcGrpsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddRestrictionSvcGrps">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing if addition of service group for restriction was successful.</wsdl:documentation>
+      <wsdl:input message="tns:AddRestrictionSvcGrpsSoapIn" />
+      <wsdl:output message="tns:AddRestrictionSvcGrpsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing if User was created successfully.</wsdl:documentation>
+      <wsdl:input message="tns:CreateUserSoapIn" />
+      <wsdl:output message="tns:CreateUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateMFAUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing if MFA User was created successfully.</wsdl:documentation>
+      <wsdl:input message="tns:CreateMFAUserSoapIn" />
+      <wsdl:output message="tns:CreateMFAUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserRestriction">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing User restriction info.</wsdl:documentation>
+      <wsdl:input message="tns:SetUserRestrictionSoapIn" />
+      <wsdl:output message="tns:SetUserRestrictionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EditUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing if User was edited successfully.</wsdl:documentation>
+      <wsdl:input message="tns:EditUserSoapIn" />
+      <wsdl:output message="tns:EditUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EditMFAUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing if MFA User was edited successfully.</wsdl:documentation>
+      <wsdl:input message="tns:EditMFAUserSoapIn" />
+      <wsdl:output message="tns:EditMFAUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddCustomerAccess">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing if Customer was added to User successfully.</wsdl:documentation>
+      <wsdl:input message="tns:AddCustomerAccessSoapIn" />
+      <wsdl:output message="tns:AddCustomerAccessSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveCustomerAccess">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing if Customer was removed from User successfully.</wsdl:documentation>
+      <wsdl:input message="tns:RemoveCustomerAccessSoapIn" />
+      <wsdl:output message="tns:RemoveCustomerAccessSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SuspendUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing if User Suspended successfully.</wsdl:documentation>
+      <wsdl:input message="tns:SuspendUserSoapIn" />
+      <wsdl:output message="tns:SuspendUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UnsuspendUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing if User Unsuspended successfully.</wsdl:documentation>
+      <wsdl:input message="tns:UnsuspendUserSoapIn" />
+      <wsdl:output message="tns:UnsuspendUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateHiddenProfFieldsSetting">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing if HiddenProfField setting was updated successfully.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateHiddenProfFieldsSettingSoapIn" />
+      <wsdl:output message="tns:UpdateHiddenProfFieldsSettingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWebUserAuthIPAddresses">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a listing of authorized IP address range for a web user.</wsdl:documentation>
+      <wsdl:input message="tns:GetWebUserAuthIPAddressesSoapIn" />
+      <wsdl:output message="tns:GetWebUserAuthIPAddressesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWebUserAuthIPAddressesForConfiguration">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a listing of authorized IP address range for a web user.</wsdl:documentation>
+      <wsdl:input message="tns:GetWebUserAuthIPAddressesForConfigurationSoapIn" />
+      <wsdl:output message="tns:GetWebUserAuthIPAddressesForConfigurationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetWebUserAuthIPAddress">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing if one authorized IP address range for a web user was edited successfully.</wsdl:documentation>
+      <wsdl:input message="tns:SetWebUserAuthIPAddressSoapIn" />
+      <wsdl:output message="tns:SetWebUserAuthIPAddressSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteWebUserAuthIPAddress">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing if one authorized IP address range for a web user was edited successfully.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteWebUserAuthIPAddressSoapIn" />
+      <wsdl:output message="tns:DeleteWebUserAuthIPAddressSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableInternalSuppliers">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a listing of available reports with their category</wsdl:documentation>
+      <wsdl:input message="tns:GetAvailableInternalSuppliersSoapIn" />
+      <wsdl:output message="tns:GetAvailableInternalSuppliersSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UserSoap" type="tns:UserSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AuthorizeUser">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/AuthorizeUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AuthorizeCustomerGroupUser">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/AuthorizeCustomerGroupUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePassword">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/UpdatePassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ForgotPassword">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/ForgotPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsers">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/GetUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsersByType">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/GetUsersByType" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDetail">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/GetUserDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMFAUserDetail">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/GetMFAUserDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserRestriction">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/GetUserRestriction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRestrictionSvcGrps">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/DeleteRestrictionSvcGrps" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserRestrictionsSvcGrps">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/GetUserRestrictionsSvcGrps" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddRestrictionSvcGrps">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/AddRestrictionSvcGrps" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUser">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/CreateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateMFAUser">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/CreateMFAUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserRestriction">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/SetUserRestriction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditUser">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/EditUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditMFAUser">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/EditMFAUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddCustomerAccess">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/AddCustomerAccess" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveCustomerAccess">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/RemoveCustomerAccess" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuspendUser">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/SuspendUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnsuspendUser">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/UnsuspendUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateHiddenProfFieldsSetting">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/UpdateHiddenProfFieldsSetting" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWebUserAuthIPAddresses">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/GetWebUserAuthIPAddresses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWebUserAuthIPAddressesForConfiguration">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/GetWebUserAuthIPAddressesForConfiguration" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetWebUserAuthIPAddress">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/SetWebUserAuthIPAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteWebUserAuthIPAddress">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/DeleteWebUserAuthIPAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableInternalSuppliers">
+      <soap:operation soapAction="http://clearstar.net/Gateway/User/GetAvailableInternalSuppliers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="UserSoap12" type="tns:UserSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AuthorizeUser">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/AuthorizeUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AuthorizeCustomerGroupUser">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/AuthorizeCustomerGroupUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePassword">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/UpdatePassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ForgotPassword">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/ForgotPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsers">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/GetUsers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsersByType">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/GetUsersByType" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDetail">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/GetUserDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMFAUserDetail">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/GetMFAUserDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserRestriction">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/GetUserRestriction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRestrictionSvcGrps">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/DeleteRestrictionSvcGrps" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserRestrictionsSvcGrps">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/GetUserRestrictionsSvcGrps" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddRestrictionSvcGrps">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/AddRestrictionSvcGrps" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUser">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/CreateUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateMFAUser">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/CreateMFAUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserRestriction">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/SetUserRestriction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditUser">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/EditUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditMFAUser">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/EditMFAUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddCustomerAccess">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/AddCustomerAccess" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveCustomerAccess">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/RemoveCustomerAccess" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuspendUser">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/SuspendUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnsuspendUser">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/UnsuspendUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateHiddenProfFieldsSetting">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/UpdateHiddenProfFieldsSetting" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWebUserAuthIPAddresses">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/GetWebUserAuthIPAddresses" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWebUserAuthIPAddressesForConfiguration">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/GetWebUserAuthIPAddressesForConfiguration" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetWebUserAuthIPAddress">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/SetWebUserAuthIPAddress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteWebUserAuthIPAddress">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/DeleteWebUserAuthIPAddress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableInternalSuppliers">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/User/GetAvailableInternalSuppliers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="User">
+    <wsdl:port name="UserSoap" binding="tns:UserSoap">
+      <soap:address location="https://gateway.clearstar.net/csgwUser/User.asmx" />
+    </wsdl:port>
+    <wsdl:port name="UserSoap12" binding="tns:UserSoap12">
+      <soap12:address location="https://gateway.clearstar.net/csgwUser/User.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

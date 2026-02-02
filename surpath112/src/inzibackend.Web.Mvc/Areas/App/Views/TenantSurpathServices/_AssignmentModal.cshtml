@@ -1,0 +1,56 @@
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@model Guid
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("AssignService")))
+
+<div class="modal-body">
+    <form name="AssignmentForm" role="form" novalidate class="form-validation">
+        <input type="hidden" id="ServiceId" value="@Model" />
+        
+        <div class="form-group">
+            <label for="AssignmentTypeSelect">@L("AssignmentType")</label>
+            <select id="AssignmentTypeSelect" name="AssignmentType" class="form-control" required>
+                <option value="">@L("PleaseSelect")</option>
+                <option value="tenant">@L("Tenant")</option>
+                <option value="department">@L("Department")</option>
+                <option value="cohort">@L("Cohort")</option>
+                <option value="cohortuser">@L("CohortUser")</option>
+            </select>
+        </div>
+
+        <div id="CohortField" class="form-group assignment-field" style="display:none;">
+            <label>@L("Cohort")</label>
+            <div class="input-group">
+                <input id="CohortDisplayName" type="text" class="form-control" readonly>
+                <input id="CohortId" type="hidden">
+                <button id="OpenCohortLookupBtn" class="btn btn-primary" type="button">
+                    <i class="fa fa-search"></i> @L("Lookup")
+                </button>
+            </div>
+        </div>
+
+        <div id="DepartmentField" class="form-group assignment-field" style="display:none;">
+            <label>@L("Department")</label>
+            <div class="input-group">
+                <input id="DepartmentDisplayName" type="text" class="form-control" readonly>
+                <input id="DepartmentId" type="hidden">
+                <button id="OpenDepartmentLookupBtn" class="btn btn-primary" type="button">
+                    <i class="fa fa-search"></i> @L("Lookup")
+                </button>
+            </div>
+        </div>
+
+        <div id="CohortUserField" class="form-group assignment-field" style="display:none;">
+            <label>@L("CohortUser")</label>
+            <div class="input-group">
+                <input id="CohortUserDisplayName" type="text" class="form-control" readonly>
+                <input id="CohortUserId" type="hidden">
+                <button id="OpenCohortUserLookupBtn" class="btn btn-primary" type="button">
+                    <i class="fa fa-search"></i> @L("Lookup")
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml") 

@@ -1,0 +1,93 @@
+﻿
+@using System.Globalization
+@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.DrugPanels
+@using inzibackend.Web.Areas.App.Startup
+@model CreateOrEditDrugPanelViewModel
+@using Abp.Extensions
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Host.DrugPanels;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/DrugPanels/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+    var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/App/DrugPanels", L("DrugPanels")),
+        new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
+        };
+        }
+        <abp-page-subheader title='@(Model.IsEditMode ? (L("EditDrugPanel")) : L("CreateNewDrugPanel"))' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+
+        <div class="@(await GetContainerClass())">
+            <div class="card card-custom gutter-b">
+                <form name="DrugPanelInformationsForm" role="form" novalidate class="form-validation">
+                    <div class="card-body">
+                        <div class="form">
+                            <div id="DrugPanelInformationsTab">
+                                @if (Model.IsEditMode)
+                                {
+                                <input type="hidden" name="id" value="@Model.DrugPanel.Id" />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="DrugName">@L("Drug")</label>
+                                    <div class="input-group">
+                                        <input class="form-control" id="DrugName" name="drugName" value="@Model.DrugName" type="text" disabled>
+                                        <button class="btn btn-primary blue" id="OpenDrugLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                        <button class="btn btn-danger btn-icon" type="button" id="ClearDrugNameButton"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+
+                                @if (Model.IsEditMode)
+                                {
+                                <input class="form-control" id="DrugPanel_DrugId" value="@Model.DrugPanel.DrugId" type="text" name="drugId" required hidden />
+                                }
+                                else
+                                {
+                                <input class="form-control" id="DrugPanel_DrugId" value="" type="text" name="drugId" required hidden />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="PanelName">@L("Panel")</label>
+                                    <div class="input-group">
+                                        <input class="form-control" id="PanelName" name="panelName" value="@Model.PanelName" type="text" disabled>
+                                        <button class="btn btn-primary blue" id="OpenPanelLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                        <button class="btn btn-danger btn-icon" type="button" id="ClearPanelNameButton"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+
+                                @if (Model.IsEditMode)
+                                {
+                                <input class="form-control" id="DrugPanel_PanelId" value="@Model.DrugPanel.PanelId" type="text" name="panelId" required hidden />
+                                }
+                                else
+                                {
+                                <input class="form-control" id="DrugPanel_PanelId" value="" type="text" name="panelId" required hidden />
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12">
+                                <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                @if (!Model.IsEditMode)
+                                {
+                                <button type="button" id="saveAndNewBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>

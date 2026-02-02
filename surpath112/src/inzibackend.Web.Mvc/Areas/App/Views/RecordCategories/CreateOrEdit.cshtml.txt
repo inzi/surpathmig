@@ -1,0 +1,90 @@
+﻿
+@using System.Globalization
+@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.RecordCategories
+@using inzibackend.Web.Areas.App.Startup
+@model CreateOrEditRecordCategoryViewModel
+@using Abp.Extensions
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.RecordCategories;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/RecordCategories/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+    var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/App/RecordCategories", L("RecordCategories")),
+        new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
+        };
+        }
+        <abp-page-subheader title='@(Model.IsEditMode ? (L("EditRecordCategory")) : L("CreateNewRecordCategory"))' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+
+        <div class="@(await GetContainerClass())">
+            <div class="card card-custom gutter-b">
+                <form name="RecordCategoryInformationsForm" role="form" novalidate class="form-validation">
+                    <div class="card-body">
+                        <div class="form">
+                            <div id="RecordCategoryInformationsTab">
+                                @if (Model.IsEditMode)
+                                {
+                                <input type="hidden" name="id" value="@Model.RecordCategory.Id" />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="RecordRequirementName">@L("RecordRequirement")</label>
+                                    <div class="input-group">
+                                        <input class="form-control" id="RecordRequirementName" name="recordRequirementName" value="@Model.RecordRequirementName" type="text" disabled>
+                                        <button class="btn btn-primary blue" id="OpenRecordRequirementLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                        <button class="btn btn-danger btn-icon" type="button" id="ClearRecordRequirementNameButton"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+
+                                @if (Model.IsEditMode)
+                                {
+                                <input class="form-control" id="RecordCategory_RecordRequirementId" value="@Model.RecordCategory.RecordRequirementId" type="text" name="recordRequirementId" hidden />
+                                }
+                                else
+                                {
+                                <input class="form-control" id="RecordCategory_RecordRequirementId" value="" type="text" name="recordRequirementId" hidden />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="recordCategoryRuleId">@L("RecordCategoryRule")</label>
+                                    @Html.DropDownList("recordCategoryRuleId", new SelectList(Model.RecordCategoryRecordCategoryRuleList,"Id","DisplayName", (Model.IsEditMode ? Model.RecordCategory.RecordCategoryRuleId.ToString() : "")),@L("SelectARecordCategoryRule"), new { @class = "form-control" })
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="RecordCategory_Name">@L("Name")</label>
+                                    <input class="form-control" id="RecordCategory_Name" value="@Model.RecordCategory.Name" type="text" name="name" />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="RecordCategory_Instructions">@L("Instructions")</label>
+                                    <input class="form-control" id="RecordCategory_Instructions" value="@Model.RecordCategory.Instructions" type="text" name="instructions" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12">
+                                <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                @if (!Model.IsEditMode)
+                                {
+                                <button type="button" id="saveAndNewBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>

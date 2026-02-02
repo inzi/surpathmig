@@ -1,0 +1,93 @@
+﻿
+@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.LedgerEntryDetails
+@model MasterDetailChild_LedgerEntry_CreateOrEditLedgerEntryDetailModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditLedgerEntryDetail")) : L("CreateNewLedgerEntryDetail")))
+
+<div class="modal-body">
+    <div id="LedgerEntryDetailInformationsTab">
+        <form name="LedgerEntryDetailInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.LedgerEntryDetail.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="SurpathServiceName">@L("SurpathService")</label>
+                <div class="input-group">
+                    <input class="form-control" id="SurpathServiceName" name="surpathServiceName" value="@Model.SurpathServiceName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenSurpathServiceLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearSurpathServiceNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="LedgerEntryDetail_SurpathServiceId" value="@Model.LedgerEntryDetail.SurpathServiceId" type="text" name="surpathServiceId" required hidden />
+            }
+            else
+            {
+            <input class="form-control" id="LedgerEntryDetail_SurpathServiceId" value="" type="text" name="surpathServiceId" required hidden />
+            }
+
+            <div class="my-3 d-none">
+                <label class="form-label" for="TenantSurpathServiceName">@L("TenantSurpathService")</label>
+                <div class="input-group">
+                    <input class="form-control" id="TenantSurpathServiceName" name="tenantSurpathServiceName" value="@Model.TenantSurpathServiceName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenTenantSurpathServiceLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearTenantSurpathServiceNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="LedgerEntryDetail_TenantSurpathServiceId" value="@Model.LedgerEntryDetail.TenantSurpathServiceId" type="text" name="tenantSurpathServiceId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="LedgerEntryDetail_TenantSurpathServiceId" value="" type="text" name="tenantSurpathServiceId" hidden />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntryDetail_Note">@L("Note")</label>
+                <input class="form-control" id="LedgerEntryDetail_Note" value="@Model.LedgerEntryDetail.Note" type="text" name="note" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntryDetail_Amount">@L("Amount")</label>
+                <input class="form-control m-input" id="LedgerEntryDetail_Amount" value="@Model.LedgerEntryDetail.Amount.ToString(CultureInfo.InvariantCulture)" type="number" name="amount" min="@inzibackend.Surpath.LedgerEntryDetailConsts.MinAmountValue" max="@inzibackend.Surpath.LedgerEntryDetailConsts.MaxAmountValue" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntryDetail_Discount">@L("Discount")</label>
+                <input class="form-control m-input" id="LedgerEntryDetail_Discount" value="@Model.LedgerEntryDetail.Discount.ToString(CultureInfo.InvariantCulture)" type="number" name="discount" min="@inzibackend.Surpath.LedgerEntryDetailConsts.MinDiscountValue" max="@inzibackend.Surpath.LedgerEntryDetailConsts.MaxDiscountValue" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntryDetail_DiscountAmount">@L("DiscountAmount")</label>
+                <input class="form-control m-input" id="LedgerEntryDetail_DiscountAmount" value="@Model.LedgerEntryDetail.DiscountAmount.ToString(CultureInfo.InvariantCulture)" type="number" name="discountAmount" min="@inzibackend.Surpath.LedgerEntryDetailConsts.MinDiscountAmountValue" max="@inzibackend.Surpath.LedgerEntryDetailConsts.MaxDiscountAmountValue" />
+            </div>
+
+            <div class="my-3 d-none">
+                <label class="form-label" for="LedgerEntryDetail_MetaData">@L("MetaData")</label>
+                <input class="form-control" id="LedgerEntryDetail_MetaData" value="@Model.LedgerEntryDetail.MetaData" type="text" name="metaData" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntryDetail_AmountPaid">@L("AmountPaid")</label>
+                <input class="form-control m-input" id="LedgerEntryDetail_AmountPaid" value="@Model.LedgerEntryDetail.AmountPaid.ToString(CultureInfo.InvariantCulture)" type="number" name="amountPaid" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntryDetail_DatePaidOn">@L("DatePaidOn")</label>
+                <input class="form-control m-input date-picker date-picker-filter" id="LedgerEntryDetail_DatePaidOn" type="text" name="datePaidOn" value="@Model.LedgerEntryDetail.DatePaidOn" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

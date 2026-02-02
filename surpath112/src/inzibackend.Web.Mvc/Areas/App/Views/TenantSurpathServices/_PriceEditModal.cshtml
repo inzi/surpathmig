@@ -1,0 +1,66 @@
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.TenantSurpathServices
+@model PriceEditModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("EditPrice")))
+
+<div class="modal-body">
+    <form name="PriceEditForm" role="form" novalidate class="form-validation">
+        <input type="hidden" id="Level" value="@Model.Level" />
+        <input type="hidden" id="TargetId" value="@Model.TargetId" />
+        <input type="hidden" id="ServiceId" value="@Model.ServiceId" />
+        <input type="hidden" id="TenantId" value="@Model.TenantId" />
+        
+        <div class="mb-4">
+            <div class="alert alert-info">
+                <strong>@L("EditingPriceFor"):</strong> @Model.TargetName
+                <br />
+                <strong>@L("Level"):</strong> @L(Model.Level.Substring(0, 1).ToUpper() + Model.Level.Substring(1))
+            </div>
+        </div>
+        
+        @if (Model.CurrentPrice.HasValue)
+        {
+            <div class="mb-3">
+                <label class="form-label">@L("CurrentPrice")</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="text" class="form-control" value="@Model.CurrentPrice.Value.ToString("F2")" readonly />
+                </div>
+            </div>
+        }
+        
+        <div class="mb-3">
+            <label class="form-label" for="NewPrice">@L("NewPrice")</label>
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="number" id="NewPrice" name="newPrice" class="form-control" 
+                       min="0" max="999999" step="0.01" 
+                       placeholder="@L("LeaveEmptyToInherit")"
+                       value="@(Model.CurrentPrice?.ToString("F2"))" />
+            </div>
+            <div class="form-text">
+                @L("LeaveEmptyToInheritFromParent")
+            </div>
+        </div>
+        
+        <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" id="IsInvoiced" name="isInvoiced" @Html.Raw(Model.CurrentIsInvoiced ? "checked=\"checked\"" : "")>
+            <label class="form-check-label" for="IsInvoiced">
+                @L("IsInvoiced")
+            </label>
+            <div class="form-text">
+                @L("MarkAsInvoicedToBypassPayment")
+            </div>
+        </div>
+        
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="RemoveOverride" name="removeOverride">
+            <label class="form-check-label" for="RemoveOverride">
+                @L("RemoveOverrideAndInheritFromParent")
+            </label>
+        </div>
+    </form>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

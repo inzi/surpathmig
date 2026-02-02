@@ -1,0 +1,1086 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://clearstar.net/Gateway/LookUp" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://clearstar.net/Gateway/LookUp" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://clearstar.net/Gateway/LookUp">
+      <s:element name="GetStatesForCountry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatesForCountryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStatesForCountryResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatesForCountry2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatesForCountry2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStatesForCountry2Result">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForCountry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForCountryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLocationsForCountryResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForState">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sState" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForStateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLocationsForStateResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForCounty">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sState" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCounty" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForCountyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLocationsForCountyResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForCity">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sState" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCity" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForCityResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLocationsForCityResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForZipCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sZipCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForZipCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLocationsForZipCodeResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetISOCountryList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetISOCountryListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetISOCountryListResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForCountryByService">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sServiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForCountryByServiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLocationsForCountryByServiceResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForCountryByService2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sServiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForCountryByService2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLocationsForCountryByService2Result">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForStateByService">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sState" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sServiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForStateByServiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLocationsForStateByServiceResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForStateByService2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sState" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sServiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForStateByService2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLocationsForStateByService2Result">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForCityByService">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sState" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCity" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sServiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForCityByServiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLocationsForCityByServiceResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForCityByService2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sState" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCity" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sServiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForCityByService2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLocationsForCityByService2Result">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForCountyByService">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sState" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCounty" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sServiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForCountyByServiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLocationsForCountyByServiceResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForCountyByService2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sState" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCounty" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sServiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForCountyByService2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLocationsForCountyByService2Result">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForZipCodeByService">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sZipCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sServiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForZipCodeByServiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLocationsForZipCodeByServiceResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForZipCodeByService2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sZipCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sServiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocationsForZipCodeByService2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLocationsForZipCodeByService2Result">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatesForCountryByService">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sServiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatesForCountryByServiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStatesForCountryByServiceResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatesForCountryByService2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCountry" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sServiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatesForCountryByService2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStatesForCountryByService2Result">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetStatesForCountrySoapIn">
+    <wsdl:part name="parameters" element="tns:GetStatesForCountry" />
+  </wsdl:message>
+  <wsdl:message name="GetStatesForCountrySoapOut">
+    <wsdl:part name="parameters" element="tns:GetStatesForCountryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStatesForCountry2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetStatesForCountry2" />
+  </wsdl:message>
+  <wsdl:message name="GetStatesForCountry2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetStatesForCountry2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForCountrySoapIn">
+    <wsdl:part name="parameters" element="tns:GetLocationsForCountry" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForCountrySoapOut">
+    <wsdl:part name="parameters" element="tns:GetLocationsForCountryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForStateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLocationsForState" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForStateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLocationsForStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForCountySoapIn">
+    <wsdl:part name="parameters" element="tns:GetLocationsForCounty" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForCountySoapOut">
+    <wsdl:part name="parameters" element="tns:GetLocationsForCountyResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForCitySoapIn">
+    <wsdl:part name="parameters" element="tns:GetLocationsForCity" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForCitySoapOut">
+    <wsdl:part name="parameters" element="tns:GetLocationsForCityResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForZipCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLocationsForZipCode" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForZipCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLocationsForZipCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetISOCountryListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetISOCountryList" />
+  </wsdl:message>
+  <wsdl:message name="GetISOCountryListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetISOCountryListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForCountryByServiceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLocationsForCountryByService" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForCountryByServiceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLocationsForCountryByServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForCountryByService2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetLocationsForCountryByService2" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForCountryByService2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetLocationsForCountryByService2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForStateByServiceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLocationsForStateByService" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForStateByServiceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLocationsForStateByServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForStateByService2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetLocationsForStateByService2" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForStateByService2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetLocationsForStateByService2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForCityByServiceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLocationsForCityByService" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForCityByServiceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLocationsForCityByServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForCityByService2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetLocationsForCityByService2" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForCityByService2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetLocationsForCityByService2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForCountyByServiceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLocationsForCountyByService" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForCountyByServiceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLocationsForCountyByServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForCountyByService2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetLocationsForCountyByService2" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForCountyByService2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetLocationsForCountyByService2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForZipCodeByServiceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLocationsForZipCodeByService" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForZipCodeByServiceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLocationsForZipCodeByServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForZipCodeByService2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetLocationsForZipCodeByService2" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsForZipCodeByService2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetLocationsForZipCodeByService2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetStatesForCountryByServiceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStatesForCountryByService" />
+  </wsdl:message>
+  <wsdl:message name="GetStatesForCountryByServiceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStatesForCountryByServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStatesForCountryByService2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetStatesForCountryByService2" />
+  </wsdl:message>
+  <wsdl:message name="GetStatesForCountryByService2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetStatesForCountryByService2Response" />
+  </wsdl:message>
+  <wsdl:portType name="LookUpSoap">
+    <wsdl:operation name="GetStatesForCountry">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing states for the country.</wsdl:documentation>
+      <wsdl:input message="tns:GetStatesForCountrySoapIn" />
+      <wsdl:output message="tns:GetStatesForCountrySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStatesForCountry2">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing states' Name and Abbreviation for the country.</wsdl:documentation>
+      <wsdl:input message="tns:GetStatesForCountry2SoapIn" />
+      <wsdl:output message="tns:GetStatesForCountry2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCountry">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing states, counties, cities and zipcodes for the country.</wsdl:documentation>
+      <wsdl:input message="tns:GetLocationsForCountrySoapIn" />
+      <wsdl:output message="tns:GetLocationsForCountrySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForState">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing counties, cities and zipcodes for state.</wsdl:documentation>
+      <wsdl:input message="tns:GetLocationsForStateSoapIn" />
+      <wsdl:output message="tns:GetLocationsForStateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCounty">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing cities and zipcodes for county.</wsdl:documentation>
+      <wsdl:input message="tns:GetLocationsForCountySoapIn" />
+      <wsdl:output message="tns:GetLocationsForCountySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCity">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing counties and zipcodes for city.</wsdl:documentation>
+      <wsdl:input message="tns:GetLocationsForCitySoapIn" />
+      <wsdl:output message="tns:GetLocationsForCitySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForZipCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing states, counties and cities for zipcode.</wsdl:documentation>
+      <wsdl:input message="tns:GetLocationsForZipCodeSoapIn" />
+      <wsdl:output message="tns:GetLocationsForZipCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetISOCountryList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing all countries listed by ISO.</wsdl:documentation>
+      <wsdl:input message="tns:GetISOCountryListSoapIn" />
+      <wsdl:output message="tns:GetISOCountryListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCountryByService">
+      <wsdl:input message="tns:GetLocationsForCountryByServiceSoapIn" />
+      <wsdl:output message="tns:GetLocationsForCountryByServiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCountryByService2">
+      <wsdl:input message="tns:GetLocationsForCountryByService2SoapIn" />
+      <wsdl:output message="tns:GetLocationsForCountryByService2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForStateByService">
+      <wsdl:input message="tns:GetLocationsForStateByServiceSoapIn" />
+      <wsdl:output message="tns:GetLocationsForStateByServiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForStateByService2">
+      <wsdl:input message="tns:GetLocationsForStateByService2SoapIn" />
+      <wsdl:output message="tns:GetLocationsForStateByService2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCityByService">
+      <wsdl:input message="tns:GetLocationsForCityByServiceSoapIn" />
+      <wsdl:output message="tns:GetLocationsForCityByServiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCityByService2">
+      <wsdl:input message="tns:GetLocationsForCityByService2SoapIn" />
+      <wsdl:output message="tns:GetLocationsForCityByService2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCountyByService">
+      <wsdl:input message="tns:GetLocationsForCountyByServiceSoapIn" />
+      <wsdl:output message="tns:GetLocationsForCountyByServiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCountyByService2">
+      <wsdl:input message="tns:GetLocationsForCountyByService2SoapIn" />
+      <wsdl:output message="tns:GetLocationsForCountyByService2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForZipCodeByService">
+      <wsdl:input message="tns:GetLocationsForZipCodeByServiceSoapIn" />
+      <wsdl:output message="tns:GetLocationsForZipCodeByServiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForZipCodeByService2">
+      <wsdl:input message="tns:GetLocationsForZipCodeByService2SoapIn" />
+      <wsdl:output message="tns:GetLocationsForZipCodeByService2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStatesForCountryByService">
+      <wsdl:input message="tns:GetStatesForCountryByServiceSoapIn" />
+      <wsdl:output message="tns:GetStatesForCountryByServiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStatesForCountryByService2">
+      <wsdl:input message="tns:GetStatesForCountryByService2SoapIn" />
+      <wsdl:output message="tns:GetStatesForCountryByService2SoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="LookUpSoap" type="tns:LookUpSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetStatesForCountry">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetStatesForCountry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatesForCountry2">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetStatesForCountry2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCountry">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForCountry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForState">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCounty">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForCounty" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCity">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForCity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForZipCode">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForZipCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetISOCountryList">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetISOCountryList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCountryByService">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForCountryByService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCountryByService2">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForCountryByService2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForStateByService">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForStateByService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForStateByService2">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForStateByService2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCityByService">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForCityByService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCityByService2">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForCityByService2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCountyByService">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForCountyByService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCountyByService2">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForCountyByService2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForZipCodeByService">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForZipCodeByService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForZipCodeByService2">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForZipCodeByService2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatesForCountryByService">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetStatesForCountryByService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatesForCountryByService2">
+      <soap:operation soapAction="http://clearstar.net/Gateway/LookUp/GetStatesForCountryByService2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="LookUpSoap12" type="tns:LookUpSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetStatesForCountry">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetStatesForCountry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatesForCountry2">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetStatesForCountry2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCountry">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForCountry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForState">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCounty">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForCounty" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCity">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForCity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForZipCode">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForZipCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetISOCountryList">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetISOCountryList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCountryByService">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForCountryByService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCountryByService2">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForCountryByService2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForStateByService">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForStateByService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForStateByService2">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForStateByService2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCityByService">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForCityByService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCityByService2">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForCityByService2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCountyByService">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForCountyByService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForCountyByService2">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForCountyByService2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForZipCodeByService">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForZipCodeByService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsForZipCodeByService2">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetLocationsForZipCodeByService2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatesForCountryByService">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetStatesForCountryByService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatesForCountryByService2">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/LookUp/GetStatesForCountryByService2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="LookUp">
+    <wsdl:port name="LookUpSoap" binding="tns:LookUpSoap">
+      <soap:address location="https://gateway.clearstar.net/csgwLookup/Lookup.asmx" />
+    </wsdl:port>
+    <wsdl:port name="LookUpSoap12" binding="tns:LookUpSoap12">
+      <soap12:address location="https://gateway.clearstar.net/csgwLookup/Lookup.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

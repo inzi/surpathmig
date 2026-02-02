@@ -1,0 +1,142 @@
+﻿@using inzibackend
+@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.MedicalUnits
+@using inzibackend.Web.Areas.App.Startup
+@model MedicalUnitsViewModel
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.MedicalUnits;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/MedicalUnits/Index.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    <abp-page-subheader title='@L("MedicalUnits")' description='@L("MedicalUnitsHeaderInfo")'>
+        <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+
+        @if (IsGranted(AppPermissions.Pages_MedicalUnits_Create))
+        {
+        <button id="CreateNewMedicalUnitButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewMedicalUnit")</button>
+        }
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-xl-12">
+
+                            <div class="my-3">
+                                <div class="input-group">
+                                    <input type="text" id="MedicalUnitsTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                    <button id="GetMedicalUnitsButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="NameFilterId">@L("Name")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="nameFilter" id="NameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="PrimaryContactFilterId">@L("PrimaryContact")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="primaryContactFilter" id="PrimaryContactFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="PrimaryContactPhoneFilterId">@L("PrimaryContactPhone")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="primaryContactPhoneFilter" id="PrimaryContactPhoneFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="PrimaryContactEmailFilterId">@L("PrimaryContactEmail")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="primaryContactEmailFilter" id="PrimaryContactEmailFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="Address1FilterId">@L("Address1")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="address1Filter" id="Address1FilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="Address2FilterId">@L("Address2")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="address2Filter" id="Address2FilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="CityFilterId">@L("City")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="cityFilter" id="CityFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="StateFilterId">@L("State")</label>
+                              @Html.EnumDropDownListForFilter("StateFilter",typeof(enumUSStates), null, "", new { @class = "form-select reload-on-change", id = "StateFilterId" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="ZipCodeFilterId">@L("ZipCode")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="zipCodeFilter" id="ZipCodeFilterId">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="HospitalNameFilterId">(@L("Hospital")) @L("Name")</label>
+                            <input type="text" class="form-control" name="hospitalNameFilter" id="HospitalNameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-5">
+                        <button class="btn btn-secondary btn-sm" id="btn-reset-filters">Reset</button>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <table id="MedicalUnitsTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th></th>
+
+                                <th>@L("Actions")</th>
+                                <th>@L("Name")</th>
+                                <th>@L("PrimaryContact")</th>
+                                <th>@L("PrimaryContactPhone")</th>
+                                <th>@L("PrimaryContactEmail")</th>
+                                <th>@L("Address1")</th>
+                                <th>@L("Address2")</th>
+                                <th>@L("City")</th>
+                                <th>@L("State")</th>
+                                <th>@L("ZipCode")</th>
+                                <th>@L("HospitalName")</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
