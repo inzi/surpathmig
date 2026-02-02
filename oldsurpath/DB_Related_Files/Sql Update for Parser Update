@@ -1,0 +1,435 @@
+DROP TABLE IF EXISTS `backend_donor_link`;
+CREATE TABLE `backend_donor_link` (
+  `backend_donor_link_id` int(11) NOT NULL AUTO_INCREMENT,
+  `donor_id_new` int(11) NOT NULL,
+  `donor_id_old` int(11) DEFAULT NULL,
+  `table_name` varchar(150) DEFAULT NULL,
+  `table_id_value` int(11) DEFAULT NULL,
+  `donor_id_old_is_archived` int(11) DEFAULT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` varchar(200) NOT NULL,
+  `last_modified_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_modified_by` varchar(200) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`backend_donor_link_id`),
+  UNIQUE KEY `id_UNIQUE` (`backend_donor_link_id`),
+  KEY `idx_backend_donor_link` (`donor_id_new`,`donor_id_old`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE surpathlive.donors
+ CHANGE donor_pid_type_id donor_pid_type_id int(11);
+ 
+ALTER TABLE surpathlive.donors
+ ADD t1 BIT NOT NULL DEFAULT '0' AFTER is_archived,
+ ADD t2 BIT NOT NULL DEFAULT '0';
+ 
+ 
+ DROP TABLE IF EXISTS `individual_pids`;
+CREATE TABLE `individual_pids` (
+  `individual_pid_id` int(11) NOT NULL AUTO_INCREMENT,
+  `donor_id` int(11) NOT NULL DEFAULT '0',
+  `pid` varchar(255) NOT NULL DEFAULT '',
+  `pid_type_id` varchar(10) NOT NULL DEFAULT '0',
+  `individual_pid_type_description` varchar(1024) NOT NULL DEFAULT '',
+  `mask_pid` bit(1) NOT NULL DEFAULT b'0',
+  PRIMARY KEY (`individual_pid_id`),
+  KEY `idx_individual_pids_donor_id` (`donor_id`,`individual_pid_id`),
+  KEY `idx_individual_pids_pid` (`pid`),
+  KEY `idx_individual_pids_pid_type_id` (`pid_type_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE surpathlive.mismatched_reports
+ CHANGE donor_pid_type_id donor_pid_type_id int(11);
+ 
+ ALTER TABLE surpathlive.mismatched_reports
+  ADD INDEX IDX_mismatched (specimen_id,ssn_id,report_info_id);
+
+ ALTER TABLE surpathlive.mismatched_reports
+  ADD INDEX IDX_mismatched_PID (specimen_id,donor_pid,report_info_id);  
+
+ ALTER TABLE surpathlive.mismatched_reports
+  ADD INDEX idx_mismatched_reports_filename (file_name);  
+  
+  
+
+  KEY `idx_mismatched_reports_filename` (`file_name`)
+ 
+ 
+ DROP TABLE IF EXISTS `parser_file_activity`;
+CREATE TABLE `parser_file_activity` (
+  `parser_file_activity_id` int(11) NOT NULL AUTO_INCREMENT,
+  `filename` varchar(255) DEFAULT NULL,
+  `specimen_id` varchar(50) DEFAULT NULL,
+  `report_type` int(11) NOT NULL DEFAULT '0',
+  `file_checksum` varchar(255) DEFAULT NULL,
+  `data_checksum` varchar(255) DEFAULT NULL,
+  `downloaded_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `parsed_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `is_data_of_record` bit(1) NOT NULL DEFAULT b'0',
+  `inserted_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `parse_attempt_count` int(11) NOT NULL DEFAULT '0',
+  `report_info_id` int(11) NOT NULL DEFAULT '0',
+  `mismatched_report_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`parser_file_activity_id`),
+  KEY `idx_parser_file_activity_1` (`specimen_id`,`file_checksum`),
+  KEY `idx_parser_file_activity_2` (`specimen_id`,`data_checksum`),
+  KEY `idx_parser_file_activity_checksum` (`file_checksum`),
+  KEY `idx_parser_file_activity_data_checksum` (`data_checksum`),
+  KEY `idx_parser_file_activity` (`filename`,`is_data_of_record`,`data_checksum`,`file_checksum`,`specimen_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+
+
+ALTER TABLE surpathlive.report_info
+ ADD donor_pid_type_id int(11) default null;
+ 
+  ALTER TABLE surpathlive.report_info
+  ADD INDEX idx_report_info_specimen_id (specimen_id);  
+  
+DROP PROCEDURE IF EXISTS surpathlive.backend_donor_link;
+CREATE PROCEDURE surpathlive.`backend_donor_link`(
+  in donor_id_new int,
+  in donor_id_old int,
+  in user_id int,
+  in user_name varchar(128)
+)
+BEGIN
+
+
+  IF (user_id is null) THEN
+
+    SET user_id = 0;
+
+  END IF;
+
+  IF (user_name is null) THEN
+
+    SET user_name = 'SYSTEM'; 
+
+  END IF;
+
+
+
+-- If this donor is already linked, we need to unlink it first.
+
+
+
+-- Maintain is_archived state for the old donor_id
+
+
+  insert into backend_donor_link
+
+             (donor_id_new, donor_id_old, table_name, donor_id_old_is_archived, created_by, last_modified_on,last_modified_by, user_id)
+
+    select 
+
+            donor_id_new, donor_id_old, "donors", is_archived, user_name, CURRENT_TIMESTAMP(), user_name, user_id
+
+    from donors sourceTable
+
+    where sourceTable.donor_id = donor_id_old; 
+
+
+
+-- Set Donor B to inactive so any parsing doesn't add underneath us
+
+
+   update donors
+
+   set is_archived = 1, last_modified_on = CURRENT_TIMESTAMP(), last_modified_by = user_name, is_linked = 1
+
+   where donor_id = donor_id_old;
+
+
+
+-- Documents
+
+
+
+    -- get document IDs
+	
+
+    insert into backend_donor_link
+
+            (donor_id_new, donor_id_old, table_name, table_id_value, created_by, last_modified_on,last_modified_by, user_id)
+
+    select 
+
+            donor_id_new, donor_id_old, "donor_documents", donor_document_id, user_name, CURRENT_TIMESTAMP(), user_name, user_id
+
+    from donor_documents sourceTable
+
+    where sourceTable.donor_id = donor_id_old;
+
+
+
+
+
+-- Test Info
+
+
+
+    insert into backend_donor_link
+
+            (donor_id_new, donor_id_old, table_name, table_id_value, created_by, last_modified_on,last_modified_by, user_id)
+
+    select 
+
+            donor_id_new, donor_id_old, "donor_test_info", donor_test_info_id, user_name, CURRENT_TIMESTAMP(), user_name, user_id
+
+    from donor_test_info sourceTable
+
+    where sourceTable.donor_id = donor_id_old;
+
+
+
+    
+
+-- report info
+
+
+
+
+    insert into backend_donor_link
+
+            (donor_id_new, donor_id_old, table_name, table_id_value, created_by, last_modified_on,last_modified_by, user_id)
+
+    select 
+
+            donor_id_new, donor_id_old, "report_info", report_info_id, user_name, CURRENT_TIMESTAMP(), user_name, user_id
+
+    from report_info sourceTable
+
+    where sourceTable.donor_id = donor_id_old;
+
+    
+
+-- Users linked to donor B would be archived (inactive)
+
+
+
+  insert into backend_donor_link
+
+             (donor_id_new, donor_id_old, table_name, donor_id_old_is_archived, created_by, last_modified_on,last_modified_by, user_id)
+
+    select 
+
+            donor_id_new, donor_id_old, "users", is_archived, user_name, CURRENT_TIMESTAMP(), user_name, user_id
+
+    from users sourceTable
+
+    where sourceTable.donor_id = donor_id_old; 
+
+    
+
+    update users set is_archived = 1
+
+    where donor_id = donor_id_old;
+
+    
+
+-- Add Activity(ies)
+
+
+
+    INSERT INTO donor_test_activity 
+
+          (donor_test_info_id, activity_datetime, activity_user_id, activity_category_id, is_activity_visible, activity_note, is_synchronized) 
+
+    select   
+
+          table_id_value, CURRENT_TIMESTAMP(), user_id, 4, 1, concat("[LINK] This was linked to another donor, Old Donor ID: ", donor_id_old, " to new Donor ID: ", donor_id_new), 0
+
+    from backend_donor_link bdl
+
+    where bdl.donor_id_old = donor_id_old and bdl.table_name = "donor_test_info";
+
+    
+
+-- ID's gather's now link.
+
+
+
+    -- Documents
+	
+
+    
+
+    update donor_documents set donor_id = donor_id_new
+
+    where donor_id = donor_id_old;
+
+    
+
+    -- Test_info
+
+    
+
+    update donor_test_info set donor_id = donor_id_new
+
+    where donor_id = donor_id_old;
+
+    -- Report Info
+
+    
+
+
+    update report_info set donor_id = donor_id_new
+
+    where donor_id = donor_id_old;
+END;
+
+
+ 
+ 
+DROP PROCEDURE IF EXISTS surpathlive.backend_donor_unlink;
+CREATE PROCEDURE surpathlive.`backend_donor_unlink`(
+  in donor_id_old int,
+  in user_id int,
+  in user_name varchar(128)
+)
+BEGIN
+
+  IF (user_id is null) THEN
+
+    SET user_id = 0;
+
+  END IF;
+
+  IF (user_name is null) THEN
+
+    SET user_name = 'SYSTEM'; 
+
+  END IF;
+
+
+
+-- Set old donor is_archived back
+
+   update donors d
+
+    inner join backend_donor_link l on l.table_id_value = d.donor_id
+
+   set d.is_archived = l.donor_id_old_is_archived, d.last_modified_on = CURRENT_TIMESTAMP(), d.last_modified_by = user_name, d.is_linked = 0
+
+   where l.donor_id_old_is_archived is not null and l.table_name = "donors" and l.donor_id_old = donor_id_old;
+
+
+
+-- Documents
+
+
+
+    -- roll back document IDs
+	
+
+       update donor_documents d
+
+    inner join backend_donor_link l on l.table_id_value = d.donor_document_id
+
+   set d.donor_id = l.donor_id_old
+
+   where l.table_name = "donor_documents";
+
+   
+
+
+
+
+
+-- Test Info
+
+
+
+
+
+
+    update donor_test_info d
+
+    inner join backend_donor_link l on l.table_id_value = d.donor_test_info_id
+
+   set d.donor_id = l.donor_id_old, d.last_modified_on = CURRENT_TIMESTAMP(), d.last_modified_by = user_name
+
+   where l.table_name = "donor_test_info";
+
+   
+
+    
+
+-- report info
+
+
+
+
+    update report_info d
+
+    inner join backend_donor_link l on l.table_id_value = d.report_info_id
+
+   set d.donor_id = l.donor_id_old, d.last_modified_on = CURRENT_TIMESTAMP(), d.last_modified_by = user_name
+
+   where l.table_name = "report_info";
+
+   
+
+     
+
+-- Users linked to donor B would be archived (inactive)
+
+--     select "here" as status;
+
+
+
+
+   update users d
+
+    inner join backend_donor_link l on l.table_id_value = d.donor_id
+
+   set d.is_archived = l.donor_id_old_is_archived, d.last_modified_on = CURRENT_TIMESTAMP(), d.last_modified_by = user_name
+
+   where l.donor_id_old_is_archived is not null and l.table_name = "users";
+
+
+
+--     select "here2" as status;
+
+
+
+-- 
+
+--     update users set is_archived = 1
+
+--     where donor_id = donor_id_old;
+
+    
+
+-- Add Activity(ies)
+
+	
+
+
+
+    INSERT INTO donor_test_activity 
+
+          (donor_test_info_id, activity_datetime, activity_user_id, activity_category_id, is_activity_visible, activity_note, is_synchronized) 
+
+    select   
+
+          table_id_value, CURRENT_TIMESTAMP(), user_id, 4, 1, concat("[UNLINK] This was un-linked from another donor, back to Donor ID: ",donor_id_new , " from Donor ID: ", donor_id_new), 0
+
+    from backend_donor_link bdl
+
+    where bdl.donor_id_old = donor_id_old and bdl.table_name = "donor_test_info";
+
+    
+
+-- Unlinking is complete
+
+
+
+    delete from backend_donor_link where
+
+    donor_id_old = donor_id_old;
+
+END;
+

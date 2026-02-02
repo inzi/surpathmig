@@ -1,0 +1,57 @@
+﻿
+@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.UserPids
+@model CreateOrEditUserPidModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditUserPid")) : L("CreateNewUserPid")))
+
+<div class="modal-body">
+    <div id="UserPidInformationsTab">
+        <form name="UserPidInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.UserPid.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="pidTypeId">@L("PidType")</label>
+                @Html.DropDownList("pidTypeId", new SelectList(Model.UserPidPidTypeList,"Id","DisplayName", (Model.IsEditMode ? Model.UserPid.PidTypeId.ToString() : "")),@L("SelectAPidType"), new { @class = "form-control" , @required="required" })
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="UserName">@L("User")</label>
+                <div class="input-group">
+                    <input class="form-control" id="UserName" name="userName" value="@Model.UserName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenUserLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearUserNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="UserPid_UserId" value="@Model.UserPid.UserId" type="text" name="userId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="UserPid_UserId" value="" type="text" name="userId" hidden />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="UserPid_Pid">@L("Pid")</label>
+                <input class="form-control" id="UserPid_Pid" value="@Model.UserPid.Pid" type="text" name="pid" required />
+            </div>
+
+            <label class="form-check form-check-custom">
+                <input id="UserPid_Validated" name="validated" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.UserPid.Validated ?"checked=\"checked\"":"") />
+                <span class="form-check-label">
+                    @L("Validated")
+                </span>
+            </label>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

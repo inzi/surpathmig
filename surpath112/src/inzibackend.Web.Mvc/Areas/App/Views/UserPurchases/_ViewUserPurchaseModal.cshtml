@@ -1,0 +1,93 @@
+﻿@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.UserPurchases
+@model UserPurchaseViewModel
+
+@{
+    Layout = null;
+}
+
+<div class="modal-header">
+    <h5 class="modal-title">
+        <span>@Html.Raw(L("Details"))</span>
+    </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@L("Close")"></button>
+</div>
+
+<div class="modal-body">
+    <div id="UserPurchaseInformationsTab">
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("Name") :</h6>
+                @Model.UserPurchase.Name
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Description") :</h6>
+                @Model.UserPurchase.Description
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Status") :</h6>
+                @L("Enum_EnumPurchaseStatus_" + (int)Model.UserPurchase.Status)
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("OriginalPrice") :</h6>
+                @Model.UserPurchase.OriginalPrice.ToString("C")
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("AdjustedPrice") :</h6>
+                @Model.UserPurchase.AdjustedPrice.ToString("C")
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("DiscountAmount") :</h6>
+                @Model.UserPurchase.DiscountAmount.ToString("C")
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("AmountPaid") :</h6>
+                @Model.UserPurchase.AmountPaid.ToString("C")
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("BalanceDue") :</h6>
+                @Model.UserPurchase.BalanceDue.ToString("C")
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("PaymentPeriodType") :</h6>
+                @L("Enum_PaymentPeriodType_" + (int)Model.UserPurchase.PaymentPeriodType)
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("PurchaseDate") :</h6>
+                @Model.UserPurchase.PurchaseDate.ToString("yyyy-MM-dd")
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ExpirationDate") :</h6>
+                @(Model.UserPurchase.ExpirationDate.HasValue ? Model.UserPurchase.ExpirationDate.Value.ToString("yyyy-MM-dd") : L("NotAvailable"))
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("IsRecurring") :</h6>
+                @(Model.UserPurchase.IsRecurring ? L("Yes") : L("No"))
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Notes") :</h6>
+                @(Model.UserPurchase.Notes ?? L("NotAvailable"))
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("UserName") :</h6>
+                @Model.UserName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("SurpathServiceName") :</h6>
+                @(Model.SurpathServiceName ?? L("NotAvailable"))
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("TenantSurpathServiceName") :</h6>
+                @(Model.TenantSurpathServiceName ?? L("NotAvailable"))
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("CohortName") :</h6>
+                @(Model.CohortName ?? L("NotAvailable"))
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-sm waves-effect" data-bs-dismiss="modal">@L("Close")</button>
+</div>

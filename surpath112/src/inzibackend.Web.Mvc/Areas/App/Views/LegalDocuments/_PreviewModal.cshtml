@@ -1,0 +1,47 @@
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@model inzibackend.Web.Mvc.Models.PreviewModalViewModel
+
+<div class="modal fade" id="LegalDocumentPreviewModal" tabindex="-1" role="dialog" aria-labelledby="LegalDocumentPreviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="LegalDocumentPreviewModalLabel">@L("DocumentPreview")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="preview-container">
+                    <div class="alert alert-info mb-3">
+                        <i class="fa fa-info-circle"></i> @L("PreviewDisclaimer")
+                    </div>
+                    <div class="alert alert-warning mb-3">
+                        <i class="fa fa-shield-alt"></i> <strong>@L("SecurityNote"):</strong> @L("HtmlPreviewSecurityNote")
+                    </div>
+                    <ul class="nav nav-tabs mb-3" id="previewTabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="rendered-tab" data-toggle="tab" href="#rendered" role="tab" aria-controls="rendered" aria-selected="true">@L("RenderedView")</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="source-tab" data-toggle="tab" href="#source" role="tab" aria-controls="source" aria-selected="false">@L("SourceCode")</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="previewTabsContent">
+                        <div class="tab-pane fade show active" id="rendered" role="tabpanel" aria-labelledby="rendered-tab">
+                            <div id="previewFrame" class="border p-3" style="min-height: 400px; max-height: 600px; overflow: auto;">
+                                <!-- Rendered content will be loaded here -->
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="source" role="tabpanel" aria-labelledby="source-tab">
+                            <pre id="sourceCodeFrame" class="border p-3 bg-light" style="min-height: 400px; max-height: 600px; overflow: auto;"><code></code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="downloadPreviewBtn"><i class="fa fa-download"></i> @L("Download")</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@L("Close")</button>
+            </div>
+        </div>
+    </div>
+</div>

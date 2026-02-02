@@ -1,0 +1,268 @@
+@using inzibackend.Surpath
+@using inzibackend.Web.Areas.App.Models.LegalDocuments
+@using inzibackend.Web.Areas.App.Startup
+@model CreateOrEditLegalDocumentViewModel
+@{
+    ViewBag.CurrentPageName = AppPageNames.Tenant.LegalDocuments;
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+    <abp-page-subheader title="@(Model.LegalDocument.Id == Guid.Empty ? L("CreateNewLegalDocument") : L("EditLegalDocument"))">
+        <button type="button" class="btn btn-light-primary font-weight-bold" onclick="location.href='@Url.Action("Index", "LegalDocuments")'">
+            <i class="fa fa-arrow-left"></i> @L("Back")
+        </button>
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="alert alert-info mb-3">
+            <h5><i class="fa fa-info-circle"></i> @L("LegalDocumentFormInfo")</h5>
+            <p>@L("LegalDocumentFormDescription")</p>
+            <ul>
+                <li><strong>@L("DocumentType"):</strong> @L("DocumentTypeDescription")</li>
+                <li><strong>@L("ExternalUrl"):</strong> @L("ExternalUrlDescription")</li>
+                <li><strong>@L("File"):</strong> @L("FileDescription")</li>
+            </ul>
+        </div>
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <form id="LegalDocumentForm" method="post">
+                    <input type="hidden" name="LegalDocument.Id" value="@Model.LegalDocument.Id" />
+                    <input type="hidden" name="LegalDocument.FileId" value="@Model.LegalDocument.FileId" />
+                    <input type="hidden" name="LegalDocument.ViewUrl" value="@Model.LegalDocument.ViewUrl" />
+
+                    <div class="form-group">
+                        <label asp-for="LegalDocument.Type">@L("DocumentType") *</label>
+                        @{
+                            var docTypeItems = Html.GetEnumSelectList(typeof(DocumentType));
+                            foreach (var selectOption in docTypeItems)
+                            {
+                                selectOption.Text = L("Enum_documentType_" + selectOption.Value);
+                            }
+                        }
+                        <select asp-for="LegalDocument.Type" asp-items="docTypeItems" class="form-select m-input m-input--square"></select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="ExternalUrl">@L("ExternalUrl")</label>
+                        <input id="ExternalUrl" type="url" name="LegalDocument.ExternalUrl" class="form-control" value="@Model.LegalDocument.ExternalUrl" />
+                        <span class="form-text text-muted">@L("ExternalUrlHint")</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="FileUpload">@L("File")</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="FileUpload" accept=".pdf,.html,.css">
+                            <label class="custom-file-label" for="FileUpload">@(string.IsNullOrEmpty(Model.LegalDocument.FileName) ? L("ChooseFile") : Model.LegalDocument.FileName)</label>
+                        </div>
+                        <small class="form-text text-muted">@L("AllowedFileTypes"): PDF, HTML, CSS</small>
+                        @if (!string.IsNullOrEmpty(Model.LegalDocument.FileName))
+                        {
+                            <div class="mt-2">
+                                <span>@L("CurrentFile"): @Model.LegalDocument.FileName</span>
+                                @if (Model.LegalDocument.FileId.HasValue)
+                                {
+                                    <a href="@Url.Action("Download", "LegalDocuments", new { id = Model.LegalDocument.Id })" class="btn btn-sm btn-outline-primary ml-2" target="_blank">
+                                        <i class="fa fa-download"></i> @L("Download")
+                                    </a>
+                                    @if (Model.LegalDocument.FileName.EndsWith(".html", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <a href="@Url.Action("View", "LegalDocuments", new { type = Model.LegalDocument.Type })" class="btn btn-sm btn-outline-info ml-2" target="_blank">
+                                            <i class="fa fa-eye"></i> @L("Preview")
+                                        </a>
+                                    }
+                                }
+                            </div>
+                        }
+                        <input type="hidden" id="FileToken" name="FileToken" value="@Model.FileToken" />
+                        <div id="uploadFeedback" class="mt-2 d-none">
+                            <div class="alert alert-info">
+                                <i class="fa fa-spinner fa-spin"></i> @L("UploadingFile")...
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-save"></i> @L("Save")
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Add ModalManager for preview modal
+        var _previewModal = new app.ModalManager({
+            viewUrl: abp.appPath + 'App/LegalDocuments/PreviewModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/App/Views/LegalDocuments/_PreviewModal.js',
+            modalClass: 'LegalDocumentPreviewModal'
+        });
+        
+        // Function to preview HTML content
+        function previewHtmlContent(fileToken) {
+            if (!fileToken) {
+                abp.notify.error(L('InvalidFileToken'));
+                return;
+            }
+            
+            abp.ui.setBusy();
+            
+            $.ajax({
+                url: '@Url.Action("PreviewHtml", "LegalDocuments")',
+                type: 'POST',
+                data: { fileToken: fileToken },
+                success: function(response) {
+                    abp.ui.clearBusy();
+                    
+                    if (response.success) {
+                        // Show the preview with metadata
+                        showHtmlPreview(response.html);
+                        
+                        // Add metadata to the preview modal if available
+                        if (response.fileName) {
+                            var metadataHtml = '<div class="metadata-info alert alert-light mt-3 mb-0">' +
+                                '<strong>File:</strong> ' + response.fileName + '<br>' +
+                                '<strong>Size:</strong> ' + formatBytes(response.fileSize) + '<br>';
+                                
+                            if (response.isSanitized) {
+                                metadataHtml += '<strong>Sanitized:</strong> Yes (Original: ' + 
+                                    formatBytes(response.originalSize) + ', After: ' + 
+                                    formatBytes(response.sanitizedSize) + ')<br>';
+                            } else {
+                                metadataHtml += '<strong>Sanitized:</strong> No changes needed<br>';
+                            }
+                            
+                            metadataHtml += '<strong>Last Modified:</strong> ' + response.lastModified + 
+                                '</div>';
+                                
+                            $('#previewFrame').after(metadataHtml);
+                        }
+                    } else {
+                        abp.notify.error(response.error);
+                    }
+                },
+                error: function() {
+                    abp.ui.clearBusy();
+                    abp.notify.error(L('ErrorPreviewingHtml'));
+                }
+            });
+        }
+        
+        // Helper function to format bytes
+        function formatBytes(bytes, decimals = 2) {
+            if (bytes === 0) return '0 Bytes';
+            
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+            
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        }
+        
+        $(document).ready(function () {
+            // Update file input label with selected filename
+            $('#FileUpload').on('change', function () {
+                var fileName = $(this).val().split('\\').pop();
+                $(this).next('.custom-file-label').html(fileName || '@L("ChooseFile")');
+                
+                // Validate file type
+                var fileExtension = fileName.split('.').pop().toLowerCase();
+                var allowedExtensions = ['pdf', 'html', 'css'];
+                
+                if (fileName && !allowedExtensions.includes(fileExtension)) {
+                    abp.notify.error(L('InvalidFileType'));
+                    $(this).val('');
+                    $(this).next('.custom-file-label').html('@L("ChooseFile")');
+                    return;
+                }
+                
+                // Upload file when selected
+                if (fileName) {
+                    $('#uploadFeedback').removeClass('d-none');
+                    uploadFile(this.files[0]);
+                }
+            });
+            
+            // Handle form submission
+            $('#LegalDocumentForm').on('submit', function (e) {
+                // Validate form
+                if ($('#LegalDocument_Type').val() === '') {
+                    e.preventDefault();
+                    abp.notify.error(L('PleaseSelectDocumentType'));
+                    return false;
+                }
+                
+                // If external URL is empty and no file is selected/uploaded
+                var hasExternalUrl = $('#ExternalUrl').val().trim() !== '';
+                var hasFileId = '@Model.LegalDocument.FileId' !== '' && '@Model.LegalDocument.FileId' !== 'null';
+                var hasFileToken = $('#FileToken').val() !== '';
+                
+                if (!hasExternalUrl && !hasFileId && !hasFileToken) {
+                    e.preventDefault();
+                    abp.notify.error(L('PleaseProvideFileOrExternalUrl'));
+                    return false;
+                }
+                
+                // Form will be submitted normally with the FileToken
+            });
+            
+            // Function to upload file and get token
+            function uploadFile(file) {
+                var formData = new FormData();
+                formData.append('file', file);
+                
+                abp.ui.setBusy();
+                
+                $.ajax({
+                    url: '@Url.Action("UploadLegalDocumentFile", "LegalDocuments")',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        abp.ui.clearBusy();
+                        $('#uploadFeedback').addClass('d-none');
+                        
+                        if (response.success) {
+                            // Set the file token to the hidden input
+                            $('#FileToken').val(response.result.fileToken);
+                            abp.notify.success('@L("FileUploadedSuccessfully")')
+                            
+                            // If it's an HTML file, enable preview functionality
+                            var fileName = file.name;
+                            if (fileName.toLowerCase().endsWith('.html')) {
+                                // Add a preview button
+                                if (!$('#previewHtmlButton').length) {
+                                    var previewBtn = $('<button id="previewHtmlButton" type="button" class="btn btn-info mt-2"><i class="fa fa-eye"></i> ' + app.localize('PreviewHtml') + '</button>');
+                                    $('#uploadFeedback').after(previewBtn);
+                                    // Use ModalManager to open the modal
+                                    previewBtn.on('click', function() {
+                                        showPreviewModal(response.result);
+                                    });
+                                }
+                            }
+                        } else {
+                            abp.notify.error(response.error.message || L('FileUploadFailed'));
+                        }
+                    },
+                    error: function () {
+                        abp.ui.clearBusy();
+                        $('#uploadFeedback').addClass('d-none');
+                        abp.notify.error(L('FileUploadFailed'));
+                    }
+                });
+            }
+            
+            // Replace preview button logic
+            function showPreviewModal(fileToken) {
+                _previewModal.open({ fileToken: fileToken });
+            }
+        });
+    </script>
+}

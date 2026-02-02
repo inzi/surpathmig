@@ -1,0 +1,23 @@
+@using inzibackend.Web.Areas.App.Startup
+@{
+    ViewBag.CurrentPageName = AppPageNames.Host.HostTools;
+}
+<div class="content d-flex flex-column flex-column-fluid">
+    <abp-page-subheader title="@L("HostTools")"></abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <h2>@L("HostTools")</h2>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <a href="@Url.Action("ManualDocumentUpload", "HostTools")" class="btn btn-primary">
+                            <i class="fa fa-upload"></i> @L("ManualDocumentUpload")
+                        </a>
+                    </li>
+                    <!-- Add more tools here as needed -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

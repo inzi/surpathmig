@@ -1,0 +1,919 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://clearstar.net/Gateway/Document" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://clearstar.net/Gateway/Document" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://clearstar.net/Gateway/Document">
+      <s:element name="DeleteProfileDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iFileID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteProfileDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteProfileDocumentResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteOrderDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iFileID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteOrderDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteOrderDocumentResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProfileDocuments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sProfNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProfileDocumentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProfileDocumentsResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProfileDocumentsForMerge">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sProfNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProfileDocumentsForMergeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProfileDocumentsForMergeResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentsByKey">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sObjectID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sObjectType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentsByKeyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentsByKeyResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderDocuments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderDocumentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderDocumentsResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadProfileDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iFileID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadProfileDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadProfileDocumentResult" type="tns:DownloadFile" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DownloadFile">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="sFilename" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sFileType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sContentType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sErrorCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sErrorMsg" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="baFileBytes" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DownloadOrderDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iFileID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadOrderDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadOrderDocumentResult" type="tns:DownloadFile" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadProfileDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iFileID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sProfNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFileType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sContentType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSecurityLevel" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sDescription" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="baFileBytes" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadProfileDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadProfileDocumentResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadProfileDocument2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iFileID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sProfNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFileType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sContentType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSecurityLevel" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sDescription" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sIncludeInReport" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="baFileBytes" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadProfileDocument2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadProfileDocument2Result">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadProfileDocument3">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iFileID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sProfNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sOrderIDsDocCopiedTo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFileType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sContentType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSecurityLevel" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sDescription" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sIncludeInReport" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="baFileBytes" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadProfileDocument3Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadProfileDocument3Result">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadOrderDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iFileID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sProfNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFileType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sContentType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSecurityLevel" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sDescription" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="baFileBytes" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadOrderDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadOrderDocumentResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadOrderDocument2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iFileID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sProfNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFileType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sContentType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSecurityLevel" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sDescription" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sIncludeInReport" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="baFileBytes" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadOrderDocument2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadOrderDocument2Result">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateDocumentSettings">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iFileID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sDescription" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSecurityLevel" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateDocumentSettingsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateDocumentSettingsResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateDocumentSettings2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iFileID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sDescription" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSecurityLevel" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sIncludeInReport" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateDocumentSettings2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateDocumentSettings2Result">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CopyProfileDocumentToOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iFileID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sProfNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sOrderIDsDocCopiedTo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CopyProfileDocumentToOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CopyProfileDocumentToOrderResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="DeleteProfileDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteProfileDocument" />
+  </wsdl:message>
+  <wsdl:message name="DeleteProfileDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteProfileDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteOrderDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteOrderDocument" />
+  </wsdl:message>
+  <wsdl:message name="DeleteOrderDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteOrderDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProfileDocumentsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProfileDocuments" />
+  </wsdl:message>
+  <wsdl:message name="GetProfileDocumentsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProfileDocumentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProfileDocumentsForMergeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProfileDocumentsForMerge" />
+  </wsdl:message>
+  <wsdl:message name="GetProfileDocumentsForMergeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProfileDocumentsForMergeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentsByKeySoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocumentsByKey" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentsByKeySoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentsByKeyResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderDocumentsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderDocuments" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderDocumentsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderDocumentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadProfileDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadProfileDocument" />
+  </wsdl:message>
+  <wsdl:message name="DownloadProfileDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadProfileDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadOrderDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadOrderDocument" />
+  </wsdl:message>
+  <wsdl:message name="DownloadOrderDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadOrderDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadProfileDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadProfileDocument" />
+  </wsdl:message>
+  <wsdl:message name="UploadProfileDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadProfileDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadProfileDocument2SoapIn">
+    <wsdl:part name="parameters" element="tns:UploadProfileDocument2" />
+  </wsdl:message>
+  <wsdl:message name="UploadProfileDocument2SoapOut">
+    <wsdl:part name="parameters" element="tns:UploadProfileDocument2Response" />
+  </wsdl:message>
+  <wsdl:message name="UploadProfileDocument3SoapIn">
+    <wsdl:part name="parameters" element="tns:UploadProfileDocument3" />
+  </wsdl:message>
+  <wsdl:message name="UploadProfileDocument3SoapOut">
+    <wsdl:part name="parameters" element="tns:UploadProfileDocument3Response" />
+  </wsdl:message>
+  <wsdl:message name="UploadOrderDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadOrderDocument" />
+  </wsdl:message>
+  <wsdl:message name="UploadOrderDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadOrderDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadOrderDocument2SoapIn">
+    <wsdl:part name="parameters" element="tns:UploadOrderDocument2" />
+  </wsdl:message>
+  <wsdl:message name="UploadOrderDocument2SoapOut">
+    <wsdl:part name="parameters" element="tns:UploadOrderDocument2Response" />
+  </wsdl:message>
+  <wsdl:message name="UpdateDocumentSettingsSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateDocumentSettings" />
+  </wsdl:message>
+  <wsdl:message name="UpdateDocumentSettingsSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateDocumentSettingsResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateDocumentSettings2SoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateDocumentSettings2" />
+  </wsdl:message>
+  <wsdl:message name="UpdateDocumentSettings2SoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateDocumentSettings2Response" />
+  </wsdl:message>
+  <wsdl:message name="CopyProfileDocumentToOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:CopyProfileDocumentToOrder" />
+  </wsdl:message>
+  <wsdl:message name="CopyProfileDocumentToOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:CopyProfileDocumentToOrderResponse" />
+  </wsdl:message>
+  <wsdl:portType name="DocumentSoap">
+    <wsdl:operation name="DeleteProfileDocument">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Deletes a Document from Profile.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteProfileDocumentSoapIn" />
+      <wsdl:output message="tns:DeleteProfileDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteOrderDocument">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Deletes a Document from an Order.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteOrderDocumentSoapIn" />
+      <wsdl:output message="tns:DeleteOrderDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProfileDocuments">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns List of Documents attached to Profile.</wsdl:documentation>
+      <wsdl:input message="tns:GetProfileDocumentsSoapIn" />
+      <wsdl:output message="tns:GetProfileDocumentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProfileDocumentsForMerge">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns List of Documents attached to Profile and its orders, only returns pdf files.</wsdl:documentation>
+      <wsdl:input message="tns:GetProfileDocumentsForMergeSoapIn" />
+      <wsdl:output message="tns:GetProfileDocumentsForMergeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentsByKey">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns List of Documents attached to Profile and its orders, only returns pdf files.</wsdl:documentation>
+      <wsdl:input message="tns:GetDocumentsByKeySoapIn" />
+      <wsdl:output message="tns:GetDocumentsByKeySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderDocuments">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns List of Documents attached to an Order.</wsdl:documentation>
+      <wsdl:input message="tns:GetOrderDocumentsSoapIn" />
+      <wsdl:output message="tns:GetOrderDocumentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadProfileDocument">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Downloads a Document from Profile.</wsdl:documentation>
+      <wsdl:input message="tns:DownloadProfileDocumentSoapIn" />
+      <wsdl:output message="tns:DownloadProfileDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadOrderDocument">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Downloads a Document from an Order.</wsdl:documentation>
+      <wsdl:input message="tns:DownloadOrderDocumentSoapIn" />
+      <wsdl:output message="tns:DownloadOrderDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadProfileDocument">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Uploads a Document to a Profile.</wsdl:documentation>
+      <wsdl:input message="tns:UploadProfileDocumentSoapIn" />
+      <wsdl:output message="tns:UploadProfileDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadProfileDocument2">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Uploads a Document to a Profile including if the document is included in report.</wsdl:documentation>
+      <wsdl:input message="tns:UploadProfileDocument2SoapIn" />
+      <wsdl:output message="tns:UploadProfileDocument2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadProfileDocument3">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Uploads a Document to a Profile including if the document is included in report and copied to selected orders in this Profile.</wsdl:documentation>
+      <wsdl:input message="tns:UploadProfileDocument3SoapIn" />
+      <wsdl:output message="tns:UploadProfileDocument3SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadOrderDocument">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Uploads a Document to an Order.</wsdl:documentation>
+      <wsdl:input message="tns:UploadOrderDocumentSoapIn" />
+      <wsdl:output message="tns:UploadOrderDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadOrderDocument2">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Uploads a Document to an Order.</wsdl:documentation>
+      <wsdl:input message="tns:UploadOrderDocument2SoapIn" />
+      <wsdl:output message="tns:UploadOrderDocument2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDocumentSettings">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Updates Document Description and Internal Use Only setting.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateDocumentSettingsSoapIn" />
+      <wsdl:output message="tns:UpdateDocumentSettingsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDocumentSettings2">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Updates Document Description, Internal Use Only and IncludeInReport settings.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateDocumentSettings2SoapIn" />
+      <wsdl:output message="tns:UpdateDocumentSettings2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CopyProfileDocumentToOrder">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Copy a Profile Document to selected orders in this Profile.</wsdl:documentation>
+      <wsdl:input message="tns:CopyProfileDocumentToOrderSoapIn" />
+      <wsdl:output message="tns:CopyProfileDocumentToOrderSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DocumentSoap" type="tns:DocumentSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DeleteProfileDocument">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Document/DeleteProfileDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteOrderDocument">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Document/DeleteOrderDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProfileDocuments">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Document/GetProfileDocuments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProfileDocumentsForMerge">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Document/GetProfileDocumentsForMerge" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentsByKey">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Document/GetDocumentsByKey" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderDocuments">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Document/GetOrderDocuments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadProfileDocument">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Document/DownloadProfileDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadOrderDocument">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Document/DownloadOrderDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadProfileDocument">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Document/UploadProfileDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadProfileDocument2">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Document/UploadProfileDocument2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadProfileDocument3">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Document/UploadProfileDocument3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadOrderDocument">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Document/UploadOrderDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadOrderDocument2">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Document/UploadOrderDocument2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDocumentSettings">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Document/UpdateDocumentSettings" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDocumentSettings2">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Document/UpdateDocumentSettings2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CopyProfileDocumentToOrder">
+      <soap:operation soapAction="http://clearstar.net/Gateway/Document/CopyProfileDocumentToOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DocumentSoap12" type="tns:DocumentSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DeleteProfileDocument">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Document/DeleteProfileDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteOrderDocument">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Document/DeleteOrderDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProfileDocuments">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Document/GetProfileDocuments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProfileDocumentsForMerge">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Document/GetProfileDocumentsForMerge" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentsByKey">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Document/GetDocumentsByKey" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderDocuments">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Document/GetOrderDocuments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadProfileDocument">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Document/DownloadProfileDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadOrderDocument">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Document/DownloadOrderDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadProfileDocument">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Document/UploadProfileDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadProfileDocument2">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Document/UploadProfileDocument2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadProfileDocument3">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Document/UploadProfileDocument3" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadOrderDocument">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Document/UploadOrderDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadOrderDocument2">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Document/UploadOrderDocument2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDocumentSettings">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Document/UpdateDocumentSettings" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDocumentSettings2">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Document/UpdateDocumentSettings2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CopyProfileDocumentToOrder">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/Document/CopyProfileDocumentToOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Document">
+    <wsdl:port name="DocumentSoap" binding="tns:DocumentSoap">
+      <soap:address location="https://gateway.clearstar.net/csgwDocument/Document.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DocumentSoap12" binding="tns:DocumentSoap12">
+      <soap12:address location="https://gateway.clearstar.net/csgwDocument/Document.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

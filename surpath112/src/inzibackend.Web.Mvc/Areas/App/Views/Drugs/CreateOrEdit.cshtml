@@ -1,0 +1,67 @@
+﻿
+@using System.Globalization
+@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.Drugs
+@using inzibackend.Web.Areas.App.Startup
+@model CreateOrEditDrugViewModel
+@using Abp.Extensions
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Host.Drugs;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/Drugs/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+    var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/App/Drugs", L("Drugs")),
+        new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
+        };
+        }
+        <abp-page-subheader title='@(Model.IsEditMode ? (L("EditDrug")) : L("CreateNewDrug"))' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+
+        <div class="@(await GetContainerClass())">
+            <div class="card card-custom gutter-b">
+                <form name="DrugInformationsForm" role="form" novalidate class="form-validation">
+                    <div class="card-body">
+                        <div class="form">
+                            <div id="DrugInformationsTab">
+                                @if (Model.IsEditMode)
+                                {
+                                <input type="hidden" name="id" value="@Model.Drug.Id" />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="Drug_Name">@L("Name")</label>
+                                    <input class="form-control" id="Drug_Name" value="@Model.Drug.Name" type="text" name="name" required maxlength="@inzibackend.Surpath.DrugConsts.MaxNameLength" minlength="@inzibackend.Surpath.DrugConsts.MinNameLength" />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="Drug_Code">@L("Code")</label>
+                                    <input class="form-control" id="Drug_Code" value="@Model.Drug.Code" type="text" name="code" required maxlength="@inzibackend.Surpath.DrugConsts.MaxCodeLength" minlength="@inzibackend.Surpath.DrugConsts.MinCodeLength" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12">
+                                <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                @if (!Model.IsEditMode)
+                                {
+                                <button type="button" id="saveAndNewBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>

@@ -1,0 +1,140 @@
+﻿{
+  "IsRegenerate": true,
+  "MenuPosition": "main",
+  "RelativeNamespace": "Surpath",
+  "EntityName": "RecordState",
+  "EntityNamePlural": "RecordStates",
+  "TableName": "RecordStates",
+  "PrimaryKeyType": "Guid",
+  "BaseClass": "Entity",
+  "EntityHistory": true,
+  "AutoMigration": false,
+  "UpdateDatabase": false,
+  "CreateUserInterface": true,
+  "CreateViewOnly": true,
+  "CreateExcelExport": true,
+  "IsNonModalCRUDPage": false,
+  "IsMasterDetailPage": true,
+  "PagePermission": {
+    "Host": true,
+    "Tenant": true
+  },
+  "Properties": [
+    {
+      "Name": "State",
+      "Type": "EnumRecordState",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null
+    },
+    {
+      "Name": "Notes",
+      "Type": "string",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null
+    }
+  ],
+  "NavigationProperties": [
+    {
+      "Namespace": "inzibackend.Surpath",
+      "ForeignEntityName": "Record",
+      "IdType": "Guid",
+      "IsNullable": true,
+      "PropertyName": "RecordId",
+      "DisplayPropertyName": "filename",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "LookupTable"
+    },
+    {
+      "Namespace": "inzibackend.Surpath",
+      "ForeignEntityName": "RecordCategory",
+      "IdType": "Guid",
+      "IsNullable": true,
+      "PropertyName": "RecordCategoryId",
+      "DisplayPropertyName": "Name",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "LookupTable"
+    },
+    {
+      "Namespace": "inzibackend.Authorization.Users",
+      "ForeignEntityName": "User",
+      "IdType": "long",
+      "IsNullable": true,
+      "PropertyName": "UserId",
+      "DisplayPropertyName": "Name",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "LookupTable"
+    },
+    {
+      "Namespace": "inzibackend.Surpath",
+      "ForeignEntityName": "RecordStatus",
+      "IdType": "Guid",
+      "IsNullable": false,
+      "PropertyName": "RecordStatusId",
+      "DisplayPropertyName": "StatusName",
+      "DuplicationNumber": 0,
+      "RelationType": "single",
+      "ViewType": "Dropdown"
+    }
+  ],
+  "NavigationPropertyOneToManyTables": [
+            {
+                "EntityJson": "Surpath.RecordNote.json",
+                "ForeignPropertyName": "RecordStateId",
+                "IsNullable": "True",
+                "DisplayPropertyName": "Notes",
+                "ViewType": "LookupTable"
+            },
+        ],
+  "EnumDefinitions": [
+    {
+      "Name": "EnumRecordState",
+      "Namespace": "inzibackend.Surpath",
+      "EnumProperties": [
+        {
+          "Name": "NeedsApproval",
+          "Value": 0
+        },
+        {
+          "Name": "Rejected",
+          "Value": 1
+        },
+        {
+          "Name": "Approved",
+          "Value": 2
+        }
+      ]
+    }
+  ],
+  "DbContext": null
+}

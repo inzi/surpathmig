@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href='@Url.Content("~/App_Themes/jquery-ui.min-1.11.2.css")' rel="stylesheet" type="text/css" />
+    <link href='@Url.Content("~/App_Themes/bootstrap.min.css")' rel="stylesheet" type="text/css" />
+    @*<link href='@Url.Content("~/App_Themes/style.css")' rel="stylesheet" type="text/css" />*@
+    <link href='@Url.Content("~/App_Themes/font-awesome.min.css")' rel="stylesheet" type="text/css" />
+    <link href='@Url.Content("~/App_Themes/bootstrap-theme.css")' rel="stylesheet" type="text/css" />
+
+    <script src="~/Areas/Background/js/sb-admin-2.js"></script>
+    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+                                    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+                                    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+                                    <![endif]-->
+
+    <link rel="shortcut icon" href="~/Images/Favicon-16x16.ico" />
+    <link rel="shortcut icon" href=" ~/Images/Favicon-32x32.ico" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.2.js"></script>
+    <script src="~/Scripts/common.js"></script>
+    <script src=" ~/Scripts/bootstrap.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function () {
+            $("form input:text").bind("cut copy paste", function (e) {
+                e.preventDefault();
+            });
+        });
+    </script>
+
+    @RenderSection("PageScript", false)
+
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <nav id="myNavbar" class="navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="container">
+            <div class="navbar-header">
+                <a href="#"><img src='@Url.Content("~/Images/background.png")' alt="" hover:none;"></a>
+            </div>
+                  </div>
+    </nav>
+    @RenderBody()
+    <div class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
+            <div class="col-sm-12 text-center" style="margin-top: 10px;">
+                <p>All Rights Reserved <i class="fa fa-copyright"></i> 2018, <span class="span-r">Sur</span><span class="span-b">Scan</span>.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

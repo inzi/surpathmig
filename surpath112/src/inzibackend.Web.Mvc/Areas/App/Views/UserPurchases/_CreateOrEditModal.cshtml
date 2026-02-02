@@ -1,0 +1,150 @@
+﻿@using inzibackend.Surpath
+@using System.Globalization
+@using inzibackend.MultiTenancy.Payments
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.UserPurchases
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model CreateOrEditUserPurchaseModalViewModel
+@{
+    Layout = null;
+}
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? L("EditUserPurchase") : L("CreateNewUserPurchase")))
+
+<div class="modal-body">
+    <div id="UserPurchaseInformationsTab">
+        <form name="UserPurchaseInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.UserPurchase.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="UserPurchase_Name">@L("Name")*</label>
+                <input class="form-control" id="UserPurchase_Name" value="@Model.UserPurchase.Name" type="text" name="name" required />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="UserPurchase_Description">@L("Description")*</label>
+                <input class="form-control" id="UserPurchase_Description" value="@Model.UserPurchase.Description" type="text" name="description" required />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="UserPurchase_Status">@L("Status")</label>
+                @{
+                    var statusList = Enum.GetValues(typeof(EnumPurchaseStatus)).Cast<EnumPurchaseStatus>()
+                        .Select(e => new SelectListItem 
+                        { 
+                            Value = ((int)e).ToString(), 
+                            Text = L($"Enum_EnumPurchaseStatus_{(int)e}"), 
+                            Selected = Model.UserPurchase.Status == e 
+                        });
+                }
+                @Html.DropDownList("status", statusList, new { @class = "form-select", id = "UserPurchase_Status" })
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="UserPurchase_OriginalPrice">@L("OriginalPrice")</label>
+                <input type="number" class="form-control" id="UserPurchase_OriginalPrice" value="@Model.UserPurchase.OriginalPrice.ToString(CultureInfo.InvariantCulture)" name="originalPrice" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="UserPurchase_AdjustedPrice">@L("AdjustedPrice")</label>
+                <input type="number" class="form-control" id="UserPurchase_AdjustedPrice" value="@Model.UserPurchase.AdjustedPrice.ToString(CultureInfo.InvariantCulture)" name="adjustedPrice" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="UserPurchase_DiscountAmount">@L("DiscountAmount")</label>
+                <input type="number" class="form-control" id="UserPurchase_DiscountAmount" value="@Model.UserPurchase.DiscountAmount.ToString(CultureInfo.InvariantCulture)" name="discountAmount" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="UserPurchase_AmountPaid">@L("AmountPaid")</label>
+                <input type="number" class="form-control" id="UserPurchase_AmountPaid" value="@Model.UserPurchase.AmountPaid.ToString(CultureInfo.InvariantCulture)" name="amountPaid" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="UserPurchase_PaymentPeriodType">@L("PaymentPeriodType")</label>
+                @{
+                    var paymentPeriodList = Enum.GetValues(typeof(PaymentPeriodType)).Cast<PaymentPeriodType>()
+                        .Select(e => new SelectListItem 
+                        { 
+                            Value = ((int)e).ToString(), 
+                            Text = L($"Enum_PaymentPeriodType_{(int)e}"), 
+                            Selected = Model.UserPurchase.PaymentPeriodType == e 
+                        });
+                }
+                @Html.DropDownList("paymentPeriodType", paymentPeriodList, new { @class = "form-select", id = "UserPurchase_PaymentPeriodType" })
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="UserPurchase_PurchaseDate">@L("PurchaseDate")</label>
+                <input class="form-control date-picker" id="UserPurchase_PurchaseDate" type="text" name="purchaseDate" value="@Model.UserPurchase.PurchaseDate.ToString("yyyy-MM-dd")" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="UserPurchase_ExpirationDate">@L("ExpirationDate")</label>
+                <input class="form-control date-picker" id="UserPurchase_ExpirationDate" type="text" name="expirationDate" value="@(Model.UserPurchase.ExpirationDate.HasValue ? Model.UserPurchase.ExpirationDate.Value.ToString("yyyy-MM-dd") : "")" />
+            </div>
+
+            <div class="my-3 form-check form-check-custom form-check-solid">
+                <input id="UserPurchase_IsRecurring" class="form-check-input" type="checkbox" name="isRecurring" value="true" @(Model.UserPurchase.IsRecurring ? "checked" : "") />
+                <label class="form-check-label" for="UserPurchase_IsRecurring">@L("IsRecurring")</label>
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="UserPurchase_Notes">@L("Notes")</label>
+                <textarea class="form-control" id="UserPurchase_Notes" name="notes">@Model.UserPurchase.Notes</textarea>
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="UserPurchase_MetaData">@L("MetaData")</label>
+                <textarea class="form-control" id="UserPurchase_MetaData" name="metaData">@Model.UserPurchase.MetaData</textarea>
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="UserNameLookup">@L("User")</label>
+                <div class="input-group">
+                    <input class="form-control" id="UserNameLookup" value="@Model.UserName" type="text" name="userNameLookup" disabled />
+                    <button class="btn btn-primary blue" id="OpenUserLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearUserNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <input type="hidden" name="userId" value="@Model.UserPurchase.UserId" id="UserId" />
+
+            <div class="my-3">
+                <label class="form-label" for="SurpathServiceNameLookup">@L("SurpathService")</label>
+                <div class="input-group">
+                    <input class="form-control" id="SurpathServiceNameLookup" value="@Model.SurpathServiceName" type="text" name="surpathServiceNameLookup" disabled />
+                    <button class="btn btn-primary blue" id="OpenSurpathServiceLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearSurpathServiceNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <input type="hidden" name="surpathServiceId" value="@Model.UserPurchase.SurpathServiceId" id="SurpathServiceId" />
+
+            <div class="my-3">
+                <label class="form-label" for="TenantSurpathServiceNameLookup">@L("TenantSurpathService")</label>
+                <div class="input-group">
+                    <input class="form-control" id="TenantSurpathServiceNameLookup" value="@Model.TenantSurpathServiceName" type="text" name="tenantSurpathServiceNameLookup" disabled />
+                    <button class="btn btn-primary blue" id="OpenTenantSurpathServiceLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearTenantSurpathServiceNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <input type="hidden" name="tenantSurpathServiceId" value="@Model.UserPurchase.TenantSurpathServiceId" id="TenantSurpathServiceId" />
+
+            <div class="my-3">
+                <label class="form-label" for="CohortNameLookup">@L("Cohort")</label>
+                <div class="input-group">
+                    <input class="form-control" id="CohortNameLookup" value="@Model.CohortName" type="text" name="cohortNameLookup" disabled />
+                    <button class="btn btn-primary blue" id="OpenCohortLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearCohortNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <input type="hidden" name="cohortId" value="@Model.UserPurchase.CohortId" id="CohortId" />
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

@@ -1,0 +1,380 @@
+﻿@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.LedgerEntries
+@using inzibackend.Web.Areas.App.Startup
+@model LedgerEntriesViewModel
+@{
+ViewBag.CurrentPageName = AppPageNames.Host.LedgerEntries;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/LedgerEntries/Index.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    <abp-page-subheader title='@L("LedgerEntries")' description='@L("LedgerEntriesHeaderInfo")'>
+        <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+
+        @if (IsGranted(AppPermissions.Pages_LedgerEntries_Create))
+        {
+        <button id="CreateNewLedgerEntryButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewLedgerEntry")</button>
+        }
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-xl-12">
+
+                            <div class="my-3">
+                                <div class="input-group">
+                                    <input type="text" id="LedgerEntriesTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                    <button id="GetLedgerEntriesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="NameFilterId">@L("Name")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="nameFilter" id="NameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="ServiceTypeFilterId">@L("ServiceType")</label>
+                            <select class="form-select reload-on-change" name="ServiceTypeFilter" id="ServiceTypeFilterId">
+                                <option value="-1">@L("All")</option>
+                                <option value="0">@L("Enum_EnumServiceType_0")</option>
+
+                                <option value="1">@L("Enum_EnumServiceType_1")</option>
+
+                                <option value="2">@L("Enum_EnumServiceType_2")</option>
+
+                                <option value="3">@L("Enum_EnumServiceType_3")</option>
+
+                                <option value="4">@L("Enum_EnumServiceType_4")</option>
+
+                                <option value="5">@L("Enum_EnumServiceType_5")</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinAmountFilterId">@L("MinMax") @L("Amount")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MinValue")" name="minAmountFilter" id="MinAmountFilterId" />
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MaxValue")" name="maxAmountFilter" id="MaxAmountFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinDiscountAmountFilterId">@L("MinMax") @L("DiscountAmount")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MinValue")" name="minDiscountAmountFilter" id="MinDiscountAmountFilterId" />
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MaxValue")" name="maxDiscountAmountFilter" id="MaxDiscountAmountFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinTotalPriceFilterId">@L("MinMax") @L("TotalPrice")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MinValue")" name="minTotalPriceFilter" id="MinTotalPriceFilterId" />
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MaxValue")" name="maxTotalPriceFilter" id="MaxTotalPriceFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="PaymentPeriodTypeFilterId">@L("PaymentPeriodType")</label>
+                            <select class="form-select reload-on-change" name="PaymentPeriodTypeFilter" id="PaymentPeriodTypeFilterId">
+                                <option value="-1">@L("All")</option>
+                                <option value="1">@L("Enum_PaymentPeriodType_1")</option>
+
+                                <option value="7">@L("Enum_PaymentPeriodType_7")</option>
+
+                                <option value="30">@L("Enum_PaymentPeriodType_30")</option>
+
+                                <option value="365">@L("Enum_PaymentPeriodType_365")</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinExpirationDateFilterId">@L("ExpirationDateRange")</label>
+                            <div class="input-group">
+                                <input class="form-control m-input date-picker startDate date-picker-filter" type="text" placeholder="@L(" MinValue")" id="MinExpirationDateFilterId">
+                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                                <input class="form-control m-input date-picker endDate date-picker-filter" type="text" placeholder="@L(" MaxValue")" id="MaxExpirationDateFilterId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="TransactionNameFilterId">@L("TransactionName")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="transactionNameFilter" id="TransactionNameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="TransactionKeyFilterId">@L("TransactionKey")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="transactionKeyFilter" id="TransactionKeyFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="TransactionIdFilterId">@L("TransactionId")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="transactionIdFilter" id="TransactionIdFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="SettledFilterId">@L("Settled")</label>
+                            <select class="form-select reload-on-change" name="SettledFilter" id="SettledFilterId">
+                                <option value="-1">@L("All")</option>
+                                <option value="0">@L("False")</option>
+                                <option value="1">@L("True")</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinAmountDueFilterId">@L("MinMax") @L("AmountDue")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MinValue")" name="minAmountDueFilter" id="MinAmountDueFilterId" />
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MaxValue")" name="maxAmountDueFilter" id="MaxAmountDueFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="PaymentTokenFilterId">@L("PaymentToken")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="paymentTokenFilter" id="PaymentTokenFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="AuthNetCustomerProfileIdFilterId">@L("AuthNetCustomerProfileId")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="authNetCustomerProfileIdFilter" id="AuthNetCustomerProfileIdFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="AuthNetCustomerPaymentProfileIdFilterId">@L("AuthNetCustomerPaymentProfileId")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="authNetCustomerPaymentProfileIdFilter" id="AuthNetCustomerPaymentProfileIdFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="AuthNetCustomerAddressIdFilterId">@L("AuthNetCustomerAddressId")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="authNetCustomerAddressIdFilter" id="AuthNetCustomerAddressIdFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="AccountNumberFilterId">@L("AccountNumber")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="accountNumberFilter" id="AccountNumberFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="NoteFilterId">@L("Note")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="noteFilter" id="NoteFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MetaDataFilterId">@L("MetaData")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="metaDataFilter" id="MetaDataFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="AuthCodeFilterId">@L("AuthCode")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="authCodeFilter" id="AuthCodeFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="ReferenceTransactionIdFilterId">@L("ReferenceTransactionId")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="referenceTransactionIdFilter" id="ReferenceTransactionIdFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="TransactionHashFilterId">@L("TransactionHash")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="transactionHashFilter" id="TransactionHashFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="AccountTypeFilterId">@L("AccountType")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="accountTypeFilter" id="AccountTypeFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="TransactionCodeFilterId">@L("TransactionCode")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="transactionCodeFilter" id="TransactionCodeFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="TransactionMessageFilterId">@L("TransactionMessage")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="transactionMessageFilter" id="TransactionMessageFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="AuthNetTransHashSha2FilterId">@L("AuthNetTransHashSha2")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="authNetTransHashSha2Filter" id="AuthNetTransHashSha2FilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="AuthNetNetworkTransIdFilterId">@L("AuthNetNetworkTransId")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="authNetNetworkTransIdFilter" id="AuthNetNetworkTransIdFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinPaidAmountFilterId">@L("MinMax") @L("PaidAmount")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MinValue")" name="minPaidAmountFilter" id="MinPaidAmountFilterId" />
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MaxValue")" name="maxPaidAmountFilter" id="MaxPaidAmountFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinPaidInCashFilterId">@L("MinMax") @L("PaidInCash")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MinValue")" name="minPaidInCashFilter" id="MinPaidInCashFilterId" />
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MaxValue")" name="maxPaidInCashFilter" id="MaxPaidInCashFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinAvailableUserBalanceFilterId">@L("MinMax") @L("AvailableUserBalance")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MinValue")" name="minAvailableUserBalanceFilter" id="MinAvailableUserBalanceFilterId" />
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MaxValue")" name="maxAvailableUserBalanceFilter" id="MaxAvailableUserBalanceFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="CardNameOnCardFilterId">@L("CardNameOnCard")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="cardNameOnCardFilter" id="CardNameOnCardFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="CardZipCodeFilterId">@L("CardZipCode")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="cardZipCodeFilter" id="CardZipCodeFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinBalanceForwardFilterId">@L("MinMax") @L("BalanceForward")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MinValue")" name="minBalanceForwardFilter" id="MinBalanceForwardFilterId" />
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MaxValue")" name="maxBalanceForwardFilter" id="MaxBalanceForwardFilterId" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="UserNameFilterId">(@L("User")) @L("Name")</label>
+                            <input type="text" class="form-control" name="userNameFilter" id="UserNameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="TenantDocumentNameFilterId">(@L("TenantDocument")) @L("Name")</label>
+                            <input type="text" class="form-control" name="tenantDocumentNameFilter" id="TenantDocumentNameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="CohortNameFilterId">(@L("Cohort")) @L("Name")</label>
+                            <input type="text" class="form-control" name="cohortNameFilter" id="CohortNameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-5">
+                        <button class="btn btn-secondary btn-sm" id="btn-reset-filters">Reset</button>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <table id="LedgerEntriesTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th></th>
+
+                                <th style="width:50px"></th>
+                                <th>@L("Actions")</th>
+                                <th>@L("Name")</th>
+                                <th>@L("ServiceType")</th>
+                                <th>@L("Amount")</th>
+                                <th>@L("DiscountAmount")</th>
+                                <th>@L("TotalPrice")</th>
+                                <th>@L("PaymentPeriodType")</th>
+                                <th>@L("ExpirationDate")</th>
+                                <th>@L("TransactionName")</th>
+                                <th>@L("TransactionKey")</th>
+                                <th>@L("TransactionId")</th>
+                                <th>@L("Settled")</th>
+                                <th>@L("AmountDue")</th>
+                                <th>@L("PaymentToken")</th>
+                                <th>@L("AuthNetCustomerProfileId")</th>
+                                <th>@L("AuthNetCustomerPaymentProfileId")</th>
+                                <th>@L("AuthNetCustomerAddressId")</th>
+                                <th>@L("AccountNumber")</th>
+                                <th>@L("Note")</th>
+                                <th>@L("MetaData")</th>
+                                <th>@L("AuthCode")</th>
+                                <th>@L("ReferenceTransactionId")</th>
+                                <th>@L("TransactionHash")</th>
+                                <th>@L("AccountType")</th>
+                                <th>@L("TransactionCode")</th>
+                                <th>@L("TransactionMessage")</th>
+                                <th>@L("AuthNetTransHashSha2")</th>
+                                <th>@L("AuthNetNetworkTransId")</th>
+                                <th>@L("PaidAmount")</th>
+                                <th>@L("PaidInCash")</th>
+                                <th>@L("AvailableUserBalance")</th>
+                                <th>@L("CardNameOnCard")</th>
+                                <th>@L("CardZipCode")</th>
+                                <th>@L("BalanceForward")</th>
+                                <th>@L("UserName")</th>
+                                <th>@L("TenantDocumentName")</th>
+                                <th>@L("CohortName")</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

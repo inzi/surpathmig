@@ -1,0 +1,394 @@
+﻿@using inzibackend.Surpath;
+
+@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.Compliance
+@model CreateRequirementViewModel
+
+
+@using Abp.Extensions
+@*@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditRecordState")) : L("CreateNewRecordState")))*@
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateComplianceRequirement")))
+@{
+    var _SingleCategory = Model.CreateOrEditRecordCategories.Count == 1;
+    var _singleCategoryInstructionClass = "d-none";
+    var _multipleCategoryInstructionClass = string.Empty;
+
+    if (_SingleCategory)
+    {
+        _singleCategoryInstructionClass = string.Empty;
+        _multipleCategoryInstructionClass = "d-none";
+    }
+}
+<div class="modal-body">
+    @*<form name="CreateEditRequirementForm" role="form" novalidate class="form-validation">*@
+
+
+    <!--begin::Stepper-->
+    <div id="CreateRequirementWizard" class="stepper stepper-pills" id="kt_stepper_example_basic">
+        <!--begin::Nav-->
+        <div class="stepper-nav flex-center flex-wrap mb-10">
+            <!--begin::Step 1-->
+            <div class="stepper-item mx-8 my-4 current" data-kt-stepper-element="nav">
+                <!--begin::Wrapper-->
+                <div class="stepper-wrapper d-flex align-items-center">
+                    <!--begin::Icon-->
+                    <div class="stepper-icon w-40px h-40px">
+                        <i class="stepper-check fas fa-check"></i>
+                        <span class="stepper-number">1</span>
+                    </div>
+                    <!--end::Icon-->
+                    <!--begin::Label-->
+                    <div class="stepper-label">
+                        <h3 class="stepper-title">
+                            @L("RecordRequirement")
+                        </h3>
+
+                        <div class="stepper-desc">
+                            @L("RecordRequirementStep1Desc")
+                        </div>
+                    </div>
+                    <!--end::Label-->
+                </div>
+                <!--end::Wrapper-->
+                <!--begin::Line-->
+                <div class="stepper-line h-40px"></div>
+                <!--end::Line-->
+            </div>
+            <!--end::Step 1-->
+            <!--begin::Step 2-->
+            <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
+                <!--begin::Wrapper-->
+                <div class="stepper-wrapper d-flex align-items-center">
+                    <!--begin::Icon-->
+                    <div class="stepper-icon w-40px h-40px">
+                        <i class="stepper-check fas fa-check"></i>
+                        <span class="stepper-number">2</span>
+                    </div>
+                    <!--begin::Icon-->
+                    <!--begin::Label-->
+                    <div class="stepper-label">
+                        <h3 class="stepper-title">
+                            @L("InstructionsRules")
+                        </h3>
+
+                        <div class="stepper-desc">
+                            @L("RecordRequirementStep2Desc")
+                        </div>
+                    </div>
+                    <!--end::Label-->
+                </div>
+                <!--end::Wrapper-->
+                <!--begin::Line-->
+                <div class="stepper-line h-40px"></div>
+                <!--end::Line-->
+            </div>
+            <!--end::Step 2-->
+            <!--begin::Step 4-->
+            <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
+                <!--begin::Wrapper-->
+                <div class="stepper-wrapper d-flex align-items-center">
+                    <!--begin::Icon-->
+                    <div class="stepper-icon w-40px h-40px">
+                        <i class="stepper-check fas fa-check"></i>
+                        <span class="stepper-number">4</span>
+                    </div>
+                    <!--begin::Icon-->
+                    <!--begin::Label-->
+                    <div class="stepper-label">
+                        <h3 class="stepper-title">
+                            @L("ReviewAndSave")
+                        </h3>
+
+                        <div class="stepper-desc">
+                            @L("RecordRequirementStep4Desc")
+                        </div>
+                    </div>
+                    <!--end::Label-->
+                </div>
+                <!--end::Wrapper-->
+                <!--begin::Line-->
+                <div class="stepper-line h-40px"></div>
+                <!--end::Line-->
+            </div>
+            <!--end::Step 4-->
+        </div>
+        <!--end::Nav-->
+        <!--begin::Form-->
+        <form id="CreateEditRequirementForm" name="CreateEditRequirementForm" role="form" class="form w-lg-500px mx-auto" novalidate="novalidate" id="kt_stepper_example_basic_form" data-step="@Model.step.ToString()">
+
+            <!--begin::Group-->
+            <div class="mb-5">
+                <!--begin::Step 1-->
+                <div class="flex-column current" data-kt-stepper-element="content">
+                    <!--begin::Input group-->
+                    <input type="hidden" id="@Html.IdFor(r=>Model.CreateOrEditRecordRequirement.RecordRequirement.Id)" name="CreateOrEditRecordRequirement[Id]" value="@Model.CreateOrEditRecordRequirement.RecordRequirement.Id" />
+
+                    <div class="my-3">
+                        <label class="form-label" for="CreateOrEditRecordRequirementModalViewModel_RecordRequirement_Name">@L("RequirementName")</label>
+                        <input class="form-control" id="CreateOrEditRecordRequirementModalViewModel_RecordRequirement_Name" value="@Model.CreateOrEditRecordRequirement.RecordRequirement.Name" type="text" name="CreateOrEditRecordRequirement[Name]" required />
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="CreateOrEditRecordRequirementModalViewModel_RecordRequirement_Description">@L("RequirementDescription")</label>
+                        <input class="form-control" id="CreateOrEditRecordRequirementModalViewModel_RecordRequirement_Description" value="@Model.CreateOrEditRecordRequirement.RecordRequirement.Description" type="text" name="CreateOrEditRecordRequirement[Description]" />
+
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="@Html.IdFor(r=>Model.CreateOrEditRecordRequirement.TenantDepartmentName)">@L("PickDepartmentIfDepartmentSpecific")</label>
+                        <div class="input-group">
+                            <input class="form-control" id="@Html.IdFor(r=>Model.CreateOrEditRecordRequirement.TenantDepartmentName)" name="CreateOrEditRecordRequirement[TenantDepartmentName]" value="@Model.CreateOrEditRecordRequirement.TenantDepartmentName" type="text" disabled>
+                            <button class="btn btn-primary blue" id="OpenTenantDepartmentLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                            <button class="btn btn-danger btn-icon" type="button" id="ClearTenantDepartmentNameButton"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+
+                    @if (Model.CreateOrEditRecordRequirement.IsEditMode)
+                    {
+                        <input class="form-control" id="@Html.IdFor(r=>Model.CreateOrEditRecordRequirement.RecordRequirement.TenantDepartmentId)" name="CreateOrEditRecordRequirement[TenantDepartmentId]" value="@Model.CreateOrEditRecordRequirement.RecordRequirement.TenantDepartmentId" type="text" hidden />
+                    }
+                    else
+                    {
+                        <input class="form-control" id="@Html.IdFor(r=>Model.CreateOrEditRecordRequirement.RecordRequirement.TenantDepartmentId)" value="" type="text" name="CreateOrEditRecordRequirement[TenantDepartmentId]" hidden />
+                    }
+
+                    <div class="my-3">
+                        <label class="form-label" for="CohortName">@L("PickCohortIfCohortSpecific")</label>
+                        <div class="input-group">
+                            <input class="form-control" id="@Html.IdFor(r=>Model.CreateOrEditRecordRequirement.CohortName)" name="CreateOrEditRecordRequirement[CohortName]" value="@Model.CreateOrEditRecordRequirement.CohortName" type="text" disabled>
+                            <button class="btn btn-primary blue" id="OpenCohortLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                            <button class="btn btn-danger btn-icon" type="button" id="ClearCohortNameButton"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+
+                    @if (Model.CreateOrEditRecordRequirement.IsEditMode)
+                    {
+                        <input class="form-control" id="@Html.IdFor(r=>Model.CreateOrEditRecordRequirement.RecordRequirement.CohortId)" value="@Model.CreateOrEditRecordRequirement.RecordRequirement.CohortId" type="text" name="CreateOrEditRecordRequirement[CohortId]" hidden />
+                    }
+                    else
+                    {
+                        <input class="form-control" id="@Html.IdFor(r=>Model.CreateOrEditRecordRequirement.RecordRequirement.CohortId)" value="" type="text" name="CreateOrEditRecordRequirement[CohortId]" hidden />
+                    }
+
+
+
+                    <!--end::Input group-->
+                </div>
+                <!--begin::Step 1-->
+                <!--begin::Step 1-->
+                <div class="flex-column singleCatWiz" data-kt-stepper-element="content">
+                    <!--begin::Input group-->
+                    <div class="my-3">
+                        <label for="MultipleCategories" class="form-check form-check-custom form-check-solid mb-5">
+                            <input id="MultipleCategories" type="checkbox" name="MultipleCategories" class="form-check-input" value="true" @(Model.CreateOrEditRecordCategories.Count() > 1 ? "checked=\"checked\"" : "")>
+                            <span class="form-check-label">
+                                @L("MultipleUploadsToComply")
+                            </span>
+                            <span class="MultiStepDisableWarning @_multipleCategoryInstructionClass">Cannot Disable with multiple uploads</span>
+                        </label>
+                    </div>
+                    <div id="categoriesSingle">
+                        <div class="my-3 defaultInstructions @_singleCategoryInstructionClass">
+                            <label class="form-label" for="defaultInstructions">@L("RequirementInstructions")</label>
+                            @*<input class="form-control" id="defaultInstructions" value="@(_SingleCategory==true ? Model.CreateOrEditRecordCategories[0].RecordCategory.Instructions : "")" type="text" name="defaultInstructions" />*@
+                            <textarea class="form-control" id="defaultInstructions" name="defaultInstructions">@(_SingleCategory==true ? Model.CreateOrEditRecordCategories[0].RecordCategory.Instructions : "")</textarea>
+                        </div>
+                        <div class="my-3 defaultRule @_singleCategoryInstructionClass">
+                            <label class="form-label" for="defaultRule">@L("ComplianceRule")</label>
+                            @Html.DropDownList("defaultRule", new SelectList( Model.CreateOrEditRecordCategories[0].RecordCategoryRecordCategoryRuleList,"Id","DisplayName", (Model.CreateOrEditRecordRequirement.IsEditMode ? Model.CreateOrEditRecordCategories[0].RecordCategory.RecordCategoryRuleId.ToString() : "")),@L("SelectARecordCategoryRule"), new { @class = "form-control", @id ="defaultRule", required = "required"})
+                        </div>
+                        <div class="my-3 d-none">
+                            <label class="form-label" for="CreateOrEditRecordRequirementModalViewModel_RecordRequirement_Metadata">@L("Metadata")</label>
+                            <input class="form-control" id="CreateOrEditRecordRequirementModalViewModel_RecordRequirement_Metadata" value="@Model.CreateOrEditRecordRequirement.RecordRequirement.Metadata" type="text" name="CreateOrEditRecordRequirement[Metadata]" />
+                        </div>
+                    </div>
+                    <div id="categoriesMultiple">
+                        <div id="CreateNewRecordCategoryButtonWrapper" class="my-3 @_multipleCategoryInstructionClass">
+                            <button id="CreateNewRecordCategoryButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("AddCategory")</button>
+                        </div>
+                        <div id="categoryWrapper" data-catcount="@Model.CreateOrEditRecordCategories.Count">
+                            @{
+
+                                foreach (var _recordCategory in Model.CreateOrEditRecordCategories)
+                                {
+
+                                    var _idx = Model.CreateOrEditRecordCategories.IndexOf(_recordCategory);
+
+                                    var _catIdId = Html.IdFor(r => Model.CreateOrEditRecordCategories[_idx].RecordCategory.Id);
+                                    var _catIdName = Html.IdFor(r => Model.CreateOrEditRecordCategories[_idx].RecordCategory.Name);
+                                    _catIdName = "CreateOrEditRecordCategories[][Id]";
+
+                                    var _reqIdId = Html.IdFor(r => Model.CreateOrEditRecordCategories[_idx].RecordCategory.RecordRequirementId);
+                                    var _reqIdName = "CreateOrEditRecordCategories[][RecordRequirementId]";
+
+                                    var _catNameId = Html.IdFor(r => Model.CreateOrEditRecordCategories[_idx].RecordCategory.Name);
+                                    var _catNameName = Html.NameFor(r => Model.CreateOrEditRecordCategories[_idx].RecordCategory.Name);
+                                    _catNameName = "CreateOrEditRecordCategories[][Name]";
+
+                                    var _catInstructionsId = Html.IdFor(r => Model.CreateOrEditRecordCategories[_idx].RecordCategory.Instructions);
+                                    var _catInstructionsName = Html.NameFor(r => Model.CreateOrEditRecordCategories[_idx].RecordCategory.Instructions);
+                                    _catInstructionsName = "CreateOrEditRecordCategories[][Instructions]";
+
+
+                                    var _catRuleListId = Html.IdFor(r => Model.CreateOrEditRecordCategories[_idx].RecordCategoryRecordCategoryRuleList);
+                                    var _catRuleListName = Html.NameFor(r => Model.CreateOrEditRecordCategories[_idx].RecordCategoryRecordCategoryRuleList);
+                                    //_catInstructionsName = "CreateOrEditRecordCategories[][RecordCategoryRuleId]";
+
+                                    var _RecordCategoryRuleIdId = Html.IdFor(r => Model.CreateOrEditRecordCategories[_idx].RecordCategory.RecordCategoryRuleId);
+                                    var _RecordCategoryRuleIdName = Html.NameFor(r => Model.CreateOrEditRecordCategories[_idx].RecordCategory.RecordCategoryRuleId);
+                                    _RecordCategoryRuleIdName = "CreateOrEditRecordCategories[][RecordCategoryRuleId]";
+
+
+                                    <div class="card shadow-sm recordCategoryCard recordCategoryCard-@_idx @_multipleCategoryInstructionClass @(_idx==0 ? "recordCategoryCard-base" : "")" data-catnumber="@_idx">
+                                        <input type="hidden" id="@_catIdId" name="@_catIdName" value="@Model.CreateOrEditRecordCategories[_idx].RecordCategory.Id" />
+                                        <input type="hidden" id="@_reqIdId" name="@_reqIdName" value="@Model.CreateOrEditRecordCategories[_idx].RecordCategory.RecordRequirementId" />
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <input class="form-control" id="@_catNameId" name="@_catNameName" value="@Model.CreateOrEditRecordCategories[_idx].RecordCategory.Name" type="text" />
+                                            </h3>
+                                            <div class="card-toolbar">
+                                                <button id="deleteCategory" data-catnumber="@_idx" data-recordcategoryid="@Model.CreateOrEditRecordCategories[_idx].RecordCategory.Id" type="button" class="btn btn-sm btn-light btn-delete-category @(Model.CreateOrEditRecordCategories[_idx].RecordCategoryRecordStateCount>0 ? "d-none": "")" @((Model.CreateOrEditRecordCategories[_idx].RecordCategoryRecordStateCount>0 || _idx==0) ? "disabled": "")>
+                                                    Delete
+                                                </button>
+                                                @if (Model.CreateOrEditRecordCategories[_idx].RecordCategoryRecordStateCount > 0)
+                                                {
+                                                    @Html.Raw(@Model.CreateOrEditRecordCategories[_idx].RecordCategoryRecordStateCount.ToString() + " uploads exist for this category")
+                                                    ;
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="my-3">
+
+                                                <label class="form-label" for="@_catInstructionsId">@L("RequirementInstructions")</label>
+                                                @* <input class="form-control" id="@_catId" value="@Model.CreateOrEditRecordCategories[_idx].RecordCategory.Instructions" type="text" name="@_catName" /> *@
+                                                <textarea class="form-control" id="@_catInstructionsId" name="@_catInstructionsName">@Model.CreateOrEditRecordCategories[_idx].RecordCategory.Instructions</textarea>
+
+                                            </div>
+
+
+                                            <div class="my-3">
+                                                <label class="form-label" for="@_RecordCategoryRuleIdName">@L("ComplianceRule")</label>
+                                                @Html.DropDownList(_RecordCategoryRuleIdName, new SelectList( Model.CreateOrEditRecordCategories[_idx].RecordCategoryRecordCategoryRuleList,"Id","DisplayName", (Model.CreateOrEditRecordRequirement.IsEditMode ? Model.CreateOrEditRecordCategories[_idx].RecordCategory.RecordCategoryRuleId.ToString() : "")),@L("SelectARecordCategoryRule"), new { @class = "form-control surpath-rule-dropdown", @id =_RecordCategoryRuleIdId, required = "required"})
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+                                    //<div class="my-3">
+                                    //    <input class="form-control" id="@_catId" value="@Model.CreateOrEditRecordCategories[_idx].RecordCategory.Name" type="text" name="@_catName" />
+                                    //</div>
+
+                                    //<div class="my-3">
+                                    //    <label class="form-label" for="recordCategoryRuleId">@L("ComplianceRule")</label>
+                                    //    @Html.DropDownList(_catRuleListId, new SelectList( Model.CreateOrEditRecordCategories[_idx].RecordCategoryRecordCategoryRuleList,"Id","DisplayName", (Model.CreateOrEditRecordRequirement.IsEditMode ? Model.CreateOrEditRecordCategories[0].RecordCategory.RecordCategoryRuleId.ToString() : "")),@L("SelectARecordCategoryRule"), new { @class = "form-control" })
+                                    //</div>
+
+                                }
+                            }
+                        </div>
+                    </div>
+                    <!--end::Input group-->
+                </div>
+                <!--begin::Step 1-->
+                <!--begin::Step 1-->
+                <div class="flex-column" data-kt-stepper-element="content">
+                    <!--begin::Input group-->
+                    <div id="reviewWrapper">
+                        <div id="reviewName" class="my-3"></div>
+                        <div id="reviewDescription" class="my-3"></div>
+                        <div id="" class="my-3"><h6>Applies to:</h6></div>
+                        
+                        <div id="reviewAppliesToDept" class="my-3"></div>
+                        <div id="reviewAppliesToCohort" class="my-3"></div>
+                        <div id="reviewAppliesToAll" class="my-3"></div>
+                        <div id="" class="my-3"><hr /></div>
+                        <div id="reviewCatsWrapper">
+                            
+                        </div>
+                        
+                    </div>
+                    <div id="catReviewTemplate" class="my-3 d-none">
+                        <div id="reviewCatName" class="my-3"></div>
+                        <div id="reviewCatInstructions" class="my-3"></div>
+                        <div id="reviewCatRule" class="my-3"></div>
+
+                    </div>
+                    <!--end::Input group-->
+                </div>
+                <!--begin::Step 1-->
+            </div>
+            <!--end::Group-->
+            <!--begin::Actions-->
+            <div class="d-flex flex-stack">
+                <!--begin::Wrapper-->
+                <div class="me-2">
+                    <button type="button" class="btn btn-light btn-active-light-primary" data-kt-stepper-action="previous">
+                        Back
+                    </button>
+                </div>
+                <!--end::Wrapper-->
+                <!--begin::Wrapper-->
+                <div>
+                    <button type="button" class="btn btn-primary d-none" data-kt-stepper-action="submit">
+                        <span class="indicator-label">
+                            Submit
+                        </span>
+                        <span class="indicator-progress">
+                            Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </span>
+                    </button>
+
+                    <button id="stepper_next_button" type="button" class="btn btn-primary" data-kt-stepper-action="next" disabled>
+                        Continue
+                    </button>
+                    <button id="stepper_save_first_button" type="button" class="btn btn-primary d-none" data-kt-stepper-action="next" disabled>
+                        Create and Continue
+                    </button>
+                </div>
+                <!--end::Wrapper-->
+            </div>
+            <!--end::Actions-->
+        </form>
+        <!--end::Form-->
+    </div>
+    <!--end::Stepper-->
+    @*</form>*@
+</div>
+
+<div class="d-none">
+    <div id="recordCategoryCardTemplate" class="card shadow-sm d-none">
+        <input type="hidden" id="CreateOrEditRecordCategories_x__RecordCategory_Id" name="CreateOrEditRecordCategories[][Id]">
+        <input type="hidden" id="CreateOrEditRecordCategories_x__RecordCategory_RecordRequirementId" name="CreateOrEditRecordCategories[][RecordRequirementId]">
+        <div class="card-header">
+            <h3 class="card-title">
+                <input class="form-control" id="CreateOrEditRecordCategories_x__RecordCategory_Name" name="CreateOrEditRecordCategories[][Name]" type="text">
+            </h3>
+            <div class="card-toolbar">
+                <button id="deleteCategory" data-recordcategoryid="" data-catnumber="" type="button" class="btn btn-sm btn-light btn-delete-category ">
+                    Delete
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="my-3">
+
+                <label class="form-label" for="CreateOrEditRecordCategories_x__RecordCategory_Instructions">[Requirement instructions]</label>
+                <textarea class="form-control" id="CreateOrEditRecordCategories_x__RecordCategory_Instructions" name="CreateOrEditRecordCategories[][Instructions]"></textarea>
+
+            </div>
+
+
+            <div class="my-3">
+                <label class="form-label" for="CreateOrEditRecordCategories[][RecordCategoryRuleId]">[Compliance rule]</label>
+                @Html.DropDownList("CreateOrEditRecordCategories[][RecordCategoryRuleId]", new SelectList( Model.RecordCategoryRecordCategoryRuleList,"Id","DisplayName", ""),@L("SelectARecordCategoryRule"), new { @class = "form-control", @id ="CreateOrEditRecordCategories_x__RecordCategory_RecordCategoryRuleId"})
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

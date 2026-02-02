@@ -1,0 +1,349 @@
+Flag to on services - to disable 
+Then we can check balance against applicable policy
+Flag for ad hoc or "no expiration"
+
+
+Convert immunization tracking to a surpath services
+
+
+OCCC - traditional nursing print 2025 - members in cohort (drug sreen says not compliant, but compliant when user view)
+
+The 5 status - needs review, compliant, reject / non approved [always requires a note], expiring soon, expired
+Make them static - 
+
+TuslaCC - Grayson - 
+Automatic expiration of statuses 
+
+ledger has to be redone?
+
+
+Archive - to surpath service and ability to show and hide from list
+
+
+Friendswood to my list - they paid but then it kicked them out and won't let them login--- They're NOT donor pay.
+
+
+David's going to send me some
+- Collin College EMS
+- OCCC Shelly - they are student pay
+
+Instead of effective date, change word to Administered Date
+
+-- Cathlene Bower---
+
+Register is not saving
+
+
+
+
+--- from 1/30 call
+
+	Changed password, then logged in, now gives error.
+	
+	When moved to new department - cohort, old requirements showing up.
+	
+		Tab per dept - Copy document to active requirements - and we clone all data, and check expirations rules as we do so - so if a dept a accepts file for 2 yrs, but dept b for one, and the document 14 months old, it would transfer as expired
+	
+-- 2/13
+	Made review permissin based, not based on being a surpath status - committed
+
+	Navarro showing not compliant with drug screening showing negative Pushed
+
+	Gina Gill, dallas college
+	- Escoto, Nirka
+	- Moffit, Dominonna
+	- Morales, Bryan
+	- Pace, Rodney
+	- Robertson, Aniya
+	- Zhang, Carolyn
+
+	- Donadio, Olivia
+	- Sanchez, Gabriel
+
+
+	NCTC - test them.. Tested Good
+
+	POP UP
+
+	Background
+	Drug background - send in
+
+
+	-- Pop Up
+
+	--- Donor pay by Dept - 
+
+
+	--- Graduated Cohorts
+	---- Per service
+
+	----- Check navarro LVN - they should be getting popup
+	-- navarro-lvn-2nd drug screen
+
+	--- We need "need to pay" for donor pay
+
+
+	2/27 call
+If payment for cohort is setup, and a student is moved into that cohort, they should be warned that the student will be required to pay.
+
+We need a permission that allows an admin to override the required payment.
+
+Therefore, when they're moved into the cohort, if the user has permission, warn that a payment will be due by the student, and if they wish override they must provide a note.
+
+add it into the table with zero
+
+--
+we also need a page to view a cohort's payment status - host users get a table to override.. add note / or on actions....
+
+-- 
+
+Permission at the school level to add payment requirements.
+
+
+We'll need a tool so the school to see payment with ranges to see the table --- Payment Audit Page
+
+
+filter by school, actions, user, service, etc.
+
+--- 
+Created a dept with LVN to RN. 
+
+created two depts - in navarro
+ADN (associate degree nursing)
+LVN-RN 
+
+-- create dept
+-- create a cohort
+---- regigster under this cohort
+---- go to home page - see error
+---- login as diff user and test upload
+
+--- payment / registration is still an issue
+---- it's authorizing but not approving / creating the account.
+
+
+--- 
+
+Coupon or token for registration for a tenant
+
+-- A report of everyone who used it, when they registered, etc.
+-- Generate a invoice based on token / coupon
+
+-- who are we invoicing?
+---- Contact
+-- Generate tokens
+--- How many?
+-- How long are they good for?
+--- Usage for Expire (in 30 days?)
+-- Who are we invoicing (name of business or org)
+--- contact
+--- address
+--- phone number
+--- Email
+
+--- 100% discount for all services
+---- Associated with this student and this dept
+
+-- Invoice the tenant based on tokens:
+--- Only for those used
+----
+
+
+From 5/21/25
+For Navarro
+
+LVN - RN - the students / the cohort are under dept LVN - RN Cohort in ADN
+
+They need to be moved to LVN RN department
+
+
+
+LVN-RN Bridge (Grads 2026)-COR
+LVN-RN Bridge (Grads 2026)-Wax
+
+Those two cohorts into LVN-RN Deparment
+
+Re-Map upoads and status and notes into associate Records with appropriate requirements.
+
+
+Secondly
+Unused links
+
+Receipt for Sophomore Skills Kit - Should be applying to ADN Traditional (Grads 2026) - But it's not showing up for the cohort when viewing a cohort member
+
+
+Side note - 
+Every somester a compliant requirement for the cohort
+
+For this cohort, we have all the compliance requirements - do you want to add one with a hold date, but doesn't show up until after that.
+
+
+----
+Cohort requirement templates....
+
+
+From call 5/29/25
+Done) When you create a record for a corhort it doesn't show up
+-- cohort specific requirement not appearing
+-- Double check the deparmtnet as well.
+
+
+Done) When moving a student from cohort to cohort
+-- when viewing history
+--- It needs to say which cohort they moved from and to
+
+
+----
+Call 06/05/25
+-- Grayson - status, administrered date, expiration date - merged cell above the three
+-- Payment- Dept pricing - make a better 
+-- Dallas Collage radiolog - Nov - Geo Fencing
+
+
+----
+
+Call 7/3/25
+-- Check Bug in user transfer
+--- Pulling up all requirements for target dept, not just the ones that are active
+-- Karen Gaytan
+--- Goes to Tulsa
+--- 
+
+--- Don't get the token back - once they get the error - go back the previous window - you got an error due to "pending charge due to payment issue".
+-- If you get a payment error, it should not allow you to proceed to the next step.
+
+
+----
+
+Call 7/7/25
+
+For Navarro:
+--- Navarro need "Active Date" so the requirement doesn't apply until then
+--- get rid percentage compliant completion
+
+
+call 7/1025
+
+- Per dept billing is urgent 
+
+Kramer - Still zero
+
+-- TVCC Trinity Valley Community College
+-- under board of nursing requirement- rejected.
+-- Document blank "note"
+
+-- Touch to trigger action 
+------
+
+The isenabled should allow to turn surpath services on and off for a specific shool, department, or cohort, or user - just like pricing
+then the compliance application should lean on the isenabled flag to determine if the service is applicable for that user.
+Same goes for pricing
+
+-- 7/24/25
+
+
+invoicing student for one off or total services after they're registered
+order everything ltenants in aphabetical
+Get rid of override, just show the price it's cleaner, make inherited prices slightly different color 
+
+
+-- 7/30/25
+
+Excel export - 
+
+I need a document that shows how many many people are in needs review, compliant, reject / non approved, expiring soon, expired
+name, shool, department, cohort, service, status, date uploaded and date reviewed. - only if current status is 'needs review'
+
+Kramer - uploading erroring on bc and dt upload
+
+OCCC editing TB requirement it's not saving the edit
+
+- 08/28/25
+
+- In pricing manager, we need a switch for 'invoice' so if a user registers for a deptartment or cohort with this enabled, it doesn't popup the donor buy (donor pay).
+
+
+
+-- 9/19/25
+
+-- Have a tenant contact for non-compliance notifications at dept level
+
+---- Only on POS, Non-Contact POS, or Flagged BC check
+
+--- Sends notification email to the tenant contact
+
+
+-- 10/02/25
+
+---- Immunization schedule - Administered date - we multiple dates - add a plus sign, and clicking it to add another administered date - render as separate rows when viewing. 
+---- Administered date should be required option on a requirement
+
+----- Course mapping is required by accrediting bodies - so we need to add it to the requirement template
+
+--- trinity valley on trial
+
+-- 10/16/25
+
+---- OKCKramer - when viewing KSN Faculty, viewing memeber, no requirements showing up
+
+
+-- 11/13/25
+
+- need to manage immunization employees better
+-- A role Immunization Verifier
+-- Assign clients to Users
+-- the user only sees those tenants of a queue
+--- needs review queue / status
+--- See requirements - on one side, then the document in another with zoom and scroll ability
+--- FIFO Document
+--- Acceptance E (by client / department / cohort)
+
+--- Show user their remaining documents, their avergage review time
+
+--- Approval review report to show average approval time. 
+
+
+12-4
+
+
+--- Library
+- verify the functionality
+- things that should be visible aren't
+
+Southern Nazarene
+-- Tim sent an email - check why it's failing
+
+1/8/26
+
+- Need bgc and send in in new system
+- Integration with InPlace - 
+
+--- everything needs to be by department - formfox or inplace
+
+--- UI Zard sendin UI
+
+-- There's a lot of logic around hold dates
+--- Immunization hiding until certain date
+--- New UI for send in hold date
+--- Hide a requirement until a certain date
+
+1/9/26
+
+-- Issue with compliance not showing up
+-- Rebecca Stojancic signed up and picked 'unassigned' cohort
+-- Tim sent an email - check why it's failing
+
+
+1/23/26
+
+-- User from cohort to cohort duplicated ALL immunization records - need to prevent that
+
+-- Dallas college nursing - 
+---- 775 students to import into surpath
+---- We have to reverify
+---- check import template
+---- will need to send those students an email notification with activation link to set their password
+---- Will need departmente and cohort in import
+------ Batches of 16
+------ 40 or 60 students per cohort - do one cohort at a time
+------ 117

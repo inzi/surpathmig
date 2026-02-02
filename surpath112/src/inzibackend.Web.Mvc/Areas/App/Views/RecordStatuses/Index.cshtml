@@ -1,0 +1,152 @@
+﻿@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.RecordStatuses
+@using inzibackend.Web.Areas.App.Startup
+@using Abp.MultiTenancy
+
+@model RecordStatusesViewModel
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.RecordStatuses;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/RecordStatuses/Index.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    <abp-page-subheader title='@L("RecordStatuses")' description='@L("RecordStatusesHeaderInfo")'>
+        <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+
+        @if (IsGranted(AppPermissions.Pages_RecordStatuses_Create))
+        {
+        <a href="\App\RecordStatuses\CreateOrEdit" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewRecordStatus")</a>
+        }
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-xl-12">
+
+                            <div class="my-3">
+                                <div class="input-group">
+                                    <input type="text" id="RecordStatusesTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                    <button id="GetRecordStatusesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="StatusNameFilterId">@L("StatusName")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="statusNameFilter" id="StatusNameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="HtmlColorFilterId">@L("HtmlColor")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="htmlColorFilter" id="HtmlColorFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="CSSCLassFilterId">@L("CSSCLass")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="csscLassFilter" id="CSSCLassFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="IsDefaultFilterId">@L("IsDefault")</label>
+                            <select class="form-select reload-on-change" name="IsDefaultFilter" id="IsDefaultFilterId">
+                                <option value="-1">@L("All")</option>
+                                <option value="0">@L("False")</option>
+                                <option value="1">@L("True")</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="RequireNoteOnSetFilterId">@L("RequireNoteOnSet")</label>
+                            <select class="form-select reload-on-change" name="RequireNoteOnSetFilter" id="RequireNoteOnSetFilterId">
+                                <option value="-1">@L("All")</option>
+                                <option value="0">@L("False")</option>
+                                <option value="1">@L("True")</option>
+                            </select>
+                        </div>
+                    </div>
+                    @if (AbpSession.MultiTenancySide == MultiTenancySides.Host)
+                    {
+                        <div class="col-md-3">
+                            <div class="my-3">
+                                <label class="form-label" for="IsSurpathServiceStatusFilterId">@L("IsSurpathServiceStatus")</label>
+                                <select class="form-select reload-on-change" name="IsSurpathServiceStatusFilter" id="IsSurpathServiceStatusFilterId">
+                                    <option value="-1">@L("All")</option>
+                                    <option value="0">@L("False")</option>
+                                    <option value="1">@L("True")</option>
+                                </select>
+                            </div>
+                        </div>
+                    }
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="ComplianceImpactFilterId">@L("ComplianceImpact")</label>
+                            <select class="form-select reload-on-change" name="ComplianceImpactFilter" id="ComplianceImpactFilterId">
+                                <option value="-1">@L("All")</option>
+                                <option value="0">@L("Enum_EnumStatusComplianceImpact_0")</option>
+
+                                <option value="1">@L("Enum_EnumStatusComplianceImpact_1")</option>
+
+                                <option value="2">@L("Enum_EnumStatusComplianceImpact_2")</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="TenantDepartmentNameFilterId">(@L("TenantDepartment")) @L("Name")</label>
+                            <input type="text" class="form-control" name="tenantDepartmentNameFilter" id="TenantDepartmentNameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-5">
+                        <button class="btn btn-secondary btn-sm" id="btn-reset-filters">Reset</button>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <table id="RecordStatusesTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                        <thead>
+                            <tr>
+                             <th></th>
+
+
+                                <th>@L("Actions")</th>
+                                <th>@L("StatusName")</th>
+                                <th>@L("IsDefault")</th>
+                                <th>@L("RequireNoteOnSet")</th>
+                                <th>@L("ComplianceImpact")</th>
+                                <th>@L("TenantDepartmentName")</th>
+                                <th>@L("Tenant")</th>
+                                <th>@L("IsSurpathServiceStatus")</th>
+
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

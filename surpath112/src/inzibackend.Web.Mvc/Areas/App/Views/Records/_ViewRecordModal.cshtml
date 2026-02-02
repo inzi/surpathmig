@@ -1,0 +1,66 @@
+﻿
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.Records
+@model RecordViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="RecordInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("filedata") :</h6>
+                @if (Model.Record.filedata.HasValue)
+                {
+                <a href="@(" /File/DownloadBinaryFile?id=" + Model.Record.filedata)" target="_blank">@Model.Record.filedataFileName</a>
+                }
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("filename") :</h6>
+                @Model.Record.filename
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("physicalfilepath") :</h6>
+                @Model.Record.physicalfilepath
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("metadata") :</h6>
+                @Model.Record.metadata
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("BinaryObjId") :</h6>
+                @Model.Record.BinaryObjId
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("DateUploaded") :</h6>
+                @Model.Record.DateUploaded
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("DateLastUpdated") :</h6>
+                @Model.Record.DateLastUpdated
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("InstructionsConfirmed") :</h6>
+                @Model.Record.InstructionsConfirmed
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("EffectiveDate") :</h6>
+                @Model.Record.EffectiveDate
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ExpirationDate") :</h6>
+                @Model.Record.ExpirationDate
+            </div>
+
+            <div class="col-6 mb-3">
+                <h6>(@L("TenantDocumentCategory")) @L("Name") :</h6>
+                @Model.TenantDocumentCategoryName
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

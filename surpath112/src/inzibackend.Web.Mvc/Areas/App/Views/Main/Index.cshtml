@@ -1,0 +1,72 @@
+﻿@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Startup
+@using inzibackend.Web.Areas.App.Models.CohortUsers
+@using inzibackend.Features
+@using inzibackend.Web.Session
+@using Abp.MultiTenancy
+
+
+<div class="content d-flex flex-row flex-grow-1" style="background-color: blue">
+    <div class="content d-flex flex-column flex-column-fluid theme0-flex-50p" style="background-color: aqua">
+
+        <div class="compliance">
+            <h2>Compliance</h2>
+            <div class="compliance-items">
+                <div class="item compliant">
+                    <i class="icon trophy"></i>
+                    <span class="count">308</span>
+                    <span class="label">Compliant</span>
+                </div>
+                <div class="item expiring-soon">
+                    <i class="icon warning"></i>
+                    <span class="count">71</span>
+                    <span class="label">Expiring Soon</span>
+                </div>
+                <div class="item non-compliant">
+                    <i class="icon cross"></i>
+                    <span class="count">24</span>
+                    <span class="label">Non Compliant</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="attendance">
+            <h3>Attendance (Clinical)</h3>
+            <div class="attendance-item days-attended">
+                <i class="icon thumbs-up"></i>
+                <span class="count">401/953</span>
+                <span class="label">Days Attended Clinical</span>
+                <a href="#" class="link">Go To Attended Days List</a>
+            </div>
+            <div class="attendance-item days-missed">
+                <i class="icon thumbs-down"></i>
+                <span class="count">83/953</span>
+                <span class="label">Days Missed Clinical</span>
+                <a href="#" class="link">Go To Missed Days List</a>
+            </div>
+        </div>
+
+        <div class="rotation-slots">
+            <h3>Rotation Slots</h3>
+            <div class="slot-items">
+                <div class="item filled-closed">
+                    <i class="icon checkmark"></i>
+                    <span class="count">175</span>
+                    <span class="label">Filled / Closed</span>
+                </div>
+                <div class="item open">
+                    <i class="icon flag"></i>
+                    <span class="count">102</span>
+                    <span class="label">Open</span>
+                </div>
+                <div class="item overbooked">
+                    <i class="icon warning"></i>
+                    <span class="count">37</span>
+                    <span class="label">Overbooked</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content d-flex flex-column flex-column-fluid theme0-flex-50p" style="background-color: green">
+    </div>
+</div>

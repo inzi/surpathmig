@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\common.props"></Import>
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <AssemblyName>inzibackend.Application</AssemblyName>
+    <PackageId>inzibackend.Application</PackageId>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <RootNamespace>inzibackend</RootNamespace>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Abp.EntityFrameworkCore.EFPlus" Version="7.3.0" />
+		<PackageReference Include="NPOI" Version="2.5.6" />
+		<PackageReference Include="SixLabors.ImageSharp" Version="2.1.1" />
+	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\inzibackend.Application.Shared\inzibackend.Application.Shared.csproj" />
+    <ProjectReference Include="..\inzibackend.Core\inzibackend.Core.csproj" />
+    <ProjectReference Include="..\inzibackend.EntityFrameworkCore\inzibackend.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Compliance\" />
+    <Folder Include="Surpath\Parsers\" />
+    <Folder Include="Surpath\Session\" />
+  </ItemGroup>
+</Project>

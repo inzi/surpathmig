@@ -1,0 +1,290 @@
+﻿@model IEnumerable<SurPathWeb.Models.TestResultDataModel>
+@using GridMvc.Html
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_VendorLayout.cshtml";
+    int year = 1950;
+    int dobdiff = Convert.ToInt32(DateTime.Now.Year) - year + 1;
+}
+
+@section PageScript
+{
+    <link href='@Url.Content("~/Content/Gridmvc.css")' rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+
+        $(function () {
+            $("#liDashboard").removeClass("active");
+            $("#liDonorInfo").removeClass("active");
+            $("#liTestInfo").removeClass("active");
+            $("#liVendorSearch").addClass("active");
+            if ("@ViewBag.ServerErr" != "") {
+                $("#divServerErr").show().find("div").html("@ViewBag.ServerErr");
+            }
+            if ("@ViewBag.SuccessMsg" != "") {
+                $("#divSuccessMsg").show().find("div").html("@ViewBag.SuccessMsg");
+
+                if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
+                    setTimeout("$('#divSuccessMsg').hide();", 6000);
+                }
+                else {
+                    $("#divSuccessMsg").fadeOut(6000);
+                }
+            }
+
+            var element = document.getElementById('tab');
+
+            if (element.offsetHeight > "500") {
+                $("#tab").css({ "max-height": "500px", "overflow-y": "scroll" });
+            }
+            else {
+                $("#tab").css({ "max-height": "500px", "overflow-y": "hidden" });
+            }
+
+            $("#searchvalue").val('0');
+
+            var searchKey = $("#searchKey option:selected").val();
+            var searchvalue1 = '@ViewBag.searchvalue';
+            var Year = '@ViewBag.year';
+            var Month = '@ViewBag.month';
+            var Date = '@ViewBag.date';
+
+            if (searchKey != "3" && searchKey != "5") {
+                $("#searchDetails").val(searchvalue1);
+            }
+            else if (searchKey == "5") {
+                $("#searchZipcodeDetails").val(searchvalue1);
+            }
+            else {
+                $("#Date").val(Date);
+                $("#Month").val(Month);
+                $("#Year").val(Year);
+            }
+
+            if (searchKey != 3 && searchKey != "5") {
+                $("#dropdownDOB").hide();
+                $("#searchDetails").show();
+                $("#searchZipcodeDetails").hide();
+            }
+            else if (searchKey == "5") {
+                $("#dropdownDOB").hide();
+                $("#searchDetails").hide();
+                $("#searchZipcodeDetails").show();
+
+                $("#searchZipcodeDetails").keypress(function (e) {
+                    $("#searchZipcodeDetails").attr('maxlength', '5');
+                    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                        $("#searchZipcodeDetails").siblings("#Error-Zipcode").hide();
+                        return false;
+                    }
+                });
+            }
+            else {
+                $("#dropdownDOB").show();
+                $("#searchDetails").hide();
+                $("#searchZipcodeDetails").hide();
+            }
+
+            $("#searchKey").change(function () {
+
+                $("#dropdownDOB").hide();
+                $("#searchDetails").show();
+                $("#searchZipcodeDetails").hide();
+                $("#searchKey").siblings(".alert-danger").hide();
+                $("#searchDetails").siblings("#Error").hide();
+                $("#dropdownDOB").siblings("#Error-date").hide();
+                $("#searchDetails").siblings("#Error-Email").hide();
+                $("#searchZipcodeDetails").siblings("#Error-Zipcode").hide();
+
+                var searchKey = $("#searchKey option:selected").val();
+
+                $("#searchDetails").val('');
+                $("#searchZipcodeDetails").val('');
+
+                if (searchKey == 3) {
+                    $("#searchDetails").hide();
+                    $("#searchZipcodeDetails").hide();
+                    $("#dropdownDOB").show();
+                }
+
+                else if (searchKey == 5) {
+
+                    //$("#searchDetails").show();
+                    $("#searchDetails").hide();
+                    $("#searchZipcodeDetails").show();
+                    $("#dropdownDOB").hide();
+
+                    $("#searchZipcodeDetails").keypress(function (e) {
+                        $("#searchZipcodeDetails").attr('maxlength', '5');
+                        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                            $("#searchZipcodeDetails").siblings("#Error-Zipcode").hide();
+                            return false;
+                        }
+                    });
+
+                    //$("#searchDetails").keypress(function (e) {
+                    //    $("#searchDetails").attr('maxlength', '5');
+                    //    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    //        $("#searchDetails").siblings("#Error-Zipcode").hide();
+                    //        return false;
+                    //    }
+                    //});
+                }
+                else if (searchKey == 6) {
+
+                    //$("#searchDetails").keypress(function (e) {
+                    //    $("#searchDetails").removeAttr('maxlength', '5');
+                    //});
+
+                    $("#searchZipcodeDetails").hide();
+                    $("#searchDetails").show();
+                    $("#dropdownDOB").hide();
+                }
+
+                //if (searchKey != 5) {
+                //    $("#searchDetails").keypress(function (e) {
+                //        $("#searchDetails").removeAttr('maxlength', '5');
+                //    });
+                //}
+
+            });
+
+            $("#btnSearch").click(function () {
+
+                var status = true;
+                var searchKey = $("#searchKey option:selected").val();
+
+                $("#searchvalue").val('1');
+                $("#searchvalue1").val('1');
+
+                $('#hidSearchValue').val($("#searchDetails").val());
+
+                if (searchKey == 0) {
+                    $("#searchZipcodeDetails").hide();
+                    $("#searchKey").siblings(".alert-danger").show();
+                    status = false;
+                }
+                else if (searchKey == 3) {
+                    if ((($("#Date").val() == "") || ($("#Month").val() == "") || ($("#Year").val() == ""))) {
+                        $("#searchZipcodeDetails").hide();
+                        $("#dropdownDOB").siblings("#Error-date").show();
+                        return false;
+                    }
+                    else {
+                        var searchValue = $("#Year").val() + "-" + $("#Month").val() + "-" + $("#Date").val();
+                        $("#searchZipcodeDetails").hide();
+                        $("#dropdownDOB").show();
+                        $('#hidSearchValue').val(searchValue);
+                        status = true;
+                    }
+                }
+                else if (searchKey == 5) {
+
+                    if ($("#searchZipcodeDetails").val().length != 5) {
+                        $("#searchZipcodeDetails").siblings("#Error-Zipcode").show();
+                        $("#searchZipcodeDetails").val('');
+                        return false;
+                    }
+                    else {
+                        $('#hidSearchValue').val($("#searchZipcodeDetails").val());
+                        return status = true;
+                    }
+                }
+                else if (searchKey == 6) {
+
+                    if (!IsEmailValid("searchDetails")) {
+                        $("#searchZipcodeDetails").hide();
+                        $("#searchDetails").siblings("#Error-Email").show();
+                        status = false;
+                    }
+                }
+                if (searchKey != 3) {
+                    if (!IsRequired($("#searchDetails").map(function () { return this.id }).get().join(','))) {
+                        $("#searchZipcodeDetails").hide();
+                        $("#dropdownDOB").hide();
+                        $("#searchDetails").siblings("#Error-Email").hide();
+                        $("#searchDetails").siblings("#Error").show();
+                        status = false;
+                    }
+                }
+                return status;
+            });
+
+        });
+    </script>
+
+}
+
+@{using (Html.BeginForm())
+{
+    <div class="container">
+        <div style="display:none" class="alert alert-danger" role="alert" id="divServerErr">
+            <i class="fa fa-exclamation-triangle fa-1x"></i> @ViewBag.ServerErr
+        </div>
+        <div style="display:none" class="alert alert-success" role="alert" id="divSuccessMsg">
+            <i class="fa fa-check fa-1x"></i> @ViewBag.SuccessMsg
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label> Search by </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                @Html.DropDownList("searchKey", (IEnumerable<SelectListItem>)ViewBag.searchKey, new { @class = "form-control" })
+                <span class="alert-danger" style="display: none">Please select the search type.</span>
+            </div>
+
+            <div class="col-md-4">
+                <input type="text" class="form-control" value="" id="searchDetails" />
+
+                <input type="text" class="form-control" value="" id="searchZipcodeDetails" />
+
+                <div class="row" id="dropdownDOB">
+                    <div class="col-md-4 col-sm-4">
+                        <span> @Html.DropDownList("Month", Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "MM")</span>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <span> @Html.DropDownList("Date", Enumerable.Range(1, 31).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "dd")</span>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <span>  @Html.DropDownList("Year", Enumerable.Range(year, dobdiff).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "yyyy")</span>
+                    </div>
+                </div>
+                <span class="alert-danger" id="Error" style="display:none">Please enter the search detail</span>
+                <span class="alert-danger" id="Error-Zipcode" style="display:none">Zip code not valid.</span>
+                <span class="alert-danger" id="Error-date" style="display:none">Select date.</span>
+                <span class="alert-danger" id="Error-Email" style="display:none">Invalid format of email Address.</span>
+            </div>
+            <div class="col-md-4">
+                <button id="btnSearch" class="btn btn-primary" name="button" value="Submit">Search</button>
+            </div>
+        </div>
+        <div class="row top-buffer">
+            <input type="hidden" name="searchvalue" id="searchvalue" />
+            <input type="hidden" name="searchvalue1" id="searchvalue1" />
+        </div>
+        <div class="row top-buffer"></div>
+        <div class="table-responsive" id="tab">
+            @Html.Grid(Model).Columns(columns =>
+       {
+           columns.Add(m => m.FirstName)
+                .Encoded(false)
+                .Sanitized(false)
+                .Sortable(true)
+                .RenderValueAs(m => Html.ActionLink(m.FirstName, "DonorInfo", "Vendor", new { donorId = m.DonorId, donorTestInfoId = m.DonorTestInfoId }, null))
+                .Titled("First Name");
+           columns.Add(m => m.LastName).Sortable(true).Titled("Last Name");
+           columns.Add(m => m.StrTestType).Titled("Test Type");
+           columns.Add(m => m.StrFormType).Titled("Form Type");
+
+       }).WithPaging(20)
+        </div>
+        <div class="row top-buffer"></div>
+        <div class="row top-buffer"></div>
+        <div class="row top-buffer"></div>
+        <div class="row top-buffer"></div>
+    </div>
+    <div class="row top-buffer"><input type="hidden" name="hidSearchValue" id="hidSearchValue" value="0" /></div>
+    <div class="row top-buffer"></div>
+}
+}

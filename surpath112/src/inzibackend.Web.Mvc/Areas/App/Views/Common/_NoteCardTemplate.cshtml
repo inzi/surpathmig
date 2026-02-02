@@ -1,0 +1,33 @@
+﻿@using System.Linq
+@using Abp.Extensions
+@using Abp.Json
+@using inzibackend.Web.Areas.App.Models.Common
+@{
+<div id="NoteCardTemplate" class="card d-none">
+	<div class="row no-gutters">
+		<div id="NoteCardTemplateWho" class="col-sm-3 card flex-center">
+			@*<span class="text-muted fw-semibold fs-6 NoteCardTemplateAgo"></span>*@
+
+			<div class="row">
+				<span class="badge badge-success surpath-note-authorizedOnly d-none w-auto">@L("AuthorizedOnly")</span>
+			</div>
+			<div class="row">
+				<span class="badge badge-danger surpath-note-hostonly d-none w-auto">@L("HostOnly")</span>
+			</div>
+			<div class="flex row">
+				<span class="text-gray-800 fw-bold fs-5 me-3 surpath-username">username area</span>
+			</div>
+			<div class="row">
+				<span class="badge badge-light-dark NoteCardTemplateAgo w-auto"></span>
+			</div>
+		</div>
+		<div class="col-sm-9">
+			<div class="card-body">
+				<p class="card-text note-body"></p>
+			</div>
+		</div>
+	</div>
+
+	<!--end::Body-->
+</div>
+}

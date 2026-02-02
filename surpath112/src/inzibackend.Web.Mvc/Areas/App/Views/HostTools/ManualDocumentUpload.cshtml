@@ -1,0 +1,35 @@
+@using inzibackend.Web.Areas.App.Startup
+ @{
+     ViewBag.CurrentPageName = AppPageNames.Host.ManualDocumentUpload;
+ }
+@section Scripts
+{
+    <script src="~/view-resources/Areas/App/Views/HostTools/ManualDocumentUpload.js" asp-append-version="true"></script>
+}
+<div class="content d-flex flex-column flex-column-fluid">
+    <abp-page-subheader title="@L("ManualDocumentUpload")"></abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <form id="ManualDocumentUploadForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="documentType" class="form-label">@L("DocumentType")</label>
+                        <select class="form-control" id="documentType" name="documentType" required>
+                            <option value="">@L("SelectDocumentType")</option>
+                            <option value="DrugTest">@L("DrugTest")</option>
+                            <option value="BackgroundCheck">@L("BackgroundCheck")</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="file" class="form-label">@L("File")</label>
+                        <input type="file" class="form-control" id="file" name="file" required accept=".pdf,.txt,.doc,.docx">
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-upload"></i> @L("Upload")
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

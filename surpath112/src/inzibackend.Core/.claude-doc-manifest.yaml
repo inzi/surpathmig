@@ -1,0 +1,316 @@
+# Documentation Manifest for src/inzibackend.Core
+# Generated: 2025-09-29
+# Total folders: 59 (excluding bin/obj)
+# Already documented: 20
+# Remaining: 39
+
+folders:
+  # Root level (depth 0)
+  - path: "I:\\surpath150\\src\\inzibackend.Core"
+    depth: 0
+    status: "completed"
+    has_claude_md: true
+
+  # Authentication hierarchy (depth 1-3)
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Authentication"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Authentication\\TwoFactor"
+    depth: 2
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Authentication\\TwoFactor\\Google"
+    depth: 3
+    status: "completed"
+    has_claude_md: true
+
+  # Authorization hierarchy (depth 1-3)
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Authorization"
+    depth: 1
+    status: "completed"
+    has_claude_md: true
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Authorization\\Delegation"
+    depth: 2
+    status: "completed"
+    has_claude_md: true
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Authorization\\Impersonation"
+    depth: 2
+    status: "completed"
+    has_claude_md: true
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Authorization\\Ldap"
+    depth: 2
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Authorization\\Roles"
+    depth: 2
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Authorization\\Users"
+    depth: 2
+    status: "completed"
+    has_claude_md: true
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Authorization\\Users\\Password"
+    depth: 3
+    status: "completed"
+    has_claude_md: true
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Authorization\\Users\\Profile"
+    depth: 3
+    status: "completed"
+    has_claude_md: true
+
+  # Other top-level folders (depth 1)
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Chat"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Configuration"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\CustomInputTypes"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\DashboardCustomization"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\DashboardCustomization\\Definitions"
+    depth: 2
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Debugging"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\DynamicEntityProperties"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Editions"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\EntityHistory"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Features"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Friendships"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Friendships\\Cache"
+    depth: 2
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Identity"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Interfaces"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Localization"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Localization\\inzibackend"
+    depth: 2
+    status: "pending"
+    has_claude_md: false
+
+  # MultiTenancy hierarchy (depth 1-3)
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\MultiTenancy"
+    depth: 1
+    status: "completed"
+    has_claude_md: true
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\MultiTenancy\\Accounting"
+    depth: 2
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\MultiTenancy\\Demo"
+    depth: 2
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\MultiTenancy\\Payments"
+    depth: 2
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\MultiTenancy\\Payments\\AuthorizeNet"
+    depth: 3
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\MultiTenancy\\Payments\\Paypal"
+    depth: 3
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\MultiTenancy\\Payments\\Stripe"
+    depth: 3
+    status: "pending"
+    has_claude_md: false
+
+  # Net hierarchy (depth 1-3)
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Net"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Net\\Emailing"
+    depth: 2
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Net\\Emailing\\EmailTemplates"
+    depth: 3
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Net\\Sms"
+    depth: 2
+    status: "pending"
+    has_claude_md: false
+
+  # Other folders
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Notifications"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Properties"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Security"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Storage"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  # Surpath hierarchy (depth 1-2) - many already documented
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Surpath"
+    depth: 1
+    status: "completed"
+    has_claude_md: true
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Surpath\\AuthNet"
+    depth: 2
+    status: "completed"
+    has_claude_md: true
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Surpath\\Compliance"
+    depth: 2
+    status: "completed"
+    has_claude_md: true
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Surpath\\Dtos"
+    depth: 2
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Surpath\\Helpers"
+    depth: 2
+    status: "completed"
+    has_claude_md: true
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Surpath\\LegalDocuments"
+    depth: 2
+    status: "completed"
+    has_claude_md: true
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Surpath\\MetaData"
+    depth: 2
+    status: "completed"
+    has_claude_md: true
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Surpath\\OUManager"
+    depth: 2
+    status: "completed"
+    has_claude_md: true
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Surpath\\OUs"
+    depth: 2
+    status: "completed"
+    has_claude_md: true
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Surpath\\Statics"
+    depth: 2
+    status: "completed"
+    has_claude_md: true
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Surpath\\SurpathPayManager"
+    depth: 2
+    status: "completed"
+    has_claude_md: true
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Surpath\\Workers"
+    depth: 2
+    status: "completed"
+    has_claude_md: true
+
+  # Remaining folders
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Timing"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Url"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Web"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+  - path: "I:\\surpath150\\src\\inzibackend.Core\\Webhooks"
+    depth: 1
+    status: "pending"
+    has_claude_md: false
+
+summary:
+  total_folders: 59
+  completed: 20
+  pending: 39
+  build_folders_excluded: 14

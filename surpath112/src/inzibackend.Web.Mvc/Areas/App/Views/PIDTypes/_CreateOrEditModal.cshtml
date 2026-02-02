@@ -1,0 +1,83 @@
+﻿
+@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.PidTypes
+@model CreateOrEditPidTypeModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditPidType")) : L("CreateNewPidType")))
+
+<div class="modal-body">
+    <div id="PidTypeInformationsTab">
+        <form name="PidTypeInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.PidType.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="PidType_Name">@L("Name")</label>
+                <input class="form-control" id="PidType_Name" value="@Model.PidType.Name" type="text" name="name" required />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="PidType_Description">@L("Description")</label>
+                <input class="form-control" id="PidType_Description" value="@Model.PidType.Description" type="text" name="description" />
+            </div>
+
+            <label class="form-check form-check-custom">
+                <input id="PidType_MaskPid" name="maskPid" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.PidType.MaskPid ?"checked=\"checked\"":"") />
+                <span class="form-check-label">
+                    @L("MaskPid")
+                </span>
+            </label>
+
+            <div class="my-3">
+                <label class="form-label" for="PidType_PidRegex">@L("PidRegex")</label>
+                <input class="form-control" id="PidType_PidRegex" value="@Model.PidType.PidRegex" type="text" name="pidRegex" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="PidType_CreatedOn">@L("CreatedOn")</label>
+                <input class="form-control m-input date-picker date-picker-filter" id="PidType_CreatedOn" type="text" name="createdOn" value="@Model.PidType.CreatedOn" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="PidType_ModifiedOn">@L("ModifiedOn")</label>
+                <input class="form-control m-input date-picker date-picker-filter" id="PidType_ModifiedOn" type="text" name="modifiedOn" value="@Model.PidType.ModifiedOn" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="PidType_CreatedBy">@L("CreatedBy")</label>
+                <input class="form-control m-input" id="PidType_CreatedBy" value="@Model.PidType.CreatedBy.ToString(CultureInfo.InvariantCulture)" type="number" name="createdBy" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="PidType_LastModifiedBy">@L("LastModifiedBy")</label>
+                <input class="form-control m-input" id="PidType_LastModifiedBy" value="@Model.PidType.LastModifiedBy.ToString(CultureInfo.InvariantCulture)" type="number" name="lastModifiedBy" />
+            </div>
+
+            <label class="form-check form-check-custom">
+                <input id="PidType_IsActive" name="isActive" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.PidType.IsActive ?"checked=\"checked\"":"") />
+                <span class="form-check-label">
+                    @L("IsActive")
+                </span>
+            </label>
+
+            <div class="my-3">
+                <label class="form-label" for="PidType_PidInputMask">@L("PidInputMask")</label>
+                <input class="form-control" id="PidType_PidInputMask" value="@Model.PidType.PidInputMask" type="text" name="pidInputMask" />
+            </div>
+
+            <label class="form-check form-check-custom">
+                <input id="PidType_Required" name="required" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.PidType.Required ?"checked=\"checked\"":"") />
+                <span class="form-check-label">
+                    @L("Required")
+                </span>
+            </label>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

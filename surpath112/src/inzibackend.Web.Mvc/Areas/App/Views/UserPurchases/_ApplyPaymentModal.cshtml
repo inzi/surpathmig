@@ -1,0 +1,54 @@
+﻿@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.UserPurchases
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model ApplyPaymentViewModel
+
+@{
+    Layout = null;
+}
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("ApplyPayment")))
+
+<div class="modal-body">
+    <div id="ApplyPaymentInformationsTab">
+        <form name="ApplyPaymentInformationsForm" role="form" novalidate class="form-validation">
+            <input type="hidden" name="userPurchaseId" value="@Model.UserPurchaseId" />
+
+            <div class="alert alert-info">
+                <span>@L("ApplyingPaymentFor") <strong>@Model.UserPurchaseName</strong></span>
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Payment_BalanceDue">@L("BalanceDue")</label>
+                <input class="form-control" id="Payment_BalanceDue" value="@Model.BalanceDue.ToString("C")" type="text" disabled />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Payment_Amount">@L("Amount")*</label>
+                <input class="form-control" id="Payment_Amount" value="@Model.Amount" type="number" name="amount" required min="0.01" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Payment_PaymentMethod">@L("PaymentMethod")*</label>
+                @{
+                    var paymentMethods = new List<SelectListItem>
+                    {
+                        new SelectListItem { Value = "Credit Card", Text = L("CreditCard"), Selected = Model.PaymentMethod == "Credit Card" },
+                        new SelectListItem { Value = "Cash", Text = L("Cash"), Selected = Model.PaymentMethod == "Cash" },
+                        new SelectListItem { Value = "Check", Text = L("Check"), Selected = Model.PaymentMethod == "Check" },
+                        new SelectListItem { Value = "Bank Transfer", Text = L("BankTransfer"), Selected = Model.PaymentMethod == "Bank Transfer" },
+                        new SelectListItem { Value = "Other", Text = L("Other"), Selected = Model.PaymentMethod == "Other" }
+                    };
+                }
+                @Html.DropDownList("paymentMethod", paymentMethods, new { @class = "form-select", id = "Payment_PaymentMethod", required = "required" })
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Payment_Notes">@L("Notes")</label>
+                <textarea class="form-control" id="Payment_Notes" name="notes">@Model.Notes</textarea>
+            </div>
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

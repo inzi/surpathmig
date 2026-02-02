@@ -1,0 +1,218 @@
+﻿@model IEnumerable<SurPathWeb.Models.DonorProfileDataModel>
+@using GridMvc.Html
+@{
+    ViewBag.Title = "DocumentUpload";
+    Layout = "~/Views/Shared/_DonorLayout.cshtml";
+}
+
+@section PageScript
+{
+    <script type="text/javascript">
+        var count = 1;
+        var indexCount = 0;
+
+        $(function () {
+            if ("@ViewBag.ServerErr" != "") {
+                $("#divServerErr").show().find("div").html("@ViewBag.ServerErr");
+            }
+
+            if ("@ViewBag.SuccessMsg" != "") {
+                $("#divSuccessMsg").show().find("div").html("@ViewBag.SuccessMsg");
+
+                if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
+                    setTimeout("$('#divSuccessMsg').hide();", 6000);
+                }
+                else {
+                    $("#divSuccessMsg").fadeOut(6000);
+                }
+            }
+
+            var element = document.getElementById('tab');
+
+            if (element.offsetHeight > "500") {
+                $("#tab").css({ "max-height": "500px", "overflow-y": "scroll" });
+            }
+            else {
+                $("#tab").css({ "max-height": "500px", "overflow-y": "hidden" });
+            }
+
+            $('INPUT[type="file"]').change(function () {
+                var ext = this.value.split('.').pop().toLowerCase();
+                switch (ext) {
+                    case 'jpg':
+                    case 'jpeg':
+                    case 'png':
+                    case 'gif':
+                    case 'txt':
+                    case 'ppt':
+                    case 'doc':
+                    case 'docx':
+                    case 'xls':
+                    case 'xlsx':
+                    case 'ods':
+                    case 'pdf':
+                        $('#uploadButton').attr('disabled', false);
+                        break;
+                    default:
+                        this.value = '';
+                }
+            });
+
+            $("#btnAdd").click(function () {
+                $("#upload-empty").hide();
+                $("#document-empty").hide();
+                if (count >= 12) {
+                    return false;
+                }
+                indexCount = indexCount + 1;
+                $("#files").clone(true).attr('id', 'files' + indexCount).insertBefore("#containerTemp");
+                $("#files" + indexCount).find("#documentType").attr("id", "documentType" + indexCount);
+                $("#files" + indexCount).find("#fileName").attr("id", "fileName" + indexCount);
+
+                count = count + 1;
+                return false;
+            });
+
+            $("#btnDelete").click(function (e) {
+                var parentId = $(this).parent().parent().map(function () { return this.id; }).get();
+                if (count > 1 && parentId != 'files') {
+                    $(this).parent().parent().remove();
+                    e.preventDefault();
+                    count = count - 1;
+                    return false;
+                }
+                else {
+                    return false;
+                }
+            });
+
+            $("#documentType").change(function () {
+                if (($(this).val()).length != 0) {
+                    $(this).siblings(".alert-danger").hide();
+                    return true;
+                }
+            })
+
+            $("#fileName").change(function () {
+                if (($(this).val()).length == 0) {
+                    $(this).next().show().html("File format not supported");
+                    return false;
+                }
+                else {
+                    $(this).siblings(".alert-danger").hide();
+                    return true;
+                }
+            })
+
+            $("#btnUpload").click(function () {
+                var status = true;
+
+                if (!IsRequired($('select').map(function () { return this.id }).get().join(','))) {
+                    status = false;
+                }
+
+                if (!IsRequired($("form input:visible[type='file']").map(function () { return this.id }).get().join(','))) {
+                    status = false;
+                }
+
+                return status;
+            });
+        });
+    </script>
+
+}
+
+@{using (Html.BeginForm("DocumentUpload", "Donor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    if (Session["isPaymentStatus"].ToString() == "No")
+    {
+        <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="alert alert-danger" role="alert">
+                <i class="fa fa-exclamation-triangle fa-1x"></i> You have pending payment <a href="@Url.Action("PaymentSelection", "Donor")">Click here to Pay </a>
+            </div>
+        </div>
+        <div class="row top-buffer"></div>
+    }
+    <div class="container">
+        <div style="display:none" class="alert alert-danger" role="alert" id="divServerErr">
+            <i class="fa fa-exclamation-triangle fa-1x">@ViewBag.ServerErr</i>
+        </div>
+
+        <div style="display:none" class="alert alert-success" role="alert" id="divSuccessMsg">
+            <i class="fa fa-check fa-1x"></i> @ViewBag.SuccessMsg
+        </div>
+
+        <div class="row">
+            <h3> Upload Documents </h3>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                <label>Select Document Type</label>
+            </div>
+        </div>
+        <div class="row" id="files">
+            <div class="row top-buffer"></div>
+            <div class="col-md-4 col-sm-4" data-errormsg="Document type must be selected.">
+                <select class="form-control" id="documentType" name="documentType">
+                    <option value="">(Select)</option>
+                    <option value="Letters of Attestation">Letters of Attestation</option>
+                    <option value="CPR Certifications">CPR Certifications</option>
+                    <option value="Orientation Certificates">Orientation Certificates</option>
+                    <option value="Child Abuse Registries">Child Abuse Registries</option>
+                    <option value="Diplomas">Diplomas</option>
+                    <option value="Demographic Profiles">Demographic Profiles</option>
+                    <option value="Fingerprint Results">Fingerprint Results</option>
+                    <option value="Driver License">Driver License</option>
+                    <option value="Liability, Malpractice & Personal Insurance">Liability, Malpractice & Personal Insurance</option>
+                    <option value="Nursing Registries">Nursing Registries</option>
+                    <option value="Confidentiality Statements">Confidentiality Statements</option>
+                    <option value="RN Licenses">RN Licenses</option>
+                    <option value="Business Affidavit">Business Affidavit</option>
+                    <option value="Court Orders">Court Orders</option>
+                    <option value="Other">Other</option>
+                </select>
+                <span class="alert-danger" id="document-empty" style="display:none">Document type must be selected.</span>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <input id="fileName" class="form-control" name="fileName" type="file" multiple="multiple" data-errormsg="Upload file can not be empty." />
+                <span class="alert-danger" id="upload-empty" style="display: none">Upload file can not be empty.</span>
+            </div>
+            <div class="col-md-1">
+                <input type="button" id="btnDelete" class="btn btn-primary form-control" value="Delete" />
+            </div>
+            <div class="col-sm-1">
+                <input type="button" id="btnAdd" class="btn btn-primary" value="Add" />
+            </div>
+        </div>
+        <div id="containerTemp"></div>
+        <div class="row">
+            <div class="col-sm-2" style="margin-top:10px">
+                <input type="submit" class="btn btn-primary" value="Upload" id="btnUpload" />
+            </div>
+        </div>
+        <div class="row top-buffer"></div>
+        <!-- table starts here -->
+        <div class="table-responsive table-bordered table-striped" id="tab">
+            @Html.Grid(Model).Columns(columns =>
+       {
+           columns.Add(m => m.DocumentTitle).Titled("Document Title");
+           columns.Add(m => m.uploaddate).Titled("Date");
+           columns.Add(m => m.uploadtime).Titled("Time");
+           columns.Add()
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(30)
+                .RenderValueAs(m => Ajax.ActionLink("Download", "ViewDocument", "Donor", new { documentID = m.DocumentID }, null, new { @class = "btn btn-primary" }))
+                .Titled("Action");
+
+       }).WithPaging(20)
+        </div>
+        <!--- Table ends here -->
+    </div>
+    <div class="row top-buffer"></div>
+    <div class="row top-buffer"></div>
+    <div class="row top-buffer"></div>
+    <div class="row top-buffer"></div>
+}
+}

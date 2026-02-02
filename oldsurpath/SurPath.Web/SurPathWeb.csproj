@@ -1,0 +1,1091 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BF2ABD72-0ECF-4EF3-9508-FD18E4072B47}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SurPathWeb</RootNamespace>
+    <AssemblyName>SurPathWeb</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="AuthorizeNet, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AuthorizeNet.1.8.3\lib\AuthorizeNet.dll</HintPath>
+    </Reference>
+    <Reference Include="CaptchaMvc, Version=2.5.0.0, Culture=neutral, PublicKeyToken=fe46ad421dd3b0e6, processorArchitecture=MSIL">
+      <HintPath>..\packages\CaptchaMvc.Mvc4.1.5.0\lib\net40-full\CaptchaMvc.dll</HintPath>
+    </Reference>
+    <Reference Include="CuteWebUI.AjaxUploader, Version=4.0.0.0, Culture=neutral, PublicKeyToken=bc00d4b0e43ec38d, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxUploader.4.0.2.7\lib\CuteWebUI.AjaxUploader.dll</HintPath>
+    </Reference>
+    <Reference Include="DocX, Version=1.0.0.22, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocX.1.0.0.22\lib\net40\DocX.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="GridMvc, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\Reference_Files\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.FriendlyUrls, Version=1.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.1.1.2\lib\netstandard1.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.1.1.2\lib\netstandard1.1\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.1.1.1\lib\netstandard1.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.11.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.6.12.0\lib\net45\Microsoft.IdentityModel.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.12.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.6.12.0\lib\net45\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel">
+      <HintPath>..\Reference_Files\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="microsoft.office.interop.word">
+      <HintPath>..\Reference_Files\microsoft.office.interop.word.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Mvc.Mailer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcMailer.4.5\lib\45\Mvc.Mailer.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=8.0.16.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SurPath.Data\mysql\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RouteDebugger, Version=2.1.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\routedebugger.2.1.5\lib\net40\RouteDebugger.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.6.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Extensions.Logging.1.4.0\lib\net46\Serilog.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Extensions.Logging.File, Version=1.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Extensions.Logging.File.1.1.0\lib\net45\Serilog.Extensions.Logging.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Formatting.Compact, Version=1.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Formatting.Compact.1.0.0\lib\net45\Serilog.Formatting.Compact.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Settings.AppSettings, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Settings.AppSettings.2.2.2\lib\net45\Serilog.Settings.AppSettings.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Async, Version=1.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.Async.1.1.0\lib\net45\Serilog.Sinks.Async.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.File.3.2.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.RollingFile, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.RollingFile.3.3.0\lib\net45\Serilog.Sinks.RollingFile.dll</HintPath>
+    </Reference>
+    <Reference Include="StackifyHttpTracer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=93c44ce23f2048dd, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackifyHttpModule.1.0.18.0\lib\net40\StackifyHttpTracer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Console, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Console.4.3.0\lib\net46\System.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.1.2\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.3.0\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net46\System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net46\System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.2.0.0\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio, Version=5.33.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.5.33.1\lib\net451\Twilio.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.AspNet.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.AspNet.Common.5.33.1\lib\net45\Twilio.AspNet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.AspNet.Mvc, Version=5.33.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.AspNet.Mvc.5.33.1\lib\net451\Twilio.AspNet.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="api\APIIntegrationHelper.cs" />
+    <Compile Include="api\FormFox.asmx.cs">
+      <DependentUpon>FormFox.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="api\IntegrationController.cs" />
+    <Compile Include="api\TestingController.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\Culture.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\Helper.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Models\apiModels\apiCLients.cs" />
+    <Compile Include="Models\UserAuthRoles.cs" />
+    <Compile Include="Controllers\AttorneyController.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\CourtController.cs" />
+    <Compile Include="Controllers\DocController.cs" />
+    <Compile Include="Controllers\Donor.cs" />
+    <Compile Include="Controllers\DonorController.cs" />
+    <Compile Include="Controllers\JudgeController.cs" />
+    <Compile Include="Controllers\BackgroundCheck.cs" />
+    <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\SmsController.cs" />
+    <Compile Include="Controllers\SMSController_old.cs" />
+    <Compile Include="Filters\ValidateTwilioRequestAttribute.cs" />
+    <Compile Include="Models\ExportModel.cs" />
+    <Compile Include="Models\PaymentDataModel.cs" />
+    <Compile Include="Models\TestInfoDataModel.cs" />
+    <Compile Include="Controllers\VendorController.cs" />
+    <Compile Include="Filters\SessionValidateAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Mailers\IUserMailer.cs" />
+    <Compile Include="Mailers\RegistrationMailer.cs" />
+    <Compile Include="Models\ClientDataModel.cs" />
+    <Compile Include="Models\DonorProfileDataModel.cs" />
+    <Compile Include="Models\RegistrationDataModel.cs" />
+    <Compile Include="Models\TestInfoTestCategoriesDataModel.cs" />
+    <Compile Include="Models\TestResultDataModel.cs" />
+    <Compile Include="mvc\mvc4_cs\App_Start\FilterConfig.cs" />
+    <Compile Include="mvc\mvc4_cs\App_Start\RouteConfig.cs" />
+    <Compile Include="mvc\mvc4_cs\App_Start\WebApiConfig.cs" />
+    <Compile Include="mvc\mvc4_cs\Controllers\DemoController.cs" />
+    <Compile Include="mvc\mvc4_cs\Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="mvc\mvc4_cs\Models\FileManagerProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Site.Mobile.Master.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.designer.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.designer.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="api\FormFox.asmx" />
+    <Content Include="App_Themes\bootstrap-theme.css" />
+    <Content Include="App_Themes\bootstrap-theme.min.css" />
+    <Content Include="App_Themes\bootstrap.css" />
+    <Content Include="App_Themes\bootstrap.min.css" />
+    <Content Include="App_Themes\font-awesome.css" />
+    <Content Include="App_Themes\font-awesome.min.css" />
+    <Content Include="App_Themes\jquery-ui.css" />
+    <Content Include="App_Themes\jquery-ui.min-1.11.2.css" />
+    <Content Include="App_Themes\jquery-ui.min.css" />
+    <Content Include="App_Themes\simple-sidebar.css" />
+    <Content Include="App_Themes\Style.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.dataTables.css" />
+    <Content Include="Content\DataTables\css\autoFill.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.foundation.css" />
+    <Content Include="Content\DataTables\css\autoFill.foundation.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.jqueryui.css" />
+    <Content Include="Content\DataTables\css\autoFill.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.semanticui.css" />
+    <Content Include="Content\DataTables\css\autoFill.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\buttons.dataTables.css" />
+    <Content Include="Content\DataTables\css\buttons.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\buttons.foundation.css" />
+    <Content Include="Content\DataTables\css\buttons.foundation.min.css" />
+    <Content Include="Content\DataTables\css\buttons.jqueryui.css" />
+    <Content Include="Content\DataTables\css\buttons.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\buttons.semanticui.css" />
+    <Content Include="Content\DataTables\css\buttons.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.dataTables.css" />
+    <Content Include="Content\DataTables\css\colReorder.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.foundation.css" />
+    <Content Include="Content\DataTables\css\colReorder.foundation.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.jqueryui.css" />
+    <Content Include="Content\DataTables\css\colReorder.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.semanticui.css" />
+    <Content Include="Content\DataTables\css\colReorder.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.foundation.css" />
+    <Content Include="Content\DataTables\css\dataTables.foundation.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.jqueryui.css" />
+    <Content Include="Content\DataTables\css\dataTables.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.material.css" />
+    <Content Include="Content\DataTables\css\dataTables.material.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.semanticui.css" />
+    <Content Include="Content\DataTables\css\dataTables.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.uikit.css" />
+    <Content Include="Content\DataTables\css\dataTables.uikit.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.dataTables.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.foundation.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.foundation.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.jqueryui.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.semanticui.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.dataTables.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.foundation.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.foundation.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.jqueryui.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.semanticui.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables_themeroller.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.dataTables.css" />
+    <Content Include="Content\DataTables\css\keyTable.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.foundation.css" />
+    <Content Include="Content\DataTables\css\keyTable.foundation.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.jqueryui.css" />
+    <Content Include="Content\DataTables\css\keyTable.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.semanticui.css" />
+    <Content Include="Content\DataTables\css\keyTable.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\responsive.dataTables.css" />
+    <Content Include="Content\DataTables\css\responsive.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\responsive.foundation.css" />
+    <Content Include="Content\DataTables\css\responsive.foundation.min.css" />
+    <Content Include="Content\DataTables\css\responsive.jqueryui.css" />
+    <Content Include="Content\DataTables\css\responsive.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\responsive.semanticui.css" />
+    <Content Include="Content\DataTables\css\responsive.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.dataTables.css" />
+    <Content Include="Content\DataTables\css\rowReorder.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.foundation.css" />
+    <Content Include="Content\DataTables\css\rowReorder.foundation.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.jqueryui.css" />
+    <Content Include="Content\DataTables\css\rowReorder.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.semanticui.css" />
+    <Content Include="Content\DataTables\css\rowReorder.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\scroller.dataTables.css" />
+    <Content Include="Content\DataTables\css\scroller.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\scroller.foundation.css" />
+    <Content Include="Content\DataTables\css\scroller.foundation.min.css" />
+    <Content Include="Content\DataTables\css\scroller.jqueryui.css" />
+    <Content Include="Content\DataTables\css\scroller.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\scroller.semanticui.css" />
+    <Content Include="Content\DataTables\css\scroller.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\select.dataTables.css" />
+    <Content Include="Content\DataTables\css\select.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\select.foundation.css" />
+    <Content Include="Content\DataTables\css\select.foundation.min.css" />
+    <Content Include="Content\DataTables\css\select.jqueryui.css" />
+    <Content Include="Content\DataTables\css\select.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\select.semanticui.css" />
+    <Content Include="Content\DataTables\css\select.semanticui.min.css" />
+    <Content Include="Content\DataTables\images\details_close.png" />
+    <Content Include="Content\DataTables\images\details_open.png" />
+    <Content Include="Content\DataTables\images\sort_asc.png" />
+    <Content Include="Content\DataTables\images\sort_asc_disabled.png" />
+    <Content Include="Content\DataTables\images\sort_both.png" />
+    <Content Include="Content\DataTables\images\sort_desc.png" />
+    <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
+    <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\themes\base\datepicker3.css" />
+    <Content Include="Content\Gridmvc.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="EmailTemplates\default.html" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="App_Themes\bootstrap-theme.css.map" />
+    <Content Include="App_Themes\bootstrap.css.map" />
+    <Content Include="fonts\OpenSans-Bold.ttf" />
+    <Content Include="fonts\OpenSans-BoldItalic.ttf" />
+    <Content Include="fonts\OpenSans-ExtraBold.ttf" />
+    <Content Include="fonts\OpenSans-ExtraBoldItalic.ttf" />
+    <Content Include="fonts\OpenSans-Italic.ttf" />
+    <Content Include="fonts\OpenSans-Light.ttf" />
+    <Content Include="fonts\OpenSans-LightItalic.ttf" />
+    <Content Include="fonts\OpenSans-Regular.ttf" />
+    <Content Include="fonts\OpenSans-Semibold.ttf" />
+    <Content Include="fonts\OpenSans-SemiboldItalic.ttf" />
+    <Content Include="Grid.css" />
+    <Content Include="html5\bin\CuteWebUI.AjaxUploader.dll" />
+    <Content Include="html5\default.htm" />
+    <Content Include="html5\image-upload.htm" />
+    <Content Include="html5\installation.htm" />
+    <Content Include="html5\jQuery-upload.htm" />
+    <Content Include="html5\samples\Bootstrap-jQuery-Grid.aspx" />
+    <Content Include="html5\samples\Bootstrap-jQuery-List.aspx" />
+    <Content Include="html5\samples\Bootstrap-jQuery-Upload-01.aspx" />
+    <Content Include="html5\samples\Bootstrap-jQuery-Upload-02.aspx" />
+    <Content Include="html5\samples\Camera-Test.aspx" />
+    <Content Include="html5\samples\Camera-Test2.aspx" />
+    <Content Include="html5\samples\css\bootstrap-theme.css" />
+    <Content Include="html5\samples\css\bootstrap-theme.min.css" />
+    <Content Include="html5\samples\css\bootstrap.css" />
+    <Content Include="html5\samples\css\bootstrap.min.css" />
+    <Content Include="html5\samples\Drag-drop-file.aspx" />
+    <Content Include="html5\samples\Drag-drop-file2.aspx" />
+    <Content Include="html5\samples\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="html5\samples\Image-Drag-Drop.aspx" />
+    <Content Include="html5\samples\Image-Drag-Drop2.aspx" />
+    <Content Include="html5\samples\Image-Preview.aspx" />
+    <Content Include="html5\samples\Image-Rectangle.aspx" />
+    <Content Include="html5\samples\Image-Square.aspx" />
+    <Content Include="html5\samples\images\cloud-upload1.png" />
+    <Content Include="html5\samples\images\cloud-upload2.png" />
+    <Content Include="html5\samples\images\cloud-upload3.png" />
+    <Content Include="html5\samples\images\drag-and-drop-area.png" />
+    <Content Include="html5\samples\images\drag-and-drop-file-upload.png" />
+    <Content Include="html5\samples\images\drag-and-drop-image.png" />
+    <Content Include="html5\samples\images\drag-and-drop-image2.png" />
+    <Content Include="html5\samples\images\drag-and-drop-zone.png" />
+    <Content Include="html5\samples\images\dragnote.png" />
+    <Content Include="html5\samples\images\file.png" />
+    <Content Include="html5\samples\images\icon16_close.png" />
+    <Content Include="html5\samples\images\icon64_add.png" />
+    <Content Include="html5\samples\js\bootstrap.js" />
+    <Content Include="html5\samples\js\bootstrap.min.js" />
+    <Content Include="html5\samples\js\jquery.min.js" />
+    <Content Include="html5\samples\js\npm.js" />
+    <Content Include="html5\samples\Nice-Image-Grid.aspx" />
+    <Content Include="html5\samples\Nice-Image-List.aspx" />
+    <Content Include="html5\uploader.css" />
+    <Content Include="html5\uploadertheme.css" />
+    <Content Include="mvc\mvc4_cs\bin\CuteWebUI.AjaxUploader.dll" />
+    <Content Include="mvc\mvc4_cs\bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="mvc\mvc4_cs\bin\Microsoft.Web.Infrastructure.xml" />
+    <Content Include="mvc\mvc4_cs\bin\mvc_cs.dll" />
+    <Content Include="mvc\mvc4_cs\bin\mvc_cs.pdb" />
+    <Content Include="mvc\mvc4_cs\bin\Newtonsoft.Json.dll" />
+    <Content Include="mvc\mvc4_cs\bin\System.Net.Http.dll" />
+    <Content Include="mvc\mvc4_cs\bin\System.Net.Http.Formatting.dll" />
+    <Content Include="mvc\mvc4_cs\bin\System.Net.Http.WebRequest.dll" />
+    <Content Include="mvc\mvc4_cs\bin\System.Net.Http.WebRequest.xml" />
+    <Content Include="mvc\mvc4_cs\bin\System.Net.Http.xml" />
+    <Content Include="mvc\mvc4_cs\bin\System.Web.Helpers.dll" />
+    <Content Include="mvc\mvc4_cs\bin\System.Web.Helpers.xml" />
+    <Content Include="mvc\mvc4_cs\bin\System.Web.Http.dll" />
+    <Content Include="mvc\mvc4_cs\bin\System.Web.Http.WebHost.dll" />
+    <Content Include="mvc\mvc4_cs\bin\System.Web.Mvc.dll" />
+    <Content Include="mvc\mvc4_cs\bin\System.Web.Razor.dll" />
+    <Content Include="mvc\mvc4_cs\bin\System.Web.Razor.xml" />
+    <Content Include="mvc\mvc4_cs\bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="mvc\mvc4_cs\bin\System.Web.WebPages.Deployment.xml" />
+    <Content Include="mvc\mvc4_cs\bin\System.Web.WebPages.dll" />
+    <Content Include="mvc\mvc4_cs\bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="mvc\mvc4_cs\bin\System.Web.WebPages.Razor.xml" />
+    <Content Include="mvc\mvc4_cs\bin\System.Web.WebPages.xml" />
+    <Content Include="mvc\mvc4_cs\Content\circle.png" />
+    <Content Include="mvc\mvc4_cs\Content\demo.css" />
+    <Content Include="mvc\mvc4_cs\Content\images\mac-bar.png" />
+    <Content Include="mvc\mvc4_cs\Content\images\win7-bar.png" />
+    <Content Include="mvc\mvc4_cs\Content\images\win7-bg.png" />
+    <Content Include="mvc\mvc4_cs\Content\uploadertheme.css" />
+    <Content Include="mvc\mvc4_cs\default.htm" />
+    <Content Include="mvc\mvc4_cs\Global.asax" />
+    <Content Include="mvc\mvc4_cs\installation.htm" />
+    <Content Include="mvc\mvc4_cs\mvc_cs.csproj.user" />
+    <Content Include="mvc\mvc4_cs\mvc_cs.sln" />
+    <Content Include="mvc\mvc4_cs\obj\Debug\mvc_cs.csproj.FileListAbsolute.txt" />
+    <Content Include="mvc\mvc4_cs\obj\Debug\mvc_cs.dll" />
+    <Content Include="mvc\mvc4_cs\obj\Debug\mvc_cs.pdb" />
+    <Content Include="mvc\mvc4_cs\uploader.css" />
+    <Content Include="mvc\mvc4_vb\App_Start\FilterConfig.vb" />
+    <Content Include="mvc\mvc4_vb\App_Start\RouteConfig.vb" />
+    <Content Include="mvc\mvc4_vb\App_Start\WebApiConfig.vb" />
+    <Content Include="mvc\mvc4_vb\bin\CuteWebUI.AjaxUploader.dll" />
+    <Content Include="mvc\mvc4_vb\bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="mvc\mvc4_vb\bin\Microsoft.Web.Infrastructure.xml" />
+    <Content Include="mvc\mvc4_vb\bin\mvc_vb.dll" />
+    <Content Include="mvc\mvc4_vb\bin\mvc_vb.pdb" />
+    <Content Include="mvc\mvc4_vb\bin\mvc_vb.xml" />
+    <Content Include="mvc\mvc4_vb\bin\Newtonsoft.Json.dll" />
+    <Content Include="mvc\mvc4_vb\bin\System.Net.Http.dll" />
+    <Content Include="mvc\mvc4_vb\bin\System.Net.Http.Formatting.dll" />
+    <Content Include="mvc\mvc4_vb\bin\System.Net.Http.WebRequest.dll" />
+    <Content Include="mvc\mvc4_vb\bin\System.Net.Http.WebRequest.xml" />
+    <Content Include="mvc\mvc4_vb\bin\System.Net.Http.xml" />
+    <Content Include="mvc\mvc4_vb\bin\System.Web.Helpers.dll" />
+    <Content Include="mvc\mvc4_vb\bin\System.Web.Helpers.xml" />
+    <Content Include="mvc\mvc4_vb\bin\System.Web.Http.dll" />
+    <Content Include="mvc\mvc4_vb\bin\System.Web.Http.WebHost.dll" />
+    <Content Include="mvc\mvc4_vb\bin\System.Web.Mvc.dll" />
+    <Content Include="mvc\mvc4_vb\bin\System.Web.Razor.dll" />
+    <Content Include="mvc\mvc4_vb\bin\System.Web.Razor.xml" />
+    <Content Include="mvc\mvc4_vb\bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="mvc\mvc4_vb\bin\System.Web.WebPages.Deployment.xml" />
+    <Content Include="mvc\mvc4_vb\bin\System.Web.WebPages.dll" />
+    <Content Include="mvc\mvc4_vb\bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="mvc\mvc4_vb\bin\System.Web.WebPages.Razor.xml" />
+    <Content Include="mvc\mvc4_vb\bin\System.Web.WebPages.xml" />
+    <Content Include="mvc\mvc4_vb\Content\circle.png" />
+    <Content Include="mvc\mvc4_vb\Content\demo.css" />
+    <Content Include="mvc\mvc4_vb\Content\images\mac-bar.png" />
+    <Content Include="mvc\mvc4_vb\Content\images\win7-bar.png" />
+    <Content Include="mvc\mvc4_vb\Content\images\win7-bg.png" />
+    <Content Include="mvc\mvc4_vb\Content\uploadertheme.css" />
+    <Content Include="mvc\mvc4_vb\Controllers\DemoController.vb" />
+    <Content Include="mvc\mvc4_vb\default.htm" />
+    <Content Include="mvc\mvc4_vb\Global.asax" />
+    <Content Include="mvc\mvc4_vb\Global.asax.vb" />
+    <Content Include="mvc\mvc4_vb\installation.htm" />
+    <Content Include="mvc\mvc4_vb\Models\FileManagerProvider.vb" />
+    <Content Include="mvc\mvc4_vb\mvc_vb.sln" />
+    <Content Include="mvc\mvc4_vb\mvc_vb.vbproj.user" />
+    <Content Include="mvc\mvc4_vb\obj\Debug\mvc_vb.dll" />
+    <Content Include="mvc\mvc4_vb\obj\Debug\mvc_vb.pdb" />
+    <Content Include="mvc\mvc4_vb\obj\Debug\mvc_vb.vbproj.FileListAbsolute.txt" />
+    <Content Include="mvc\mvc4_vb\obj\Debug\mvc_vb.xml" />
+    <Content Include="mvc\mvc4_vb\uploader.css" />
+    <Content Include="PDFConfig\Default Render Settings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mvc\mvc4_vb\Web.config" />
+    <Content Include="mvc\mvc4_vb\Views\_ViewStart.vbhtml" />
+    <Content Include="mvc\mvc4_vb\Views\Web.config" />
+    <Content Include="mvc\mvc4_vb\Views\Shared\_Layout.vbhtml" />
+    <Content Include="mvc\mvc4_vb\Views\Shared\Error.vbhtml" />
+    <Content Include="mvc\mvc4_vb\Views\Demo\Start_uploading_manually.vbhtml" />
+    <Content Include="mvc\mvc4_vb\Views\Demo\simple_upload_Validation.vbhtml" />
+    <Content Include="mvc\mvc4_vb\Views\Demo\simple_upload_UI.vbhtml" />
+    <Content Include="mvc\mvc4_vb\Views\Demo\simple_upload.vbhtml" />
+    <Content Include="mvc\mvc4_vb\Views\Demo\selecting_multiple_files.vbhtml" />
+    <Content Include="mvc\mvc4_vb\Views\Demo\multiple_files_upload_control_file_number.vbhtml" />
+    <Content Include="mvc\mvc4_vb\Views\Demo\multiple_files_upload.vbhtml" />
+    <Content Include="mvc\mvc4_vb\Views\Demo\Large_File_Upload.vbhtml" />
+    <Content Include="mvc\mvc4_vb\Views\Demo\Drag_drop_file.vbhtml" />
+    <Content Include="mvc\mvc4_vb\Views\Demo\Customize_Progress_Bar.vbhtml" />
+    <Content Include="mvc\mvc4_vb\UploadHandler.ashx" />
+    <Content Include="mvc\mvc4_vb\obj\Debug\mvc_vb.vbprojResolveAssemblyReference.cache" />
+    <Content Include="mvc\mvc4_vb\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="mvc\mvc4_vb\obj\Debug\build.force" />
+    <Content Include="mvc\mvc4_vb\mvc_vb.vbproj" />
+    <Content Include="mvc\mvc4_vb\mvc_vb.v11.suo" />
+    <Content Include="mvc\mvc4_vb\bin\mvc_vb.dll.config" />
+    <Content Include="mvc\mvc4_vb\bin\ajaxuploader4.lic" />
+    <Content Include="mvc\mvc4_cs\Web.config" />
+    <Content Include="mvc\mvc4_cs\Views\_ViewStart.cshtml" />
+    <Content Include="mvc\mvc4_cs\Views\Web.config" />
+    <Content Include="mvc\mvc4_cs\Views\Shared\_Layout.cshtml" />
+    <Content Include="mvc\mvc4_cs\Views\Shared\Error.cshtml" />
+    <Content Include="mvc\mvc4_cs\Views\Demo\Start_uploading_manually.cshtml" />
+    <Content Include="mvc\mvc4_cs\Views\Demo\simple_upload_Validation.cshtml" />
+    <Content Include="mvc\mvc4_cs\Views\Demo\simple_upload_UI.cshtml" />
+    <Content Include="mvc\mvc4_cs\Views\Demo\simple_upload.cshtml" />
+    <Content Include="mvc\mvc4_cs\Views\Demo\selecting_multiple_files.cshtml" />
+    <Content Include="mvc\mvc4_cs\Views\Demo\multiple_files_upload_control_file_number.cshtml" />
+    <Content Include="mvc\mvc4_cs\Views\Demo\multiple_files_upload.cshtml" />
+    <Content Include="mvc\mvc4_cs\Views\Demo\Large_File_Upload.cshtml" />
+    <Content Include="mvc\mvc4_cs\Views\Demo\Drag_drop_file.cshtml" />
+    <Content Include="mvc\mvc4_cs\Views\Demo\Customize_Progress_Bar.cshtml" />
+    <Content Include="mvc\mvc4_cs\UploadHandler.ashx" />
+    <Content Include="mvc\mvc4_cs\obj\Debug\mvc_cs.csprojResolveAssemblyReference.cache" />
+    <Content Include="mvc\mvc4_cs\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="mvc\mvc4_cs\obj\Debug\build.force" />
+    <Content Include="mvc\mvc4_cs\mvc_cs.v11.suo" />
+    <Content Include="mvc\mvc4_cs\mvc_cs.csproj" />
+    <Content Include="mvc\mvc4_cs\bin\mvc_cs.dll.config" />
+    <Content Include="mvc\mvc4_cs\bin\ajaxuploader4.lic" />
+    <Content Include="html5\Web.Config" />
+    <Content Include="html5\samples\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="html5\samples\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="html5\samples\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="html5\samples\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="html5\samples\css\bootstrap.css.map" />
+    <Content Include="html5\samples\css\bootstrap-theme.css.map" />
+    <Content Include="html5\bin\ajaxuploader4.lic" />
+    <Content Include="doc\evaluation.rtf" />
+    <Content Include="doc\ajaxuploader.chm" />
+    <Content Include="Grid.mvc.readme" />
+    <Content Include="Content\DataTables\css\semanticui.scss" />
+    <Content Include="Content\DataTables\css\mixins.scss" />
+    <Content Include="Content\DataTables\css\common.scss" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\PublishProfiles\file.pubxml" />
+    <None Include="Properties\PublishProfiles\FileDebug.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\SurPath-Web-1.0.pubxml" />
+    <Content Include="Images\background.jpg" />
+    <Content Include="Images\cards.jpg" />
+    <Content Include="Images\Favicon-16x16.ico" />
+    <Content Include="Images\Favicon-32x32.ico" />
+    <Content Include="Images\ImmunizationLogo.png" />
+    <Content Include="Images\Logo-Surpath.png" />
+    <Content Include="Images\logo.png" />
+    <Content Include="Images\logo1.png" />
+    <Content Include="Images\session-expired.jpg" />
+    <Content Include="Images\SurBackgroundScreenLogo.jpg" />
+    <Content Include="Images\Surscan-Application-Logo.png" />
+    <Content Include="READ_ME.txt" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\common.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.foundation.js" />
+    <Content Include="Scripts\DataTables\autoFill.foundation.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.jqueryui.js" />
+    <Content Include="Scripts\DataTables\autoFill.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.semanticui.js" />
+    <Content Include="Scripts\DataTables\autoFill.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\buttons.colVis.js" />
+    <Content Include="Scripts\DataTables\buttons.colVis.min.js" />
+    <Content Include="Scripts\DataTables\buttons.flash.js" />
+    <Content Include="Scripts\DataTables\buttons.flash.min.js" />
+    <Content Include="Scripts\DataTables\buttons.foundation.js" />
+    <Content Include="Scripts\DataTables\buttons.foundation.min.js" />
+    <Content Include="Scripts\DataTables\buttons.html5.js" />
+    <Content Include="Scripts\DataTables\buttons.html5.min.js" />
+    <Content Include="Scripts\DataTables\buttons.jqueryui.js" />
+    <Content Include="Scripts\DataTables\buttons.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\buttons.print.js" />
+    <Content Include="Scripts\DataTables\buttons.print.min.js" />
+    <Content Include="Scripts\DataTables\buttons.semanticui.js" />
+    <Content Include="Scripts\DataTables\buttons.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.autoFill.js" />
+    <Content Include="Scripts\DataTables\dataTables.autoFill.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.buttons.js" />
+    <Content Include="Scripts\DataTables\dataTables.buttons.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.colReorder.js" />
+    <Content Include="Scripts\DataTables\dataTables.colReorder.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedColumns.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedColumns.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedHeader.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedHeader.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.foundation.js" />
+    <Content Include="Scripts\DataTables\dataTables.foundation.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.jqueryui.js" />
+    <Content Include="Scripts\DataTables\dataTables.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.keyTable.js" />
+    <Content Include="Scripts\DataTables\dataTables.keyTable.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.material.js" />
+    <Content Include="Scripts\DataTables\dataTables.material.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.responsive.js" />
+    <Content Include="Scripts\DataTables\dataTables.responsive.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowReorder.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowReorder.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.scroller.js" />
+    <Content Include="Scripts\DataTables\dataTables.scroller.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.select.js" />
+    <Content Include="Scripts\DataTables\dataTables.select.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.semanticui.js" />
+    <Content Include="Scripts\DataTables\dataTables.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.uikit.js" />
+    <Content Include="Scripts\DataTables\dataTables.uikit.min.js" />
+    <Content Include="Scripts\DataTables\jquery.dataTables.js" />
+    <Content Include="Scripts\DataTables\jquery.dataTables.min.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\responsive.foundation.js" />
+    <Content Include="Scripts\DataTables\responsive.foundation.min.js" />
+    <Content Include="Scripts\DataTables\responsive.jqueryui.js" />
+    <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\responsive.semanticui.js" />
+    <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
+    <Content Include="Scripts\gridmvc.js" />
+    <Content Include="Scripts\gridmvc.lang.ru.js" />
+    <Content Include="Scripts\gridmvc.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-ui-1.11.2.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.maskedinput.js" />
+    <Content Include="Scripts\jquery.maskedinput.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-3.4.2.debug.js" />
+    <Content Include="Scripts\knockout-3.4.2.js" />
+    <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\popup.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="ViewSwitcher.ascx" />
+    <Content Include="Views\Registration\PreRegistration.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LayoutRegistration.cshtml" />
+    <Content Include="Views\Authentication\Login.cshtml" />
+    <Content Include="Views\RegistrationMailer\_Layout.cshtml" />
+    <Content Include="Views\RegistrationMailer\PreRegistrationMail.cshtml" />
+    <Content Include="Views\Registration\Activation.cshtml" />
+    <Content Include="Views\Registration\Confirmation.cshtml" />
+    <Content Include="Views\Registration\PasswordResetConfirmation.cshtml" />
+    <Content Include="Views\Registration\ProfileUpdate.cshtml" />
+    <Content Include="Views\Registration\ProgramSelection.cshtml" />
+    <Content Include="Views\Registration\ProgramConfirmation.cshtml" />
+    <Content Include="Views\Shared\_DonorLayout.cshtml" />
+    <Content Include="Views\Donor\ProgramSelection.cshtml" />
+    <Content Include="Views\Donor\UserProfile.cshtml" />
+    <Content Include="Views\Donor\ProgramConfirmation.cshtml" />
+    <Content Include="Views\Donor\DocumentUpload1.cshtml" />
+    <Content Include="Views\Donor\TestResult.cshtml" />
+    <Content Include="Views\Authentication\ChangePassword.cshtml" />
+    <Content Include="Views\Authentication\ChangePasswordConfirmation.cshtml" />
+    <Content Include="Views\Authentication\ForgotPassword.cshtml" />
+    <Content Include="Views\Shared\_AttorneyLayout.cshtml" />
+    <Content Include="Views\Attorney\TestResult.cshtml" />
+    <Content Include="Views\Attorney\UserProfile.cshtml" />
+    <Content Include="Views\Authentication\Activation.cshtml" />
+    <Content Include="Views\RegistrationMailer\DonorProgramRegsitrationMail.cshtml" />
+    <Content Include="Views\RegistrationMailer\ClientProgramRegsitrationMail.cshtml" />
+    <Content Include="Views\RegistrationMailer\TPAProgramRegsitrationMail.cshtml" />
+    <Content Include="Views\RegistrationMailer\ForgotPasswordMail.cshtml" />
+    <Content Include="Views\Registration\PaymentSelection.cshtml" />
+    <Content Include="Views\Donor\PaymentSelection.cshtml" />
+    <Content Include="Views\Court\TestResult.cshtml" />
+    <Content Include="Views\Court\UserProfile.cshtml" />
+    <Content Include="Views\Shared\_CourtLayout.cshtml" />
+    <Content Include="Views\Shared\_JudgeLayout.cshtml" />
+    <Content Include="Views\Judge\TestResult.cshtml" />
+    <Content Include="Views\Judge\UserProfile.cshtml" />
+    <Content Include="Views\Donor\PaymentConfirmationCash.cshtml" />
+    <Content Include="Views\Donor\PaymentConfirmationCard.cshtml" />
+    <Content Include="Views\Registration\PaymentConfirmationCard.cshtml" />
+    <Content Include="Views\Registration\PaymentConfirmationCash.cshtml" />
+    <Content Include="Views\RegistrationMailer\PaymentConformationMail.cshtml" />
+    <Content Include="Views\Shared\_VendorLayout.cshtml" />
+    <Content Include="Views\Vendor\DonorInfo.cshtml" />
+    <Content Include="Views\Vendor\VendorSearch.cshtml" />
+    <Content Include="Views\Vendor\VendorDashboard.cshtml" />
+    <Content Include="Views\Vendor\TestInfo.cshtml" />
+    <Content Include="Views\Shared\_ClientLayout.cshtml" />
+    <Content Include="Views\Client\Dashboard.cshtml" />
+    <Content Include="Views\Client\DonorInfo.cshtml" />
+    <Content Include="Views\Client\DonorSearch.cshtml" />
+    <Content Include="Views\Client\UserInfo.cshtml" />
+    <Content Include="Views\Vendor\UserProfile.cshtml" />
+    <Content Include="Views\RegistrationMailer\CardPaymentConformationMail.cshtml" />
+    <Content Include="Views\Authentication\SessionExpire.cshtml" />
+    <Content Include="Views\BackgroundCheck\Activation.cshtml" />
+    <Content Include="Views\BackgroundCheck\Confirmation.cshtml" />
+    <Content Include="Views\BackgroundCheck\PasswordResetConfirmation.cshtml" />
+    <Content Include="Views\BackgroundCheck\PaymentConfirmationCard.cshtml" />
+    <Content Include="Views\BackgroundCheck\PaymentConfirmationCash.cshtml" />
+    <Content Include="Views\BackgroundCheck\PaymentSelection.cshtml" />
+    <Content Include="Views\BackgroundCheck\Registration.cshtml" />
+    <Content Include="Views\BackgroundCheck\ProfileUpdate.cshtml" />
+    <Content Include="Views\BackgroundCheck\ProgramConfirmation.cshtml" />
+    <Content Include="Views\BackgroundCheck\ProgramSelection.cshtml" />
+    <Content Include="Views\Shared\_LayoutBackground.cshtml" />
+    <Content Include="Views\Donor\DocumentManage.cshtml" />
+    <Content Include="Views\Donor\DocumentUpload.cshtml" />
+    <Content Include="Templates\Letter2 original .pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\Letter2.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\PDFTemplateTest1.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Registration\ProfileReview.cshtml" />
+    <Content Include="Views\Registration\ProfileUpdate2.cshtml" />
+    <Content Include="Views\Registration\CreateAccount.cshtml" />
+    <Content Include="Views\RegistrationMailer\VerifyMail.cshtml" />
+    <Content Include="Views\Shared\_LayoutRegistrationSO.cshtml" />
+    <Content Include="Views\Shared\_GridPager.cshtml" />
+    <Content Include="Views\Shared\_Grid.cshtml" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Site.Mobile.Master" />
+    <Content Include="Views\RegistrationMailer\BackgroundCheckStarted.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\themes\base\minified\images\" />
+    <Folder Include="Views\Doc\" />
+    <Folder Include="Views\Sms\" />
+    <Folder Include="webservice\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Surpath.Backend\SurpathBackend\SurPath.Backend.csproj">
+      <Project>{CC3E9055-4D25-46F7-9061-C48C817243BB}
+
+</Project>
+      <Name>SurPath.Backend</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SurPath.Business\SurPath.Business.csproj">
+      <Project>{79c8214b-4e98-4caf-957b-430a9da9f96a}
+
+</Project>
+      <Name>SurPath.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Surpath.ClearstarTest\Surpath.CSTest.csproj">
+      <Project>{dfa5a61c-fcec-47af-88d7-69868d7b2a31}
+
+</Project>
+      <Name>Surpath.CSTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SurPath.Data\SurPath.Data.csproj">
+      <Project>{22247119-655C-4DEC-98F3-FF0A3998D638}
+
+</Project>
+      <Name>SurPath.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SurPath.Entity\SurPath.Entity.csproj">
+      <Project>{e83f24f8-19f6-4e06-8732-87d988a72d00}
+
+</Project>
+      <Name>SurPath.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SurPath.Enum\SurPath.Enum.csproj">
+      <Project>{fe86a8cf-ff29-407b-81e6-725f96f403b6}
+
+</Project>
+      <Name>SurPath.Enum</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>1481</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:1481/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <ItemGroup>
+    <Compile Include="..\Common\SharedAssemblyInfo.cs" />
+  </ItemGroup>
+</Project>

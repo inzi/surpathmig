@@ -1,0 +1,246 @@
+﻿@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.RotationSlots
+@using inzibackend.Web.Areas.App.Startup
+@model RotationSlotsViewModel
+@{
+    ViewBag.CurrentPageName = AppPageNames.Common.RotationSlots;
+}
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/App/Views/RotationSlots/Index.js" asp-append-version="true"></script>
+}
+
+@section headernavsection {
+    <div class="d-flex header-nav-search flex-grow-1" id="kt_header_nav">
+        <div class="d-flex align-items-stretch flex-grow-1">
+            <div class="d-flex align-items-center flex-40p">
+                <input type="text" id="RotationSlotsTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+            </div>
+            <div class="d-flex flex-grow-1"></div>
+            <div class="d-flex align-items-center theme0-add-new">
+                @if (IsGranted(AppPermissions.Pages_RotationSlots_Create))
+                {
+                    <button id="CreateNewRotationSlotButton" class="btn bg-add pt-0 pb-0">@L("AddNewSlot")</button>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    <div class="@(await GetContainerClass())">
+        <div class="d-flex flex-grow-1">
+            <div class="flex-row">
+                <h4>Available Slots</h4>
+            </div>
+            <div class="mx-4">
+                <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item filter-button"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item filter-button" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+            </div>
+
+        </div>
+    </div>
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b content-card">
+            <div class="card-body">
+
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="SlotIdFilterId">@L("SlotId")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="slotIdFilter" id="SlotIdFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinAvailableSlotsFilterId">@L("MinMax") @L("AvailableSlots")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MinValue")" name="minAvailableSlotsFilter" id="MinAvailableSlotsFilterId" />
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MaxValue")" name="maxAvailableSlotsFilter" id="MaxAvailableSlotsFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinShiftStartDateFilterId">@L("ShiftStartDateRange")</label>
+                            <div class="input-group">
+                                <input class="form-control m-input date-picker startDate date-picker-filter" type="text" placeholder="@L(" MinValue")" id="MinShiftStartDateFilterId">
+                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                                <input class="form-control m-input date-picker endDate date-picker-filter" type="text" placeholder="@L(" MaxValue")" id="MaxShiftStartDateFilterId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinShiftEndDateFilterId">@L("ShiftEndDateRange")</label>
+                            <div class="input-group">
+                                <input class="form-control m-input date-picker startDate date-picker-filter" type="text" placeholder="@L(" MinValue")" id="MinShiftEndDateFilterId">
+                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                                <input class="form-control m-input date-picker endDate date-picker-filter" type="text" placeholder="@L(" MaxValue")" id="MaxShiftEndDateFilterId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinShiftStartTimeFilterId">@L("ShiftStartTimeRange")</label>
+                            <div class="input-group">
+                                <input class="form-control m-input date-picker startDate date-picker-filter" type="text" placeholder="@L(" MinValue")" id="MinShiftStartTimeFilterId">
+                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                                <input class="form-control m-input date-picker endDate date-picker-filter" type="text" placeholder="@L(" MaxValue")" id="MaxShiftStartTimeFilterId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinShiftEndTimeFilterId">@L("ShiftEndTimeRange")</label>
+                            <div class="input-group">
+                                <input class="form-control m-input date-picker startDate date-picker-filter" type="text" placeholder="@L(" MinValue")" id="MinShiftEndTimeFilterId">
+                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                                <input class="form-control m-input date-picker endDate date-picker-filter" type="text" placeholder="@L(" MaxValue")" id="MaxShiftEndTimeFilterId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinShiftHoursFilterId">@L("MinMax") @L("ShiftHours")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MinValue")" name="minShiftHoursFilter" id="MinShiftHoursFilterId" />
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MaxValue")" name="maxShiftHoursFilter" id="MaxShiftHoursFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="NotifyHospitalFilterId">@L("NotifyHospital")</label>
+                            <select class="form-select reload-on-change" name="NotifyHospitalFilter" id="NotifyHospitalFilterId">
+                                <option value="-1">@L("All")</option>
+                                <option value="0">@L("False")</option>
+                                <option value="1">@L("True")</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinHospitalNotifiedDateTimeFilterId">@L("HospitalNotifiedDateTimeRange")</label>
+                            <div class="input-group">
+                                <input class="form-control m-input date-picker startDate date-picker-filter" type="text" placeholder="@L(" MinValue")" id="MinHospitalNotifiedDateTimeFilterId">
+                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                                <input class="form-control m-input date-picker endDate date-picker-filter" type="text" placeholder="@L(" MaxValue")" id="MaxHospitalNotifiedDateTimeFilterId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="ShiftTypeFilterId">@L("ShiftType")</label>
+                            <select class="form-select reload-on-change" name="ShiftTypeFilter" id="ShiftTypeFilterId">
+                                <option value="-1">@L("All")</option>
+                                <option value="0">@L("Enum_EnumSlotShiftType_0")</option>
+
+                                <option value="1">@L("Enum_EnumSlotShiftType_1")</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinBidStartDateTimeFilterId">@L("BidStartDateTimeRange")</label>
+                            <div class="input-group">
+                                <input class="form-control m-input date-picker startDate date-picker-filter" type="text" placeholder="@L(" MinValue")" id="MinBidStartDateTimeFilterId">
+                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                                <input class="form-control m-input date-picker endDate date-picker-filter" type="text" placeholder="@L(" MaxValue")" id="MaxBidStartDateTimeFilterId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinBidEndDateTimeFilterId">@L("BidEndDateTimeRange")</label>
+                            <div class="input-group">
+                                <input class="form-control m-input date-picker startDate date-picker-filter" type="text" placeholder="@L(" MinValue")" id="MinBidEndDateTimeFilterId">
+                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                                <input class="form-control m-input date-picker endDate date-picker-filter" type="text" placeholder="@L(" MaxValue")" id="MaxBidEndDateTimeFilterId">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="HospitalNameFilterId">(@L("Hospital")) @L("Name")</label>
+                            <input type="text" class="form-control" name="hospitalNameFilter" id="HospitalNameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MedicalUnitNameFilterId">(@L("MedicalUnit")) @L("Name")</label>
+                            <input type="text" class="form-control" name="medicalUnitNameFilter" id="MedicalUnitNameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-5">
+                        <button class="btn btn-secondary btn-sm" id="btn-reset-filters">Reset</button>
+                    </div>
+                </div>
+                <div class="d-flex flex-row">
+                    <div class="d-flex flex-column flex-basis-30">
+                        <div class="d-flex flex-row justify-content-evenly">
+                            <div>
+                                <button id="slotsSelectAll" type="button" class="btn-select-action"><span>@L("SelectAll")</span></button>
+                            </div>
+                            <div>
+                                <button id="slotsDeselectAll" type="button" class="btn-select-action"><span>@L("DeselectAll")</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column flex-basis-30">
+
+                    </div>
+                    <div class="d-flex flex-column flex-basis-40">
+                        <div class="d-flex flex-row justify-content-evenly ">
+
+                            <div>
+                                <button id="btnSlotClone" type="button" class="btn btn-success btnSlotActionMulti" disabled><span>@L("Clone")</span></button>
+                            </div>
+                            <div>
+                                <button id="btnSlotEdit" type="button" class="btn btn-success btnSlotAction" disabled><span>@L("Edit")</span></button>
+                            </div>
+                            <div>
+                                <button id="btnSlotDelete" type="button" class="btn btn-danger btnSlotActionMulti" disabled><span>@L("Delete")</span></button>
+                            </div>
+                            <div>
+                                <button id="btnSlotView" type="button" class="btn btn-success btnSlotAction" disabled><span>@L("View")</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <input name="select_all" value="1" type="checkbox" class="d-none">
+                    <table id="RotationSlotsTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>@L("SlotId")</th>
+                                <th>@L("HospitalName")</th>
+                                <th>@L("MedicalUnitName")</th>
+                                <th>@L("ShiftStartDate")</th>
+                                <th>@L("ShiftEndDate")</th>
+                                <th>@L("ShiftStartTime")</th>
+                                <th>@L("ShiftEndTime")</th>
+                                <th>@L("AvailableSlots")</th>
+
+                                @*  <th>@L("ShiftHours")</th>
+                                <th>@L("NotifyHospital")</th>
+                                <th>@L("HospitalNotifiedDateTime")</th>
+                                <th>@L("ShiftType")</th>
+                                <th>@L("BidStartDateTime")</th>
+                                <th>@L("BidEndDateTime")</th> *@
+
+
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,146 @@
+﻿
+@using System.Globalization
+@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.Records
+@using inzibackend.Web.Areas.App.Startup
+@model CreateOrEditRecordViewModel
+@using Abp.Extensions
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.Records;
+
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/Records/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+    var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/App/Records", L("Records")),
+        new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
+        };
+        }
+        <abp-page-subheader title='@(Model.IsEditMode ? (L("EditRecord")) : L("CreateNewRecord"))' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+
+        <div class="@(await GetContainerClass())">
+            <div class="card card-custom gutter-b">
+                <form name="RecordInformationsForm" role="form" novalidate class="form-validation">
+                    <div class="card-body">
+                        <div class="form">
+                            <div id="RecordInformationsTab">
+                                @if (Model.IsEditMode)
+                                {
+                                <input type="hidden" name="id" value="@Model.Record.Id" />
+                                }
+                            @{
+                                var _hideNameClass = "d-none";
+                                if (string.IsNullOrWhiteSpace(Model.Record.TenantDocumentCategoryId.ToString()) || Model.Record.TenantDocumentCategoryId == Guid.Empty)
+                                {
+                                    _hideNameClass = String.Empty;
+                                }
+                            }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="TenantDocumentCategoryName">@L("TenantDocumentCategory")</label>
+                                    <div class="input-group">
+                                        <input class="form-control" id="TenantDocumentCategoryName" name="tenantDocumentCategoryName" value="@Model.TenantDocumentCategoryName" type="text" disabled>
+                                        <button class="btn btn-primary blue" id="OpenTenantDocumentCategoryLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                        <button class="btn btn-danger btn-icon" type="button" id="ClearTenantDocumentCategoryNameButton"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+
+                                @if (Model.IsEditMode)
+                                {
+                                <input class="form-control" id="Record_TenantDocumentCategoryId" value="@Model.Record.TenantDocumentCategoryId" type="text" name="tenantDocumentCategoryId" hidden />
+                                }
+                                else
+                                {
+                                 if (Model.Record.TenantDocumentCategoryId != null || Model.Record.TenantDocumentCategoryId != Guid.Empty)
+                                {
+                                    <input class="form-control" id="Record_TenantDocumentCategoryId" value="@Model.Record.TenantDocumentCategoryId.ToString()" type="hidden" name="tenantDocumentCategoryId" hidden />
+                                }
+                                else
+                                {
+                                    <input class="form-control" id="Record_TenantDocumentCategoryId" value="" type="hidden" name="tenantDocumentCategoryId" hidden />
+                                }
+                                }
+
+                                <div class="my-3">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="inputGroupFileAddon01">@L("filedata")</span>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="Record_filedata" id="Record_filedata" aria-describedby="inputGroupFileAddon01" accept="@Model.filedataFileAcceptedTypes" />
+                                            <label class="custom-file-label" for="@L("filedata")" id="Record_filedataLabel">@L("ChooseAFile")</label>
+                                        </div>
+                                    </div>
+
+                                    <div id="div_current_file" style="background-color: #e5e5e5; padding: 5px @(Model.filedataFileName.IsNullOrEmpty()?" ;display:none":"")">
+                                        <span class="font-weight-bold">@L("CurrentFile") :</span>
+                                        <div class="alert alert-custom alert-white alert-bold m-1" role="alert">
+                                            <div class="alert-text">
+                                                <a href="@(" /File/DownloadBinaryFile?id=" + Model.Record.filedata)" target="_blank">@Model.filedataFileName</a>
+                                            </div>
+                                            <div class="alert-close">
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="Record_filedata_Remove">
+                                                    <span aria-hidden="true">
+                                                        <i class="la la-close fa-1x"></i>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="Record_filename">@L("filename")</label>
+                                    <input class="form-control" id="Record_filename" value="@Model.Record.filename" type="text" name="filename" />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="Record_physicalfilepath">@L("physicalfilepath")</label>
+                                    <input class="form-control" id="Record_physicalfilepath" value="@Model.Record.physicalfilepath" type="text" name="physicalfilepath" />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="Record_metadata">@L("metadata")</label>
+                                    <input class="form-control" id="Record_metadata" value="@Model.Record.metadata" type="text" name="metadata" />
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="Record_BinaryObjId">@L("BinaryObjId")</label>
+                                    <input class="form-control" id="Record_BinaryObjId" value="@Model.Record.BinaryObjId" type="text" name="binaryObjId" />
+                                </div>
+
+                                <div class="my-3 position-relative">
+                                    <label class="form-label" for="Record_DateUploaded">@L("DateUploaded")</label>
+                                    <input class="form-control m-input date-picker date-picker-filter" id="Record_DateUploaded" type="text" name="dateUploaded" value="@Model.Record.DateUploaded" />
+                                </div>
+
+                                <div class="my-3 position-relative">
+                                    <label class="form-label" for="Record_DateLastUpdated">@L("DateLastUpdated")</label>
+                                    <input class="form-control m-input date-picker date-picker-filter" id="Record_DateLastUpdated" type="text" name="dateLastUpdated" value="@Model.Record.DateLastUpdated" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12">
+                                <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                @if (!Model.IsEditMode)
+                                {
+                                <button type="button" id="saveAndNewBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>

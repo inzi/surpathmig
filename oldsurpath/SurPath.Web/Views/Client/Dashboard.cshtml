@@ -1,0 +1,163 @@
+﻿@model IEnumerable<SurPathWeb.Models.ClientDataModel>
+@using GridMvc.Html
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_ClientLayout.cshtml";
+    var sample = 0;
+}
+
+@section PageScript
+{
+    <script type="text/javascript">
+        
+        $(function () {
+            if ("@ViewBag.ServerErr" != "") {
+                $("#divServerErr").show().find("div").html("@ViewBag.ServerErr");
+            }
+            if ("@ViewBag.SuccessMsg" != "") {
+                $("#divSuccessMsg").show().find("div").html("@ViewBag.SuccessMsg");
+
+                if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
+                    setTimeout("$('#divSuccessMsg').hide();", 6000);
+                }
+                else {
+                    $("#divSuccessMsg").fadeOut(6000);
+                }
+            }
+
+            var element = document.getElementById('tab');
+            
+            if (element.offsetHeight > "900") {
+                $("#tab").css({ "max-height": "900px", "overflow-y": "scroll" });
+            }
+            else
+            {
+                $("#tab").css({ "max-height": "900px", "overflow-y": "hidden" });
+            }
+
+            $("#liDashboard").addClass("active");
+            $("#liDonorSearch").removeClass("active");
+            
+        });
+    </script>
+
+}
+
+@{using (Html.BeginForm())
+    {
+    <div class="container">
+        <div class="row top-buffer"></div>
+        <div style="display:none" class="alert alert-danger" role="alert" id="divServerErr">
+            <i class="fa fa-exclamation-triangle fa-1x"></i> @ViewBag.ServerErr
+        </div>
+        <div style="display:none" class="alert alert-success" role="alert" id="divSuccessMsg">
+            <i class="fa fa-check fa-1x"></i> @ViewBag.SuccessMsg
+        </div>
+        <div class="row top-buffer"></div>
+
+        <div class="table-responsive table-bordered table-hover fixed_headers" id="tab" >
+            
+                @Html.Grid(Model).Columns(columns =>
+       {
+
+           columns.Add(m => m.ClientName).Titled("Client Name").SetWidth(400).Css("text-left");
+           columns.Add(m => m.ClientDeparmentName).Titled("Client Department");
+           //columns.Add() /removing per david instuctions
+           //    .Encoded(false)
+           //    .Sanitized(false)
+           //    .RenderValueAs(m => Html.ActionLink(m.Registered, "DonorInfo", "Client", new { clientId = m.ClientID, departmentId = m.ClientDeparmentID, teststatus = "3" }, null))
+           //    .Titled("Pre-Registered")
+           //    .SetWidth(200)
+           //    .Css("text-center");
+           columns.Add()
+               .Encoded(false)
+               .Sanitized(false)
+               .RenderValueAs(m => Html.ActionLink(m.InQueue, "DonorInfo", "Client", new { clientId = m.ClientID, departmentId = m.ClientDeparmentID, teststatus = "4" }, null))
+               .Titled("In-Queue")
+               .SetWidth(100)
+               .Css("text-center");
+           columns.Add()
+          .Encoded(false)
+          .Sanitized(false)
+          .RenderValueAs(m => Html.ActionLink(m.Processing, "DonorInfo", "Client", new { clientId = m.ClientID, departmentId = m.ClientDeparmentID, teststatus = "6" }, null))
+          .Titled("Processing")
+          .SetWidth(100)
+          .Css("text-center");
+           columns.Add()
+          .Encoded(false)
+          .Sanitized(false)
+          .RenderValueAs(m => Html.ActionLink(m.Complete, "DonorInfo", "Client", new { clientId = m.ClientID, departmentId = m.ClientDeparmentID, teststatus = "7" }, null))
+          .Titled("Completed")
+          .SetWidth(100)
+          .Css("text-center");
+
+       }).WithPaging(100)
+           
+        </div>
+
+        <div class="row top-buffer"></div>
+        <div class="row top-buffer"></div>
+        <div class="row top-buffer"></div>
+        <div class="row top-buffer"></div>
+    </div>
+
+        }
+    }
+
+<style>
+.fixed_headers {
+  
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.fixed_headers th {
+  text-decoration: underline;
+}
+.fixed_headers th,
+.fixed_headers td {
+  padding: 5px;
+  /*text-align: left;*/
+}
+
+.fixed_headers thead {
+  background-color: darkgrey;
+  color: #fdfdfd;
+}
+.fixed_headers thead tr {
+  display: block;
+  position: relative;
+}
+.fixed_headers tbody {
+  display: block;
+  overflow: auto;
+  width:100%;
+  height: 350px;
+}
+.fixed_headers tbody tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.fixed_headers td:nth-child(1),
+.fixed_headers th:nth-child(1) {
+  min-width: 400px;
+}
+.fixed_headers td:nth-child(2),
+.fixed_headers th:nth-child(2) {
+  min-width: 400px;
+}
+.fixed_headers td:nth-child(3),
+.fixed_headers th:nth-child(3) {
+  width: 100px;
+
+}
+.fixed_headers td:nth-child(4),
+.fixed_headers th:nth-child(4) {
+  width: 100px;
+
+}
+.fixed_headers td:nth-child(5),
+.fixed_headers th:nth-child(5) {
+  width: 100px;
+
+}
+</style>

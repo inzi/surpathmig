@@ -1,0 +1,206 @@
+﻿@model SurPathWeb.Models.DonorProfileDataModel
+
+@{
+    ViewBag.Title = "DonorInfo";
+    Layout = "~/Views/Shared/_VendorLayout.cshtml";
+    int year = 1950;
+    int dobyear = Convert.ToInt32(DateTime.Now.Year) - year + 1;
+}
+
+@section PageScript
+{
+    <link href='@Url.Content("~/Content/themes/base/datepicker.css")' rel="stylesheet" type="text/css" />
+    <script src='@Url.Content("~/Scripts/bootstrap-datepicker.js")'></script>
+    <script src='@Url.Content("~/Scripts/jquery.maskedinput.min.js")'></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#DonorDOBDate").attr("disabled", true);
+            $("#DonorDOBMonth").attr("disabled", true);
+            $("#DonorDOBYear").attr("disabled", true);
+
+            $("#liDashboard").removeClass("active");
+            $("#liDonorInfo").addClass("active");
+            $("#liTestInfo").removeClass("active");
+            $("#liVendorSearch").removeClass("active");
+        });
+        $(function () {
+            if ("@ViewBag.ServerErr" != "") {
+                $("#divServerErr").show().find("div").html("@ViewBag.ServerErr");
+            }
+
+            $("#btnSave").click(function () {
+                $("#lblDateError").hide();
+                $("#DonorDOBDate").css('border', '');
+                $("#DonorDOBMonth").css('border', '');
+                $("#DonorDOBYear").css('border', '');
+
+                var e = $("form sup").parent().next(),
+                    status = true;
+
+                e.keydown(function () {
+                    ClearBorder(this.id);
+                });
+
+                if ((($("#DonorDOBDate").val() == "") || ($("#DonorDOBMonth").val() == "") || ($("#DonorDOBYear").val() == ""))) {
+                    if (($("#DonorDOBDate").val() == ""))
+                        $("#DonorDOBDate").css("border-color", "red");
+
+                    if ($("#DonorDOBMonth").val() == "")
+                        $("#DonorDOBMonth").css("border-color", "red");
+
+                    if ($("#DonorDOBYear").val() == "")
+                        $("#DonorDOBYear").css("border-color", "red");
+
+                    $("#lblDateError").show();
+                    status = false;
+                }
+
+                if ($("#DonorDOBDate").attr("disabled", true)) {
+                    $("#DonorDOBDate").attr("disabled", false);
+                    $("#DonorDOBMonth").attr("disabled", false);
+                    $("#DonorDOBYear").attr("disabled", false);
+                }
+
+                if ($("#SSN").attr("readonly")) {
+                    $("#SSN").val('@ViewBag.SSNSession');
+                }
+
+                if (!IsRequired(e.map(function () { return this.id }).get().join(','))) {
+                    status = false;
+                }
+
+                return status;
+            });
+
+            $("#btnNotify").click(function () {
+                SetNotify(false);
+
+
+            });
+            $("#btnNotifyNow").click(function () {
+                SetNotify(true);
+
+            })
+
+        });
+
+        function SetNotify(DoNow) {
+            @Model.NotifyModel.donor_test_info_id = @Model.DonorTestInfoId;
+
+             @Model.NotifyModel = DoNow;
+            $.post("NotifyDonor", @Model.NotifyModel, function (data) {
+                @Model.NotifyModel = data;
+            }).done(function () { })
+                .fail(function () {
+                    alert('There was a problem setting the notify!');
+                })
+        }
+
+        function enableFields() {
+
+            $("#FirstName").removeAttr("readonly");
+            $("#LastName").removeAttr("readonly");
+            $("#DonorDOBDate").attr("disabled", false);
+            $("#DonorDOBMonth").attr("disabled", false);
+            $("#DonorDOBYear").attr("disabled", false);
+            $("#SSN").removeAttr("readonly").val('@ViewBag.SSNSession');
+
+            $("#SSN").mask("999-99-9999");
+
+            $("#btnSave").show();
+
+            return false;
+        }
+
+    </script>
+}
+
+@{using (Html.BeginForm())
+    {
+        <div class="row top-buffer"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-centered">
+                    <label><sup>*</sup> First Name </label>
+                    @Html.TextBoxFor(m => m.FirstName, new
+                       {
+                           autocomplete = "off",
+                           @class = "form-control",
+                           placeholder = "Enter your First Name",
+                           data_ErrorMsg = "First Name can not be empty",
+                           @readonly = "readonly"
+                       })
+                    <span class="alert-danger" style="display: none"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-centered">
+                    <label><sup>*</sup> Last Name </label>
+                    @Html.TextBoxFor(m => m.LastName, new
+                       {
+                           autocomplete = "off",
+                           @class = "form-control",
+                           placeholder = "Enter your Last Name",
+                           data_ErrorMsg = "Last Name can not be empty",
+                           @readonly = "readonly"
+                       })
+                    <span class="alert-danger" style="display: none"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-centered" style="padding-left:initial">
+                    <div class="col-md-5 col-sm-5">
+                        <label><sup>*</sup>Date of Birth</label>
+                        <span> @Html.DropDownListFor(m => m.DonorDOBMonth, Enumerable.Range(01, 12).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "MM")</span>
+                        <span class="alert-danger" id="lblDateError" style="display:none">Select valid date</span>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <div class="row top-buffer"></div>
+                        <div class="row top-buffer"></div>
+                        <span> @Html.DropDownListFor(m => m.DonorDOBDate, Enumerable.Range(01, 31).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "dd")</span>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="row top-buffer"></div>
+                        <div class="row top-buffer"></div>
+                        <span>  @Html.DropDownListFor(m => m.DonorDOBYear, Enumerable.Range(year, dobyear).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "yyyy")</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-centered">
+                    <label><sup>*</sup> SSN </label>
+                    @Html.TextBoxFor(m => m.SSN, new
+                       {
+                           autocomplete = "off",
+                           @class = "form-control",
+                           placeholder = "Enter your SSN",
+                           data_ErrorMsg = "SSN can not be empty.",
+                           @readonly = "readonly"
+                       })
+                    @Html.HiddenFor(m => m.DonorTestInfoId)
+                    <span class="alert-danger" style="display: none"></span>
+                </div>
+            </div>
+            <div class="row top-buffer"></div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-5">
+
+                    <button id="btnSave" name="button" value="Submit" class="btn btn-primary">Save</button>
+                    <button id="btnEdit" name="button" value="Submit" class="btn btn-primary" onclick="return enableFields();">Edit</button>
+                </div>
+            </div>
+            @*<div class="row">
+                <div class="col-md-4 col-md-offset-5">
+
+                    <button id="btnNotify" name="button" value="Notify" class="btn btn-primary">Notify</button>
+                    <button id="btnNotifyNow" name="button" value="NotifyNow" class="btn btn-primary">Notify Now</button>
+                </div>
+            </div>*@
+        </div>
+
+        <div class="row top-buffer"></div>
+        <div class="row top-buffer"></div>
+    }
+}

@@ -1,0 +1,36 @@
+{
+  "profiles": {
+    "inzibackend.Migrator": {
+      "commandName": "Project"
+    },
+    "SUR-STAGING": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "SUR-STAGING",
+        "DOTNET_ENVIRONMENT": "SUR-STAGING"
+      }
+    },
+    "WVPS0968": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "WVPS0968",
+        "DOTNET_ENVIRONMENT": "WVPS0968"
+      }
+    },
+    "WIN10BC": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "WIN10BC",
+        "DOTNET_ENVIRONMENT": "WIN10BC"
+      }
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "environmentVariables": {
+        "ConnectionStrings__Default": "Server=mssqlDb;Database=inzibackendDb;User=sa;Password=Super_Encrypted_Passw0rd!",
+        "ASPNETCORE_Docker_Enabled": "true"
+      }
+    }
+
+  }
+}

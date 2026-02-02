@@ -1,0 +1,264 @@
+﻿@using inzibackend.Surpath;
+@using inzibackend.MultiTenancy.Payments;
+
+@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.LedgerEntries
+@model CreateOrEditLedgerEntryModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditLedgerEntry")) : L("CreateNewLedgerEntry")))
+@{
+    var _isReadOnly = "";
+    if (Model.IsEditMode)
+    {
+        _isReadOnly = "readonly";
+    }
+}
+
+<div class="modal-body">
+    <div id="LedgerEntryInformationsTab">
+        <form name="LedgerEntryInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.LedgerEntry.Id" />
+            }
+
+
+            <div class="my-3">
+                <label class="form-label" for="UserName">@L("User")</label>
+                <div class="input-group">
+                    <input class="form-control" id="UserName" name="userName" value="@Model.UserName" type="text" @_isReadOnly disabled>
+                    <button class="btn btn-primary blue" id="OpenUserLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearUserNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+
+            @if (Model.IsEditMode)
+            {
+                <input class="form-control" id="LedgerEntry_UserId" value="@Model.LedgerEntry.UserId" type="text" name="userId" hidden />
+            }
+            else
+            {
+                <input class="form-control" id="LedgerEntry_UserId" value="" type="text" name="userId" hidden />
+            }
+            <div class="d-none">
+
+                <div class="my-3">
+                    <label class="form-label" for="TenantDocumentName">@L("TenantDocument")</label>
+                    <div class="input-group">
+                        <input class="form-control" id="TenantDocumentName" name="tenantDocumentName" value="@Model.TenantDocumentName" type="text" disabled>
+                        <button class="btn btn-primary blue" id="OpenTenantDocumentLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                        <button class="btn btn-danger btn-icon" type="button" id="ClearTenantDocumentNameButton"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                @if (Model.IsEditMode)
+                {
+                    <input class="form-control" id="LedgerEntry_TenantDocumentId" value="@Model.LedgerEntry.TenantDocumentId" type="text" name="tenantDocumentId" hidden />
+                }
+                else
+                {
+                    <input class="form-control" id="LedgerEntry_TenantDocumentId" value="" type="text" name="tenantDocumentId" hidden />
+                }
+
+                <div class="my-3">
+                    <label class="form-label" for="CohortName">@L("Cohort")</label>
+                    <div class="input-group">
+                        <input class="form-control" id="CohortName" name="cohortName" value="@Model.CohortName" type="text" disabled>
+                        <button class="btn btn-primary blue" id="OpenCohortLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                        <button class="btn btn-danger btn-icon" type="button" id="ClearCohortNameButton"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+
+                @if (Model.IsEditMode)
+                {
+                    <input class="form-control" id="LedgerEntry_CohortId" value="@Model.LedgerEntry.CohortId" type="text" name="cohortId" hidden />
+                }
+                else
+                {
+                    <input class="form-control" id="LedgerEntry_CohortId" value="" type="text" name="cohortId" hidden />
+                }
+                <div class="my-3">
+                    <label class="form-label" for="LedgerEntry_Name">@L("Name")</label>
+                    <input class="form-control" id="LedgerEntry_Name" value="@Model.LedgerEntry.Name" type="text" name="name" />
+                </div>
+
+                @{
+                    var selectListServiceType = Html.GetEnumSelectList(typeof(EnumServiceType));
+                    foreach (var selectOption in selectListServiceType) { selectOption.Text = L("Enum_EnumServiceType_" + selectOption.Value); }
+                }
+                <div class="my-3">
+                    <label class="form-label" for="LedgerEntry_ServiceType">@L("ServiceType")</label>
+                    <select class="form-select m-input m-input--square" name="serviceType" id="LedgerEntry_ServiceType" asp-for="@Model.LedgerEntry.ServiceType" asp-items="@selectListServiceType">
+                    </select>
+                </div>
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_Amount">@L("Amount")</label>
+                <input class="form-control m-input" id="LedgerEntry_Amount" value="@Model.LedgerEntry.Amount.ToString(CultureInfo.InvariantCulture)" type="number" name="amount" />
+            </div>
+
+            <div class="my-3 d-none">
+                <label class="form-label" for="LedgerEntry_DiscountAmount">@L("DiscountAmount")</label>
+                <input class="form-control m-input" id="LedgerEntry_DiscountAmount" value="@Model.LedgerEntry.DiscountAmount.ToString(CultureInfo.InvariantCulture)" type="number" name="discountAmount" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_TotalPrice">@L("TotalPrice")</label>
+                <input class="form-control m-input" id="LedgerEntry_TotalPrice" value="@Model.LedgerEntry.TotalPrice.ToString(CultureInfo.InvariantCulture)" type="number" name="totalPrice" />
+            </div>
+            <div class="d-none">
+                @{
+                    var selectListPaymentPeriodType = Html.GetEnumSelectList(typeof(PaymentPeriodType));
+                    foreach (var selectOption in selectListPaymentPeriodType) { selectOption.Text = L("Enum_PaymentPeriodType_" + selectOption.Value); }
+                }
+                <div class="my-3">
+                    <label class="form-label" for="LedgerEntry_PaymentPeriodType">@L("PaymentPeriodType")</label>
+                    <select class="form-select m-input m-input--square" name="paymentPeriodType" id="LedgerEntry_PaymentPeriodType" asp-for="@Model.LedgerEntry.PaymentPeriodType" asp-items="@selectListPaymentPeriodType">
+                    </select>
+                </div>
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_ExpirationDate">@L("ExpirationDate")</label>
+                <input class="form-control m-input date-picker date-picker-filter" id="LedgerEntry_ExpirationDate" type="text" name="expirationDate" value="@Model.LedgerEntry.ExpirationDate" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_TransactionName">@L("TransactionName")</label>
+                <input class="form-control" id="LedgerEntry_TransactionName" value="@Model.LedgerEntry.TransactionName" type="text" name="transactionName" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_TransactionKey">@L("TransactionKey")</label>
+                <input class="form-control" id="LedgerEntry_TransactionKey" value="@Model.LedgerEntry.TransactionKey" type="text" name="transactionKey" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_TransactionId">@L("TransactionId")</label>
+                <input class="form-control" id="LedgerEntry_TransactionId" value="@Model.LedgerEntry.TransactionId" type="text" name="transactionId" />
+            </div>
+
+            <label class="form-check form-check-custom">
+                <input id="LedgerEntry_Settled" name="settled" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.LedgerEntry.Settled ?"checked=\"checked\"":"") />
+                <span class="form-check-label">
+                    @L("Settled")
+                </span>
+            </label>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_AmountDue">@L("AmountDue")</label>
+                <input class="form-control m-input" id="LedgerEntry_AmountDue" value="@Model.LedgerEntry.AmountDue.ToString(CultureInfo.InvariantCulture)" type="number" name="amountDue" />
+            </div>
+
+            <div class="my-3 d-none">
+                <label class="form-label" for="LedgerEntry_PaymentToken">@L("PaymentToken")</label>
+                <input class="form-control" id="LedgerEntry_PaymentToken" value="@Model.LedgerEntry.PaymentToken" type="text" name="paymentToken" />
+            </div>
+
+            <div class="my-3 d-none">
+                <label class="form-label" for="LedgerEntry_AuthNetCustomerProfileId">@L("AuthNetCustomerProfileId")</label>
+                <input class="form-control" id="LedgerEntry_AuthNetCustomerProfileId" value="@Model.LedgerEntry.AuthNetCustomerProfileId" type="text" name="authNetCustomerProfileId" />
+            </div>
+
+            <div class="my-3 d-none">
+                <label class="form-label" for="LedgerEntry_AuthNetCustomerPaymentProfileId">@L("AuthNetCustomerPaymentProfileId")</label>
+                <input class="form-control" id="LedgerEntry_AuthNetCustomerPaymentProfileId" value="@Model.LedgerEntry.AuthNetCustomerPaymentProfileId" type="text" name="authNetCustomerPaymentProfileId" />
+            </div>
+
+            <div class="my-3 d-none">
+                <label class="form-label" for="LedgerEntry_AuthNetCustomerAddressId">@L("AuthNetCustomerAddressId")</label>
+                <input class="form-control" id="LedgerEntry_AuthNetCustomerAddressId" value="@Model.LedgerEntry.AuthNetCustomerAddressId" type="text" name="authNetCustomerAddressId" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_AccountNumber">@L("AccountNumber")</label>
+                <input class="form-control" id="LedgerEntry_AccountNumber" value="@Model.LedgerEntry.AccountNumber" type="text" name="accountNumber" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_Note">@L("Note")</label>
+                <input class="form-control" id="LedgerEntry_Note" value="@Model.LedgerEntry.Note" type="text" name="note" />
+            </div>
+
+            <div class="my-3 d-none">
+                <label class="form-label" for="LedgerEntry_MetaData">@L("MetaData")</label>
+                <input class="form-control" id="LedgerEntry_MetaData" value="@Model.LedgerEntry.MetaData" type="text" name="metaData" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_AuthCode">@L("AuthCode")</label>
+                <input class="form-control" id="LedgerEntry_AuthCode" value="@Model.LedgerEntry.AuthCode" type="text" name="authCode" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_ReferenceTransactionId">@L("ReferenceTransactionId")</label>
+                <input class="form-control" id="LedgerEntry_ReferenceTransactionId" value="@Model.LedgerEntry.ReferenceTransactionId" type="text" name="referenceTransactionId" />
+            </div>
+
+            <div class="my-3 d-none">
+                <label class="form-label" for="LedgerEntry_TransactionHash">@L("TransactionHash")</label>
+                <input class="form-control" id="LedgerEntry_TransactionHash" value="@Model.LedgerEntry.TransactionHash" type="text" name="transactionHash" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_AccountType">@L("AccountType")</label>
+                <input class="form-control" id="LedgerEntry_AccountType" value="@Model.LedgerEntry.AccountType" type="text" name="accountType" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_TransactionCode">@L("TransactionCode")</label>
+                <input class="form-control" id="LedgerEntry_TransactionCode" value="@Model.LedgerEntry.TransactionCode" type="text" name="transactionCode" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_TransactionMessage">@L("TransactionMessage")</label>
+                <input class="form-control" id="LedgerEntry_TransactionMessage" value="@Model.LedgerEntry.TransactionMessage" type="text" name="transactionMessage" />
+            </div>
+
+            <div class="my-3 d-none">
+                <label class="form-label" for="LedgerEntry_AuthNetTransHashSha2">@L("AuthNetTransHashSha2")</label>
+                <input class="form-control" id="LedgerEntry_AuthNetTransHashSha2" value="@Model.LedgerEntry.AuthNetTransHashSha2" type="text" name="authNetTransHashSha2" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_AuthNetNetworkTransId">@L("AuthNetNetworkTransId")</label>
+                <input class="form-control" id="LedgerEntry_AuthNetNetworkTransId" value="@Model.LedgerEntry.AuthNetNetworkTransId" type="text" name="authNetNetworkTransId" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_PaidAmount">@L("PaidAmount")</label>
+                <input class="form-control m-input" id="LedgerEntry_PaidAmount" value="@Model.LedgerEntry.PaidAmount.ToString(CultureInfo.InvariantCulture)" type="number" name="paidAmount" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_PaidInCash">@L("PaidInCash")</label>
+                <input class="form-control m-input" id="LedgerEntry_PaidInCash" value="@Model.LedgerEntry.PaidInCash.ToString(CultureInfo.InvariantCulture)" type="number" name="paidInCash" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_AvailableUserBalance">@L("AvailableUserBalance")</label>
+                <input class="form-control m-input" id="LedgerEntry_AvailableUserBalance" value="@Model.LedgerEntry.AvailableUserBalance.ToString(CultureInfo.InvariantCulture)" type="number" name="availableUserBalance" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_CardNameOnCard">@L("CardNameOnCard")</label>
+                <input class="form-control" id="LedgerEntry_CardNameOnCard" value="@Model.LedgerEntry.CardNameOnCard" type="text" name="cardNameOnCard" required />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LedgerEntry_CardZipCode">@L("CardZipCode")</label>
+                <input class="form-control" id="LedgerEntry_CardZipCode" value="@Model.LedgerEntry.CardZipCode" type="text" name="cardZipCode" required />
+            </div>
+
+            <div class="my-3 d-none">
+                <label class="form-label" for="LedgerEntry_BalanceForward">@L("BalanceForward")</label>
+                <input class="form-control m-input" id="LedgerEntry_BalanceForward" value="@Model.LedgerEntry.BalanceForward.ToString(CultureInfo.InvariantCulture)" type="number" name="balanceForward" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

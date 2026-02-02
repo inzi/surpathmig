@@ -1,0 +1,79 @@
+﻿@model SurPathWeb.Models.RegistrationDataModel
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody">
+    <tr>
+        <td align="center" valign="top" style="padding-right:10px; padding-left:10px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="600" class="templateContainer">
+                <tr>
+                    <td align="center" valign="top">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" id="bodyBackground">
+                            <tr>
+                                <td valign="top" class="bodyContainer">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock">
+                                        <tbody class="mcnTextBlockOuter">
+                                            <tr>
+                                                <td valign="top" class="mcnTextBlockInner">
+
+                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
+                                                        <tbody>
+                                                            <tr>
+
+                                                                <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
+
+                                                                    <div style="text-align: left;">
+                                                                        Hello <span style="line-height:20.7999992370605px">@Model.FirstName&nbsp;</span>,<br />
+                                                                        <br />
+                                                                        Please find your payment details below <br /><br />
+                                                                        <table border="1" cellpadding="0" cellspacing="0" width="100%">
+                                                                            <tbody>
+                                                                                <tr style="text-align:center">
+                                                                                    <th> Program Name </th>
+                                                                                    <th> Total Price </th>
+                                                                                    <th> Payment Type</th>
+                                                                                </tr>
+                                                                                <tr style="text-align:center">
+                                                                                    <td> @Model.DepartmentName&nbsp; </td>
+                                                                                    <td> $&nbsp;@Model.Amount&nbsp; </td>
+                                                                                    <td> Credit Card/Debit Card </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <br />
+                                                                       
+
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnDividerBlock">
+                                        <tbody class="mcnDividerBlockOuter">
+                                            <tr>
+                                                <td class="mcnDividerBlockInner" style="padding: 18px;">
+                                                    <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-top-width: 1px;border-top-style: solid;border-top-color: #999999;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <span></span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

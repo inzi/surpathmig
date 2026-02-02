@@ -1,0 +1,75 @@
+﻿
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.RotationSlots
+@model RotationSlotViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="RotationSlotInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("SlotId") :</h6>
+                @Model.RotationSlot.SlotId
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("AvailableSlots") :</h6>
+                @Model.RotationSlot.AvailableSlots
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ShiftStartDate") :</h6>
+                @Model.RotationSlot.ShiftStartDate
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ShiftEndDate") :</h6>
+                @Model.RotationSlot.ShiftEndDate
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ShiftStartTime") :</h6>
+                @Model.RotationSlot.ShiftStartTime
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ShiftEndTime") :</h6>
+                @Model.RotationSlot.ShiftEndTime
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ShiftHours") :</h6>
+                @Model.RotationSlot.ShiftHours
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("NotifyHospital") :</h6>
+                @Model.RotationSlot.NotifyHospital
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("HospitalNotifiedDateTime") :</h6>
+                @Model.RotationSlot.HospitalNotifiedDateTime
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ShiftType") :</h6>
+                @L("Enum_EnumSlotShiftType_" + (int)Model.RotationSlot.ShiftType)
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("BidStartDateTime") :</h6>
+                @Model.RotationSlot.BidStartDateTime
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("BidEndDateTime") :</h6>
+                @Model.RotationSlot.BidEndDateTime
+            </div>
+
+            <div class="col-6 mb-3">
+                <h6>(@L("Hospital")) @L("Name") :</h6>
+                @Model.HospitalName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("MedicalUnit")) @L("Name") :</h6>
+                @Model.MedicalUnitName
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

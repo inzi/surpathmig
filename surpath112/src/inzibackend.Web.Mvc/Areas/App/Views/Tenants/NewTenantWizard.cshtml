@@ -1,0 +1,510 @@
+﻿@using Abp.Json
+@using Abp.Application.Services.Dto
+@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.Tenants
+@using inzibackend.Web.Areas.App.Startup
+@using inzibackend.MultiTenancy
+@using Abp.Authorization.Users
+@using inzibackend.Authorization.Users
+@using Abp.Zero.Configuration
+@using inzibackend.Net.Emailing
+@using Abp.Configuration
+
+@model CreateTenantViewModel
+@inject IEmailSettingsChecker EmailSettingsChecker
+
+@{
+    var isSMTPSettingsProvided = await EmailSettingsChecker.EmailSettingsValidAsync();
+}
+
+@{
+    ViewBag.CurrentPageName = AppPageNames.Host.Tenants;
+}
+<script>
+    window.passwordComplexitySetting = @Html.Raw(Model.PasswordComplexitySetting.ToJsonString(indented: true));
+</script>
+
+@section Styles
+{
+<link rel="stylesheet" abp-href="/view-resources/Areas/App/Views/_Bundles/tenant-list.css" asp-append-version="true" />
+}
+
+
+
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/Tenants/NewTenantWizard.js" asp-append-version="true"></script>
+}
+
+
+
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+
+
+    <div class="@(await GetContainerClass())">
+        <!--begin::Stepper-->
+        <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid gap-10" id="newTenantStepperWizard">
+            <!--begin::Aside-->
+            <div class="card d-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px w-xxl-400px">
+
+                <div class="card-body px-6 px-lg-10 px-xxl-15 py-20">
+
+
+                    <!--begin::Nav-->
+                    <div class="stepper-nav">
+                        <!--begin::Step 1-->
+                        <div class="stepper-item current" data-kt-stepper-element="nav">
+                            <!--begin::Wrapper-->
+                            <div class="stepper-wrapper d-flex">
+                                <!--begin::Icon-->
+                                <div class="stepper-icon w-40px h-40px">
+                                    <i class="stepper-check fas fa-check"></i>
+                                    <span class="stepper-number">1</span>
+                                </div>
+                                <!--end::Icon-->
+                                <!--begin::Label-->
+                                <div class="stepper-label">
+                                    <h3 class="stepper-title">@L("ClientInfo")</h3>
+                                    <div class="stepper-desc fw-semibold">@L("DefineMainClientInfo")</div>
+                                    <!--end::Label-->
+                                </div>
+                            </div>
+                            <!--end::Wrapper-->
+                            <!--begin::Line-->
+                            <div class="stepper-line h-40px"></div>
+                            <!--end::Line-->
+                        </div>
+                        <!--end::Step 1-->
+                        <!--begin::Step 2-->
+                        <div class="stepper-item" data-kt-stepper-element="nav">
+                            <!--begin::Wrapper-->
+                            <div class="stepper-wrapper d-flex">
+                                <!--begin::Icon-->
+                                <div class="stepper-icon w-40px h-40px">
+                                    <i class="stepper-check fas fa-check"></i>
+                                    <span class="stepper-number">2</span>
+                                </div>
+                                <!--begin::Icon-->
+                                <!--begin::Label-->
+                                <div class="stepper-label">
+                                    <h3 class="stepper-title">@L("CreateAdmin")</h3>
+                                    <div class="stepper-desc">@L("SetupClientAdminAccount")</div>
+                                </div>
+                                <!--end::Label-->
+                            </div>
+                            <!--end::Wrapper-->
+                            <!--begin::Line-->
+                            <div class="stepper-line h-40px"></div>
+                            <!--end::Line-->
+                        </div>
+                        <!--end::Step 2-->
+                        <!--begin::Step 3-->
+                        <div class="stepper-item" data-kt-stepper-element="nav">
+                            <!--begin::Wrapper-->
+                            <div class="stepper-wrapper d-flex">
+                                <!--begin::Icon-->
+                                <div class="stepper-icon w-40px h-40px">
+                                    <i class="stepper-check fas fa-check"></i>
+                                    <span class="stepper-number">3</span>
+                                </div>
+                                <!--begin::Icon-->
+                                <!--begin::Label-->
+                                <div class="stepper-label">
+                                    <h3 class="stepper-title">
+                                        @L("SelectEditionAndFeatures")
+                                    </h3>
+
+                                    <div class="stepper-desc">
+                                        @L("PickEditionAndFeatures")
+                                    </div>
+                                </div>
+                                <!--end::Label-->
+                            </div>
+                            <!--end::Wrapper-->
+                            <!--begin::Line-->
+                            <div class="stepper-line h-40px"></div>
+                            <!--end::Line-->
+                        </div>
+                        <!--end::Step 3-->
+                       @* <!--begin::Step 4-->
+                        <div class="stepper-item" data-kt-stepper-element="nav">
+                            <!--begin::Wrapper-->
+                            <div class="stepper-wrapper d-flex">
+                                <!--begin::Icon-->
+                                <div class="stepper-icon w-40px h-40px">
+                                    <i class="stepper-check fas fa-check"></i>
+                                    <span class="stepper-number">4</span>
+                                </div>
+                                <!--begin::Icon-->
+                                <!--begin::Label-->
+                                <div class="stepper-label">
+                                    <h3 class="stepper-title">
+                                        @L("ActiveClient")
+                                    </h3>
+
+                                    <div class="stepper-desc">
+                                        @L("ActiveClientSettings")
+                                    </div>
+                                </div>
+                                <!--end::Label-->
+                            </div>
+                            <!--end::Wrapper-->
+                            <!--begin::Line-->
+                            <div class="stepper-line h-40px"></div>
+                            <!--end::Line-->
+                        </div>
+                        <!--end::Step 4-->*@
+                    </div>
+                    <!--end::Nav-->
+                </div>
+
+            </div>
+            <!--end::Wrapper-->
+            <div class="card d-flex flex-row-fluid flex-center newTenantForm">
+
+
+                <!--begin::Form-->
+                <form class="form w-lg-500px mx-auto" novalidate="novalidate" id="NewTenantWizardStepperForm">
+                    <!--begin::Group-->
+                    <div class="mb-5">
+                        <!--begin::Step 1-->
+                        <div class="flex-column current step1NewTenantWizard" data-kt-stepper-element="content">
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <label for="Name" class="form-label">@L("Name")</label>
+                                <input id="Name" type="text" name="Name" class="form-control" required maxlength="@Tenant.MaxNameLength">
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <label for="TenancyName" class="form-label">@L("TenancyName")</label>
+                                <input id="TenancyName" class="form-control" type="text" name="TenancyName" required maxlength="@Tenant.MaxTenancyNameLength" regex="@Tenant.TenancyNameRegex">
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <label for="ClientCode" class="form-label">@L("ClientCode")</label>
+                                <input id="ClientCode" class="form-control" type="text" name="ClientCode" required maxlength="@Tenant.MaxTenancyNameLength" regex="@Tenant.TenancyNameRegex">
+                            </div>
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <label for="CreateTenant_IsActive" class="form-check form-check-custom form-check-solid">
+                                    <input id="CreateTenant_IsActive" type="checkbox" name="IsActive" class="form-check-input" value="true" checked="checked">
+                                    <span class="form-check-label">
+                                        @L("Active")
+                                    </span>
+                                </label>
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10 d-none">
+                                <div class="checkbox-list">
+                                    <label class="form-check form-check-custom form-check-solid mb-2">
+                                        <input id="CreateTenant_UseHostDb" type="checkbox" name="UseHostDb" class="form-check-input" value="true" checked="checked">
+                                        <span class="form-check-label">
+                                            @L("UseHostDatabase")
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10 d-none">
+                                <!--begin::Label-->
+                                <label for="ConnectionString" class="form-label">@L("DatabaseConnectionString")</label>
+                                <input id="ConnectionString" type="text" name="ConnectionString" class="form-control step2NewTenant" required maxlength="@Tenant.MaxConnectionStringLength">
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                        <!--begin::Step 1-->
+                        <!--begin::Step 2-->
+                        <div class="flex-column step2NewTenantWizard" data-kt-stepper-element="content">
+
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10 d-none">
+                                <!--begin::Label-->
+                                <label for="AdminName" class="form-label">@L("AdminName")</label>
+                                <input id="AdminName" type="text" name="AdminName" class="form-control step2NewTenant" required maxlength="@inzibackend.Authorization.Users.User.MaxNameLength" value="@inzibackend.Authorization.Users.User.AdminUserName">
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10 d-none">
+                                <!--begin::Label-->
+                                <label for="AdminSurname" class="form-label">@L("AdminSurname")</label>
+                                <input id="AdminSurname" type="text" name="AdminSurname" class="form-control step2NewTenant" required maxlength="@inzibackend.Authorization.Users.User.MaxSurnameLength" value="@inzibackend.Authorization.Users.User.AdminUserName">
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10 d-none">
+                                <!--begin::Label-->
+                                <label for="AdminEmailAddress" class="form-label">@L("AdminEmailAddress")</label>
+                                <input id="AdminEmailAddress" type="email" name="AdminEmailAddress" class="form-control step2NewTenant" value="notify@surscan.com" required maxlength="@inzibackend.Authorization.Users.User.MaxEmailAddressLength">
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10 d-none">
+                                <div class="checkbox-list">
+                                    <label class="form-check form-check-custom form-check-solid mb-2">
+                                        <input id="CreateTenant_SetRandomPassword" type="checkbox" name="SetRandomPassword" class="form-check-input step2NewTenant" value="true" checked="checked" />
+                                        <span class="form-check-label">
+                                            @L("SetRandomPassword")
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10 surpathadminpw no-hint tenant-admin-password d-none" style="display: none">
+                                <label for="CreateTenant_AdminPassword" class="form-label">@L("Password")</label>
+                                <input id="CreateTenant_AdminPassword" type="password" name="AdminPassword" class="form-control" maxlength="@inzibackend.Authorization.Users.User.MaxPlainPasswordLength" autocomplete="new-password">
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10 surpathadminpw tenant-admin-password d-none" style="display: none">
+                                <label for="AdminPasswordRepeat" class="form-label">@L("PasswordRepeat")</label>
+                                <input id="AdminPasswordRepeat" type="password" name="AdminPasswordRepeat" class="form-control" maxlength="@inzibackend.Authorization.Users.User.MaxPlainPasswordLength" equalto="#CreateTenant_AdminPassword" autocomplete="new-password">
+                            </div>
+                            <div class="fv-row mb-10">
+                                <h2>@L("CreateClientAdminUser")</h2>
+                            </div>
+
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <label for="UserAdminName" class="form-label">@L("FirstName")</label>
+                                <input id="UserAdminName" class="form-control" value="" type="text" name="UserAdminName" required maxlength="@inzibackend.Authorization.Users.User.MaxNameLength">
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <label for="UserAdminMiddlename" class="form-label">@L("MiddleName")</label>
+                                <input id="UserAdminMiddlename" class="form-control" value="" type="text" name="UserAdminMiddlename" maxlength="@inzibackend.Authorization.Users.User.MaxNameLength">
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <label for="UserAdminSurname" class="form-label">@L("Surname")</label>
+                                <input id="UserAdminSurname" type="text" name="UserAdminSurname" class="form-control" value="" required maxlength="@inzibackend.Authorization.Users.User.MaxSurnameLength">
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <label for="UserAdminEmailAddress" class="form-label">@L("EmailAddress")</label>
+                                <input id="UserAdminEmailAddress" type="email" name="UserAdminEmailAddress" class="form-control surpath-emailtousername" value="" required maxlength="@AbpUserBase.MaxEmailAddressLength">
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <label for="UserAdminPhoneNumber" class="form-label">@L("PhoneNumber")</label>
+                                <input id="UserAdminPhoneNumber" type="text" name="UserAdminPhoneNumber" class="form-control" value="" maxlength="@UserConsts.MaxPhoneNumberLength">
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <label for="UserAdminUserName" class="form-label">@L("UserName")</label>
+                                <div class="input-group">
+                                    <input id="UserAdminUserName" type="text" disabled="disabled" name="UserAdminUserName" class="form-control surpath-usernamefromemail" value="" required maxlength="@AbpUserBase.MaxUserNameLength">
+                                </div>
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <label for="UserAdminSetRandomPassword" class="form-check form-check-custom form-check-solid">
+                                    <input id="UserAdminSetRandomPassword" type="checkbox" name="UserAdminSetRandomPassword" class="form-check-input" value="true" checked="checked" />
+                                    <span class="form-check-label">
+                                        @L("SetRandomPassword")
+                                    </span>
+                                </label>
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10 user-password" style="display: none">
+                                <label for="UserAdminPassword" class="form-label">@L("Password")</label>
+                                <input id="UserAdminPassword" type="password" name="UserAdminPassword" class="form-control auto-complete-off" readonly onfocus="this.removeAttribute('readonly');"
+                                       maxlength="@inzibackend.Authorization.Users.User.MaxPlainPasswordLength" autocomplete="new-password">
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10 user-password" style="display: none">
+                                <label for="UserAdminPasswordRepeat" class="form-label">@L("PasswordRepeat")</label>
+                                <input id="UserAdminPasswordRepeat" type="password" name="UserAdminPasswordRepeat" class="form-control auto-complete-off" readonly onfocus="this.removeAttribute('readonly');"
+                                       maxlength="@inzibackend.Authorization.Users.User.MaxPlainPasswordLength" equalto="#UserAdminPassword" autocomplete="new-password">
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group (Admin account-->
+                            <div class="fv-row mb-10 d-none">
+                                <div class="checkbox-list">
+                                    <label for="CreateTenant_ShouldChangePasswordOnNextLogin" class="form-check form-check-custom form-check-solid mb-2">
+                                        <input id="CreateTenant_ShouldChangePasswordOnNextLogin" type="checkbox" name="ShouldChangePasswordOnNextLogin" class="form-check-input" value="false" checked="">
+                                        <span class="form-check-label">
+                                            @L("ShouldChangePasswordOnNextLogin")
+                                        </span>
+                                    </label>
+                                    <label for="CreateTenant_SendActivationEmail" class="form-check form-check-custom form-check-solid mb-2">
+                                        <input id="CreateTenant_SendActivationEmail" type="checkbox" name="SendActivationEmail" class="form-check-input" value="false" checked="">
+                                        <span class="form-check-label">
+                                            @L("SendActivationEmail")
+                                        </span>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <div class="checkbox-list">
+                                    <label for="UserAdminShouldChangePasswordOnNextLogin" class="form-check form-check-custom form-check-solid mb-2">
+                                        <input id="UserAdminShouldChangePasswordOnNextLogin" type="checkbox" name="ShouldChangePasswordOnNextLogin" class="form-check-input" value="true" checked="checked">
+                                        <span class="form-check-label">
+                                            @L("ShouldChangePasswordOnNextLogin")
+                                        </span>
+                                    </label>
+
+                                    @if (!isSMTPSettingsProvided)
+                                    {
+                                        <span class="form-text text-muted">@L("SMTPSettingsNotProvidedWarningText")</span>
+                                    }
+
+                                    <label for="UserAdminSendActivationEmail" class="form-check form-check-custom form-check-solid mb-2">
+                                        <input id="UserAdminSendActivationEmail" type="checkbox" name="SendActivationEmail" class="form-check-input" value="true" checked="checked">
+                                        <span class="form-check-label">
+                                            @L("SendActivationEmail")
+                                        </span>
+                                    </label>
+
+                                    <label for="UserAdminIsActive" class="form-check form-check-custom form-check-solid mb-2">
+                                        <input id="UserAdminIsActive" type="checkbox" name="IsActive" class="form-check-input" value="true" checked="checked">
+                                        <span class="form-check-label">
+                                            @L("Active")
+                                        </span>
+                                    </label>
+                                    @if (SettingManager.GetSettingValue<bool>(AbpZeroSettingNames.UserManagement.TwoFactorLogin.IsEnabled))
+                                    {
+                                        <label for="UserAdminIsTwoFactorEnabled" class="form-check form-check-custom form-check-solid mb-2">
+                                            <input id="UserAdminIsTwoFactorEnabled" type="checkbox" name="IsTwoFactorEnabled" class="form-check-input" value="true" checked="checked">
+                                            <span class="form-check-label">
+                                                @L("IsTwoFactorEnabled")
+                                            </span>
+                                        </label>
+                                    }
+                                    @if (SettingManager.GetSettingValue<bool>(AbpZeroSettingNames.UserManagement.UserLockOut.IsEnabled))
+                                    {
+                                        <label for="UserAdminIsLockoutEnabled" data-toggle="tooltip" title="@L("IsLockoutEnabled_Hint")" class="form-check form-check-custom form-check-solid mb-2">
+                                            <input id="UserAdminIsLockoutEnabled" type="checkbox" name="IsLockoutEnabled" class="form-check-input" value="true" checked="checked">
+                                            <span class="form-check-label">
+                                                @L("IsLockoutEnabled")
+                                            </span>
+                                        </label>
+                                    }
+                                </div>
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                        <!--begin::Step 2-->
+                        <!--begin::Step 3-->
+                        <div class="flex-column step3NewTenantWizard" data-kt-stepper-element="content">
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <label for="CreateTenant_IsDonorPay" class="form-check form-check-custom form-check-solid">
+                                    <input id="CreateTenant_IsDonorPay" type="checkbox" name="IsActive" class="form-check-input" value="false">
+                                    <span class="form-check-label">
+                                        @L("DonorPay")
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="fv-row mb-10 d-none">
+                                <label for="CreateTenant_IsDonorPerpetualPay" class="form-check form-check-custom form-check-solid">
+                                    <input id="CreateTenant_IsDonorPerpetualPay" type="checkbox" name="IsActive" class="form-check-input" value="false" readonly>
+                                    <span class="form-check-label">
+                                        @L("DonorPerpetualPay")
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="fv-row mb-10">
+                                <div class="mb-5 no-hint">
+                                    <label for="EditionId" class="form-label">@L("Edition")</label>
+                                    <select class="form-select" id="EditionId" name="EditionId">
+                                        @foreach (var edition in Model.EditionItems)
+                                        {
+                                            <option value="@edition.Value" data-isfree="@edition.IsFree">@edition.DisplayText</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10">
+                                <div class="checkbox-list subscription-component">
+                                    <label for="CreateTenant_IsUnlimited" class="form-check form-check-custom form-check-solid mb-2">
+                                        <input id="CreateTenant_IsUnlimited" type="checkbox" name="IsUnlimited" class="form-check-input" value="true" checked="checked" />
+                                        <span class="form-check-label">
+                                            @L("UnlimitedTimeSubscription")
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10 subscription-component">
+                                <label for="SubscriptionEndDateUtc" class="form-label">@L("SubscriptionEndDateUtc")</label>
+                                <input id="SubscriptionEndDateUtc" type="datetime" name="SubscriptionEndDateUtc" class="form-control date-time-picker" required>
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-10 subscription-component">
+                                <label for="CreateTenant_IsInTrialPeriod" class="form-check form-check-custom form-check-solid mb-2">
+                                    <input id="CreateTenant_IsInTrialPeriod" type="checkbox" name="IsInTrialPeriod" class="form-check-input" value="true" />
+                                    <span class="form-check-label">
+                                        @L("IsInTrialPeriod")
+                                    </span>
+                                </label>
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                        <!--begin::Step 3-->
+                      @*  <!--begin::Step 4-->
+                        <div class="flex-column step4NewTenantWizard" data-kt-stepper-element="content">
+                        </div>
+                        <!--begin::Step 4-->*@
+                    </div>
+                    <!--end::Group-->
+                    <!--begin::Actions-->
+                    <div class="d-flex flex-stack">
+                        <!--begin::Wrapper-->
+                        <div class="me-2">
+                            <button type="button" class="btn btn-light btn-active-light-primary" data-kt-stepper-action="previous">
+                                Back
+                            </button>
+                        </div>
+                        <!--end::Wrapper-->
+                        <!--begin::Wrapper-->
+                        <div>
+                            <button id="SubmitNewTenantWizard" type="button" class="btn btn-primary" data-kt-stepper-action="submit">
+                                <span class="indicator-label">
+                                    Submit
+                                </span>
+                                <span class="indicator-progress">
+                                    Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </span>
+                            </button>
+
+                            <button id="stepper_next_button" type="button" class="btn btn-primary" data-kt-stepper-action="next" disabled>
+                                Continue
+                            </button>
+                        </div>
+                        <!--end::Wrapper-->
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end::Form-->
+
+            </div>
+
+        </div>
+        <!--end::Stepper-->
+    </div>
+</div>

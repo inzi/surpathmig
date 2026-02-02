@@ -1,0 +1,35 @@
+﻿
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.Cohorts
+@model CohortViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="CohortInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("Name") :</h6>
+                @Model.Cohort.Name
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Description") :</h6>
+                @Model.Cohort.Description
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("DefaultCohort") :</h6>
+                @Model.Cohort.DefaultCohort
+            </div>
+
+            <div class="col-6 mb-3">
+                <h6>(@L("TenantDepartment")) @L("Name") :</h6>
+                @Model.TenantDepartmentName
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

@@ -1,0 +1,83 @@
+I have donors linking and unlinking
+
+but it needs to go to users?
+
+When a donor links, it rolls up - but if that donor doesn't have a user.. do we care?
+
+I need to check the donor linking by specimen ID and maybe lab code.  A donor could exist twice and have dual test info.
+
+When we add a file to report_info - we should try and tie it to a donor.
+
+reports feed into obr and obx tables.
+Each time, the old data is archived.
+
+need to check records that are in those tables where the report_info_id is not the max report_info_id for that file
+
+if we remove duplicate record info records, we need to remove obx and obr records, too.  They're duplicate data.
+
+donors and reports are linked by specimen ID.
+
+there are 1761 record_info rows with null specimen id.
+
+They are *all* file 2993129fc9bc4da620cba0767792e2c10368fba8
+inserted sometime in 2017
+They all have an empty RTF document.
+There are 135823 with an empty RTF documment.
+reportInfo.labreport =
+"{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang3081{\\fonttbl{\\f0\\fswiss\\fprq2\\fcharset0 Arial;}}\r\n{\\colortbl ;\\red0\\green0\\blue0;\\red255\\green255\\blue255;}\r\n\\viewkind4\\uc1\\pard\\plain\\f0\\fs20 \r\n}"
+
+need to make an EXE that will go through report_info and update the file blob with a new RTF with the specimen ID in it.
+
+I'm going to have to update created_on table. Still lost some data from backup - and I'll use lastupdate_on for that.
+
+report info's that are null can be deleted along with obr's and obx records.
+Then - we find the max of report_id's that are not an empty RTF
+Then we find all the report_ids of the same checksum that are not empty RTF
+
+it looks like pdf documents are added for donors?
+
+
+
+96638507.rpt generates empty RTF file.
+
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   at MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   at MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   at SurPath.MySQLHelper.SqlHelper.ExecuteReader(MySqlConnection connection, MySqlTransaction transaction, CommandType commandType, String commandText, MySqlParameter[] commandParameters, MySqlConnectionOwnership connectionOwnership) in C:\Dev\Techknowlegable\Surpath\SurPath.MySQLHelper\SqlHelper.cs:line 876
+   at SurPath.MySQLHelper.SqlHelper.ExecuteReader(MySqlTransaction transaction, CommandType commandType, String commandText, MySqlParameter[] commandParameters) in C:\Dev\Techknowlegable\Surpath\SurPath.MySQLHelper\SqlHelper.cs:line 1075
+   at SurPath.Data.HL7ParserDao.UpdateReport(ReportType reportType, ReportInfo reportDetails, List`1 obrList, RTFBuilderbase crlReport, Boolean archiveExistingReport, ReturnValues returnValues, String fileName, Int32 NumPassed, Int32 TotalTo) in C:\Dev\Techknowlegable\Surpath\SurPath.Data\HL7\HL7ParserDaoUpdate.cs:line 704
+
+
+02292020
+-- need rules from david
+
+*** I need to remove the file limit logic everywhere before deploying
+
+Parser needs a way to track what files come in when - so it always processes the latest for a test (specimen). 
+Then, when the parser picks up a file, it checks if that the sha1 for that file is the latest one for that specimen or is in it's history (have we touched it and is it's id the max for the specimen).
+If it's not in the list, it's newer. If it's in the list; we do nothing.
+
+When we clean up report info - we take the max id for a file hash with a final report id. If we have a final report id, and the test is closed - anything after that and before that are fair game
+if the specimen doesn't have a final report id, we keep the max id for that one.
+If there's a donor_info_id for a record, that's the max. 
+record_info's matched to a final report and a donor_info_id we treat as golden.
+
+report info's for a sp AND labreport checksum that are not max id, have no donor_info_id or final report_info_id and the test record is over 60 days old
+are *fair game*
+
+
+Elizabeth Holland
+donor id 72944
+dti id 87708
+final doc is 5412
+report ifo ids 1693214 and 1691771
+spec id 205001640
+sssn last 4 = 8470
+
+
+
+-------- Deploying parser update - 
+
+Must refresh PID table before restarting parser

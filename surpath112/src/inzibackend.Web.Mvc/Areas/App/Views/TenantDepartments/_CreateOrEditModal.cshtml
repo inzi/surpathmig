@@ -1,0 +1,50 @@
+﻿@using inzibackend.Surpath;
+
+@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.TenantDepartments
+@model CreateOrEditTenantDepartmentModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditTenantDepartment")) : L("CreateNewTenantDepartment")))
+
+<div class="modal-body">
+    <div id="TenantDepartmentInformationsTab">
+        <form name="TenantDepartmentInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.TenantDepartment.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="TenantDepartment_Name">@L("Name")</label>
+                <input class="form-control" id="TenantDepartment_Name" value="@Model.TenantDepartment.Name" type="text" name="name" required />
+            </div>
+
+            <label class="form-check form-check-custom">
+                <input id="TenantDepartment_Active" name="active" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.TenantDepartment.Active ?"checked=\"checked\"":"") />
+                <span class="form-check-label">
+                    @L("Active")
+                </span>
+            </label>
+
+            @{
+            var selectListMROType = Html.GetEnumSelectList(typeof(EnumClientMROTypes));
+            foreach (var selectOption in selectListMROType) { selectOption.Text = L("Enum_EnumClientMROTypes_" + selectOption.Value); }
+            }
+            <div class="my-3">
+                <label class="form-label" for="TenantDepartment_MROType">@L("MROType")</label>
+                <select class="form-select m-input m-input--square" name="mroType" id="TenantDepartment_MROType" asp-for="@Model.TenantDepartment.MROType" asp-items="@selectListMROType">
+                </select>
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="TenantDepartment_Description">@L("Description")</label>
+                <input class="form-control" id="TenantDepartment_Description" value="@Model.TenantDepartment.Description" type="text" name="description" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

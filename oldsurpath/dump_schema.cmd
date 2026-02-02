@@ -1,0 +1,1 @@
+mysqldump -u root -p -R --triggers -E --no-data surpathlive >%1

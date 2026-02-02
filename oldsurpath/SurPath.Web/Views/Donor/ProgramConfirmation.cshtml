@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Card Payment Confirmation";
+    Layout = "~/Views/Shared/_DonorLayout.cshtml";
+}
+
+@section PageScript
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            function disableBack() { window.history.forward() }
+
+            window.onload = disableBack();
+            window.onpageshow = function (evt) { if (evt.persisted) disableBack() }
+        });
+        $(function () {
+            if ("@ViewBag.ServerErr" != "") {
+                $("#divServerErr").show().find("div").html("@ViewBag.ServerErr");
+            }
+
+            $("#btnExit").click(function () {
+                @*window.location.href = "@Url.Action("Signout", "Authentication")";*@
+                window.location.href = "http://www.surscan.com";
+            });
+        });
+    </script>
+}
+
+@{using (Html.BeginForm())
+{
+    <div class="container">
+        <div style="display:none" class="alert alert-danger" role="alert" id="divServerErr">
+            <i class="fa fa-exclamation-triangle fa-1x"></i> @ViewBag.ServerErr
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="margin-top:100px;">
+                <h2 align="center" class="text-info">
+                    Registration Complete! <br>
+                    You have done all you are required to do at this time.
+                </h2>
+            </div>
+            <div class="row top-buffer"></div>
+            <div class="row">
+                <div class="col-md-1 col-md-offset-5" style="text-align:center;">
+                    <input type="button" class="btn btn-primary" value="Exit" id="btnExit" />
+                </div>
+            </div>
+        </div>
+        <div class="row top-buffer"></div>
+    </div>
+    <div class="row top-buffer"></div>
+    <div class="row top-buffer"></div>
+}
+}
+

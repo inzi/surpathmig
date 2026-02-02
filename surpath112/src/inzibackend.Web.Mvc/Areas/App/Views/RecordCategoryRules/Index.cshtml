@@ -1,0 +1,185 @@
+﻿@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.RecordCategoryRules
+@using inzibackend.Web.Areas.App.Startup
+@using Abp.MultiTenancy
+@using inzibackend.Features
+@model RecordCategoryRulesViewModel
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.RecordCategoryRules;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/RecordCategoryRules/Index.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    <abp-page-subheader title='@L("RecordCategoryRules")' description='@L("RecordCategoryRulesHeaderInfo")'>
+        <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+
+        @if (IsGranted(AppPermissions.Pages_RecordCategoryRules_Create))
+        {
+        <a href="\App\RecordCategoryRules\CreateOrEdit" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewRecordCategoryRule")</a>
+        }
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-xl-12">
+
+                            <div class="my-3">
+                                <div class="input-group">
+                                    <input type="text" id="RecordCategoryRulesTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                    <button id="GetRecordCategoryRulesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="NameFilterId">@L("Name")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="nameFilter" id="NameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="DescriptionFilterId">@L("Description")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="descriptionFilter" id="DescriptionFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="NotifyFilterId">@L("Notify")</label>
+                            <select class="form-select reload-on-change" name="NotifyFilter" id="NotifyFilterId">
+                                <option value="-1">@L("All")</option>
+                                <option value="0">@L("False")</option>
+                                <option value="1">@L("True")</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinExpireInDaysFilterId">@L("MinMax") @L("ExpireInDays")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MinValue")" name="minExpireInDaysFilter" id="MinExpireInDaysFilterId" />
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MaxValue")" name="maxExpireInDaysFilter" id="MaxExpireInDaysFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinWarnDaysBeforeFirstFilterId">@L("MinMax") @L("WarnDaysBeforeFirst")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MinValue")" name="minWarnDaysBeforeFirstFilter" id="MinWarnDaysBeforeFirstFilterId" />
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MaxValue")" name="maxWarnDaysBeforeFirstFilter" id="MaxWarnDaysBeforeFirstFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="ExpiresFilterId">@L("Expires")</label>
+                            <select class="form-select reload-on-change" name="ExpiresFilter" id="ExpiresFilterId">
+                                <option value="-1">@L("All")</option>
+                                <option value="0">@L("False")</option>
+                                <option value="1">@L("True")</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="RequiredFilterId">@L("Required")</label>
+                            <select class="form-select reload-on-change" name="RequiredFilter" id="RequiredFilterId">
+                                <option value="-1">@L("All")</option>
+                                <option value="0">@L("False")</option>
+                                <option value="1">@L("True")</option>
+                            </select>
+                        </div>
+                    </div>
+                    @if (AbpSession.MultiTenancySide == MultiTenancySides.Host)
+                    {
+                        <div class="col-md-3">
+                            <div class="my-3">
+                                <label class="form-label" for="IsSurpathOnlyFilterId">@L("IsSurpathOnly")</label>
+                                <select class="form-select reload-on-change" name="IsSurpathOnlyFilter" id="IsSurpathOnlyFilterId">
+                                    <option value="-1">@L("All")</option>
+                                    <option value="0">@L("False")</option>
+                                    <option value="1">@L("True")</option>
+                                </select>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <input type="hidden" id="IsSurpathOnlyFilter" value="0" />
+                    }
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinWarnDaysBeforeSecondFilterId">@L("MinMax") @L("WarnDaysBeforeSecond")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MinValue")" name="minWarnDaysBeforeSecondFilter" id="MinWarnDaysBeforeSecondFilterId" />
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MaxValue")" name="maxWarnDaysBeforeSecondFilter" id="MaxWarnDaysBeforeSecondFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinWarnDaysBeforeFinalFilterId">@L("MinMax") @L("WarnDaysBeforeFinal")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MinValue")" name="minWarnDaysBeforeFinalFilter" id="MinWarnDaysBeforeFinalFilterId" />
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L(" MaxValue")" name="maxWarnDaysBeforeFinalFilter" id="MaxWarnDaysBeforeFinalFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 d-none">
+                        <div class="my-3">
+                            <label class="form-label" for="MetaDataFilterId">@L("MetaData")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="metaDataFilter" id="MetaDataFilterId">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mt-5">
+                        <button class="btn btn-secondary btn-sm" id="btn-reset-filters">Reset</button>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <table id="RecordCategoryRulesTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th></th>
+
+                                <th>@L("Actions")</th>
+                                <th>@L("Name")</th>
+                                <th>@L("Description")</th>
+                                <th>@L("Notify")</th>
+                                <th>@L("ExpireInDays")</th>
+                                <th>@L("WarnDaysBeforeFirst")</th>
+                                <th>@L("Expires")</th>
+                                <th>@L("Required")</th>
+                                <th>@L("IsSurpathOnly")</th>
+                                <th>@L("WarnDaysBeforeSecond")</th>
+                                <th>@L("WarnDaysBeforeFinal")</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,437 @@
+{
+  "IsRegenerate": true,
+  "MenuPosition": "admin",
+  "RelativeNamespace": "Surpath",
+  "EntityName": "Hospital",
+  "EntityNamePlural": "Hospitals",
+  "TableName": "Hospitals",
+  "PrimaryKeyType": "int",
+  "BaseClass": "FullAuditedEntity",
+  "EntityHistory": true,
+  "AutoMigration": false,
+  "UpdateDatabase": false,
+  "CreateUserInterface": true,
+  "CreateViewOnly": true,
+  "CreateExcelExport": true,
+  "CreateExcelImport": true,
+  "IsNonModalCRUDPage": true,
+  "IsMasterDetailPage": false,
+  "GenerateOverridableEntity": false,
+  "GenerateUnitTest": true,
+  "GenerateUiTest": false,
+  "PagePermission": {
+    "Host": true,
+    "Tenant": true
+  },
+  "Properties": [
+    {
+      "Name": "Name",
+      "Type": "string",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": true,
+      "Nullable": false,
+      "Regex": "",
+      "IsMultiLingual": false,
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    },
+    {
+      "Name": "PrimaryContact",
+      "Type": "string",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": true,
+      "Nullable": false,
+      "Regex": "",
+      "IsMultiLingual": false,
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    },
+    {
+      "Name": "PrimaryContactPhone",
+      "Type": "string",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": true,
+      "Nullable": false,
+      "Regex": "",
+      "IsMultiLingual": false,
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    },
+    {
+      "Name": "PrimaryContactEmail",
+      "Type": "string",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "IsMultiLingual": false,
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    },
+    {
+      "Name": "Address1",
+      "Type": "string",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": true,
+      "Nullable": false,
+      "Regex": "",
+      "IsMultiLingual": false,
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    },
+    {
+      "Name": "Address2",
+      "Type": "string",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "IsMultiLingual": false,
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    },
+    {
+      "Name": "City",
+      "Type": "string",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": true,
+      "Nullable": false,
+      "Regex": "",
+      "IsMultiLingual": false,
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    },
+    {
+      "Name": "State",
+      "Type": "enumUSStates",
+      "MaxLength": 0,
+      "MinLength": 0,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "IsMultiLingual": false,
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    },
+    {
+      "Name": "ZipCode",
+      "Type": "string",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": true,
+      "Nullable": false,
+      "Regex": "",
+      "IsMultiLingual": false,
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    }
+  ],
+  "NavigationProperties": [],
+  "NavigationPropertyOneToManyTables": [],
+  "EnumDefinitions": [
+    {
+      "Name": "enumUSStates",
+      "Namespace": "inzibackend",
+      "EnumProperties": [
+        {
+          "Name": "AL",
+          "Value": 0
+        },
+        {
+          "Name": "AK",
+          "Value": 1
+        },
+        {
+          "Name": "AZ",
+          "Value": 2
+        },
+        {
+          "Name": "AR",
+          "Value": 3
+        },
+        {
+          "Name": "CA",
+          "Value": 4
+        },
+        {
+          "Name": "CO",
+          "Value": 5
+        },
+        {
+          "Name": "CT",
+          "Value": 6
+        },
+        {
+          "Name": "DE",
+          "Value": 7
+        },
+        {
+          "Name": "FL",
+          "Value": 8
+        },
+        {
+          "Name": "GA",
+          "Value": 9
+        },
+        {
+          "Name": "HI",
+          "Value": 10
+        },
+        {
+          "Name": "ID",
+          "Value": 11
+        },
+        {
+          "Name": "IL",
+          "Value": 12
+        },
+        {
+          "Name": "IN",
+          "Value": 13
+        },
+        {
+          "Name": "IA",
+          "Value": 14
+        },
+        {
+          "Name": "KS",
+          "Value": 15
+        },
+        {
+          "Name": "KY",
+          "Value": 16
+        },
+        {
+          "Name": "LA",
+          "Value": 17
+        },
+        {
+          "Name": "ME",
+          "Value": 18
+        },
+        {
+          "Name": "MD",
+          "Value": 19
+        },
+        {
+          "Name": "MA",
+          "Value": 20
+        },
+        {
+          "Name": "MI",
+          "Value": 21
+        },
+        {
+          "Name": "MN",
+          "Value": 22
+        },
+        {
+          "Name": "MS",
+          "Value": 23
+        },
+        {
+          "Name": "MO",
+          "Value": 24
+        },
+        {
+          "Name": "MT",
+          "Value": 25
+        },
+        {
+          "Name": "NE",
+          "Value": 26
+        },
+        {
+          "Name": "NV",
+          "Value": 27
+        },
+        {
+          "Name": "NH",
+          "Value": 28
+        },
+        {
+          "Name": "NJ",
+          "Value": 29
+        },
+        {
+          "Name": "NM",
+          "Value": 30
+        },
+        {
+          "Name": "NY",
+          "Value": 31
+        },
+        {
+          "Name": "NC",
+          "Value": 32
+        },
+        {
+          "Name": "ND",
+          "Value": 33
+        },
+        {
+          "Name": "OH",
+          "Value": 34
+        },
+        {
+          "Name": "OK",
+          "Value": 35
+        },
+        {
+          "Name": "OR",
+          "Value": 36
+        },
+        {
+          "Name": "PA",
+          "Value": 37
+        },
+        {
+          "Name": "RI",
+          "Value": 38
+        },
+        {
+          "Name": "SC",
+          "Value": 39
+        },
+        {
+          "Name": "SD",
+          "Value": 40
+        },
+        {
+          "Name": "TN",
+          "Value": 41
+        },
+        {
+          "Name": "TX",
+          "Value": 42
+        },
+        {
+          "Name": "UT",
+          "Value": 43
+        },
+        {
+          "Name": "VT",
+          "Value": 44
+        },
+        {
+          "Name": "VA",
+          "Value": 45
+        },
+        {
+          "Name": "WA",
+          "Value": 46
+        },
+        {
+          "Name": "WV",
+          "Value": 47
+        },
+        {
+          "Name": "WI",
+          "Value": 48
+        },
+        {
+          "Name": "WY",
+          "Value": 49
+        }
+      ]
+    }
+  ],
+  "DbContext": null
+}

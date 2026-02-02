@@ -1,0 +1,105 @@
+﻿@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.TenantDepartments
+@using inzibackend.Web.Areas.App.Startup
+@model TenantDepartmentsViewModel
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.TenantDepartments;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/TenantDepartments/Index.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    <abp-page-subheader title='@L("TenantDepartments")' description='@L("TenantDepartmentsHeaderInfo")'>
+        <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+
+        @if (IsGranted(AppPermissions.Pages_TenantDepartments_Create))
+        {
+        <button id="CreateNewTenantDepartmentButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewTenantDepartment")</button>
+        }
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-xl-12">
+
+                            <div class="my-3">
+                                <div class="input-group">
+                                    <input type="text" id="TenantDepartmentsTableFilter" class="form-control" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                    <button id="GetTenantDepartmentsButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="NameFilterId">@L("Name")</label>
+                            <input type="text" class="form-control" name="nameFilter" id="NameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label" for="ActiveFilterId">@L("Active")</label>
+                        <select class="form-select" name="ActiveFilter" id="ActiveFilterId">
+                            <option value="-1">@L("All")</option>
+                            <option value="0">@L("False")</option>
+                            <option value="1">@L("True")</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label" for="MROTypeFilterId">@L("MROType")</label>
+                        <select class="form-select" name="MROTypeFilter" id="MROTypeFilterId">
+                            <option value="-1">@L("All")</option>
+                            <option value="0">@L("Enum_EnumClientMROTypes_0")</option>
+
+                            <option value="1">@L("Enum_EnumClientMROTypes_1")</option>
+
+                            <option value="2">@L("Enum_EnumClientMROTypes_2")</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="DescriptionFilterId">@L("Description")</label>
+                            <input type="text" class="form-control" name="descriptionFilter" id="DescriptionFilterId">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row my-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <table id="TenantDepartmentsTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th></th>
+
+                                <th style="width:50px"></th>
+                                <th>@L("Actions")</th>
+                                <th>@L("Name")</th>
+                                <th>@L("Active")</th>
+                                <th>@L("MROType")</th>
+                                <th>@L("Description")</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

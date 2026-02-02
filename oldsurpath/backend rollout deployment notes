@@ -1,0 +1,144 @@
+deployment notes
+
+changed pw to 1.Babblefish.1
+
+copy zips to deploymenttemp
+extract both
+
+copy everything except config files
+
+in surpath.exe.config:
+
+update the connection string
+
+... database=surpathlive; convert zero datetime=True
+
+add to appsettings:
+
+    <add key="Production" value="false" />
+    <add key="TestEmailAddress" value="chris@inzi.com" />
+    <add key="SMSNotifications" value="true" />
+    <add key="TestPhone" value="2148019441" />
+	<add key="NotificationEmailTemplate" value="default_backend_email_template.xslt" />
+	<add key="serilog:using:RollingFile" value="Serilog.Sinks.RollingFile" />
+    <add key="serilog:write-to:RollingFile.pathFormat" value="C:\Logs\backend-service-{Date}.txt" />
+    <add key="serilog:write-to:RollingFile.retainedFileCountLimit" value="10" />
+    <add key="serilog:minimum-level" value="Debug" />
+	<add key="RunInterval" value="20" />
+Modify the log file name for web, service, and application.
+	
+add section groups before startup:
+
+  <configSections>
+    <sectionGroup name="PDFEngine">
+      <section name="PDFEngineSettings" type="System.Configuration.AppSettingsSection" />
+    </sectionGroup>
+    <sectionGroup name="SMSEngine">
+      <section name="SMSEngineSettings" type="System.Configuration.AppSettingsSection" />
+    </sectionGroup>
+
+  </configSections>
+	
+	
+add sections before system.web:
+  <PDFEngine>
+    <PDFEngineSettings>
+      <add key="PDFTemplateFolder" value=".\Templates" />
+      <add key="DefaultTemplate" value="Drug Screen Notificaiton Letter - Template.pdf" />
+      <add key="PDFConfigFolder" value=".\PDFConfig" />
+      <add key="DefaultRenderSettingsFile" value="Default Render Settings.json" />
+      <add key="BCC" value="" />
+      <add key="SendAllTo" value="" />
+      <add key="MaxResults" value="3" />
+      <add key="TopOfList" value="300" />
+      <add key="LeftOfList" value="75" />
+      <add key="MaxListHeight" value="400" />
+      <add key="MaxListWidth" value="450" />
+      <add key="FontName" value="Ariel" />
+      <add key="FontSize" value="12" />
+      <add key="DrawBox" value="false" />
+      <add key="BoxPadding" value="10" />
+      <add key="MROName" value="RANDY BARNETT DO" />
+      <add key="JSON_PDF_Services_To_Test_Mapping" value="{&quot;UA&quot;:&quot;UA Drug Screening (Collection Only)&quot;}" />
+    </PDFEngineSettings>
+  </PDFEngine>
+  <SMSEngine>
+    <SMSEngineSettings>
+      <add key="IgnoreUnknownSMSInbound" value="True" />
+      <add key="UnknownSMSResponseText" value="For more information on SurPath, visit surpath.com!" />
+    </SMSEngineSettings>
+  </SMSEngine>
+
+to the database:
+import zip_codes.sql
+	mysql -u root -p surpathlive < .\zip_codes.sql
+then tables
+	mysql -u root -p surpathlive < .\tables.sql
+Then run functions in toad
+
+then procedures in toad
+
+change colors in json so boxes don't have that yellow tint
+
+
+Install the service
+
+Create folders for templates
+Moves files to that folders
+update configs to use those folder paths
+update connection string
+
+For web:
+in web.config - add sections to configSections
+
+    <sectionGroup name="applicationSettings" type="System.Configuration.ApplicationSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <section name="SurpathBackend.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+    </sectionGroup>
+    <sectionGroup name="PDFEngine">
+      <section name="PDFEngineSettings" type="System.Configuration.NameValueSectionHandler" />
+    </sectionGroup>
+    <sectionGroup name="SMSEngine">
+      <section name="SMSEngineSettings" type="System.Configuration.NameValueSectionHandler" />
+    </sectionGroup>
+	
+and sections:
+ <PDFEngine>
+    <PDFEngineSettings>
+      <add key="PDFTemplateFolder" value="C:\Dev\Techknowlegable\Surpath\Surpath.Backend\SurpathBackend\Templates\" />
+      <add key="DefaultTemplate" value="Drug Screen Notificaiton Letter - Template.pdf" />
+      <add key="PDFConfigFolder" value="C:\Dev\Techknowlegable\Surpath\Surpath.Backend\SurpathBackend\PDFConfig\" />
+      <add key="DefaultRenderSettingsFile" value="Default Render Settings.json" />
+      <add key="BCC" value="" />
+      <add key="SendAllTo" value="" />
+      <add key="MaxResults" value="3" />
+      <add key="TopOfList" value="300" />
+      <add key="LeftOfList" value="75" />
+      <add key="MaxListHeight" value="400" />
+      <add key="MaxListWidth" value="450" />
+      <add key="FontName" value="Ariel" />
+      <add key="FontSize" value="12" />
+      <add key="DrawBox" value="false" />
+      <add key="BoxPadding" value="10" />
+      <add key="MROName" value="RANDY BARNETT DO" />
+      <add key="JSON_PDF_Services_To_Test_Mapping" value="{&quot;UA&quot;:&quot;UA Drug Screening (Collection Only)&quot;}" />
+    </PDFEngineSettings>
+  </PDFEngine>
+
+  <SMSEngine>
+    <SMSEngineSettings>
+      <add key="IgnoreUnknownSMSInbound" value="True" />
+      <add key="UnknownSMSResponseText" value="For more information on SurPath, visit surpath.com!" />
+    </SMSEngineSettings>
+  </SMSEngine>
+
+add to appsettings:
+    <add key="ClearStarReports" value="D:\APPREPORTS\SurPathReports\ClearStar\" />
+    <add key="DefaultSMSResponse" value="Thank you for your message. Please visit https://surpath.com for details" />
+    <add key="Production" value="false" />
+    <add key="TestEmailAddress" value="chris@inzi.com"/>
+    <add key="SMSNotifications" value="true"/>
+	
+Ensure 	"default_backend_email_template.xslt" is in the XSLTPath folder as defined in config
+	
+	
+Configure twilio webhook to proper url

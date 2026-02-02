@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\common.props"></Import>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>inzibackend</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+	  <PackageReference Include="Abp.Web.Common" Version="7.3.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\inzibackend.Core.Shared\inzibackend.Core.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Surpath\ComplianceManager\" />
+    <Folder Include="Surpath\Dtos\LegalDocuments\" />
+    <Folder Include="Surpath\Dtos\SessionDtos\" />
+    <Folder Include="Surpath\Purchase\" />
+  </ItemGroup>
+</Project>

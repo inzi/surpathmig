@@ -1,0 +1,49 @@
+﻿@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.Welcomemessages
+@model CreateOrEditWelcomemessageModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditWelcomemessage")) : L("CreateNewWelcomemessage")))
+
+<div class="modal-body">
+    <div id="WelcomemessageInformationsTab">
+        <form name="WelcomemessageInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.Welcomemessage.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="Welcomemessage_Title">@L("Title")</label>
+                <input class="form-control" id="Welcomemessage_Title" value="@Model.Welcomemessage.Title" type="text" name="title" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Welcomemessage_Message">@L("Message")</label>
+                @*                <input class="form-control" id="Welcomemessage_Message" value="@Model.Welcomemessage.Message" type="text" name="message" />*@
+                <textarea id="Welcomemessage_Message" class="form-control surpath_category_instructions" type="text" name="message">@Model.Welcomemessage.Message</textarea>
+            </div>
+
+            <label class="form-check form-check-custom">
+                <input id="Welcomemessage_IsDefault" name="isDefault" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.Welcomemessage.IsDefault ?"checked=\"checked\"":"") />
+                <span class="form-check-label">
+                    @L("IsDefault")
+                </span>
+            </label>
+
+            <div class="my-3">
+                <label class="form-label" for="Welcomemessage_DisplayStart">@L("DisplayStart")</label>
+                <input class="form-control m-input date-picker date-picker-filter" id="Welcomemessage_DisplayStart" type="text" name="displayStart" value="@Model.Welcomemessage.DisplayStart" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Welcomemessage_DisplayEnd">@L("DisplayEnd")</label>
+                <input class="form-control m-input date-picker date-picker-filter" id="Welcomemessage_DisplayEnd" type="text" name="displayEnd" value="@Model.Welcomemessage.DisplayEnd" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

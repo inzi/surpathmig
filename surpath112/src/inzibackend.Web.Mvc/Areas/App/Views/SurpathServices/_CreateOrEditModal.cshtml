@@ -1,0 +1,129 @@
+﻿
+@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.SurpathServices
+@using inzibackend.Features
+@model CreateOrEditSurpathServiceModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditSurpathService")) : L("CreateNewSurpathService")))
+
+<div class="modal-body">
+    <div id="SurpathServiceInformationsTab">
+        <form name="SurpathServiceInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.SurpathService.Id" />
+            }
+
+            <div class="my-3 d-none">
+                <label class="form-label" for="TenantDepartmentName">@L("TenantDepartment")</label>
+                <div class="input-group">
+                    <input class="form-control" id="TenantDepartmentName" name="tenantDepartmentName" value="@Model.TenantDepartmentName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenTenantDepartmentLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearTenantDepartmentNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="SurpathService_TenantDepartmentId" value="@Model.SurpathService.TenantDepartmentId" type="text" name="tenantDepartmentId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="SurpathService_TenantDepartmentId" value="" type="text" name="tenantDepartmentId" hidden />
+            }
+
+            <div class="my-3 d-none">
+                <label class="form-label" for="CohortName">@L("Cohort")</label>
+                <div class="input-group">
+                    <input class="form-control" id="CohortName" name="cohortName" value="@Model.CohortName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenCohortLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearCohortNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="SurpathService_CohortId" value="@Model.SurpathService.CohortId" type="text" name="cohortId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="SurpathService_CohortId" value="" type="text" name="cohortId" hidden />
+            }
+
+            <div class="my-3 d-none">
+                <label class="form-label" for="UserName">@L("User")</label>
+                <div class="input-group">
+                    <input class="form-control" id="UserName" name="userName" value="@Model.UserName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenUserLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearUserNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="SurpathService_UserId" value="@Model.SurpathService.UserId" type="text" name="userId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="SurpathService_UserId" value="" type="text" name="userId" hidden />
+            }
+
+       <div class="my-3">
+                @{
+                    var sl = new SelectList(Model.FeatureList, "Value", "DisplayText", string.IsNullOrEmpty(Model.SurpathService.FeatureIdentifier) ? "" : Model.SurpathService.FeatureIdentifier);
+                    @Html.DropDownList("FeatureIdentifier", sl, @L("MatchServiceToFeature"), new { @class="form-control", @id = "SurpathService_FeatureIdentifier"})
+                }
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="RecordCategoryRuleName">@L("RecordCategoryRule")</label>
+                <div class="input-group">
+                    <input class="form-control" id="RecordCategoryRuleName" name="recordCategoryRuleName" value="@Model.RecordCategoryRuleName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenRecordCategoryRuleLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearRecordCategoryRuleNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="SurpathService_RecordCategoryRuleId" value="@Model.SurpathService.RecordCategoryRuleId" type="text" name="recordCategoryRuleId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="SurpathService_RecordCategoryRuleId" value="" type="text" name="recordCategoryRuleId" hidden />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="SurpathService_Name">@L("Name")</label>
+                <input class="form-control" id="SurpathService_Name" value="@Model.SurpathService.Name" type="text" name="name" required />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="SurpathService_Price">@L("Price")</label>
+                <input class="form-control m-input" id="SurpathService_Price" value="@Model.SurpathService.Price.ToString(CultureInfo.InvariantCulture)" type="number" name="price" min="@inzibackend.Surpath.SurpathServiceConsts.MinPriceValue" max="@inzibackend.Surpath.SurpathServiceConsts.MaxPriceValue" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="SurpathService_Discount">@L("Discount")</label>
+                <input class="form-control m-input" id="SurpathService_Discount" value="@Model.SurpathService.Discount.ToString(CultureInfo.InvariantCulture)" type="number" name="discount" min="@inzibackend.Surpath.SurpathServiceConsts.MinDiscountValue" max="@inzibackend.Surpath.SurpathServiceConsts.MaxDiscountValue" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="SurpathService_Description">@L("Description")</label>
+                <input class="form-control" id="SurpathService_Description" value="@Model.SurpathService.Description" type="text" name="description" />
+            </div>
+
+            <label class="form-check form-check-custom">
+                <input id="SurpathService_IsEnabledByDefault" name="isEnabledByDefault" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.SurpathService.IsEnabledByDefault ?"checked=\"checked\"":"") />
+                <span class="form-check-label">
+                    @L("IsEnabledByDefault")
+                </span>
+            </label>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

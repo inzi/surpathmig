@@ -1,0 +1,39 @@
+﻿
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.TenantDocumentCategories
+@model TenantDocumentCategoryViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="TenantDocumentCategoryInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("Name") :</h6>
+                @Model.TenantDocumentCategory.Name
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Description") :</h6>
+                @Model.TenantDocumentCategory.Description
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("AuthorizedOnly") :</h6>
+                @Model.TenantDocumentCategory.AuthorizedOnly
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("HostOnly") :</h6>
+                @Model.TenantDocumentCategory.HostOnly
+            </div>
+
+            <div class="col-6 mb-3">
+                <h6>(@L("User")) @L("Name") :</h6>
+                @Model.UserName
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

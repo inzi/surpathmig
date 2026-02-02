@@ -1,0 +1,53 @@
+﻿@using inzibackend.Web.Areas.App.Startup
+@using inzibackend.Web.Areas.App.Models.Panels
+@model PanelViewModel
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Host.Panels;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/Panels/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+    var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/App/Panels", L("Panels")),
+        new BreadcrumbItem(L("Details")),
+        };
+        }
+        <abp-page-subheader title='@L("Details")' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+
+        <div class="@(await GetContainerClass())">
+            <div class=" card card-custom gutter-b">
+                <div class=" card-body">
+                    <div id="PanelInformationsTab">
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <h6>@L("Name") :</h6>
+                                @Model.Panel.Name
+                            </div>
+                            <div class="col-6 mb-3">
+                                <h6>@L("Cost") :</h6>
+                                @Model.Panel.Cost
+                            </div>
+                            <div class="col-6 mb-3">
+                                <h6>@L("Description") :</h6>
+                                @Model.Panel.Description
+                            </div>
+
+                            <div class="col-6 mb-3">
+                                <h6>(@L("TestCategory")) @L("Name") :</h6>
+                                @Model.TestCategoryName
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

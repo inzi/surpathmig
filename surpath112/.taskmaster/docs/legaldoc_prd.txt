@@ -1,0 +1,164 @@
+<context>
+# Overview  
+We need to add tenant-scoped Privacy Policy and Terms of Service documents to our ASP.NET Zero MVC/jQuery app.  
+These will allow each tenant to either upload an HTML/CSS file or specify a URL for each document, with built-in versioning and permission control.  
+Users will see links in the left menu only when a document is configured.
+ 
+
+# Core Features  
+1. Document Management  
+   - What: CRUD of "Privacy Policy" and "Terms of Service" per tenant.  
+   - Why: Tenants can present their own legal text.  
+   - How: Store metadata in a new `LegalDocument` table and binary content via existing file storage.  
+2. File Upload & URL Support  
+   - What: Upload `.html`/`.css` or reference an external URL.  
+   - Why: Flexibility for tenants to host docs internally or externally.  
+   - How: IFormFile + URL field; validate extensions/MIME; save via BinaryObjectManager. 
+3. Management of Documents
+   - What: See a `LegalDocuments` table in the user interface.  
+   - Why: Tenants need to manage their legal documents, view them, delete them, and get the URL to the document.  
+   - How: Get `LegalDocument` entities from the repository and binary content via existing file storage.  
+4. Versioning & Soft Delete  
+   - What: Each upload soft-deletes prior version but retains it in storage.  
+   - Why: Audit trail and rollback.  
+   - How: Mark previous records `IsSoftDeleted=true` when new record of same type is created.  
+5. Download Endpoint  
+   - What: Tenant users can download the latest file.  
+   - Why: Enable offline review.  
+   - How: Stream by uploaded document's id with correct MIME from a LegalDocuments controller.
+6. Permissions  
+   - What: Two new permissions (`View`, `CreateEdit`) under "Administration → Tenant → LegalDocuments."  
+   - Why: Control who can set or view.  
+   - How: Register in `AppAuthorizationProvider` + guard AppService and MVC endpoints.  
+7. Dynamic Menu Links  
+   - What: Show "Privacy Policy"/"Terms of Service" in sidebar only if configured.  
+   - Why: Simplify UI and avoid broken links.  
+   - How: Rely on asp.net zero's permission and navigation providers to for rendering.  
+8. External URL Support  
+   - What: Allow tenants to link to external legal documents.  
+   - Why: Flexibility for tenants to host docs externally.  
+   - How: If ExternalUrl is set, clicking the menu items opens in a new browser window navigating to the ExternalUrl.
+
+# User Experience  
+**Personas**  
+- Tenant Admin: Configures or updates legal docs.  
+- End User: Views/downloads policy via sidebar link.  
+
+**Flows**  
+1. Admin visits "Legal Documents" under Tenant Settings.  
+2. Chooses doc type, enters URL or uploads file(s).  
+3. Submits form; sees confirmation.  
+4. Left-menu now shows links "Privacy Policy" / "Terms of Service."  
+5. User clicks link, sees HTML rendered or external URL.  
+6. User may click "Download" to save local copy.  
+</context>
+
+# Important Things to remember
+- Base entities off FullAuditedEntity, IMayHaveTenant
+- asp.net zero handles soft delete with IsDeleted property
+- Follow the rules for all tasks and sub-tasks
+- Follow asp.net zero design patterns
+- Entities go in the Core project
+- DTOs go in the Application project
+- Application services go in the Application project
+- UI goes in the MVC project
+- Use jQuery for client-side code
+- Application services are automatically scaffolded into a bundle of scripts using gulp
+-- gulpfile "src/inzibackend.Web.Mvc/Gulpfile.js
+- localization is handled in the inzibackend.xml file
+-- Duplicate entries will cause the application to fail to start and must be avoided
+-- Reuse existing keys when possible
+- Examine the RecordsAppService and related objects and client scripts for proper pattern for uploading a file.
+-- LegalDocuments are not to the same as Record entities
+- Use the repository pattern for database Access
+-- Examine existing app services for patterns
+- Use the BinaryObjectManager for file storage
+</context>
+<PRD>
+# Technical Architecture  
+- **Components**  
+  - Domain: `LegalDocument` entity, `DocumentType` enum  
+  - Application: `LegalDocumentAppService` (Get, CreateOrUpdate)  
+  - UI: MVC Controller + Razor views + jQuery AJAX modals  
+  - Storage: EF Core SQL + BinaryObjectManager/blob storage  
+  - Permissions: `AppPermissions.Pages_Administration_LegalDocuments_View/CreateEdit`  
+  - Navigation: `AppModNavigationProvider`
+  - Localization: `AppModResource`  
+- **Data Models**  
+  ```csharp
+  enum DocumentType { PrivacyPolicy, TermsOfService }
+  public class LegalDocument : FullAuditedEntity<Guid>, IMayHaveTenant {
+    Guid FileId; // Unique identifier for viewing or downloading the file
+    DocumentType Type; // Enum PrivacyPolicy or TermsOfService
+    string ExternalUrl; // External URL for the document
+    string FileName; // Name of the actual file
+    string ViewUrl; // URL for viewing the document via the LegalDocuments controller, used in the view
+  }
+  ```
+- **APIs & Integrations**  
+  - AppService endpoints should follow the same pattern as other app services  
+    - `GetAll()`  
+    -- public async Task<PagedResultDto<GetLegalDocumentForViewDto>> GetAll(GetAllLegalDocumentsInput input)
+    - `GetLegalDocumentForView(int id)`  
+    -- public async Task<GetLegalDocumentForViewDto> GetLegalDocumentForView(GetLegalDocumentForViewInput input)
+    - `GetLegalDocumentForEdit(int id)`  
+    -- public async Task<GetLegalDocumentForEditDto> GetLegalDocumentForEdit(GetLegalDocumentForEditInput input)
+    - `CreateOrUpdate(CreateOrUpdateDto)`  
+    -- public async Task<CreateOrUpdateDto> CreateOrUpdate(CreateOrUpdateDto input)
+    - `Delete(EntityDto<Guid> input)`  
+    -- public async Task Delete(EntityDto<Guid> input)
+  - BinaryObjectManager for file persistence  
+  - Use gulp generated bundle of scripts services for client-side code
+  - DataTables is a modified version of the original DataTables library   
+- **Infrastructure**  
+  - Entity Framework Core is used
+  - The BinaryObjectManager handles file storage to local file system
+  - Permissions are defined in the AppPermissions class
+  - Access to pages by permission are defined in `AppAuthorizationProvider`
+  - Navigation is defined in `AppModNavigationProvider`, which is an override to the default navigation provider
+
+# Development Roadmap  
+**Phase 1: Foundation**
+- Create new entities and enums
+- DB migration & entity  
+- Permission constants & provider entries  
+
+**Phase 2: Backend Services**  
+- DTOs & AutoMapper  
+-- Remember to use .reverseMap() for AutoMapper  
+- `LegalDocumentAppService` logic (upload)  
+- Download streaming  
+
+**Phase 3: UI Implementation**  
+- Admin MVC views & jQuery modals  
+- Sidebar menu integration  
+- Public MVC view for rendering or redirecting to URL  
+
+**Phase 4: Validation, Security & Localization**  
+- File type checks, HTML sanitization  
+- Guard endpoints by permission  
+- Add L["PrivacyPolicy"], etc. to resource files  
+
+**Phase 5: Testing & Docs**  
+- Unit tests for AppService  
+- Manual tenant-level smoke tests  
+- Update README/tenant admin guide  
+
+# Logical Dependency Chain  
+1. **DB & Domain** → 2. **Permissions** → 3. **AppService** → 4. **File Storage Integration** → 5. **UI & Menu** → 6. **Testing & Docs**  
+
+# Risks and Mitigations  
+- **Invalid File Content**  
+  - Risk: Malicious HTML/CSS  
+  - Mitigation: Strict extension/MIME checks + sanitization  
+- **Broken Versioning**  
+  - Risk: Lost previous docs  
+  - Mitigation: Leverage FullAuditedEntity's isdeleted soft delete property  
+- **UI Confusion**  
+  - Risk: Admins mis-use upload vs. URL  
+  - Mitigation: Clear labels and help text in modal  
+- **Permission Misconfiguration**  
+  - Risk: Docs exposed publicly  
+  - Mitigation: Ensure Authorized or permissions attributes are used  
+
+</PRD>

@@ -1,0 +1,94 @@
+﻿
+@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.RecordNotes
+@model CreateOrEditRecordNoteModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditRecordNote")) : L("CreateNewRecordNote")))
+
+<div class="modal-body">
+    <div id="RecordNoteInformationsTab">
+        <form name="RecordNoteInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.RecordNote.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="RecordStateNotes">@L("RecordState")</label>
+                <div class="input-group">
+                    <input class="form-control" id="RecordStateNotes" name="recordStateNotes" value="@Model.RecordStateNotes" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenRecordStateLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearRecordStateNotesButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="RecordNote_RecordStateId" value="@Model.RecordNote.RecordStateId" type="text" name="recordStateId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="RecordNote_RecordStateId" value="" type="text" name="recordStateId" hidden />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="userId">@L("User")</label>
+                @Html.DropDownList("userId", new SelectList(Model.RecordNoteUserList,"Id","DisplayName", (Model.IsEditMode ? Model.RecordNote.UserId.ToString() : "")),@L("SelectAUser"), new { @class = "form-control" })
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="UserName2">@L("User")</label>
+                <div class="input-group">
+                    <input class="form-control" id="UserName2" name="userName2" value="@Model.UserName2" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenUser2LookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearUserName2Button"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="RecordNote_NotifyUserId" value="@Model.RecordNote.NotifyUserId" type="text" name="notifyUserId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="RecordNote_NotifyUserId" value="" type="text" name="notifyUserId" hidden />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="RecordNote_Note">@L("Note")</label>
+                <input class="form-control" id="RecordNote_Note" value="@Model.RecordNote.Note" type="text" name="note" required />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="RecordNote_Created">@L("Created")</label>
+                <input class="form-control m-input date-time-picker" id="RecordNote_Created" type="text" name="created" value="@Model.RecordNote.Created" />
+            </div>
+
+            <label class="form-check form-check-custom">
+                <input id="RecordNote_AuthorizedOnly" name="authorizedOnly" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.RecordNote.AuthorizedOnly ?"checked=\"checked\"":"") />
+                <span class="form-check-label">
+                    @L("AuthorizedOnly")
+                </span>
+            </label>
+
+            <label class="form-check form-check-custom">
+                <input id="RecordNote_HostOnly" name="hostOnly" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.RecordNote.HostOnly ?"checked=\"checked\"":"") />
+                <span class="form-check-label">
+                    @L("HostOnly")
+                </span>
+            </label>
+
+            <label class="form-check form-check-custom">
+                <input id="RecordNote_SendNotification" name="sendNotification" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.RecordNote.SendNotification ?"checked=\"checked\"":"") />
+                <span class="form-check-label">
+                    @L("SendNotification")
+                </span>
+            </label>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

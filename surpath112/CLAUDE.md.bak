@@ -1,0 +1,43 @@
+# CLAUDE.md - Coding Guidelines and Commands
+
+## Build Commands
+- .NET: `dotnet restore && dotnet build`
+- Web Frontend: `cd src/inzibackend.Web.Mvc && yarn && gulp buildDev`
+- Build & Publish: `build/build-mvc.ps1`
+- **Project to Build**: `inzibackend.Web.Mvc`
+
+## Test Commands
+- Run all tests: `dotnet test`
+- Run specific test: `dotnet test --filter "FullyQualifiedName=inzibackend.Tests.YourTestName"`
+- Test project: `test/inzibackend.Tests/inzibackend.Tests.csproj`
+
+## Code Style Guidelines
+- **Never modify** files in ABP7.3 or ANZ11.4 folders
+- When editing an entity, update the corresponding DTO as needed
+- JavaScript is bundled dynamically via `gulpfile.js` and `bundles.json`
+- C# Style: Follow standard C# conventions with proper XML documentation
+- Database: Refer to `sql/surpathv2schema.sql` for database structure
+
+## EntityFramework
+- Domain entities in `inzibackend.Core`
+- DTOs in `inzibackend.Application.Shared`
+- Services in `inzibackend.Application`
+- Database context in `inzibackend.EntityFrameworkCore`
+
+## Important notes about the environment
+- You run in an environment where `ast-grep` is available; whenever a search requires syntax-aware or structural matching, default to `ast-grep --lang rust -p '<pattern>'` (or set `--lang` appropriately) and avoid falling back to text-only tools like `rg` or `grep` unless I explicitly request a plain-text search.
+- The project to build is `inzibackend.Web.Mvc`
+
+## Domain Concepts
+- Remember that these are really targeting cohortuserids. A cohortuser is also a user, but a user is not necessarily a cohortuser
+- When checking for compliance, it finds the cohortuser by the userid in some cases, so they are used both ways
+
+## Documentation Structure
+
+The following folders have been documented with CLAUDE.md files:
+
+### src/
+- [src/inzibackend.Application/Common](src/inzibackend.Application/Common/CLAUDE.md)
+
+---
+*Documentation structure updated on 2025-09-26*

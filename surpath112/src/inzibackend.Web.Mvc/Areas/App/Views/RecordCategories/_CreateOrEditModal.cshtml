@@ -1,0 +1,59 @@
+﻿
+@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.RecordCategories
+@model CreateOrEditRecordCategoryModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditRecordCategory")) : L("CreateNewRecordCategory")))
+@{
+    var _lookupHideClass = string.Empty;
+    if (Model.HideRequirementLookup == true || ViewBag.nosave == true) _lookupHideClass = "d-none";
+}
+<div class="modal-body">
+    <div id="RecordCategoryInformationsTab">
+        <form name="RecordCategoryInformationsForm" role="form" novalidate class="form-validation">
+                    <input type="hidden" name="nosave" id="nosave" value="@ViewBag.nosave"/>
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.RecordCategory.Id" />
+            }
+
+            <div class="my-3 @_lookupHideClass">
+                <label class="form-label" for="RecordRequirementName">@L("RecordRequirement")</label>
+                <div class="input-group">
+                    <input class="form-control" id="RecordRequirementName" name="recordRequirementName" value="@Model.RecordRequirementName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenRecordRequirementLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearRecordRequirementNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="RecordCategory_RecordRequirementId" value="@Model.RecordCategory.RecordRequirementId" type="text" name="recordRequirementId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="RecordCategory_RecordRequirementId" value="@(Model.HideRequirementLookup == false ? "" : Model.RecordCategory.RecordRequirementId)" type="text" name="recordRequirementId" hidden />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="recordCategoryRuleId">@L("RecordCategoryRule")</label>
+                @Html.DropDownList("recordCategoryRuleId", new SelectList(Model.RecordCategoryRecordCategoryRuleList,"Id","DisplayName", (Model.IsEditMode ? Model.RecordCategory.RecordCategoryRuleId.ToString() : "")),@L("SelectARecordCategoryRule"), new { @class = "form-control" })
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="RecordCategory_Name">@L("Name")</label>
+                <input class="form-control" id="RecordCategory_Name" value="@Model.RecordCategory.Name" type="text" name="name" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="RecordCategory_Instructions">@L("Instructions")</label>
+                <input class="form-control" id="RecordCategory_Instructions" value="@Model.RecordCategory.Instructions" type="text" name="instructions" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

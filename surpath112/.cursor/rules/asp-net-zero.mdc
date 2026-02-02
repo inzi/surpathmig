@@ -1,0 +1,48 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+## ASP.NET Zero Documentation and Resources
+
+If this is an asp.net zero project, you can use ragdocs to find documentation for this version of asp.net zero. If you don't know how, ask ragdocs for how to identify the asp.net zero version. There are documents in ragdocs specific to asp.net zero, and you can specify the version in the metadata search for asp.net related documentation.
+
+When asked to generate documentation how to implement something you've just done, or if the implementation was particular complex, always use the ragdocs mcp server to generate a markdown document via the document_implementation_steps tool. Remember to show your generated steps to the user, first, before calling add_content_documentation.
+
+## **Critical: JSON Serialization and Property Casing**
+
+ASP.NET Zero automatically converts object property names from PascalCase (C#) to camelCase (JavaScript) in JSON responses:
+
+- **C# DTOs**: Use PascalCase (`TotalUsersCount`, `RequirementCategories`)
+- **JSON Response**: Automatically converted to camelCase (`totalUsersCount`, `requirementCategories`)
+- **JavaScript Access**: Must use camelCase property names
+
+### **Common Pitfall**
+```javascript
+// ❌ WRONG - Using PascalCase (C# naming)
+var userCount = result.TotalUsersCount;
+
+// ✅ CORRECT - Using camelCase (JSON naming)  
+var userCount = result.totalUsersCount;
+```
+
+### **ABP Service Proxy Response Structure**
+ASP.NET Zero wraps responses in a standard format, but the ABP service proxy automatically unwraps and returns only the `result` property:
+```json
+{
+    "result": { /* Your actual data in camelCase */ },
+    "success": true,
+    "error": null
+}
+```
+
+### **Debugging Property Names**
+Always log object keys when debugging:
+```javascript
+console.log('Available properties:', Object.keys(result));
+```
+
+### **Best Practices**
+- Use camelCase for all property access in JavaScript
+- Check ragdocs for "ASP.NET Zero JSON Serialization" for detailed examples
+- When creating JavaScript objects from server responses, maintain camelCase consistency

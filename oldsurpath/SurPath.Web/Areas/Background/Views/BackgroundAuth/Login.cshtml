@@ -1,0 +1,398 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Areas/Background/Views/Shared/_LayoutRegistration.cshtml";
+       
+}
+<style type="text/css">
+    p {
+        max-height: 200px;
+        overflow: auto;
+    }​;
+</style>
+@section PageScript
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            function disableBack() { window.history.forward() }
+
+            window.onload = disableBack();
+            window.onpageshow = function (evt) { if (evt.persisted) disableBack() }
+        });
+        $(function () {
+            // $('#divTermsOfServices').show();
+
+            if ("@ViewBag.ServerErr" != "") {
+                $("#divServerErr").show().find("div").html("@ViewBag.ServerErr");
+            }
+
+            if (localStorage.rememberme && localStorage.rememberme != '') {
+                $("#login-remember").attr('checked', 'checked');
+                $("#userName").val(localStorage.username);
+                $("#password").val(localStorage.password);
+            }
+            else {
+                $("#login-remember").removeAttr('checked');
+                $("#userName").val('');
+                $("#password").val('');
+            }
+
+            $("#login-remember").click(function () {
+                if ($("#login-remember").is(':checked')) {
+                    localStorage.username = $("#userName").val();
+                    localStorage.password = $("#password").val();
+                    localStorage.rememberme = $("#login-remember").val();
+                }
+                else {
+                    localStorage.username = '';
+                    localStorage.password = '';
+                    localStorage.rememberme = '';
+                }
+
+            });
+
+            $("#login-show-password").change(function () {
+
+                if ($(this).is(":checked")) {
+                    $("#password").attr('type', 'text');
+                    $("#password").attr('autocomplete', 'off');
+                }
+                else {
+                    $("#password").attr('type', 'password');
+                }
+            });
+
+            $("#submit").click(function () {
+                var e = $("form sup").parent().next(),
+                    status = true;
+
+                e.keydown(function () {
+                    ClearBorder(this.id);
+                });
+
+                if (!IsRequired(e.map(function () { return this.id }).get().join(','))) {
+                    status = false;
+                    $("#divServerErr").hide();
+                }
+
+                return status;
+            });
+        });
+
+        function showDiv(opt) {
+            if (opt == '1') {
+                $('#divTermsOfServices').show();
+                $('#divCustDisAgrement').hide();
+                $('#divPrivacyPolicy').hide();
+            }
+            else if (opt == '2') {
+                $('#divTermsOfServices').hide();
+                $('#divCustDisAgrement').show();
+                $('#divPrivacyPolicy').hide();
+            }
+            else {
+                $('#divTermsOfServices').hide();
+                $('#divCustDisAgrement').hide();
+                $('#divPrivacyPolicy').show();
+            }
+        }
+        function goToRegistration() {
+            window.location.href = "@Url.Action("PreRegistration", "Registration")";
+        }
+    </script>
+}
+
+@{using (Html.BeginForm())
+{
+    <div class="container">
+        @*<div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <div style="display:none" class="alert alert-danger" role="alert" id="divServerErr">
+                    <i class="fa fa-exclamation-triangle fa-1x"></i>@ViewBag.ServerErr
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <div class="panel-title">Sign In</div>
+                    </div>
+                    <div class="col-sm-6controls pull-right">
+                        <h5>Don't have a donor account? <a href="@Url.Action("PreRegistration", "Registration")" style="color:#ff0000;">Register here.</a></h5>
+                    </div>
+                    <div style="padding-top:30px" class="panel-body">
+                        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                        <label><sup>* </sup>Email Address </label>
+                        <input id="userName" type="text" class="form-control" data-errormsg="Email Address can not be empty<br>" name="userName" value="" placeholder="Enter your Email Address/User Name" autofocus>
+                        <span class="alert-danger" style="display: none"></span>
+
+                        <label><sup>* </sup>Password </label>
+                        <input id="password" type="password" class="form-control" data-errormsg="Password can not be empty" name="password" placeholder="Enter your password">
+                        <span class="alert-danger" style="display:none"></span>
+                        <div class="input-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input id="login-show-password" type="checkbox" name="Show password" value="1">
+                                    Show Password
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input id="login-remember" type="checkbox" name="remember" value="1">
+                                    Remember me
+                                </label>
+                            </div>
+                        </div>
+                        <div style="margin-top:10px" class="form-group">
+                            <!-- Button -->
+                            <div class="col-sm-6 col-md-8 controls">
+                                <button id="submit" name="button" value="Submit" class="button">Submit</button>
+                                <span><a href="@Url.Action("ForgotPassword", "Authentication")" style="font-size:12px; padding-left:38px;">Forgot Password?</a></span>
+                            </div>
+                        </div>
+                        <!-- Login End Here -->
+                    </div>
+                </div>
+            </div>*@
+
+        <div class="container">
+            <div style="display:none" class="col-md-8 col-centered alert alert-danger text-center" role="alert" id="divServerErr">
+                <i class="fa fa-exclamation-triangle fa-1x"></i>@ViewBag.ServerErr
+            </div>
+            <div>
+                <div class="row">
+                    <div  logo-push">
+                        <h2><img src="~/Images/background.jpg" /></h2>
+                    </div>
+                    </div>
+                <div class="row">
+                    <div>
+                        @*<h2 class="omb_authTitle" style="color:#cd2028;">Sur<span style="color:#00579b;">Path</span></h2>*@
+                        <h4 class="omb_authTitle"><span class="span-bl">Surscan Background Secure Login</span></h4>
+                    </div>
+                </div>
+                <div>
+                    <form class="omb_login" action="" autocomplete="off" method="POST">
+                        <div class="row">
+                            <div >
+                                <label><sup>*</sup>Email address / User name </label>
+                                <input id="userName" type="text" class="form-control" data-errormsg="Email address can not be empty<br>" name="userName" value="" placeholder="Enter your Email address / User name" autofocus>
+                                <span class="alert-danger" style="display: none"></span>
+                            </div>
+                            <div>
+                                <label><sup>*</sup>Password </label>
+                                <input id="password" type="password" class="form-control" data-errormsg="Password can not be empty" name="password" placeholder="Enter your Password">
+                                <span class="alert-danger" style="display:none"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <label>
+                                    <input id="login-show-password" type="checkbox" name="Show password" value="1">
+                                    Show Password
+                                </label>
+                            </div>
+                            <div>
+                                <p class="omb_forgotPwd"> <a href="@Url.Action("ForgotPassword", "Authentication")">Forgot Password?</a> </p>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <label class="checkbox-inline">
+                                    <input id="login-remember" type="checkbox" name="remember" value="1">
+                                    Remember me
+                                </label>
+                            </div>
+                        </div>
+                        <div >
+                            <div >
+                                <button id="submit" name="button" value="Submit" class="btn btn-primary">Login</button>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div  style="display:none">
+                    <div >
+                        <hr class="omb_hrOr">
+                        <span class="omb_spanOr">or</span>
+                    </div>
+                </div>
+                <div  style="display:none">
+                    <div class="col-xs-12 col-sm-4 col-sm-offset-4 col-md-3">
+                        <h4 class="omb_authTitle">New Customer</h4>
+                    </div>
+                    <div class="row top-buffer"></div>
+                    <div class="row omb_row">
+                        @*<div class="col-xs-5 col-sm-5 col-md-10 col-md-offset-4">
+    <a href="@Url.Action("PreRegistration", "Registration")" class="button">Create an account</a>
+                            </div>*@
+                        <div class="col-xs-6 col-xs-offset-1 col-sm-3 col-sm-offset-4 col-md-2 col-md-offset-4">
+                            <input type="button" class="btn btn-primary" value="Create an Account" onclick="goToRegistration()" style="margin-left:56px;">
+                        </div>
+                    </div>
+                    <div class="row top-buffer"></div>
+                    <div class="row top-buffer"></div>
+                    <div class="row">
+                        <div class=" col-sm-8 col-sm-offset-5 col-md-7 buffer-left">
+                            <p class="omb_forgotPwd"> <a onclick="showDiv('1')" style="cursor: pointer">Terms of Service</a> | <a onclick="showDiv('2')" style="cursor: pointer">Legal Disclaimer</a> | <a onclick="showDiv('3')" style="cursor: pointer">Privacy Policy</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row top-buffer"></div>
+                <div id="divTermsOfServices" style="display: none; height: 300px; overflow-y: scroll; ">
+                    <h2 style="border-bottom: dotted 1px;" class="text-uppercase">Terms of Service</h2>
+                    <p>
+                        <h3>1. Terms</h3>
+                    <p>By accessing this web site, you are agreeing to be bound by these web site Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this web site are protected by applicable copyright and trade mark law.</p>
+                    <h3> 2. Use License </h3>
+                    <p>
+                        a.	Permission is granted to temporarily download one copy of the materials (information or software) on SurScan, Inc.'s web site for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:<br/>
+                        i.	modify or copy the materials;<br />
+                        ii.	use the materials for any commercial purpose, or for any public display (commercial or non-commercial);<br />
+                        iii.	attempt to decompile or reverse engineer any software contained on SurScan, Inc.'s web site;<br />
+                        iv.	remove any copyright or other proprietary notations from the materials; or<br />
+                        v.	transfer the materials to another person or "mirror" the materials on any other server.<br />
+                        b.	This license shall automatically terminate if you violate any of these restrictions and may be terminated by SurScan, Inc. at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format.<br />
+                    </p>
+                    <h3>3. Disclaimer</h3>
+                    <p>
+                        a.	The materials on SurScan, Inc.'s web site are provided "as is". SurScan, Inc. makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, SurScan, Inc. does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its Internet web site or otherwise relating to such materials or on any sites linked to this site.
+                    </p>
+                    <h3> 4. Limitations</h3>
+                    <p>
+                        In no event shall SurScan, Inc. or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on SurScan, Inc.'s Internet site, even if SurScan, Inc. or a SurScan, Inc. authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.
+                    </p>
+                    <h3> 5. Revisions and Errata </h3>
+                    <p>
+                        The materials appearing on SurScan, Inc.'s web site could include technical, typographical, or photographic errors. SurScan, Inc. does not warrant that any of the materials on its web site are accurate, complete, or current. SurScan, Inc. may make changes to the materials contained on its web site at any time without notice. SurScan, Inc. does not, however, make any commitment to update the materials.
+                    </p>
+                    <h3> 6. Links </h3>
+                    <p>
+                        SurScan, Inc. has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by SurScan, Inc. of the site. Use of any such linked web site is at the user's own risk.
+                    </p>
+                    <h3> 7. Site Terms of Use Modifications </h3>
+                    <p>
+                        SurScan, Inc. may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.
+                    </p>
+                    <h3>8. Governing Law </h3>
+                    <p>
+                        Any claim relating to SurScan, Inc.'s web site shall be governed by the laws of the State of Texas without regard to its conflict of law provisions.
+                        <br /><br />
+                        General Terms and Conditions applicable to Use of a Web Site.
+                    </p>
+                </div>
+                <div id="divCustDisAgrement" style="display: none; height: 300px; overflow-y: scroll;">
+                    <h2 style="border-bottom: dotted 1px;" class="text-uppercase">LEGAL DISCLAIMERS</h2>
+                       <p>
+                            <span style="font-weight: bold">Copyright</span><br>
+                            Information and content contained in this site is Copyright © 2016 SurScan. All  Rights Reserved.
+                        </p>
+                        <p>
+                            <span style="font-weight: bold">Content</span> <br>
+                            Every reasonable effort has been made to ensure the accuracy of the information  and content on this site. However, SurScan assumes no responsibility for the  accuracy of the information. SurScan disclaims any obligation or duty to update  any information contained in this site. Any changes will be made at SurScan’s  sole discretion at any time without notice. All content on this site, including  text, graphics, logos, icons, images, audio clips, and software, is the  property of SurScan or its content suppliers. The compilation (meaning the  collection, arrangement, and assembly) of all content on this site is the  exclusive property of SurScan. All software used on this site is the property  of SurScan or its software suppliers. Each of the foregoing is protected by U.S. and  international copyright laws and treaty provisions. The content on this site  may not be used, copied, reproduced, modified, published, uploaded, posted,  transmitted or distributed in any way, without the prior written consent of SurScan.  Descriptions of, or references to, products, services or publications within SurScan’s  web server does not imply endorsement of that product, service or publication.
+                        </p>
+                        <p>
+                            <span style="font-weight: bold">Trademarks</span><br>
+                            SurScan is a trademark of Aurora Medical Systems, Inc. All other trademarks,  service marks, registered trademarks, or registered service marks contained  herein the property of their respective owners. The SurScan trademarks may not  be used in connection with any product or service that is not owned by SurScan  in any manner that is likely to cause confusion among customers or in any  manner that disparages or discredits SurScan.
+                        </p>
+                        <p>
+                            <span style="font-weight: bold">Disclaimer</span><br>
+                            THIS SITE AND ITS CONTENT ARE PROVIDED BY SURSCAN ON AN "AS IS"  BASIS. SURSCAN MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY KIND, EXPRESS OR  IMPLIED, AS TO THE OPERATION OF THE SITE, THE INFORMATION, CONTENT, MATERIALS,  OR PRODUCTS INCLUDED ON THIS SITE. SURSCAN, TO THE FULL EXTENT PERMISSIBLE BY  APPLICABLE LAW, DISCLAIMS ALL WARRANTIES, EXPRESS, IMPLIED, OR OTHERWISE,  INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR  A PARTICULAR PURPOSE AND NON-INFRINGEMENT OR NON-CONVERSION OF ANY THIRD-PARTY  RIGHT OR PROPERTY. SURSCAN WILL NOT BE LIABLE FOR ANY DAMAGES OF ANY KIND  ARISING FROM THE USE OF THIS SITE, INCLUDING BUT NOT LIMITED TO DIRECT,  INDIRECT, INCIDENTAL PUNITIVE, AND CONSEQUENTIAL DAMAGES OR ANY DAMAGES  RESULTING FROM RELIANCE ON THE CONTENT OR INFORMATION PROVIDED, LOSS OF  PROFITS, LOST DATA, OR LOSS OF USE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH  DAMAGES IN ADVANCE. <br>
+                        </p>
+                        <p>
+                            <span style="font-weight: bold">Applicable Law</span><br>
+                            This site is created and controlled by SurScan in the state of Texas, USA.  As such, the laws of the Texas will govern  these disclaimers, terms and conditions, without reference to any principles of  Texas laws  concerning the conflicts of laws. We reserve the right to make changes to our  site and to these disclaimers, terms, and conditions at any time.<br>
+                            Compliance with Applicable Laws and Export Control Laws<br>
+                            Use of this Web site is governed by all applicable federal, state, and local  laws. All information available on this site is subject to U.S. export  control laws and may also be subject to the laws of the country where you  reside. SurScan makes no representation that the content on this site is  appropriate or available for use in other locations, and access to it from  territories where the content is illegal and prohibited.
+                        </p>
+                        <p>
+                            <span style="font-weight: bold">
+                                General<br>
+                            </span>SurScan may revise this notice at anytime by updating this posting. You should  visit this page from time to time to review the then-current notice because it  is binding upon you.
+                        </p>
+                   
+                </div>
+                <div id="divPrivacyPolicy" style="display: none; height: 300px; overflow-y: scroll;">
+                    <h2 style="border-bottom: dotted 1px;" class="text-uppercase">Privacy Policy </h2>
+                    <p>
+                     This privacy policy governs the manner in which surscan, inc. collects, uses, maintains and discloses information collected from users (each, a "User" ) of the
+                    <a href="http://surscan.com/" target="_blank">www.surscan.com </a> website ("site"). this privacy policy applies to the site and all products and services offered by surscan, inc..
+                        </p>
+                    <h3>Personal identification information</h3>
+
+                    <p> 
+                    We may collect personal identification information from Users in a variety of ways, including, but not limited to, when Users visit our site, register on the site, place an order, fill out a form, and in connection with other activities, services, features or resources we make available on our Site. Users may be asked for, as appropriate, name, email address, mailing address, phone number, credit card information, social security number. We will collect personal identification information from Users only if they voluntarily submit such information to us. Users can always refuse to supply personally identification information, except that it may prevent them from engaging in certain Site related activities.
+                    </p>
+                    <h3>Non-personal identification information</h3>
+                    <p>
+                        We may collect non-personal identification information about Users whenever they interact with our Site. Non-personal identification information may include the browser name, the type of computer and technical information about Users means of connection to our Site, such as the operating system and the Internet service providers utilized and other similar information.
+                    </p>
+                        <h3>Web browser cookies</h3>
+                    <p>
+                        Our Site may use "cookies" to enhance User experience. User's web browser places cookies on their hard drive for record-keeping purposes and sometimes to track information about them. User may choose to set their web browser to refuse cookies, or to alert you when cookies are being sent. If they do so, note that some parts of the Site may not function properly.
+                    </p>
+                        <h3>How we use collected information</h3>                        
+                    <p>
+                        SurScan, Inc. may collect and use Users personal information for the following purposes:<br /><br />
+
+                        •	- To improve customer service
+                        Information you provide helps us respond to your customer service requests and support needs more efficiently.<br /><br />
+                        •	- To personalize user experience
+                        We may use information in the aggregate to understand how our Users as a group use the services and resources provided on our Site.<br /><br />
+                        •	- To improve our Site
+                        We may use feedback you provide to improve our products and services.<br /><br />
+                        •	- To process payments
+                        We may use the information Users provide about themselves when placing an order only to provide service to that order. We do not share this information with outside parties except to the extent necessary to provide the service.<br /><br />
+                        •	- To send periodic emails
+                        We may use the email address to send User information and updates pertaining to their order. It may also be used to respond to their inquiries, questions, and/or other requests.
+                        If User decides to opt-in to our mailing list, they will receive emails that may include company news, updates, related product or service information, etc.
+                        If at any time the User would like to unsubscribe from receiving future emails, we include detailed unsubscribe instructions at the bottom of each email or User may contact us via our Site.<br /><br />
+                    </p>
+                        <h3>How we protect your information</h3>
+                    <p>
+                        We adopt appropriate data collection, storage and processing practices and security measures to protect against unauthorized access, alteration, disclosure or destruction of your personal information, username, password, transaction information and data stored on our Site.<br />
+                    </p>
+                    <p>
+                        Sensitive and private data exchange between the Site and its Users happens over a SSL secured communication channel and is encrypted and protected with digital signatures.
+                    </p>
+                        <h3>Sharing your personal information</h3>
+                    <p>
+                        We do not sell, trade, or rent Users personal identification information to others. We may share generic aggregated demographic information not linked to any personal identification information regarding visitors and users with our business partners, trusted affiliates and advertisers for the purposes outlined above.We may use third party service provider's to help us operate our business and the Site or administer activities on our behalf, such as sending out newsletters or surveys. We may share your information with these third parties for those limited purposes provided that you have given us your permission.
+                    </p>
+                        <h3>Third party websites</h3>
+                    <p>
+                        Users may find advertising or other content on our Site that link to the sites and services of our partners, suppliers, advertisers, sponsors, licensors and other third parties. We do not control the content or links that appear on these sites and are not responsible for the practices employed by websites linked to or from our Site. In addition, these sites or services, including their content and links, may be constantly changing. These sites and services may have their own privacy policies and customer service policies. Browsing and interaction on any other website, including websites which have a link to our Site, is subject to that website's own terms and policies.
+                    </p>
+                        <h3>Changes to this privacy policy</h3>
+                    <p>
+                        SurScan, Inc. has the discretion to update this privacy policy at any time. When we do, we will revise the updated date at the bottom of this page. We encourage Users to frequently check this page for any changes to stay informed about how we are helping to protect the personal information we collect. You acknowledge and agree that it is your responsibility to review this privacy policy periodically and become aware of modifications.
+                    </p>
+                        <h3>Your acceptance of these terms</h3>
+                    <p>
+                        By using this Site, you signify your acceptance of this policy and <a onclick="showDiv('1')" style="cursor: pointer">terms of service</a>. If you do not agree to this policy, please do not use our Site. Your continued use of the Site following the posting of changes to this policy will be deemed your acceptance of those changes.</p>
+                        <h3>Contacting us</h3>
+
+
+                        If you have any questions about this Privacy Policy, the practices of this site, or your dealings with this site, please contact us at:<br />
+
+                        <a href="http://surscan.com/" target="_blank"> surscan, inc. </a><br />
+                        <a href="http://surscan.com/" target="_blank">www.surscan.com </a><br />
+                        2030 G Avenue Suite 1102 Plano, TX 75074<br />
+                        972-633-1388<br />
+                        info@surscan.com<br />
+                        <br /><br />
+                        This document was last updated on February 10, 2015
+
+</div>
+                <div class="row top-buffer"></div>
+            </div>
+            <div class="row top-buffer"></div>
+            <div class="row top-buffer"></div>
+            <div class="navbar navbar-default navbar-fixed-bottom">
+                <div class="container">
+                    <div class="col-sm-12 text-center" style="margin-top:10px;">
+                        <p> All Rights Reserved <i class="fa fa-copyright"></i> 2016, SurScan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+}

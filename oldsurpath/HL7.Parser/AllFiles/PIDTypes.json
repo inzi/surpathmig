@@ -1,0 +1,518 @@
+﻿{
+  "PidMasks": [
+    {
+      "Name": "DLAL",
+      "Type": 2,
+      "rule": "^[0-9]{1,8}$",
+      "description": [
+        "1-8 Numeric"
+      ]
+    },
+    {
+      "Name": "DLAK",
+      "Type": 2,
+      "rule": "^[0-9]{1,7}$",
+      "description": [
+        "1-7 Numbers"
+      ]
+    },
+    {
+      "Name": "DLAZ",
+      "Type": 2,
+      "rule": "(^[A-Z]{1}[0-9]{1,8}$)|(^[A-Z]{2}[0-9]{2,5}$)|(^[0-9]{9}$)",
+      "description": [
+        "1 Alpha + 1-8 Numeric",
+        "2 Alpha + 2-5 Numeric",
+        "9 Numeric"
+      ]
+    },
+    {
+      "Name": "DLAR",
+      "Type": 2,
+      "rule": "^[0-9]{4,9}$",
+      "description": [
+        "4-9 Numeric"
+      ]
+    },
+    {
+      "Name": "DLCA",
+      "Type": 2,
+      "rule": "^[A-Z]{1}[0-9]{7}$",
+      "description": [
+        "1 Alpha + 7 Numeric"
+      ]
+    },
+    {
+      "Name": "DLCO",
+      "Type": 2,
+      "rule": "(^[0-9]{9}$)|(^[A-Z]{1}[0-9]{3,6}$)|(^[A-Z]{2}[0-9]{2,5}$)",
+      "description": [
+        "9 Numeric",
+        "1 Alpha + 3-6 Numeric",
+        "2 Alpha + 2-5 Numeric"
+      ]
+    },
+    {
+      "Name": "DLCT",
+      "Type": 2,
+      "rule": "^[0-9]{9}$",
+      "description": [
+        "9 Numeric"
+      ]
+    },
+    {
+      "Name": "DLDE",
+      "Type": 2,
+      "rule": "^[0-9]{1,7}$",
+      "description": [
+        "1-7 Numeric"
+      ]
+    },
+    {
+      "Name": "DLDC",
+      "Type": 2,
+      "rule": "(^[0-9]{7}$)|(^[0-9]{9}$)",
+      "description": [
+        "7 Numeric",
+        "9 Numeric"
+      ]
+    },
+    {
+      "Name": "DLFL",
+      "Type": 2,
+      "rule": "^[A-Z]{1}[0-9]{12}$",
+      "description": [
+        "1 Alpha + 12 Numeric"
+      ]
+    },
+    {
+      "Name": "DLGA",
+      "Type": 2,
+      "rule": "^[0-9]{7,9}$",
+      "description": [
+        "7-9 Numeric"
+      ]
+    },
+    {
+      "Name": "DLGU",
+      "Type": 2,
+      "rule": "^[A-Z]{1}[0-9]{14}$",
+      "description": [
+        "1 Alpha + 14 Numeric"
+      ]
+    },
+    {
+      "Name": "DLHI",
+      "Type": 2,
+      "rule": "(^[A-Z]{1}[0-9]{8}$)|(^[0-9]{9}$)",
+      "description": [
+        "1 Alpha + 8 Numeric",
+        "9 Numeric"
+      ]
+    },
+    {
+      "Name": "DLID",
+      "Type": 2,
+      "rule": "(^[A-Z]{2}[0-9]{6}[A-Z]{1}$)|(^[0-9]{9}$)",
+      "description": [
+        "2 Alpha + 6 Numeric + 1 Alpha",
+        "9 Numeric"
+      ]
+    },
+    {
+      "Name": "DLIL",
+      "Type": 2,
+      "rule": "^[A-Z]{1}[0-9]{11,12}$",
+      "description": [
+        "1 Alpha + 11-12 Numeric"
+      ]
+    },
+    {
+      "Name": "DLIN",
+      "Type": 2,
+      "rule": "(^[A-Z]{1}[0-9]{9}$)|(^[0-9]{9,10}$)",
+      "description": [
+        "1 Alpha + 9 Numeric",
+        "9-10 Numeric"
+      ]
+    },
+    {
+      "Name": "DLIA",
+      "Type": 2,
+      "rule": "^([0-9]{9}|([0-9]{3}[A-Z]{2}[0-9]{4}))$",
+      "description": [
+        "9 Numeric",
+        "3 Numeric + 2 Alpha + 4 Numeric"
+      ]
+    },
+    {
+      "Name": "DLKS",
+      "Type": 2,
+      "rule": "(^([A-Z]{1}[0-9]{1}){2}[A-Z]{1}$)|(^[A-Z]{1}[0-9]{8}$)|(^[0-9]{9}$)",
+      "description": [
+        "1 Alpha + 1 Numeric + 1 Alpha + 1 Numeric + 1 Alpha",
+        "1 Alpha + 8 Numeric",
+        "9 Numeric"
+      ]
+    },
+    {
+      "Name": "DLKY",
+      "Type": 2,
+      "rule": "(^[A-Z]{1}[0-9]{8,9}$)|(^[0-9]{9}$)",
+      "description": [
+        "1 Alpha + 8-9 Numeric",
+        "9 Numeric"
+      ]
+    },
+    {
+      "Name": "DLLA",
+      "Type": 2,
+      "rule": "^[0-9]{1,9}$",
+      "description": [
+        "1-9 Numeric"
+      ]
+    },
+    {
+      "Name": "DLME",
+      "Type": 2,
+      "rule": "(^[0-9]{7,8}$)|(^[0-9]{7}[A-Z]{1}$)",
+      "description": [
+        "7-8 Numeric",
+        "7 Numeric + 1 Alpha"
+      ]
+    },
+    {
+      "Name": "DLMD",
+      "Type": 2,
+      "rule": "^[A-Z]{1}[0-9]{12}$",
+      "description": [
+        "1 Alpha + 12 Numeric"
+      ]
+    },
+    {
+      "Name": "DLMA",
+      "Type": 2,
+      "rule": "(^[A-Z]{1}[0-9]{8}$)|(^[A-Z]{2}[0-9]{7}$)|(^[0-9]{9}$)",
+      "description": [
+        "1 Alpha + 8 Numeric",
+        "2 Alpha + 7 Numeric",
+        "9 Numeric"
+      ]
+    },
+    {
+      "Name": "DLMI",
+      "Type": 2,
+      "rule": "(^[A-Z]{1}[0-9]{10}$)|(^[A-Z]{1}[0-9]{12}$)",
+      "description": [
+        "1 Alpha + 10 Numeric",
+        "1 Alpha + 12 Numeric"
+      ]
+    },
+    {
+      "Name": "DLMN",
+      "Type": 2,
+      "rule": "^[A-Z]{1}[0-9]{12}$",
+      "description": [
+        "1 Alpha + 12 Numeric"
+      ]
+    },
+    {
+      "Name": "DLMS",
+      "Type": 2,
+      "rule": "^[0-9]{9}$",
+      "description": [
+        "9 Numeric"
+      ]
+    },
+    {
+      "Name": "DLMO",
+      "Type": 2,
+      "rule": "(^[A-Z]{1}[0-9]{5,9}$)|(^[A-Z]{1}[0-9]{6}[R]{1}$)|(^[0-9]{3}[A-Z]{1}[0-9]{6}$)|(^[0-9]{8}[A-Z]{2}$)|(^[0-9]{9}[A-Z]{1}$)|(^[0-9]{9}$)",
+      "description": [
+        "1 Alpha + 5-9 Numeric",
+        "1 Alpha + 6 Numeric + 'R'",
+        "8 Numeric + 2 Alpha",
+        "9 Numeric + 1 Alpha",
+        "9 Numeric",
+        "3 Numeric + 1 Alpha + 6 Numeric"
+      ]
+    },
+    {
+      "Name": "DLMT",
+      "Type": 2,
+      "rule": "(^[A-Z]{1}[0-9]{8}$)|(^[0-9]{13}$)|(^[0-9]{9}$)|(^[0-9]{14}$)",
+      "description": [
+        "1 Alpha + 8 Numeric",
+        "13 Numeric",
+        "9 Numeric",
+        "14 Numeric"
+      ]
+    },
+    {
+      "Name": "DLNE",
+      "Type": 2,
+      "rule": "(^[0-9]{1,7}$)|(^[A-Z]{1}[0-9]{6,8}$)",
+      "description": [
+        "1-7 Numeric",
+        "1 Alpha + 6-8 Numeric"
+      ]
+    },
+    {
+      "Name": "DLNV",
+      "Type": 2,
+      "rule": "(^[0-9]{9,10}$)|(^[0-9]{12}$)|(^[X]{1}[0-9]{8}$)",
+      "description": [
+        "9 Numeric",
+        "10 Numeric",
+        "12 Numeric",
+        "'X' + 8 Numeric"
+      ]
+    },
+    {
+      "Name": "DLNH",
+      "Type": 2,
+      "rule": "(^[0-9]{2}[A-Z]{3}[0-9]{5}$)|(^[A-Z]{3}[0-9]{8}$)",
+      "description": [
+        "2 Numeric + 3 Alpha + 5 Numeric, or 3 Alpha + 8 Numeric"
+      ]
+    },
+    {
+      "Name": "DLNJ",
+      "Type": 2,
+      "rule": "^[A-Z]{1}[0-9]{14}$",
+      "description": [
+        "1 Alpha + 14 Numeric"
+      ]
+    },
+    {
+      "Name": "DLNM",
+      "Type": 2,
+      "rule": "^[0-9]{8,9}$",
+      "description": [
+        "8 Numeric",
+        "9 Numeric"
+      ]
+    },
+    {
+      "Name": "DLNY",
+      "Type": 2,
+      "rule": "(^[A-Z]{1}[0-9]{7}$)|(^[A-Z]{1}[0-9]{18}$)|(^[0-9]{8}$)|(^[0-9]{9}$)|(^[0-9]{16}$)|(^[A-Z]{8}$)",
+      "description": [
+        "1 Alpha + 7 Numeric",
+        "1 Alpha + 18 Numeric",
+        "8 Numeric",
+        "9 Numeric",
+        "16 Numeric",
+        "8 Alpha"
+      ]
+    },
+    {
+      "Name": "DLNC",
+      "Type": 2,
+      "rule": "^[0-9]{1,12}$",
+      "description": [
+        "1-12 Numeric"
+      ]
+    },
+    {
+      "Name": "DLND",
+      "Type": 2,
+      "rule": "(^[A-Z]{3}[0-9]{6}$)|(^[0-9]{9}$)",
+      "description": [
+        "3 Alpha + 6 Numeric",
+        "9 Numeric"
+      ]
+    },
+    {
+      "Name": "DLOH",
+      "Type": 2,
+      "rule": "(^[A-Z]{1}[0-9]{4,8}$)|(^[A-Z]{2}[0-9]{3,7}$)|(^[0-9]{8}$)",
+      "description": [
+        "1 Alpha + 4-8 Numeric",
+        "2 Alpha + 3-7 Numeric",
+        "8 Numeric"
+      ]
+    },
+    {
+      "Name": "DLOK",
+      "Type": 2,
+      "rule": "(^[A-Z]{1}[0-9]{9}$)|(^[0-9]{9}$)",
+      "description": [
+        "1 Alpha + 9 Numeric",
+        "9 Numeric"
+      ]
+    },
+    {
+      "Name": "DLOR",
+      "Type": 2,
+      "rule": "(^[0-9]{1,9}$)|(^[AB][0-9]{6}$)",
+      "description": [
+        "1-9 Numeric",
+        "A + 6 Numeric",
+        "B + 6 Numeric"
+      ]
+    },
+    {
+      "Name": "DLPA",
+      "Type": 2,
+      "rule": "^[0-9]{8}$",
+      "description": [
+        "8 Numeric"
+      ]
+    },
+    {
+      "Name": "DLPR",
+      "Type": 2,
+      "rule": "(^[0-9]{9}$)|(^[0-9]{5,7}$)",
+      "description": [
+        "5-7 Numeric",
+        "9 Numeric"
+      ]
+    },
+    {
+      "Name": "DLRI",
+      "Type": 2,
+      "rule": "^([0-9]{7,8}$)|(^[A-Z]{1}[0-9]{6}$)",
+      "description": [
+        "7-8 Numeric",
+        "1 Alpha + 6 Numeric"
+      ]
+    },
+    {
+      "Name": "DLSC",
+      "Type": 2,
+      "rule": "^[0-9]{5,11}$",
+      "description": [
+        "5-11 Numeric"
+      ]
+    },
+    {
+      "Name": "DLSD",
+      "Type": 2,
+      "rule": "(^[0-9]{6,10}$)|(^[0-9]{12}$)",
+      "description": [
+        "6-10 Numeric",
+        "12 Numeric"
+      ]
+    },
+    {
+      "Name": "DLTN",
+      "Type": 2,
+      "rule": "^[0-9]{7,9}$",
+      "description": [
+        "7-9 Numeric"
+      ]
+    },
+    {
+      "Name": "DLTX",
+      "Type": 2,
+      "rule": "^[0-9]{7,8}$",
+      "description": [
+        "7-8 Numeric"
+      ]
+    },
+    {
+      "Name": "DLUT",
+      "Type": 2,
+      "rule": "^[0-9]{4,10}$",
+      "description": [
+        "4-10 Numeric"
+      ]
+    },
+    {
+      "Name": "DLVT",
+      "Type": 2,
+      "rule": "(^[0-9]{8}$)|(^[0-9]{7}[A]$)",
+      "description": [
+        "8 Numeric",
+        "7 Numeric + 'A'"
+      ]
+    },
+    {
+      "Name": "DLVA",
+      "Type": 2,
+      "rule": "(^[A-Z]{1}[0-9]{8,11}$)|(^[0-9]{9}$)",
+      "description": [
+        "1 Alpha + 8 Numeric",
+        "1 Alpha + 9 Numeric",
+        "1 Alpha + 10 Numeric",
+        "1 Alpha + 11 Numeric",
+        "9 Numeric"
+      ]
+    },
+    {
+      "Name": "DLWA",
+      "Type": 2,
+      "rule": "^(?=.{12}$)[A-Z]{1,7}[A-Z0-9\\*]{4,11}$",
+      "description": [
+        "1-7 Alpha + any combination of Alpha, Numeric, and * for a total of 12 characters"
+      ]
+    },
+    {
+      "Name": "DLWV",
+      "Type": 2,
+      "rule": "(^[0-9]{7}$)|(^[A-Z]{1,2}[0-9]{5,6}$)",
+      "description": [
+        "7 Numeric",
+        "1-2 Alpha + 5-6 Numeric"
+      ]
+    },
+    {
+      "Name": "DLWI",
+      "Type": 2,
+      "rule": "^[A-Z]{1}[0-9]{13}$",
+      "description": [
+        "1 Alpha + 13 Numeric"
+      ]
+    },
+    {
+      "Name": "DLWY",
+      "Type": 2,
+      "rule": "^[0-9]{9,10}$",
+      "description": [
+        "9-10 Numeric"
+      ]
+    },
+    {
+      "Name": "SSNDashes",
+      "Type": 1,
+      "rule": "^\\d{3}-\\d{2}-\\d{4}$",
+      "description": [
+        "SSN with dashes",
+        "xxx-xx-xxx"
+      ]
+    },
+    {
+      "Name": "SSNNoDashes",
+      "Type": 1,
+      "rule": "^\\d{9}$",
+      "description": [
+        "Nine Digit numeric"
+      ]
+    },
+    {
+      "Name": "ITIN",
+      "Type": 6,
+      "rule": "^(9\\d{2})[- ]{0,1}((7[0-9]{1}|8[0-8]{1})|(9[0-2]{1})|(9[4-9]{1}))[- ]{0,1}(\\d{4})$/",
+      "description": [
+        "ITIN"
+      ]
+    },
+    {
+      "Name": "NotSupplied",
+      "Type": 0,
+      "rule": "N\\S",
+      "description": [
+        "Not Supplied"
+      ]
+    },
+    {
+      "Name": "NotSupplied",
+      "Type": 0,
+      "rule": "N\/S",
+      "description": [
+        "Not Supplied"
+      ]
+    }
+  ]
+}

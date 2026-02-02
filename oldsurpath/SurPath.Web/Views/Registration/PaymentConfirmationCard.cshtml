@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Payment Confirmation";
+    Layout = "~/Views/Shared/_LayoutRegistration.cshtml";
+}
+
+@section PageScript
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            function disableBack() { window.history.forward() }
+
+            window.onload = disableBack();
+            window.onpageshow = function (evt) { if (evt.persisted) disableBack() }
+        });
+
+        $(function () {
+            if ("@ViewBag.ServerErr" != "") {
+                $("#divServerErr").show().find("div").html("@ViewBag.ServerErr");
+            }
+
+            $("#btnExit").click(function () {
+                @*window.location.href = "@Url.Action("Signout", "Authentication")";*@
+                window.location.href = "http://www.surscan.com";
+            });
+
+        });
+
+        function closeWin() {
+            var win = window.open("", "_self");
+            win.close();
+            //('#openTab').click();
+        }
+    </script>
+}
+
+@{using (Html.BeginForm())
+{
+    <div class="container">
+        <div style="display:none" class="alert alert-danger" role="alert" id="divServerErr">
+            <i class="fa fa-exclamation-triangle fa-1x"></i> @ViewBag.ServerErr
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="margin-top:100px;">
+                <h2 align="center" class="text-info">
+                    Your payment has been accepted... <br>
+                    An email will be sent to your registered email address on further process.
+                </h2>
+            </div>
+            <div class="row top-buffer"></div>
+            <div class="row">
+                <div class="col-md-1 col-md-offset-5" style="text-align:center;">
+                    <input type="button" class="btn btn-primary" value="Exit" id="btnExit" />
+                </div>
+            </div>
+        </div>
+        <div class="row top-buffer"></div>
+    </div>
+}
+}
+

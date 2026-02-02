@@ -1,0 +1,219 @@
+﻿@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.UserPurchases
+@using inzibackend.Web.Areas.App.Startup
+@model UserPurchasesViewModel
+@{
+    ViewBag.CurrentPageName = AppPageNames.Host.UserPurchases;
+}
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/App/Views/UserPurchases/Index.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    <abp-page-subheader title='@L("UserPurchases")' description='@L("UserPurchasesHeaderInfo")'>
+        <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+
+        @if (IsGranted(AppPermissions.Pages_UserPurchases_Create))
+        {
+            <button id="CreateNewUserPurchaseButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewUserPurchase")</button>
+        }
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-xl-12">
+
+                            <div class="my-3">
+                                <div class="input-group">
+                                    <input type="text" id="UserPurchasesTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                    <button id="GetUserPurchasesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="NameFilterId">@L("Name")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="nameFilter" id="NameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="DescriptionFilterId">@L("Description")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="descriptionFilter" id="DescriptionFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="StatusFilterId">@L("Status")</label>
+                            <select class="form-select reload-on-change" name="StatusFilter" id="StatusFilterId">
+                                <option value="-1">@L("All")</option>
+                                <option value="0">@L("Enum_EnumPurchaseStatus_0")</option>
+                                <option value="1">@L("Enum_EnumPurchaseStatus_1")</option>
+                                <option value="2">@L("Enum_EnumPurchaseStatus_2")</option>
+                                <option value="3">@L("Enum_EnumPurchaseStatus_3")</option>
+                                <option value="4">@L("Enum_EnumPurchaseStatus_4")</option>
+                                <option value="5">@L("Enum_EnumPurchaseStatus_5")</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinOriginalPriceFilterId">@L("MinMax") @L("OriginalPrice")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L("MinValue")" name="minOriginalPriceFilter" id="MinOriginalPriceFilterId" />
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L("MaxValue")" name="maxOriginalPriceFilter" id="MaxOriginalPriceFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinAdjustedPriceFilterId">@L("MinMax") @L("AdjustedPrice")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L("MinValue")" name="minAdjustedPriceFilter" id="MinAdjustedPriceFilterId" />
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L("MaxValue")" name="maxAdjustedPriceFilter" id="MaxAdjustedPriceFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinDiscountAmountFilterId">@L("MinMax") @L("DiscountAmount")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L("MinValue")" name="minDiscountAmountFilter" id="MinDiscountAmountFilterId" />
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L("MaxValue")" name="maxDiscountAmountFilter" id="MaxDiscountAmountFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinAmountPaidFilterId">@L("MinMax") @L("AmountPaid")</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L("MinValue")" name="minAmountPaidFilter" id="MinAmountPaidFilterId" />
+                                <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L("MaxValue")" name="maxAmountPaidFilter" id="MaxAmountPaidFilterId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="PaymentPeriodTypeFilterId">@L("PaymentPeriodType")</label>
+                            <select class="form-select reload-on-change" name="PaymentPeriodTypeFilter" id="PaymentPeriodTypeFilterId">
+                                <option value="-1">@L("All")</option>
+                                <option value="1">@L("Enum_PaymentPeriodType_1")</option>
+                                <option value="7">@L("Enum_PaymentPeriodType_7")</option>
+                                <option value="30">@L("Enum_PaymentPeriodType_30")</option>
+                                <option value="365">@L("Enum_PaymentPeriodType_365")</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinPurchaseDateFilterId">@L("PurchaseDateRange")</label>
+                            <div class="input-group">
+                                <input class="form-control m-input date-picker startDate date-picker-filter" type="text" placeholder="@L("MinValue")" id="MinPurchaseDateFilterId">
+                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                                <input class="form-control m-input date-picker endDate date-picker-filter" type="text" placeholder="@L("MaxValue")" id="MaxPurchaseDateFilterId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinExpirationDateFilterId">@L("ExpirationDateRange")</label>
+                            <div class="input-group">
+                                <input class="form-control m-input date-picker startDate date-picker-filter" type="text" placeholder="@L("MinValue")" id="MinExpirationDateFilterId">
+                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                                <input class="form-control m-input date-picker endDate date-picker-filter" type="text" placeholder="@L("MaxValue")" id="MaxExpirationDateFilterId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="IsRecurringFilterId">@L("IsRecurring")</label>
+                            <select class="form-select reload-on-change" name="IsRecurringFilter" id="IsRecurringFilterId">
+                                <option value="-1">@L("All")</option>
+                                <option value="0">@L("False")</option>
+                                <option value="1">@L("True")</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="NotesFilterId">@L("Notes")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="notesFilter" id="NotesFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="UserNameFilterId">(@L("User")) @L("Name")</label>
+                            <input type="text" class="form-control" name="userNameFilter" id="UserNameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="SurpathServiceNameFilterId">(@L("SurpathService")) @L("Name")</label>
+                            <input type="text" class="form-control" name="surpathServiceNameFilter" id="SurpathServiceNameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="TenantSurpathServiceNameFilterId">(@L("TenantSurpathService")) @L("Name")</label>
+                            <input type="text" class="form-control" name="tenantSurpathServiceNameFilter" id="TenantSurpathServiceNameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="CohortNameFilterId">(@L("Cohort")) @L("Name")</label>
+                            <input type="text" class="form-control" name="cohortNameFilter" id="CohortNameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-5">
+                        <button class="btn btn-secondary btn-sm" id="btn-reset-filters">Reset</button>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <table id="UserPurchasesTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>@L("Actions")</th>
+                                <th>@L("Name")</th>
+                                <th>@L("Description")</th>
+                                <th>@L("Status")</th>
+                                <th>@L("OriginalPrice")</th>
+                                <th>@L("AdjustedPrice")</th>
+                                <th>@L("DiscountAmount")</th>
+                                <th>@L("AmountPaid")</th>
+                                <th>@L("BalanceDue")</th>
+                                <th>@L("PaymentPeriodType")</th>
+                                <th>@L("PurchaseDate")</th>
+                                <th>@L("ExpirationDate")</th>
+                                <th>@L("IsRecurring")</th>
+                                <th>@L("UserName")</th>
+                                <th>@L("SurpathServiceName")</th>
+                                <th>@L("TenantSurpathServiceName")</th>
+                                <th>@L("CohortName")</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

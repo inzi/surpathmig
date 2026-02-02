@@ -1,0 +1,89 @@
+﻿@model IEnumerable<SurPathWeb.Models.TestResultDataModel>
+@using GridMvc.Html
+@{
+    ViewBag.Title = "TestResult";
+    Layout = "~/Views/Shared/_JudgeLayout.cshtml";
+}
+
+@section PageScript
+{
+    <script src='@Url.Content("~/Scripts/popup.js")'></script>
+    <link href='@Url.Content("~/Content/Gridmvc.css")' rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript">
+        $(function () {
+            if ("@ViewBag.ServerErr" != "") {
+                $("#divServerErr").show().find("div").html("@ViewBag.ServerErr");
+            }
+            if ("@ViewBag.SuccessMsg" != "") {
+                $("#divSuccessMsg").show().find("div").html("@ViewBag.SuccessMsg");
+
+                if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
+                    setTimeout("$('#divSuccessMsg').hide();", 6000);
+                }
+                else {
+                    $("#divSuccessMsg").fadeOut(6000);
+                }
+            }
+
+            var element = document.getElementById('tab');
+
+            if (element.offsetHeight > "500") {
+                $("#tab").css({ "max-height": "500px", "overflow-y": "scroll" });
+            }
+            else {
+                $("#tab").css({ "max-height": "500px", "overflow-y": "hidden" });
+            }
+        });
+    </script>
+}
+
+@{using (Html.BeginForm())
+{
+    <div class="container">
+        <div style="display:none" class="alert alert-danger" role="alert" id="divServerErr">
+            <i class="fa fa-exclamation-triangle fa-1x"></i> @ViewBag.ServerErr
+        </div>
+        <div style="display:none" class="alert alert-success" role="alert" id="divSuccessMsg">
+            <i class="fa fa-check fa-1x"></i> @ViewBag.SuccessMsg
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3> Test Results </h3>
+                <hr />
+            </div>
+        </div>
+        <!-- table starts here -->
+        <div class="table-responsive table-striped table-bordered table-hover" id="tab">
+            @Html.Grid(Model).Columns(columns =>
+       {
+           columns.Add(m => m.FirstName).Sortable(true).Titled("First Name");
+           columns.Add(m => m.LastName).Sortable(true).Titled("Last Name");
+           columns.Add(m => m.SSN).Titled("SSN");
+           columns.Add(m => m.DOB).Titled("DOB");
+           columns.Add(m => m.TestStatus).Titled("Status");
+           columns.Add(m => m.TestDate).Sortable(true).Titled("Tested Date");
+           columns.Add(m => m.TestOverallResult).Sortable(true).Titled("Final Result");
+           columns.Add()
+                     .Encoded(false)
+                     .Sanitized(false)
+                     .SetWidth(80)
+                     .RenderValueAs(m => m.DownloadLink)
+                     .Titled("Download Actions");
+           columns.Add()
+         .Encoded(false)
+         .Sanitized(false)
+               // .SetWidth(20)
+         .RenderValueAs(m => m.MRODownloadLink);
+
+       }).WithPaging(20)
+        </div>
+        <!--- Table ends here -->
+        <div class="row top-buffer"></div>
+        <div class="row top-buffer"></div>
+        <div class="row top-buffer"></div>
+        <div class="row top-buffer"></div>
+    </div>
+}
+}
+

@@ -1,0 +1,448 @@
+﻿@model inzibackend.Web.Models.Account.RegisterViewModel
+@using Abp.Json
+@using System.Linq
+@using System.Globalization
+@using Newtonsoft.Json
+@using inzibackend
+@using inzibackend.Localization
+@using inzibackend.Web.Security.Recaptcha
+@using inzibackend.Authorization.Users
+
+@addTagHelper *, Owl.reCAPTCHA
+@{
+    Layout = "~/Views/Account/_RegLayout.cshtml";
+}
+@section Scripts
+    {
+    <script>
+        window.passwordComplexitySetting = @Html.Raw(Model.PasswordComplexitySetting.ToJsonString(indented: true));
+        window.isDonorPay = @Model.IsDonorPay.ToString().ToLowerInvariant();
+        window.registrationPricing = {
+            amountDue: '@Model.AmountDue.ToString("F2", CultureInfo.InvariantCulture)',
+            pricingUrl: '@Url.Action("GetRegistrationPricing", "Account")',
+            registerNowText: @Html.Raw(JsonConvert.SerializeObject("Register Now")),
+            tenantServiceIds: @Html.Raw(JsonConvert.SerializeObject(Model.TenantSurpathServices.Select(s => s.Id)))
+        };
+
+    </script>
+
+    @if (ViewBag.UseCaptcha)
+    {
+        <recaptcha-script-v3 />
+        <recaptcha-script-v3-js action="register" execute="false" />
+    }
+
+    <script abp-src="/view-resources/Areas/App/Views/_Bundles/account-register.min.js" asp-append-version="true"></script>
+    @*"wwwroot/view-resources/Views/Account/Register.js",*@
+    <script abp-src="/view-resources/Views/Account/register.min.js" asp-append-version="true"></script>
+
+
+}
+
+@section Styles{
+    <link href="/metronic/common/css/login-1@(CultureHelper.IsRtl ? ".rtl" : "").css" rel="stylesheet" />
+}
+
+<style>
+    #surpath_big_red_button {
+        font-size: 3em !important;
+    }
+
+    input:required {
+        box-shadow: -2px 0px 0px rgba(200, 0, 0, 0.85) !important;
+    }
+
+    select:required {
+        box-shadow: -2px 0px 0px rgba(200, 0, 0, 0.85) !important;
+    }
+</style>
+
+
+<div class="login-form">
+    <div class="pb-13 pt-lg-0 pt-5">
+        <h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">@L("Register")</h3>
+    </div>
+    <form class="form register-form" asp-action="Register" id="register_form" name="register_form" method="post">
+
+        @if (@ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger">
+                <div class="alert-icon">
+                    <i class="fa fa-exclamation-triangle"></i>
+                </div>
+                <div class="alert-text">@ViewBag.ErrorMessage</div>
+            </div>
+        }
+
+        <input type="hidden" name="IsExternalLogin" value="@Model.IsExternalLogin.ToString()" />
+        <input type="hidden" name="ExternalLoginAuthSchema" value="@Model.ExternalLoginAuthSchema" />
+        <input type="hidden" name="SingleSignOn" value="@Model.SingleSignIn" />
+        <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl" />
+        <input type="hidden" name="RegisterCheckoutBtnClick" value="@Model.RegisterCheckoutBtnClick" />
+
+
+        <input type="hidden" name="@Html.NameFor(m=>m.AuthNetSubmit.dataValue)" />
+        <input type="hidden" name="@Html.NameFor(m=>m.AuthNetSubmit.dataDescriptor)" />
+        <input type="hidden" name="@Html.NameFor(m=>m.AuthNetSubmit.CardNameOnCard)" />
+        <input type="hidden" name="@Html.NameFor(m=>m.AuthNetSubmit.amount)" />
+        @* <input type="hidden" name="@Html.NameFor(m=>m.AuthNetSubmit.CardZipCode)" /> *@
+        <input type="hidden" name="@Html.NameFor(m=>m.AuthNetSubmit.DifferentBillingAddress)" />
+        <input type="hidden" name="@Html.NameFor(m=>m.AuthNetSubmit.FirstNameOnCard)" />
+        <input type="hidden" name="@Html.NameFor(m=>m.AuthNetSubmit.LastNameOnCard)" />
+        <input type="hidden" name="@Html.NameFor(m=>m.AuthNetSubmit.BillingAddress)" />
+        <input type="hidden" name="@Html.NameFor(m=>m.AuthNetSubmit.BillingCity)" />
+        <input type="hidden" name="@Html.NameFor(m=>m.AuthNetSubmit.BillingState)" />
+        <input type="hidden" name="@Html.NameFor(m=>m.AuthNetSubmit.BillingZipCode)" />
+        <input type="hidden" name="@Html.NameFor(m=>m.AuthNetSubmit.CardLastFour)" />
+        <input type="hidden" name="@Html.NameFor(m=>m.AuthNetCaptureResultDto.AuthCode)" />
+        <input type="hidden" name="@Html.NameFor(m=>m.AuthNetCaptureResultDto.TransactionId)" />
+
+
+        @* @foreach (var _s in Model.TenantSurpathServices)
+        {
+
+            var _idx = Model.TenantSurpathServices.IndexOf(_s);
+            <input type="hidden" id="SurpathServiceIds_@_idx" name="TenantSurpathServiceIds[]" value="@_s.Id" />
+        } *@
+        @foreach (var _s in Model.TenantSurpathServices)
+        {
+
+            var _idx = Model.TenantSurpathServices.IndexOf(_s);
+            <input type="hidden" id="AuthNetSubmit_TenantSurpathServiceIds_@_idx" name="AuthNetSubmit.TenantSurpathServiceIds[]" value="@_s.Id" />
+            @* <input type="hidden" id="AuthNetSubmit_SurpathServiceIds_@_idx" name="AuthNetSubmit.SurpathServiceIds[]" value="@_s.SurpathServiceId" /> *@
+        }
+        <div id="AuthNetItems" class="d-none">
+             @foreach (var _s in Model.TenantSurpathServices)
+            {
+                var _idx = Model.TenantSurpathServices.IndexOf(_s);
+                <input type="hidden" id="AuthNetSubmit_AuthNetItems_Id_@_idx" name="AuthNetSubmit.AuthNetItems.Id[]" value="@_s.Id" />
+                <input type="hidden" id="AuthNetSubmit_AuthNetItems_ProductName_@_idx" name="AuthNetSubmit.ProductName.Id[]" value="@_s.Name" />
+                <input type="hidden" id="AuthNetSubmit_AuthNetItems_ProductPrice_@_idx" name="AuthNetSubmit.ProductPrice.Id[]" value="@_s.Price" />
+                <input type="hidden" id="AuthNetSubmit_AuthNetItems_ProductQuantity_@_idx" name="AuthNetSubmit.ProductQuantity.Id[]" value="1" />
+                <input type="hidden" id="AuthNetSubmit_AuthNetItems_AmountPaid_@_idx" name="AuthNetSubmit.AmountPaid.Id[]" value="0" />
+            }
+          @*   @foreach (var _s in Model.AuthNetSubmit.AuthNetItems)
+            {
+
+                var _idx = Model.AuthNetSubmit.AuthNetItems.IndexOf(_s);
+
+                <input type="hidden" id="AuthNetSubmit_AuthNetItems_AmountPaid_@_idx" name="AuthNetSubmit.AuthNetItems.AmountPaid[]" value="@_s" />
+            } *@
+        </div>
+        <div class="d-none">
+
+            <input class="form-control" id="TenantDepartmentId" value="" type="text" name="TenantDepartmentId" hidden />
+            <input class="form-control" id="confirmTenantDepartmentId" value="" type="text" name="confirmTenantDepartmentId" hidden />
+
+            <input class="form-control" id="CohortId" value="" type="text" name="CohortId" hidden />
+            <input class="form-control" id="confirmCohortId" value="" type="text" name="confirmCohortId" hidden />
+        </div>
+
+
+
+        <!--begin::Stepper-->
+        <div class="stepper stepper-pills" id="RegistrationWizard">
+            <!--begin::Nav-->
+            <div class="stepper-nav flex-center flex-wrap mb-10">
+                <!--begin::Step 1-->
+                <div class="stepper-item mx-8 my-4 current" data-kt-stepper-element="nav">
+                    <!--begin::Wrapper-->
+                    <div class="stepper-wrapper d-flex align-items-center">
+                        <!--begin::Icon-->
+                        <div class="stepper-icon w-40px h-40px">
+                            <i class="stepper-check fas fa-check"></i>
+                            <span class="stepper-number">1</span>
+                        </div>
+                        <!--end::Icon-->
+                        <!--begin::Label-->
+                        <div class="stepper-label">
+                            <h3 class="stepper-title">
+                                @L("RegistrationStep1")
+                            </h3>
+
+                            <div class="stepper-desc">
+                                @L("RegistrationStep1Description")
+                            </div>
+                        </div>
+                        <!--end::Label-->
+                    </div>
+                    <!--end::Wrapper-->
+                    <!--begin::Line-->
+                    <div class="stepper-line h-40px"></div>
+                    <!--end::Line-->
+                </div>
+                <!--end::Step 1-->
+                <!--begin::Step 2-->
+                <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
+                    <!--begin::Wrapper-->
+                    <div class="stepper-wrapper d-flex align-items-center">
+                        <!--begin::Icon-->
+                        <div class="stepper-icon w-40px h-40px">
+                            <i class="stepper-check fas fa-check"></i>
+                            <span class="stepper-number">2</span>
+                        </div>
+                        <!--begin::Icon-->
+                        <!--begin::Label-->
+                        <div class="stepper-label">
+                            <h3 class="stepper-title">
+                                @L("RegistrationStep2")
+                            </h3>
+
+                            <div class="stepper-desc">
+                                @L("RegistrationStep2Description")
+                            </div>
+                        </div>
+                        <!--end::Label-->
+                    </div>
+                    <!--end::Wrapper-->
+                    <!--begin::Line-->
+                    <div class="stepper-line h-40px"></div>
+                    <!--end::Line-->
+                </div>
+                <!--end::Step 2-->
+                <!--begin::Step 3-->
+                <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
+                    <!--begin::Wrapper-->
+                    <div class="stepper-wrapper d-flex align-items-center">
+                        <!--begin::Icon-->
+                        <div class="stepper-icon w-40px h-40px">
+                            <i class="stepper-check fas fa-check"></i>
+                            <span class="stepper-number">3</span>
+                        </div>
+                        <!--begin::Icon-->
+                        <!--begin::Label-->
+                        <div class="stepper-label">
+                            <h3 class="stepper-title">
+                                @L("RegistrationStep3")
+                            </h3>
+
+                            <div class="stepper-desc">
+                                @L("RegistrationStep3Description")
+                            </div>
+                        </div>
+                        <!--end::Label-->
+                    </div>
+                    <!--end::Wrapper-->
+                    <!--begin::Line-->
+                    <div class="stepper-line h-40px"></div>
+                    <!--end::Line-->
+                </div>
+                <!--end::Step 3-->
+                <!--begin::Step 4-->
+                <div class="stepper-item mx-8 my-4" data-kt-stepper-element="nav">
+                    <!--begin::Wrapper-->
+                    <div class="stepper-wrapper d-flex align-items-center">
+                        <!--begin::Icon-->
+                        <div class="stepper-icon w-40px h-40px">
+                            <i class="stepper-check fas fa-check"></i>
+                            <span class="stepper-number">4</span>
+                        </div>
+                        <!--begin::Icon-->
+                        <!--begin::Label-->
+                        <div class="stepper-label">
+                            <h3 class="stepper-title">
+                                @L("RegistrationStep4")
+                            </h3>
+
+                            <div class="stepper-desc">
+                                @L("RegistrationStep4Description")
+                            </div>
+                        </div>
+                        <!--end::Label-->
+                    </div>
+                    <!--end::Wrapper-->
+                    <!--begin::Line-->
+                    <div class="stepper-line h-40px"></div>
+                    <!--end::Line-->
+                </div>
+                <!--end::Step 4-->
+            </div>
+            <!--end::Nav-->
+            <!--begin::Form-->
+            <!--begin::Group-->
+            <div class="mb-5">
+                <!--begin::Step 1-->
+                <div class="flex-column current step1Wizard" data-kt-stepper-element="content">
+
+                    @if (ViewBag.UseCaptcha)
+                    {
+                        <input type="hidden" name="@RecaptchaValidator.RecaptchaResponseKey" id="recaptchaResponse" />
+                    }
+
+                    <div class="mb-5">
+                        <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6 stepper-first-element" type="text" placeholder="@L("FirstName")" name="Name" required value="@Model.Name" maxlength="@inzibackend.Authorization.Users.User.MaxNameLength" />
+                    </div>
+                    <div class="mb-5 ">
+                        <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="text" placeholder="@L("MiddleName")" name="Middlename" value="@Model.Middlename" maxlength="@inzibackend.Authorization.Users.User.MaxNameLength" />
+                    </div>
+                    <div class="mb-5 ">
+                        <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="text" placeholder="@L("Surname")" name="Surname" required value="@Model.Surname" maxlength="@inzibackend.Authorization.Users.User.MaxSurnameLength" />
+                    </div>
+                    <div class="mb-5">
+                        <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6 surscan_inputmask_phone" id="PhoneNumber" type="text" placeholder="@L("PhoneNumber")" name="PhoneNumber" required value="@Model.PhoneNumber" minlength="@UserConsts.MinPhoneNumberLength" maxlength="@UserConsts.MaxPhoneNumberLength">
+                        <input type="hidden" id="savedPhoneNumber" value="@Model.PhoneNumber" />
+                    </div>
+                    <div class="mb-5 ">
+                        <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6 surpath-emailtousername" type="email" placeholder="@L("EmailAddress")" name="EmailAddress" required value="@Model.EmailAddress" maxlength="@inzibackend.Authorization.Users.User.MaxEmailAddressLength" />
+                    </div>
+                    <div class="mb-5">
+                        <input class="form-control input-ltr form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6 surpath-usernamefromemail" type="text" autocomplete="new-password" placeholder="@L("UserName")" name="UserName" value="@Model.UserName" required maxlength="@inzibackend.Authorization.Users.User.MaxUserNameLength" readonly />
+                    </div>
+                    <div class="mb-5 ">
+                        @*<label for="DateOfBirth" class="form-label">@L("DateOfBirth")</label>*@
+                        <label class="form-label">@L("DateOfBirth")</label>
+                        @*<input autocomplete="off" class="form-control col-8 m-input date-picker date-picker-filter form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" id="DateOfBirth" type="text" name="DateOfBirth" value="@Model.DateOfBirth" required />*@
+                        <input autocomplete="off" class="form-control col-8 m-input form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" id="DateOfBirth" type="text" name="DateOfBirth" value="" required />
+                        @*<input class="form-control col-8 m-input date-picker form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" id="DateOfBirth" type="text" name="DateOfBirth" value="" required data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-inputmask-mask="99/99/9999" inputmode="numeric"/>*@
+                        @*<input class="form-control col-8 m-input date-picker form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" id="DateOfBirth" type="text" name="DateOfBirth" value="" data-inputmask-mask="99/99/9999" inputmode="numeric"/>*@
+
+                    </div>
+                    @if (!Model.IsExternalLogin)
+                    {
+
+                        <div class="mb-5 pwstrength-div">
+                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="password" autocomplete="new-password" id="RegisterPassword" placeholder="@L("Password")" name="Password" required />
+                        </div>
+                        <div class="mb-5 ">
+                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="password" autocomplete="new-password" placeholder="@L("PasswordRepeat")" name="PasswordRepeat" required />
+                        </div>
+                    }
+
+
+                </div>
+                <!--begin::Step 1-->
+                <!--begin::Step 1-->
+                <div class="flex-column step2Wizard" data-kt-stepper-element="content">
+                    <!--begin::Input group-->
+                    <div class="mb-5">
+                        @*<label for="Address" class="form-label">@L("Address")</label>*@
+                        <input id="Address" type="text" name="Address" class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" value="@Model.Address" placeholder="@L("Address")" required>
+                    </div>
+                    <div class="mb-5">
+                        @*<label for="SuiteApt" class="form-label">@L("SuiteApt")</label>*@
+                        <input id="SuiteApt" type="text" name="SuiteApt" class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" value="@Model.SuiteApt" placeholder="@L("SuiteApt")">
+                    </div>
+                    <div class="mb-5">
+                        @*<label for="City" class="form-label">@L("City")</label>*@
+                        <input id="City" type="text" name="City" class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" value="@Model.City" required placeholder="@L("City")">
+                    </div>
+                    <div class="mb-5">
+                        @*<label for="State" class="form-label">@L("State")</label>*@
+                        @*<input id="State" type="text" name="State" class="form-control" value="@Model.User.State">*@
+                        @Html.DropDownList("State", new SelectList(AppConsts.USStates,"Value","Key", ""),@L("SelectState"), new { @class = "form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" , @required="required" })
+                    </div>
+                    <div class="mb-5">
+                        @*<label for="Zip" class="form-label">@L("Zip")</label>*@
+                        <input id="Zip" type="text" name="Zip" class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" value="@Model.Zip" required placeholder="@L("Zip")">
+                    </div>
+                </div>
+                <!--begin::Step 1-->
+                <!--begin::Step 1-->
+                <div class="flex-column step3Wizard" id="register_pids_content" data-kt-stepper-element="content">
+                    @{
+                        for (var i = 0; i < Model.UserPidViewModels.Count; i++)
+                        {
+                            //TODO generate these - and in the factory - make sure the pidtypeid doesn't exist already before you add
+                            // also need to count existing pids and use that as the index
+                            // we need the pid id
+
+
+                            //@Html.TextBox(string.Format("farm.Farm[{0}].Name", i), Model.Farm[i].Name)
+
+
+                            //<input asp-for="@Model.UserPidViewModels[i].UserPid.Pid">
+                            //<input asp-for="@Model.UserPidViewModels[i].UserPid.PidTypeId">
+                            //<input asp-for="@Model.UserPidViewModels[i].UserPid.PidType.Description">
+
+                        }
+                    }
+                </div>
+                <!--begin::Step 1-->
+                <!--begin::Step 1-->
+                <div class="flex-column" id="register_dept_cohort_content" data-kt-stepper-element="content">
+                    <div class="mb-5 ">
+                        <label class="form-label">@L("SelectTenantDepartment")</label>
+                        <div class="input-group">
+
+
+                            <input class="form-control" id="TenantDepartmentName" name="TenantDepartmentName" value="" type="text" disabled>
+                            <button class="btn btn-primary blue" id="OpenTenantDepartmentLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                            <button class="btn btn-danger btn-icon" type="button" id="ClearTenantDepartmentNameButton"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="mb-5 ">
+                        <label class="form-label">@L("ConfirmTenantDepartment")</label>
+                        <div class="input-group">
+                            <input class="form-control" id="TenantDepartmentConfirmName" name="TenantDepartmentConfirmName" value="" type="text" disabled>
+                            <button class="btn btn-primary blue" id="OpenTenantDepartmentConfirmLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                            <button class="btn btn-danger btn-icon" type="button" id="ClearTenantDepartmentConfirmNameButton"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="mb-5 cohort-select-inputs d-none">
+                        <label class="form-label">@L("SelectCohort")</label>
+                        <div class="input-group">
+                            <input class="form-control" id="CohortName" name="CohortName" value="" type="text" disabled>
+                            <button class="btn btn-primary blue" id="OpenCohortLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                            <button class="btn btn-danger btn-icon" type="button" id="ClearCohortNameButton"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="mb-5 cohort-select-inputs d-none">
+                        <label class="form-label">@L("ConfirmCohort")</label>
+                        <div class="input-group">
+
+                            <input class="form-control" id="CohortConfirmName" name="CohortConfirmName" value="" type="text" disabled>
+                            <button class="btn btn-primary blue" id="OpenCohortConfirmLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                            <button class="btn btn-danger btn-icon" type="button" id="ClearCohortConfirmNameButton"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--begin::Step 1-->
+            </div>
+            <!--end::Group-->
+            <!--begin::Actions-->
+            <div class="d-flex flex-stack">
+                <!--begin::Wrapper-->
+                <div class="me-2 p-2">
+                    <button type="button" class="btn btn-light btn-active-light-primary" data-kt-stepper-action="previous">
+                        Back
+                    </button>
+                </div>
+                <!--end::Wrapper-->
+                <!--begin::Wrapper-->
+                <div>
+
+                    @*                  <button type="button" class="btn btn-primary" data-kt-stepper-action="submit" id="RegistrationWizardSubmit">
+                    <span class="indicator-label">
+                    Submit
+                    </span>
+                    <span class="indicator-progress">
+                    Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
+                    </button>*@
+                    <div class="p-2" id="surpathRegWizardButtonWrapper">
+                        <button id="stepper_next_button" type="button" class="btn btn-primary" data-kt-stepper-action="next" disabled>
+                            Continue
+                        </button>
+                    </div>
+                </div>
+                <!--end::Wrapper-->
+            </div>
+            <!--end::Actions-->
+            <div>
+                <h3 id="paymentInfoFeedback" class="font-weight-bolder text-dark font-size-h3 font-size-h1-lg"></h3>
+            </div>
+            <div class="pb-lg-0 pb-5">
+                <a asp-action="Login">
+                    <button type="button" id="register-back-btn" class="btn btn-light-primary font-weight-bolder font-size-h6 px-8 py-4 my-3">@L("BackToLogin")</button>
+                </a>
+                <button type="submit" id="register-submit-btn" data-default-text="@L("Submit")" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 me-3 save-button" disabled>@L("Submit")</button>
+                <button type="button" id="register-checkout-btn" data-default-text="@L("Checkout")" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 me-3 checkout-button d-none" disabled>@L("Checkout")</button>
+            </div>
+            <!--end::Form-->
+        </div>
+        <!--end::Stepper-->
+    </form>
+</div>

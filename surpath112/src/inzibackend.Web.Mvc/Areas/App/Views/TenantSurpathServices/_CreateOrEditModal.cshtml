@@ -1,0 +1,141 @@
+﻿
+@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.TenantSurpathServices
+@model CreateOrEditTenantSurpathServiceModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditTenantSurpathService")) : L("CreateNewTenantSurpathService")))
+
+<div class="modal-body">
+    <div id="TenantSurpathServiceInformationsTab">
+        <form name="TenantSurpathServiceInformationsForm" id="TenantSurpathServiceInformationsForm" role="form" novalidate class="form-validation">
+            <input type="hidden" value="" id="tenantId" />
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.TenantSurpathService.Id" />
+            }
+
+            <div class="my-3" style="display:none;">
+                <label class="form-label" for="SurpathServiceName">@L("SurpathService")</label>
+                <div class="input-group">
+                    <input class="form-control" id="SurpathServiceName" name="surpathServiceName" value="@Model.SurpathServiceName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenSurpathServiceLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearSurpathServiceNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="TenantSurpathService_SurpathServiceId" value="@Model.TenantSurpathService.SurpathServiceId" type="text" name="surpathServiceId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="TenantSurpathService_SurpathServiceId" value="" type="text" name="surpathServiceId" hidden />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="TenantDepartmentName">@L("TenantDepartment")</label>
+                <div class="input-group">
+                    <input class="form-control" id="TenantDepartmentName" name="tenantDepartmentName" value="@Model.TenantDepartmentName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenTenantDepartmentLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearTenantDepartmentNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="TenantSurpathService_TenantDepartmentId" value="@Model.TenantSurpathService.TenantDepartmentId" type="text" name="tenantDepartmentId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="TenantSurpathService_TenantDepartmentId" value="" type="text" name="tenantDepartmentId" hidden />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="CohortName">@L("Cohort")</label>
+                <div class="input-group">
+                    <input class="form-control" id="CohortName" name="cohortName" value="@Model.CohortName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenCohortLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearCohortNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="TenantSurpathService_CohortId" value="@Model.TenantSurpathService.CohortId" type="text" name="cohortId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="TenantSurpathService_CohortId" value="" type="text" name="cohortId" hidden />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="UserName">@L("User")</label>
+                <div class="input-group">
+                    <input class="form-control" id="UserName" name="userName" value="@Model.UserName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenUserLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearUserNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="TenantSurpathService_UserId" value="@Model.TenantSurpathService.UserId" type="text" name="userId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="TenantSurpathService_UserId" value="" type="text" name="userId" hidden />
+            }
+
+            <div class="my-3" style="display:none;">
+                <label class="form-label" for="RecordCategoryRuleName">@L("RecordCategoryRule")</label>
+                <div class="input-group">
+                    <input class="form-control" id="RecordCategoryRuleName" name="recordCategoryRuleName" value="@Model.RecordCategoryRuleName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenRecordCategoryRuleLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearRecordCategoryRuleNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="TenantSurpathService_RecordCategoryRuleId" value="@Model.TenantSurpathService.RecordCategoryRuleId" type="text" name="recordCategoryRuleId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="TenantSurpathService_RecordCategoryRuleId" value="" type="text" name="recordCategoryRuleId" hidden />
+            }
+
+            <div class="my-3" style="display:none;">
+                <label class="form-label" for="TenantSurpathService_Name">@L("Name")</label>
+                <input class="form-control" id="TenantSurpathService_Name" value="@Model.TenantSurpathService.Name" type="text" name="name" required />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="TenantSurpathService_Price">@L("Price")</label>
+                <input class="form-control m-input" id="TenantSurpathService_Price" value="@Model.TenantSurpathService.Price.ToString(CultureInfo.InvariantCulture)" type="number" name="price" min="@inzibackend.Surpath.TenantSurpathServiceConsts.MinPriceValue" max="@inzibackend.Surpath.TenantSurpathServiceConsts.MaxPriceValue" />
+            </div>
+
+            <div class="my-3" style="display:none;">
+                <label class="form-label" for="TenantSurpathService_Description">@L("Description")</label>
+                <input class="form-control" id="TenantSurpathService_Description" value="@Model.TenantSurpathService.Description" type="text" name="description" />
+            </div>
+
+            <label class="form-check form-check-custom">
+                <input id="TenantSurpathService_IsEnabled" name="isEnabled" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.TenantSurpathService.IsPricingOverrideEnabled ? "checked=\"checked\"" : "") />
+                <span class="form-check-label">
+                    @L("IsEnabled")
+                </span>
+            </label>
+
+            <label class="form-check form-check-custom">
+                <input id="TenantSurpathService_IsInvoiced" name="isInvoiced" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.TenantSurpathService.IsInvoiced ?"checked=\"checked\"":"") />
+                <span class="form-check-label">
+                    @L("IsInvoiced")
+                </span>
+            </label>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

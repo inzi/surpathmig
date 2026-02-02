@@ -1,0 +1,172 @@
+﻿@using inzibackend.Surpath;
+
+@using System.Globalization
+@using inzibackend.Surpath.Statics
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.RotationSlots
+@model CreateOrEditRotationSlotModalViewModel
+
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditRotationSlot")) : L("NewRotationSlot")))
+
+<div class="modal-body">
+    <div id="RotationSlotInformationsTab">
+        <form name="RotationSlotInformationsForm" role="form" novalidate class="form-validation" style="display: flex;">
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="@Html.NameForJQ(m=>m.RotationSlot.Id)" value="@Model.RotationSlot.Id" />
+                <input type="hidden" name="@Html.NameForJQ(m=>m.RotationSlot.SlotId)" value="@Model.RotationSlot.SlotId" />
+            }
+            <div class="d-flex flex-column flex-grow-1">
+                <div class="d-flex justify-content-between mb-7 align-items-center">
+                    <div class="slot-modal-slot-id">Slot ID #: @Model.RotationSlot.SlotId</div>
+                    <div class="d-flex flex-grow-1"></div>
+                    <div class="d-flex flex-row align-items-center justify-content-end">
+                        <label class="col-form-label w-25 p-0" for="RotationSlot_AvailableSlots">@L("AvailableSlots")</label>
+                        <input class="form-control w-25 m-input" id="@Html.IdFor(m=>m.RotationSlot.AvailableSlots)" value="@Model.RotationSlot.AvailableSlots.ToString(CultureInfo.InvariantCulture)" type="number" name="@Html.NameForJQ(m=>m.RotationSlot.AvailableSlots)" />
+                    </div>
+                </div>
+                <div class="d-flex flex-row">
+
+                    <div class="d-flex flex-column w-50 p-xr-2">
+                        <div class="d-flex flex-column mb-4">
+                            <label class="form-label" for="hospital">Hospital / Clinical Site</label>
+                            @Html.DropDownList(Html.NameForJQ(m => m.RotationSlot.HospitalId), new SelectList(Model.RotationSlotHospitalList, "Id", "DisplayName", (Model.IsEditMode ? Model.RotationSlot.HospitalId.ToString() : "")), @L("SelectAHospital"), new { @class = "form-select", @required = "required" })
+                        </div>
+                        <div class="d-flex flex-column mb-4">
+                            <label class="form-label" for="medicalUnitId">@L("MedicalUnit")</label>
+                            @Html.DropDownList(Html.NameForJQ(m => m.RotationSlot.MedicalUnitId), new SelectList(Model.RotationSlotMedicalUnitList, "Id", "DisplayName", (Model.IsEditMode ? Model.RotationSlot.MedicalUnitId.ToString() : "")), @L("SelectAMedicalUnit"), new { @class = "form-select", @required = "required" })
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center modal-label-box">
+                            <label>Shift Dates</label>
+                        </div>
+                        <div class="d-flex flex-nowrap flex-row pt-2">
+                            <div class="w-50 d-flex flex-column align-items-center justify-content-center">
+                                <label class="form-label strong" for="RotationSlot_ShiftStartDate">@L("ShiftStartDate")</label>
+                                <input class="form-control m-input date-picker date-picker-filter w-75 text-center" id="RotationSlot_ShiftStartDate" type="text" name="@Html.NameForJQ(m=>m.RotationSlot.ShiftStartDate)" value="@Model.RotationSlot.ShiftStartDate" />
+                            </div>
+                            <div class="w-50 d-flex flex-column align-items-center justify-content-center">
+                                <label class="form-label strong" for="RotationSlot_ShiftEndDate">@L("ShiftEndDate")</label>
+                                <input class="form-control m-input date-picker date-picker-filter w-75 text-center" id="RotationSlot_ShiftEndDate" type="text" name="@Html.NameForJQ(m=>m.RotationSlot.ShiftEndDate)" value="@Model.RotationSlot.ShiftEndDate" />
+                            </div>
+                        </div>
+                        <div class="d-flex flex-nowrap flex-row align-items-center justify-content-center modal-label-box">
+                            <label>Shift Time</label>
+                        </div>
+                        <div class="d-flex flex-nowrap flex-row pt-2">
+                            <div class="w-50 d-flex flex-column align-items-center justify-content-center">
+                                <label class="form-label strong" for="RotationSlot_ShiftStartTime">@L("ShiftStartTime")</label>
+                                <input class="form-control m-input date-picker-filter w-75 text-center j-time-picker" id="RotationSlot_ShiftStartTime" type="text" name="@Html.NameForJQ(m=>m.RotationSlot.ShiftStartTime)" value="@Model.RotationSlot.ShiftStartTime.ToString("hh:mm tt")"
+                                       data-td-toggle="RotationSlot_ShiftStartTime" />
+                            </div>
+                            <div class="w-50 d-flex flex-column align-items-center justify-content-center">
+                                <label class="form-label strong" for="RotationSlot_ShiftEndTime">@L("ShiftEndTime")</label>
+                                <input class="form-control m-input date-picker-filter w-75 text-center j-time-picker" id="RotationSlot_ShiftEndTime" type="text" name="@Html.NameForJQ(m=>m.RotationSlot.ShiftEndTime)" value="@Model.RotationSlot.ShiftEndTime.ToString("hh:mm tt")" />
+                            </div>
+                        </div>
+                        <div class="d-flex flex-nowrap flex-row pt-2">
+                            <div class="w-50 d-flex flex-column align-items-center justify-content-center modal-label-box">
+                                <label class="" for="RotationSlot_ShiftHours">@L("ShiftHours")</label>
+                            </div>
+                            <div class="w-50 d-flex flex-column align-items-center justify-content-center">
+                                @* <input readonly class="form-control m-input theme0-stepper col-md-10 pull-right" id="RotationSlot_ShiftHours" value="@Model.RotationSlot.ShiftHours.ToString(CultureInfo.InvariantCulture)" type="number" name="@Html.NameForJQ(m=>m.RotationSlot.ShiftHours)" min="@inzibackend.Surpath.RotationSlotConsts.MinShiftHoursValue" max="@inzibackend.Surpath.RotationSlotConsts.MaxShiftHoursValue" /> *@
+                                <input readonly class="form-control m-input w-75 text-center" id="RotationSlot_ShiftHours" value="@Model.RotationSlot.ShiftHours.ToString("F",CultureInfo.InvariantCulture)" type="number" name="@Html.NameForJQ(m=>m.RotationSlot.ShiftHours)" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column w-50 p-xl-2">
+                        <div class="slot-modal-container-row modal-label-box align-items-center justify-content-center">
+                            <label>Available Days of Week</label>
+                        </div>
+                        <div class="d-flex flex-column w-100">
+                            <div class="d-flex flex-column w-100 align-items-center justify-content-between days-of-week px-7rem">
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    @{
+                                        foreach (DayOfWeek day in DayOfWeekOrderExtensions.GetDaysStartingWith(DayOfWeek.Monday))
+                                        {
+                                            <label>@DayOfWeekOrderExtensions.GetDayOfWeekAbbr(day)</label>
+                                        }
+                                    }
+                                </div>
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    @{
+                                        foreach (DayOfWeek day in DayOfWeekOrderExtensions.GetDaysStartingWith(DayOfWeek.Monday))
+                                        {
+                                            var i = Model.RotationSlot.SlotAvailableDays.FindIndex(x => x.Day == day);
+
+                                            <input type="hidden" id="@Html.IdFor(m=>Model.RotationSlot.SlotAvailableDays[i].Day)" name="@Html.NameForJQ(m=>m.RotationSlot.SlotAvailableDays[i].Day )" value="@Model.RotationSlot.SlotAvailableDays[i].Day" />
+                                            <input type="hidden" id="@Html.IdFor(m=>Model.RotationSlot.SlotAvailableDays[i].Id)" name="@Html.NameForJQ(m=>m.RotationSlot.SlotAvailableDays[i].Id )" value="@Model.RotationSlot.SlotAvailableDays[i].Id" />
+                                            <input type="checkbox" id="@Html.IdFor(m=>Model.RotationSlot.SlotAvailableDays[i].IsSelected)" name="@Html.NameForJQ(m=>m.RotationSlot.SlotAvailableDays[i].IsSelected )" value="true" @(Model.RotationSlot.SlotAvailableDays[i].IsSelected ? "checked=\"checked\"" : "") />
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="slot-modal-container-row modal-label-box align-items-center justify-content-center">
+                            <label>Rotation Days</label>
+                        </div>
+                        <div class="d-flex flex-column w-100">
+                            <div class="d-flex flex-column w-100 align-items-center justify-content-between days-of-week px-7rem">
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    @{
+                                        foreach (DayOfWeek day in DayOfWeekOrderExtensions.GetDaysStartingWith(DayOfWeek.Monday))
+                                        {
+                                            <label>@DayOfWeekOrderExtensions.GetDayOfWeekAbbr(day)</label>
+                                        }
+                                    }
+                                </div>
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    @{
+                                        foreach (DayOfWeek day in DayOfWeekOrderExtensions.GetDaysStartingWith(DayOfWeek.Monday))
+                                        {
+                                            var i = Model.RotationSlot.SlotRotationDays.FindIndex(x => x.Day == day);
+
+                                            <input type="hidden" id="@Html.IdFor(m=>m.RotationSlot.SlotRotationDays[i].Day)" name="@Html.NameForJQ(m=>m.RotationSlot.SlotRotationDays[i].Day )" value="@Model.RotationSlot.SlotRotationDays[i].Day" />
+                                            <input type="hidden" id="@Html.IdFor(m=>Model.RotationSlot.SlotRotationDays[i].Id)" name="@Html.NameForJQ(m=>m.RotationSlot.SlotRotationDays[i].Id )" value="@Model.RotationSlot.SlotRotationDays[i].Id" />
+                                            <input type="checkbox" id="@Html.IdFor(m=>Model.RotationSlot.SlotRotationDays[i].IsSelected)" name="@Html.NameForJQ(m=>m.RotationSlot.SlotRotationDays[i].IsSelected )" value="true" @(Model.RotationSlot.SlotRotationDays[i].IsSelected ? "checked=\"checked\"" : "") />
+
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="d-flex flex-row modal-label-box align-items-center justify-content-center">
+                            <label>Bid Period</label>
+                        </div>
+                        <div class="d-flex flex-nowrap flex-row">
+                            <div class="w-50 d-flex flex-column align-items-center justify-content-center">
+                                <label class="form-label" for="RotationSlot_BidStartDateTime">@L("BidStartDateTime")</label>
+                                <input class="form-control m-input date-picker date-picker-filter w-75 text-center" id="RotationSlot_BidStartDateTime" type="text" name="@Html.NameForJQ(m=>m.RotationSlot.BidStartDateTime)" value="@Model.RotationSlot.BidStartDateTime" />
+                            </div>
+                            <div class="w-50 d-flex flex-column align-items-center justify-content-center">
+
+                                <label class="form-label" for="RotationSlot_BidEndDateTime">@L("BidEndDateTime")</label>
+                                <input class="form-control m-input date-picker date-picker-filter w-75 text-center" id="RotationSlot_BidEndDateTime" type="text" name="@Html.NameForJQ(m=>m.RotationSlot.BidEndDateTime)" value="@Model.RotationSlot.BidEndDateTime" />
+
+                            </div>
+                        </div>
+                        <div class="d-flex flex-nowrap flex-row">
+                            <div class="w-50 d-flex flex-column align-items-center justify-content-center">
+                                <label class="form-label slot-modal-label-box pt-2" for="RotationSlot_ShiftType">@L("ShiftType")</label>
+                            </div>
+                            <div class="w-50 d-flex flex-column align-items-center justify-content-center">
+                                @{
+                                    var selectListShiftType = Html.GetEnumSelectList(typeof(EnumSlotShiftType));
+                                    foreach (var selectOption in selectListShiftType) { selectOption.Text = L("Enum_EnumSlotShiftType_" + selectOption.Value); }
+                                }
+                                <select class="form-select m-input" name="shiftType" id="RotationSlot_ShiftType" asp-for="@Model.RotationSlot.ShiftType" asp-items="@selectListShiftType">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

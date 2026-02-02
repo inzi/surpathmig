@@ -1,0 +1,189 @@
+﻿@using inzibackend.Surpath;
+
+@using System.Globalization
+@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.RecordStatuses
+@using inzibackend.Web.Areas.App.Startup
+@using Abp.MultiTenancy
+@model CreateOrEditRecordStatusViewModel
+@using Abp.Extensions
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.RecordStatuses;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/RecordStatuses/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+    var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/App/RecordStatuses", L("RecordStatuses")),
+        new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
+        };
+        }
+        <abp-page-subheader title='@(Model.IsEditMode ? (L("EditRecordStatus")) : L("CreateNewRecordStatus"))' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+
+        <div class="@(await GetContainerClass())">
+            <div class="card card-custom gutter-b">
+                <form name="RecordStatusInformationsForm" role="form" novalidate class="form-validation">
+                    <div class="card-body">
+                        <div class="form">
+                            <div id="RecordStatusInformationsTab">
+                                @if (Model.IsEditMode)
+                                {
+                                <input type="hidden" name="id" value="@Model.RecordStatus.Id" />
+                                }
+                            <input type="hidden" id="RecordStatus_HtmlColor" value="@Model.RecordStatus.HtmlColor" name="htmlColor" />
+                                <div class="my-3">
+                                    <label class="form-label" for="TenantDepartmentName">@L("TenantDepartment")</label>
+                                    <div class="input-group">
+                                        <input class="form-control" id="TenantDepartmentName" name="tenantDepartmentName" value="@Model.TenantDepartmentName" type="text" disabled>
+                                        <button class="btn btn-primary blue" id="OpenTenantDepartmentLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                        <button class="btn btn-danger btn-icon" type="button" id="ClearTenantDepartmentNameButton"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+
+                                @if (Model.IsEditMode)
+                                {
+                                <input class="form-control" id="RecordStatus_TenantDepartmentId" value="@Model.RecordStatus.TenantDepartmentId" type="text" name="tenantDepartmentId" hidden />
+                                }
+                                else
+                                {
+                                <input class="form-control" id="RecordStatus_TenantDepartmentId" value="" type="text" name="tenantDepartmentId" hidden />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="RecordStatus_StatusName">@L("StatusName")</label>
+                                    <input class="form-control" id="RecordStatus_StatusName" value="@Model.RecordStatus.StatusName" type="text" name="statusName" required />
+                                </div>
+
+                                 @*
+                                <div class="my-3">
+                                <label class="form-label" for="RecordStatus_HtmlColor">@L("HtmlColor")</label>
+                                <input class="form-control" id="RecordStatus_HtmlColor" value="@Model.RecordStatus.HtmlColor" type="text" name="htmlColor" />
+
+                                </div>*@
+                            <div class="my-3">
+                                <div class="rounded border p-10">
+                                    <div id="iropicker"></div>
+                                    <div class="pt-2">
+                                        <span id="pickerExampleBadge" class="badge record-status-badge" style="width: 200px; background: #67c777">Example</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            @*  <div class="input-append color colorpicker" data-color="rgb(255, 146, 180)" data-color-format="rgb">
+                                <input type="text" class="span2" value="" >
+                                <span class="add-on"><i style="background-color: rgb(255, 146, 180)"></i></span>
+                                </div>
+
+                                <div class="col-md-3">
+                                <div class="minicolors minicolors-theme-bootstrap minicolors-position-bottom minicolors-position-left minicolors-focus">
+                                <input type="text" id="wheel-demo" class="form-control demo minicolors-input" data-control="wheel" value="#ff99ee" size="7">
+                                <span class="minicolors-swatch minicolors-sprite"><span class="minicolors-swatch-color" style="background-color: rgb(255, 153, 238);"></span></span>
+                                <div class="minicolors-panel minicolors-slider-wheel" style="display: block;">
+                                <div class="minicolors-slider minicolors-sprite" style="background-color: rgb(255, 153, 238);">
+                                <div class="minicolors-picker" style="top: 0px;"></div>
+                                </div><div class="minicolors-opacity-slider minicolors-sprite">
+                                <div class="minicolors-picker"></div>
+                                </div><div class="minicolors-grid minicolors-sprite">
+                                <div class="minicolors-grid-inner"></div>
+                                <div class="minicolors-picker" style="top: 97.9813px; left: 55.7164px;"><div></div></div>
+                                </div>
+                                </div>
+                                </div>
+                                </div>*@
+
+                                 <div class="my-3 d-none">
+                                <label class="form-label" for="RecordStatus_CSSCLass">@L("CSSCLass")</label>
+                                <input class="form-control" id="RecordStatus_CSSCLass" value="@Model.RecordStatus.CSSCLass" type="text" name="csscLass" />
+                            </div>
+
+                            <div class="my-3 d-flex">
+                                <label class="form-check form-check-custom" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title="@Html.Raw(Model.RecordStatus.IsDefault ? @L("RecordStatusIsDefaultTooltipTrue") : @L("RecordStatusIsDefaultTooltipFalse"))">
+                                    <input id="RecordStatus_IsDefault" name="isDefault" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.RecordStatus.IsDefault ?"checked=\"checked\"":"") @Html.Raw(Model.RecordStatus.IsDefault ?"disabled=\"disabled\"":"")/>
+                                    @*<input id="RecordStatus_IsDefaultOriginal" name="isDefaultOriginal" type="hidden" class="form-check-input" value="@Model.RecordStatus.IsDefault"/>*@
+                                    <span class="form-check-label">
+                                        @L("IsDefault")
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="my-3">
+
+                                <label class="form-check form-check-custom">
+                                    <input id="RecordStatus_RequireNoteOnSet" name="requireNoteOnSet" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.RecordStatus.RequireNoteOnSet ?"checked=\"checked\"":"") />
+                                    <span class="form-check-label">
+                                        @L("RequireNoteOnSet")
+                                    </span>
+                                </label>
+                            </div>
+                            @{
+                                var _hide = " d-none";
+                                if (AbpSession.MultiTenancySide == MultiTenancySides.Host) _hide = "";
+                            }
+                            <label class="form-check form-check-custom @_hide">
+                                <input id="RecordStatus_IsSurpathServiceStatus" name="isSurpathServiceStatus" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.RecordStatus.IsSurpathServiceStatus ?"checked=\"checked\"":"") />
+                                <span class="form-check-label">
+                                    @L("IsSurpathServiceStatus")
+                                </span>
+                            </label>
+
+                                @{
+                                var selectListComplianceImpact = Html.GetEnumSelectList(typeof(EnumStatusComplianceImpact));
+                                foreach (var selectOption in selectListComplianceImpact) { selectOption.Text = L("Enum_EnumStatusComplianceImpact_" + selectOption.Value); }
+
+                                }
+ 
+                            <div class="my-3 m-form__group">
+                                <div data-kt-buttons="true">
+                                    <label class="form-label" for="RecordStatus_ComplianceImpact">@L("ComplianceImpact")</label>
+                                    <div class="rounded border p-10">
+                                        @{
+                                            string[] indicators = new string[3]{ "btn-active-light-primary", "btn-active-light-success", "btn-active-light-danger" };
+                                        }
+                                        @foreach (var c in System.Enum.GetValues(typeof(EnumStatusComplianceImpact)).OfType<EnumStatusComplianceImpact>())
+                                        {
+                                            var _radioId = "ComplianceImpact_" + (int)c;
+                                            //_radioId = "RecordStatus_ComplianceImpact";
+                                            //<label for="RecordStatus_ComplianceImpact_@((int)c)">@c</label>
+                                            <input type="radio" id="@_radioId" class="btn-check" value="@(c)" name="ComplianceImpact" checked="@(c == Model?.RecordStatus.ComplianceImpact)">
+
+                                            //<input type="radio" asp-for="RecordStatus.ComplianceImpact" id="@_radioId" class="btn-check" value="@(c)" checked="@(c == Model?.RecordStatus.ComplianceImpact)" />
+                                            <label class="btn btn-outline btn-outline-dashed @indicators[(int)c] p-7 d-flex align-items-center mb-5" for="@_radioId">
+                                                <span class="d-block fw-semibold text-start">
+                                                    <span class="text-dark fw-bold d-block fs-3">@c</span>
+                                                    
+                                                    <span class="text-muted fw-semibold fs-6">@L("Enum_EnumStatusComplianceImpact_Description_" + (int)c)</span>
+                                                </span>
+                                            </label>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12">
+                                <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                @if (!Model.IsEditMode)
+                                {
+                                <button type="button" id="saveAndNewBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>

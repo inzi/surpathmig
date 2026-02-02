@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Surpath.Formfox.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Surpath_Formfox_com_formfox_www_FFOrderSvc" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://www.formfox.com/ffordersvc/v2/ffordersvc.asmx</Value>
+    </Setting>
+    <Setting Name="Surpath_Formfox_com_formfoxtest_www_FFOrderSvc" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://www.formfoxtest.com/ffordersvc/v2/ffordersvc.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

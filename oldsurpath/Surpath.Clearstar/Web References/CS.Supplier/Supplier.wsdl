@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://clearstar.net/Gateway/wsSupplier/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://clearstar.net/Gateway/wsSupplier/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://clearstar.net/Gateway/wsSupplier/">
+      <s:element name="GetServiceMacros">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSourceID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sServiceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetServiceMacrosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetServiceMacrosResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RetrieveOrders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSourceID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sOption" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="bUseBatchID" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="sBatch" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RetrieveOrdersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RetrieveOrdersResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchOrders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSourceID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sSearchValue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sSearchField" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="bExactMatch" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchOrdersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchOrdersResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOrderResults">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSourceID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sResults" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="bHit" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOrderResultsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveOrderResultsResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOrderResultsDraftProfile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSourceID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sResults" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="bHit" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOrderResultsDraftProfileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveOrderResultsDraftProfileResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOrderStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSourceID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sStatusDetail" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOrderStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveOrderStatusResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderDocuments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSourceID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderDocumentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderDocumentsResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInternalSupplierOrderSummary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iParentSourceID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInternalSupplierOrderSummaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInternalSupplierOrderSummaryResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetExternalSupplierOrderSummary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sCustID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetExternalSupplierOrderSummaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetExternalSupplierOrderSummaryResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetListOfOrdersForSupplier">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSourceID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sSourceName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderStatus" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sOrderBY" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="bSortInAscending" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="sFilterBy" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sIncludeInReview" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iStartAtRecord" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iMaxResults" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetListOfOrdersForSupplierResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetListOfOrdersForSupplierResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNewOrdersMarkInProgress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iBOID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="iSourceID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sOption" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="iOrderID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNewOrdersMarkInProgressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNewOrdersMarkInProgressResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetServiceMacrosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetServiceMacros" />
+  </wsdl:message>
+  <wsdl:message name="GetServiceMacrosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetServiceMacrosResponse" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveOrdersSoapIn">
+    <wsdl:part name="parameters" element="tns:RetrieveOrders" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveOrdersSoapOut">
+    <wsdl:part name="parameters" element="tns:RetrieveOrdersResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchOrdersSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchOrders" />
+  </wsdl:message>
+  <wsdl:message name="SearchOrdersSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchOrdersResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrderResultsSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveOrderResults" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrderResultsSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveOrderResultsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrderResultsDraftProfileSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveOrderResultsDraftProfile" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrderResultsDraftProfileSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveOrderResultsDraftProfileResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrderStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveOrderStatus" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrderStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveOrderStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderDocumentsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderDocuments" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderDocumentsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderDocumentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInternalSupplierOrderSummarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetInternalSupplierOrderSummary" />
+  </wsdl:message>
+  <wsdl:message name="GetInternalSupplierOrderSummarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetInternalSupplierOrderSummaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetExternalSupplierOrderSummarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetExternalSupplierOrderSummary" />
+  </wsdl:message>
+  <wsdl:message name="GetExternalSupplierOrderSummarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetExternalSupplierOrderSummaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetListOfOrdersForSupplierSoapIn">
+    <wsdl:part name="parameters" element="tns:GetListOfOrdersForSupplier" />
+  </wsdl:message>
+  <wsdl:message name="GetListOfOrdersForSupplierSoapOut">
+    <wsdl:part name="parameters" element="tns:GetListOfOrdersForSupplierResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNewOrdersMarkInProgressSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNewOrdersMarkInProgress" />
+  </wsdl:message>
+  <wsdl:message name="GetNewOrdersMarkInProgressSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNewOrdersMarkInProgressResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SupplierSoap">
+    <wsdl:operation name="GetServiceMacros">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing ServiceMacros for Supplier Service.</wsdl:documentation>
+      <wsdl:input message="tns:GetServiceMacrosSoapIn" />
+      <wsdl:output message="tns:GetServiceMacrosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveOrders">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing orders for the requested user. Options include B - All Orders in a Batch, N - New Orders, S - Single Order</wsdl:documentation>
+      <wsdl:input message="tns:RetrieveOrdersSoapIn" />
+      <wsdl:output message="tns:RetrieveOrdersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchOrders">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing Orders that matches search criteria.</wsdl:documentation>
+      <wsdl:input message="tns:SearchOrdersSoapIn" />
+      <wsdl:output message="tns:SearchOrdersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderResults">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing information if saving of Result notes and Hit Flag was successful.</wsdl:documentation>
+      <wsdl:input message="tns:SaveOrderResultsSoapIn" />
+      <wsdl:output message="tns:SaveOrderResultsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderResultsDraftProfile">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing information if saving of Result notes and Hit Flag was successful for draft profile.</wsdl:documentation>
+      <wsdl:input message="tns:SaveOrderResultsDraftProfileSoapIn" />
+      <wsdl:output message="tns:SaveOrderResultsDraftProfileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing information if saving of StatusDetail was successful.</wsdl:documentation>
+      <wsdl:input message="tns:SaveOrderStatusSoapIn" />
+      <wsdl:output message="tns:SaveOrderStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderDocuments">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns List of Documents attached to an Order.</wsdl:documentation>
+      <wsdl:input message="tns:GetOrderDocumentsSoapIn" />
+      <wsdl:output message="tns:GetOrderDocumentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInternalSupplierOrderSummary">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns Order Summary for each of Internal Suppliers.</wsdl:documentation>
+      <wsdl:input message="tns:GetInternalSupplierOrderSummarySoapIn" />
+      <wsdl:output message="tns:GetInternalSupplierOrderSummarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetExternalSupplierOrderSummary">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns Order Summary for each of External Suppliers.</wsdl:documentation>
+      <wsdl:input message="tns:GetExternalSupplierOrderSummarySoapIn" />
+      <wsdl:output message="tns:GetExternalSupplierOrderSummarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListOfOrdersForSupplier">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets list of Orders having result from one supplier.</wsdl:documentation>
+      <wsdl:input message="tns:GetListOfOrdersForSupplierSoapIn" />
+      <wsdl:output message="tns:GetListOfOrdersForSupplierSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewOrdersMarkInProgress">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns XmlNode containing orders for the requested user and marks them in progress. Options N - New Orders, S - Single Order</wsdl:documentation>
+      <wsdl:input message="tns:GetNewOrdersMarkInProgressSoapIn" />
+      <wsdl:output message="tns:GetNewOrdersMarkInProgressSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SupplierSoap" type="tns:SupplierSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetServiceMacros">
+      <soap:operation soapAction="http://clearstar.net/Gateway/wsSupplier/GetServiceMacros" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveOrders">
+      <soap:operation soapAction="http://clearstar.net/Gateway/wsSupplier/RetrieveOrders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchOrders">
+      <soap:operation soapAction="http://clearstar.net/Gateway/wsSupplier/SearchOrders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderResults">
+      <soap:operation soapAction="http://clearstar.net/Gateway/wsSupplier/SaveOrderResults" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderResultsDraftProfile">
+      <soap:operation soapAction="http://clearstar.net/Gateway/wsSupplier/SaveOrderResultsDraftProfile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderStatus">
+      <soap:operation soapAction="http://clearstar.net/Gateway/wsSupplier/SaveOrderStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderDocuments">
+      <soap:operation soapAction="http://clearstar.net/Gateway/wsSupplier/GetOrderDocuments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInternalSupplierOrderSummary">
+      <soap:operation soapAction="http://clearstar.net/Gateway/wsSupplier/GetInternalSupplierOrderSummary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetExternalSupplierOrderSummary">
+      <soap:operation soapAction="http://clearstar.net/Gateway/wsSupplier/GetExternalSupplierOrderSummary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListOfOrdersForSupplier">
+      <soap:operation soapAction="http://clearstar.net/Gateway/wsSupplier/GetListOfOrdersForSupplier" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewOrdersMarkInProgress">
+      <soap:operation soapAction="http://clearstar.net/Gateway/wsSupplier/GetNewOrdersMarkInProgress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SupplierSoap12" type="tns:SupplierSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetServiceMacros">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/wsSupplier/GetServiceMacros" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveOrders">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/wsSupplier/RetrieveOrders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchOrders">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/wsSupplier/SearchOrders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderResults">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/wsSupplier/SaveOrderResults" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderResultsDraftProfile">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/wsSupplier/SaveOrderResultsDraftProfile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderStatus">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/wsSupplier/SaveOrderStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderDocuments">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/wsSupplier/GetOrderDocuments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInternalSupplierOrderSummary">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/wsSupplier/GetInternalSupplierOrderSummary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetExternalSupplierOrderSummary">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/wsSupplier/GetExternalSupplierOrderSummary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListOfOrdersForSupplier">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/wsSupplier/GetListOfOrdersForSupplier" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewOrdersMarkInProgress">
+      <soap12:operation soapAction="http://clearstar.net/Gateway/wsSupplier/GetNewOrdersMarkInProgress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Supplier">
+    <wsdl:port name="SupplierSoap" binding="tns:SupplierSoap">
+      <soap:address location="https://gateway.clearstar.net/CSGWSupplier/Supplier.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SupplierSoap12" binding="tns:SupplierSoap12">
+      <soap12:address location="https://gateway.clearstar.net/CSGWSupplier/Supplier.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

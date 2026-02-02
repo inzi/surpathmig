@@ -1,0 +1,43 @@
+﻿@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.UserPurchases
+@model AdjustPriceViewModel
+
+@{
+    Layout = null;
+}
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("AdjustPrice")))
+
+<div class="modal-body">
+    <div id="AdjustPriceInformationsTab">
+        <form name="AdjustPriceInformationsForm" role="form" novalidate class="form-validation">
+            <input type="hidden" name="userPurchaseId" value="@Model.UserPurchaseId" />
+
+            <div class="alert alert-info">
+                <span>@L("AdjustingPriceFor") <strong>@Model.UserPurchaseName</strong></span>
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="AdjustPrice_OriginalPrice">@L("OriginalPrice")</label>
+                <input class="form-control" id="AdjustPrice_OriginalPrice" value="@Model.OriginalPrice.ToString("C")" type="text" disabled />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="AdjustPrice_CurrentAdjustedPrice">@L("CurrentAdjustedPrice")</label>
+                <input class="form-control" id="AdjustPrice_CurrentAdjustedPrice" value="@Model.CurrentAdjustedPrice.ToString("C")" type="text" disabled />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="AdjustPrice_NewAdjustedPrice">@L("NewAdjustedPrice")*</label>
+                <input class="form-control" id="AdjustPrice_NewAdjustedPrice" value="@Model.NewAdjustedPrice" type="number" name="adjustedPrice" required min="0" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="AdjustPrice_Reason">@L("Reason")*</label>
+                <textarea class="form-control" id="AdjustPrice_Reason" name="reason" required>@Model.Reason</textarea>
+            </div>
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

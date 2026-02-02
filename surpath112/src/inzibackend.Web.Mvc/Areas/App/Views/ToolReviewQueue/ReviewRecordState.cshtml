@@ -1,0 +1,215 @@
+﻿@using inzibackend.Surpath
+@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Startup
+@using inzibackend.Web.Areas.App.Models.Records
+@using inzibackend.Web.Areas.App.Models.RecordStates
+@model CreateOrEditRecordStateModalViewModel
+
+@using inzibackend.Web.TagHelpers
+@{
+    ViewBag.CurrentPageName = AppPageNames.Common.Records;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/RecordStates/Review.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+        var breadcrumbs = new List<BreadcrumbItem>()
+    {
+    new BreadcrumbItem("/App/Records", L("Records")),
+    new BreadcrumbItem(L("Details")),
+    };
+    }
+    <abp-page-subheader title='@L("Details")' breadcrumbs="breadcrumbs">
+    </abp-page-subheader>
+    <form name="ReviewRecordStateForm" role="form" novalidate class="form-validation d-flex flex-column flex-column-fluid">
+
+        <div class="@(await GetContainerClass()) d-flex flex-column flex-column-fluid">
+            <div id="recordStateIdsDiv" class="d-none">
+                <input type="hidden" name="id" value="@Model.RecordState.Id" />
+
+                <input type="hidden" name="RecordState_RecordDto_Id" value="@Model.RecordState.RecordDto.Id" />
+                <input class="form-control" id="RecordNote_NotifyUserId" value="" type="text" name="notifyUserId" hidden />
+
+                <input class="form-control" id="RecordState_Notes" value="@Model.RecordState.Notes" type="text" name="notes" />
+                <input class="form-control" id="RecordState_UserId" value="@Model.RecordState.UserId" type="text" name="userId" hidden />
+                <input class="form-control" id="UserName" name="userName" value="@Model.UserName" type="text" disabled>
+                <input class="form-control" id="RecordState_RecordCategoryId" value="@Model.RecordState.RecordCategoryId" type="text" name="recordCategoryId" hidden />
+                <input class="form-control" id="RecordCategoryName" name="recordCategoryName" value="@Model.RecordCategoryName" type="text" disabled>
+                <input class="form-control" id="RecordState_RecordId" value="@Model.RecordState.RecordId" type="text" name="recordId" hidden />
+                <input class="form-control" id="Recordfilename" name="recordfilename" value="@Model.Recordfilename" type="text" disabled>
+
+            </div>
+            <div class=" card card-custom gutter-b">
+                <div class="card-header ribbon ribbon-end ribbon-clip">
+
+                    @*                    @if (@Model.TenantDocument.AuthorizedOnly)
+                        {
+                        <div class="ribbon-label bg-success">@L("AuthorizedOnly")</div>
+                        }*@
+                    <div class="card-title">@Model.Recordfilename</div>
+                </div>
+
+                <div class=" card-body">
+                    <div id="RecordInformationsTab">
+                        <div class="row">
+                            @* <div class="col-6 mb-3">
+                                <h6>@L("filedata") :</h6>
+                                <a href="@("/File/ViewBinaryFile?id=" + Model.Record.filedata)" target="_blank">@Model.Record.filedataFileName</a>
+                                </div>*@
+                            <div class="my-12 mb-3">
+                                <label class="form-label" for="recordStatusId">@L("RecordStatus")</label>
+                                @Html.DropDownList("recordStatusId", new SelectList(Model.RecordStateRecordStatusList,"Id","DisplayName", (Model.IsEditMode ? Model.RecordState.RecordStatusId.ToString() : "")),@L("SelectARecordStatus"), new { @class = "form-control" , @required="required" })
+                            </div>
+                            <div class="col-4 mb-3 text-center">
+                                @if (IsGranted(AppPermissions.Pages_RecordNotes_Create))
+                                {
+                                <button id="CreateNewRecordNoteButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("AddNote")</button>
+                                }
+                            </div>
+                            <div class="col-4 mb-3 text-center">
+                                <button class="btn btn-primary btn-xs"><i class="fa fa-comment"></i>Send Message</button>
+                            </div>
+                            <div class="col-4 mb-3 text-center">
+                                <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                            </div>
+                            @*<div class="col-6 mb-3">
+                                <h6>@L("physicalfilepath") :</h6>
+                                @Model.Record.physicalfilepath
+                                </div>
+                                <div class="col-6 mb-3">
+                                <h6>@L("metadata") :</h6>
+                                @Model.Record.metadata
+                                </div>
+                                <div class="col-6 mb-3">
+                                <h6>@L("BinaryObjId") :</h6>
+                                @Model.Record.BinaryObjId
+                                </div>*@
+
+                            <div class="col-12 mb-3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_record">Record</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2">Requirements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_3">Notes</a>
+                </li>
+            </ul>
+            <div class="tab-content d-flex flex-column flex-column-fluid" id="myTabContent">
+                <div class="tab-pane fade show active surpath-flex-tab-pane d-flex flex-column flex-column-fluid" id="kt_tab_pane_record" role="tabpanel">
+                    <div class="surpath-record_view">
+                        <iframe id="recordIframe" name="RecordIframe" src="@("/File/ViewBinaryFile?id=" + Model.RecordState.RecordDto.BinaryObjId)#view=fitH" class="surpath-record-iframe" frameborder="0"></iframe>
+                    </div>
+                </div>
+                <div class="tab-pane fade surpath-flex-tab-pane d-flex flex-column flex-column-fluid" id="kt_tab_pane_2" role="tabpanel">
+                    <div class="card shadow-sm">
+                        <div class="card-header">
+                            <h3 class="card-title">@Model.RecordCategoryName</h3>
+                            <div class="card-toolbar">
+                                <button type="button" class="btn btn-sm btn-light d-none">
+                                    View Requirements
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            @Model.RecordState.RecordCategoryDto.Instructions
+                        </div>
+                        <div class="card-footer">
+                            @Model.RecordState.RecordCategoryDto.Name
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade surpath-flex-tab-pane d-flex flex-column flex-column-fluid" id="kt_tab_pane_3" role="tabpanel">
+                    <div class="mb-9">
+
+                        <table id="RecordNotesTable" class="table align-middle fs-6 gy-5 dataTable no-footer notecards">
+                            <thead>
+                                <tr>
+                                    <th>@L("UserName")</th>
+
+                                    <th>@L("Note")</th>
+                                    <th>@L("Created")</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div id="NoteCardTemplateWho1" class="d-none">
+                            <!--begin::Wrapper-->
+                            <div id="NoteCardTemplateWho" class="w-100 d-flex flex-stack mb-8">
+                                <!--begin::Container-->
+                                <div class="d-flex align-items-center f">
+                                    <!--begin::Author-->
+                                    <div class="symbol symbol-50px me-5">
+                                        <div class="symbol-label fs-1 fw-bold bg-light-success text-success">S</div>
+                                    </div>
+                                    <!--end::Author-->
+                                    <!--begin::Info-->
+                                    <div class="d-flex flex-column fw-semibold fs-5 text-gray-600 text-dark">
+                                        <!--begin::Text-->
+                                        <div class="d-flex align-items-center">
+                                            <!--begin::Username-->
+                                            @*<a href="/metronic8/demo1/../demo1/pages/user-profile/overview.html" class="text-gray-800 fw-bold text-hover-primary fs-5 me-3">Sandra Piquet</a>*@
+
+                                            <!--end::Username-->
+                                            <span class="text-gray-800 fw-bold fs-5 me-3 surpath-username">username area</span>
+                                        </div>
+                                        <!--end::Text-->
+                                        <!--begin::Date-->
+                                        <span class="text-muted fw-semibold fs-6 surpath-days-ago"></span>
+                                        <!--end::Date-->
+                                    </div>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::Container-->
+                            </div>
+                            <!--end::Wrapper-->
+                        </div>
+
+
+                        <div id="NoteCardTemplate" class="card d-none">
+	<div class="row no-gutters">
+		<div id="NoteCardTemplateWho" class="col-sm-3 card flex-center">
+			@*<span class="text-muted fw-semibold fs-6 NoteCardTemplateAgo"></span>*@
+
+			<div class="row">
+				<span class="badge badge-success surpath-note-authorizedOnly d-none w-auto">@L("AuthorizedOnly")</span>
+			</div>
+			<div class="row">
+				<span class="badge badge-danger surpath-note-hostonly d-none w-auto">@L("HostOnly")</span>
+			</div>
+			<div class="flex row">
+				<span class="text-gray-800 fw-bold fs-5 me-3 surpath-username">username area</span>
+			</div>
+			<div class="row">
+				<span class="badge badge-light-dark NoteCardTemplateAgo w-auto"></span>
+			</div>
+		</div>
+		<div class="col-sm-9">
+			<div class="card-body">
+				<p class="card-text note-body"></p>
+			</div>
+		</div>
+	</div>
+
+	<!--end::Body-->
+</div>
+                        
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+
+</div>

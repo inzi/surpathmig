@@ -1,0 +1,82 @@
+name: Surpathv112 Dev Deploy
+
+on: 
+  push:
+    branches:
+      - deploy/dev
+      
+ # workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+
+    runs-on: [self-hosted, dev]
+            
+    steps:
+    - name: Ping Github
+      run: ping github.com
+
+    - name: Get Repo
+      uses: actions/checkout@v2.4.0
+
+    - uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
+    - name: Get npm cache directory
+      id: npm-cache-dir
+      run: |
+        echo "::set-output name=dir::$(npm config get cache)"
+
+    - uses: actions/cache@v3
+      id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+      with:
+        path: ${{ steps.npm-cache-dir.outputs.dir }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+        
+    - name: Restore Solution
+      run: |
+        cd '${{ github.workspace }}'
+        dotnet restore inzibackend.Web.sln
+
+    - name: Yarn Builds
+      run: |
+        cd '${{ github.workspace }}\src\inzibackend.Web.Mvc\' 
+        yarn
+        yarn run build
+
+    - name: Build MVC
+      run: |
+        cd '${{ github.workspace }}\src\inzibackend.Web.Mvc\' 
+        dotnet publish --output '${{ github.workspace }}\public' --configuration Debug
+
+    - name: Build Migrations
+      run: dotnet build '${{ github.workspace }}\src\inzibackend.Migrator\'
+
+    - name: Stop Site
+      run: |
+        Import-Module WebAdministration
+        Stop-Website -name 'dev.surpath.com'
+        if ((Get-WebAppPoolState -name "dev.surpath.com" | Select -ExpandProperty Value) -eq "started" )
+        {
+            Stop-WebAppPool -Name "dev.surpath.com"
+        }
+
+    - name: Running Migrations
+      run: |
+        cd '${{ github.workspace }}\src\inzibackend.Migrator\bin\Debug\net6.0\' 
+        .\inzibackend.Migrator.exe -s
+    
+    - name: Copy to IIS
+      run: Copy-Item  '${{ github.workspace }}\public\*' 'C:\inetpub\dev.surpath.com' -Recurse -Force
+    
+    - name: Start Site
+      run: |
+        Import-Module WebAdministration
+        Start-WebAppPool -Name "dev.surpath.com"  
+        Start-Website -name 'dev.surpath.com'

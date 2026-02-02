@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "SurScan Registration";
+    Layout = "~/Views/Shared/_LayoutRegistration.cshtml";
+}
+
+@section PageScript
+{
+    <script type="text/javascript">
+        $(function () {
+            if ("@ViewBag.ServerErr" != "") {
+                $("#divServerErr").show().find("div").html("@ViewBag.ServerErr");
+            }
+        });
+    </script>
+}
+
+@{using (Html.BeginForm())
+{
+    <div class="container">
+        <div id="loginbox" style="margin-top:50px;" class="col-xs-12 col-md-6 col-md-offset-2 col-sm-8 col-sm-offset-2 col-lg-8">
+            <div style="display:none" class="alert alert-danger" role="alert" id="divServerErr">
+                <i class="fa fa-exclamation-triangle fa-1x"></i> @ViewBag.ServerErr
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">Registration</div>
+                </div>
+                <div style="padding-top:30px" class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-xs-offset-4 col-sm-12 col-sm-offset-5 col-md-8 col-md-offset-4 col-lg-12 col-lg-offset-5"> <i class="fa fa-inbox fa-5x"></i> </div>
+                    </div>
+                    <h5 align="center" class="text-primary">
+                        Thanks for completing the registration.<br /><br />
+                        An account activation email has been sent to your registered email address.<br /><br /> Please follow the instructions in the email to finish registration.
+                    </h5>
+                    <div class="col-centered">
+                        <input type="button" class="btn btn-primary" value="Go to Home" onclick="javascript: window.location='@System.Configuration.ConfigurationManager.AppSettings["MvcMailer.BaseURL"].ToString().Trim()';" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row top-buffer"></div>
+    <div class="row top-buffer"></div>
+}
+}
+

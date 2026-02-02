@@ -1,0 +1,627 @@
+/* User Transfer Wizard Styles */
+.wizard-progress {
+    margin-bottom: 2rem;
+}
+
+.wizard-progress .step-item {
+    text-align: center;
+    position: relative;
+    flex: 1;
+}
+
+.wizard-progress .step-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    right: -50%;
+    height: 2px;
+    background-color: #e9ecef;
+    z-index: 1;
+}
+
+.wizard-progress .step-item.completed:not(:last-child)::after {
+    background-color: #28a745;
+}
+
+.wizard-progress .step-number {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    color: #6c757d;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 8px;
+}
+
+.wizard-progress .step-item.active .step-number {
+    background-color: #007bff;
+    color: white;
+}
+
+.wizard-progress .step-item.completed .step-number {
+    background-color: #28a745;
+    color: white;
+}
+
+.wizard-progress .step-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: #6c757d;
+}
+
+.wizard-progress .step-item.active .step-title {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.wizard-progress .step-item.completed .step-title {
+    color: #28a745;
+}
+
+/* Wizard Step Content */
+.wizard-step {
+    min-height: 400px;
+}
+
+.wizard-step.active {
+    display: block !important;
+}
+
+/* Department Statistics */
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+.stat-value {
+    font-weight: 600;
+    color: #007bff;
+}
+
+/* Form Enhancements */
+.form-check-label strong {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.form-check-label small {
+    font-size: 0.875rem;
+}
+
+/* Transfer Analysis Styles */
+#transferAnalysis .card {
+    margin-top: 1rem;
+}
+
+.analysis-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.analysis-item:last-child {
+    border-bottom: none;
+}
+
+.analysis-label {
+    font-weight: 500;
+}
+
+.analysis-value {
+    font-weight: 600;
+}
+
+.complexity-simple {
+    color: #28a745;
+}
+
+.complexity-moderate {
+    color: #ffc107;
+}
+
+.complexity-complex {
+    color: #dc3545;
+}
+
+/* Loading States */
+.loading-spinner {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .wizard-progress .d-flex {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .wizard-progress .step-item:not(:last-child)::after {
+        display: none;
+    }
+    
+    .wizard-progress .step-item {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        gap: 1rem;
+    }
+    
+    .wizard-progress .step-number {
+        margin-bottom: 0;
+    }
+}
+
+/* Alert Enhancements */
+.alert-info {
+    border-left: 4px solid #17a2b8;
+}
+
+.alert-warning {
+    border-left: 4px solid #ffc107;
+}
+
+.alert-success {
+    border-left: 4px solid #28a745;
+}
+
+.alert-danger {
+    border-left: 4px solid #dc3545;
+}
+
+/* Category Mapping Styles */
+#categoryMappingTable {
+    font-size: 0.875rem;
+}
+
+#categoryMappingTable th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    border-bottom: 2px solid #dee2e6;
+    vertical-align: middle;
+}
+
+#categoryMappingTable td {
+    vertical-align: middle;
+    padding: 0.75rem 0.5rem;
+}
+
+.category-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.category-name {
+    font-weight: 600;
+    color: #495057;
+}
+
+.category-description {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.requirement-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.requirement-name {
+    font-weight: 500;
+    color: #495057;
+}
+
+.requirement-type {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+}
+
+.requirement-type.surpath-only {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.requirement-type.external {
+    background-color: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.impact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: center;
+}
+
+.impact-users {
+    font-weight: 600;
+    color: #dc3545;
+}
+
+.impact-records {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+/* Transfer Summary */
+#transferSummary .badge {
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+}
+
+/* Validation Messages */
+#mappingValidationMessages {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#validationIssuesList li {
+    margin-bottom: 0.5rem;
+}
+
+/* Loading State */
+#categoryMappingLoading {
+    background-color: rgba(248, 249, 250, 0.8);
+}
+
+/* Transfer Confirmation Styles */
+.transfer-confirmation-summary .card {
+    border: 1px solid #dee2e6;
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+}
+
+.transfer-confirmation-summary .card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.impact-stat {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #f8f9fa;
+    margin-bottom: 1rem;
+}
+
+.impact-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #007bff;
+    display: block;
+}
+
+.impact-stat small {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.badge-lg {
+    font-size: 1.25rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.transfer-confirmation-summary .form-check {
+    background-color: #f8f9fa;
+    border: 2px solid #dee2e6;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+.transfer-confirmation-summary .form-check:hover {
+    border-color: #007bff;
+    background-color: #e3f2fd;
+}
+
+.transfer-confirmation-summary .form-check-input:checked ~ .form-check-label {
+    color: #007bff;
+}
+
+.transfer-confirmation-summary .form-check-label {
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+/* Responsive confirmation layout */
+@media (max-width: 768px) {
+    .impact-stat {
+        margin-bottom: 0.5rem;
+    }
+    
+    .impact-number {
+        font-size: 1.5rem;
+    }
+    
+    .badge-lg {
+        font-size: 1rem;
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+/* Transfer Progress Overlay */
+.transfer-progress-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.transfer-progress-content {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+    padding: 2rem;
+    max-width: 600px;
+    width: 100%;
+}
+
+.transfer-progress-icon {
+    margin-bottom: 1rem;
+}
+
+.transfer-progress-steps {
+    margin: 2rem 0;
+}
+
+.progress-step {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.progress-step.active {
+    background-color: #e3f2fd;
+    border-left: 4px solid #007bff;
+}
+
+.progress-step.completed {
+    background-color: #d4edda;
+    border-left: 4px solid #28a745;
+}
+
+.progress-step-icon {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    color: #6c757d;
+}
+
+.progress-step.active .progress-step-icon {
+    background-color: #007bff;
+    color: white;
+}
+
+.progress-step.completed .progress-step-icon {
+    background-color: #28a745;
+    color: white;
+}
+
+.progress-step-text {
+    font-weight: 500;
+    color: #495057;
+}
+
+.progress-step.active .progress-step-text {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.progress-step.completed .progress-step-text {
+    color: #28a745;
+}
+
+.transfer-progress-details {
+    text-align: center;
+}
+
+/* Transfer Success Styles */
+.transfer-success-container {
+    padding: 2rem;
+}
+
+.transfer-success-icon {
+    margin-bottom: 1rem;
+}
+
+.transfer-results-summary {
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    margin: 2rem 0;
+}
+
+.result-stat {
+    text-align: center;
+    padding: 1rem;
+}
+
+.result-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #28a745;
+    margin-bottom: 0.5rem;
+}
+
+.result-stat small {
+    color: #6c757d;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.transfer-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Transfer Error Styles */
+.transfer-error-container {
+    padding: 2rem;
+}
+
+.transfer-error-icon {
+    margin-bottom: 1rem;
+}
+
+.transfer-error-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Progress Bar Enhancements */
+.progress {
+    height: 0.75rem;
+    border-radius: 0.5rem;
+    background-color: #e9ecef;
+}
+
+.progress-bar {
+    border-radius: 0.5rem;
+    transition: width 0.6s ease;
+}
+
+.progress-bar-animated {
+    animation: progress-bar-stripes 1s linear infinite;
+}
+
+@keyframes progress-bar-stripes {
+    0% {
+        background-position: 1rem 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+/* Responsive Transfer Progress */
+@media (max-width: 768px) {
+    .transfer-progress-overlay {
+        padding: 1rem;
+    }
+    
+    .transfer-progress-content {
+        padding: 1.5rem;
+    }
+    
+    .progress-step {
+        padding: 0.5rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .progress-step-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: 0.75rem;
+    }
+    
+    .progress-step-text {
+        font-size: 0.9rem;
+    }
+    
+    .transfer-results-summary {
+        padding: 1rem;
+    }
+    
+    .result-stat {
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .result-number {
+        font-size: 1.5rem;
+    }
+    
+    .transfer-actions,
+    .transfer-error-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .transfer-actions .btn,
+    .transfer-error-actions .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* Animation for success/error transitions */
+.transfer-success-container,
+.transfer-error-container {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Disable pointer events during transfer */
+.modal.transfer-in-progress {
+    pointer-events: none;
+}
+
+.modal.transfer-in-progress .transfer-progress-overlay {
+    pointer-events: all;
+}

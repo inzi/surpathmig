@@ -1,0 +1,376 @@
+﻿{
+  "DLAL": {
+    "rule": "^[0-9]{1,8}$",
+    "description": [
+      "1-8 Numeric"
+    ]
+  }, 
+  "DLAK": {
+    "rule": "^[0-9]{1,7}$",
+    "description": [
+      "1-7 Numbers"
+    ]
+  }, 
+  "DLAZ": {
+    "rule": "(^[A-Z]{1}[0-9]{1,8}$)|(^[A-Z]{2}[0-9]{2,5}$)|(^[0-9]{9}$)",
+    "description": [
+      "1 Alpha + 1-8 Numeric",
+      "2 Alpha + 2-5 Numeric",
+      "9 Numeric"
+    ]
+  }, 
+  "DLAR": {
+    "rule": "^[0-9]{4,9}$",
+    "description": [
+      "4-9 Numeric"
+    ]
+  }, 
+  "DLCA": {
+    "rule": "^[A-Z]{1}[0-9]{7}$",
+    "description": [
+      "1 Alpha + 7 Numeric"
+    ]
+  }, 
+  "DLCO": {
+    "rule": "(^[0-9]{9}$)|(^[A-Z]{1}[0-9]{3,6}$)|(^[A-Z]{2}[0-9]{2,5}$)",
+    "description": [
+      "9 Numeric",
+      "1 Alpha + 3-6 Numeric",
+      "2 Alpha + 2-5 Numeric"
+    ]
+  }, 
+  "DLCT": {
+    "rule": "^[0-9]{9}$",
+    "description": [
+      "9 Numeric"
+    ]
+  }, 
+  "DLDE": {
+    "rule": "^[0-9]{1,7}$",
+    "description": [
+      "1-7 Numeric"
+    ]
+  }, 
+  "DLDC": {
+    "rule": "(^[0-9]{7}$)|(^[0-9]{9}$)",
+    "description": [
+      "7 Numeric",
+      "9 Numeric"
+    ]
+  }, 
+  "DLFL": {
+    "rule": "^[A-Z]{1}[0-9]{12}$",
+    "description": [
+      "1 Alpha + 12 Numeric"
+    ]
+  }, 
+  "DLGA": {
+    "rule": "^[0-9]{7,9}$",
+    "description": [
+      "7-9 Numeric"
+    ]
+  }, 
+  "DLGU" : {
+    "rule": "^[A-Z]{1}[0-9]{14}$",
+    "description": [
+      "1 Alpha + 14 Numeric"
+    ]
+  }, 
+  "DLHI": {
+    "rule": "(^[A-Z]{1}[0-9]{8}$)|(^[0-9]{9}$)",
+    "description": [
+      "1 Alpha + 8 Numeric",
+      "9 Numeric"
+    ]
+  }, 
+  "DLID": {
+    "rule": "(^[A-Z]{2}[0-9]{6}[A-Z]{1}$)|(^[0-9]{9}$)",
+    "description": [
+      "2 Alpha + 6 Numeric + 1 Alpha",
+      "9 Numeric"
+    ]
+  }, 
+  "DLIL": {
+    "rule": "^[A-Z]{1}[0-9]{11,12}$",
+    "description": [
+      "1 Alpha + 11-12 Numeric"
+    ]
+  }, 
+  "DLIN": {
+    "rule": "(^[A-Z]{1}[0-9]{9}$)|(^[0-9]{9,10}$)",
+    "description": [
+      "1 Alpha + 9 Numeric",
+      "9-10 Numeric"
+    ]
+  }, 
+  "DLIA": {
+    "rule": "^([0-9]{9}|([0-9]{3}[A-Z]{2}[0-9]{4}))$",
+    "description": [
+      "9 Numeric",
+      "3 Numeric + 2 Alpha + 4 Numeric"
+    ]
+  }, 
+  "DLKS": {
+    "rule": "(^([A-Z]{1}[0-9]{1}){2}[A-Z]{1}$)|(^[A-Z]{1}[0-9]{8}$)|(^[0-9]{9}$)",
+    "description": [
+      "1 Alpha + 1 Numeric + 1 Alpha + 1 Numeric + 1 Alpha",
+      "1 Alpha + 8 Numeric",
+      "9 Numeric"
+    ]
+  }, 
+  "DLKY": {
+    "rule": "(^[A-Z]{1}[0-9]{8,9}$)|(^[0-9]{9}$)",
+    "description": [
+      "1 Alpha + 8-9 Numeric",
+      "9 Numeric"
+    ]
+  }, 
+  "DLLA": {
+    "rule": "^[0-9]{1,9}$",
+    "description": [
+      "1-9 Numeric"
+    ]
+  }, 
+  "DLME": {
+    "rule": "(^[0-9]{7,8}$)|(^[0-9]{7}[A-Z]{1}$)",
+    "description": [
+      "7-8 Numeric",
+      "7 Numeric + 1 Alpha"
+    ]
+  }, 
+  "DLMD": {
+    "rule": "^[A-Z]{1}[0-9]{12}$",
+    "description": [
+      "1 Alpha + 12 Numeric"
+    ]
+  }, 
+  "DLMA": {
+    "rule": "(^[A-Z]{1}[0-9]{8}$)|(^[A-Z]{2}[0-9]{7}$)|(^[0-9]{9}$)",
+    "description": [
+      "1 Alpha + 8 Numeric",
+      "2 Alpha + 7 Numeric",
+      "9 Numeric"
+    ]
+  }, 
+  "DLMI": {
+    "rule": "(^[A-Z]{1}[0-9]{10}$)|(^[A-Z]{1}[0-9]{12}$)",
+    "description": [
+      "1 Alpha + 10 Numeric",
+      "1 Alpha + 12 Numeric"
+    ]
+  }, 
+  "DLMN": {
+    "rule": "^[A-Z]{1}[0-9]{12}$",
+    "description": [
+      "1 Alpha + 12 Numeric"
+    ]
+  }, 
+  "DLMS": {
+    "rule": "^[0-9]{9}$",
+    "description": [
+      "9 Numeric"
+    ]
+  }, 
+  "DLMO": {
+    "rule": "(^[A-Z]{1}[0-9]{5,9}$)|(^[A-Z]{1}[0-9]{6}[R]{1}$)|(^[0-9]{3}[A-Z]{1}[0-9]{6}$)|(^[0-9]{8}[A-Z]{2}$)|(^[0-9]{9}[A-Z]{1}$)|(^[0-9]{9}$)",
+    "description": [
+      "1 Alpha + 5-9 Numeric",
+      "1 Alpha + 6 Numeric + 'R'",
+      "8 Numeric + 2 Alpha",
+      "9 Numeric + 1 Alpha",
+      "9 Numeric",
+      "3 Numeric + 1 Alpha + 6 Numeric"
+    ]
+  }, 
+  "DLMT": {
+    "rule": "(^[A-Z]{1}[0-9]{8}$)|(^[0-9]{13}$)|(^[0-9]{9}$)|(^[0-9]{14}$)",
+    "description": [
+      "1 Alpha + 8 Numeric",
+      "13 Numeric",
+      "9 Numeric",
+      "14 Numeric"
+    ]
+  }, 
+  "DLNE": {
+    "rule": "(^[0-9]{1,7}$)|(^[A-Z]{1}[0-9]{6,8}$)",
+    "description": [
+      "1-7 Numeric",
+      "1 Alpha + 6-8 Numeric"
+    ]
+  }, 
+  "DLNV": {
+    "rule": "(^[0-9]{9,10}$)|(^[0-9]{12}$)|(^[X]{1}[0-9]{8}$)",
+    "description": [
+      "9 Numeric",
+      "10 Numeric",
+      "12 Numeric",
+      "'X' + 8 Numeric"
+    ]
+  }, 
+  "DLNH": {
+    "rule": "(^[0-9]{2}[A-Z]{3}[0-9]{5}$)|(^[A-Z]{3}[0-9]{8}$)",
+    "description": [
+      "2 Numeric + 3 Alpha + 5 Numeric, or 3 Alpha + 8 Numeric"
+    ]
+  }, 
+  "DLNJ": {
+    "rule": "^[A-Z]{1}[0-9]{14}$",
+    "description": [
+      "1 Alpha + 14 Numeric"
+    ]
+  }, 
+  "DLNM": {
+    "rule": "^[0-9]{8,9}$",
+    "description": [
+      "8 Numeric",
+      "9 Numeric"
+    ]
+  }, 
+  "DLNY": {
+    "rule": "(^[A-Z]{1}[0-9]{7}$)|(^[A-Z]{1}[0-9]{18}$)|(^[0-9]{8}$)|(^[0-9]{9}$)|(^[0-9]{16}$)|(^[A-Z]{8}$)",
+    "description": [
+      "1 Alpha + 7 Numeric",
+      "1 Alpha + 18 Numeric",
+      "8 Numeric",
+      "9 Numeric",
+      "16 Numeric",
+      "8 Alpha"
+    ]
+  }, 
+  "DLNC": {
+    "rule": "^[0-9]{1,12}$",
+    "description": [
+      "1-12 Numeric"
+    ]
+  }, 
+  "DLND": {
+    "rule": "(^[A-Z]{3}[0-9]{6}$)|(^[0-9]{9}$)",
+    "description": [
+      "3 Alpha + 6 Numeric",
+      "9 Numeric"
+    ]
+  }, 
+  "DLOH": {
+    "rule": "(^[A-Z]{1}[0-9]{4,8}$)|(^[A-Z]{2}[0-9]{3,7}$)|(^[0-9]{8}$)",
+    "description": [
+      "1 Alpha + 4-8 Numeric",
+      "2 Alpha + 3-7 Numeric",
+      "8 Numeric"
+    ]
+  }, 
+  "DLOK": {
+    "rule": "(^[A-Z]{1}[0-9]{9}$)|(^[0-9]{9}$)",
+    "description": [
+      "1 Alpha + 9 Numeric",
+      "9 Numeric"
+    ]
+  }, 
+  "DLOR": {
+    "rule": "(^[0-9]{1,9}$)|(^[AB][0-9]{6}$)",
+    "description": [
+      "1-9 Numeric",
+      "A + 6 Numeric",
+      "B + 6 Numeric"
+    ]
+  }, 
+  "DLPA": {
+    "rule": "^[0-9]{8}$",
+    "description": [
+      "8 Numeric"
+    ]
+  }, 
+  "DLPR": {
+    "rule": "(^[0-9]{9}$)|(^[0-9]{5,7}$)",
+    "description": [
+      "5-7 Numeric",
+      "9 Numeric"
+    ]
+  }, 
+  "DLRI": {
+    "rule": "^([0-9]{7,8}$)|(^[A-Z]{1}[0-9]{6}$)",
+    "description": [
+      "7-8 Numeric",
+      "1 Alpha + 6 Numeric"
+    ]
+  }, 
+  "DLSC": {
+    "rule": "^[0-9]{5,11}$",
+    "description": [
+      "5-11 Numeric"
+    ]
+  }, 
+  "DLSD": {
+    "rule": "(^[0-9]{6,10}$)|(^[0-9]{12}$)",
+    "description": [
+      "6-10 Numeric",
+      "12 Numeric"
+    ]
+  }, 
+  "DLTN": {
+    "rule": "^[0-9]{7,9}$",
+    "description": [
+      "7-9 Numeric"
+    ]
+  }, 
+  "DLTX": {
+    "rule": "^[0-9]{7,8}$",
+    "description": [
+      "7-8 Numeric"
+    ]
+  }, 
+  "DLUT": {
+    "rule": "^[0-9]{4,10}$",
+    "description": [
+      "4-10 Numeric"
+    ]
+  }, 
+  "DLVT": {
+    "rule": "(^[0-9]{8}$)|(^[0-9]{7}[A]$)",
+    "description": [
+      "8 Numeric",
+      "7 Numeric + 'A'"
+    ]
+  }, 
+  "DLVA": {
+    "rule": "(^[A-Z]{1}[0-9]{8,11}$)|(^[0-9]{9}$)",
+    "description": [
+      "1 Alpha + 8 Numeric",
+      "1 Alpha + 9 Numeric",
+      "1 Alpha + 10 Numeric",
+      "1 Alpha + 11 Numeric",
+      "9 Numeric"
+    ]
+  }, 
+  "DLWA": {
+    "rule": "^(?=.{12}$)[A-Z]{1,7}[A-Z0-9\\*]{4,11}$",
+    "description": [
+      "1-7 Alpha + any combination of Alpha, Numeric, and * for a total of 12 characters"
+    ]
+  }, 
+  "DLWV": {
+    "rule": "(^[0-9]{7}$)|(^[A-Z]{1,2}[0-9]{5,6}$)",
+    "description": [
+      "7 Numeric",
+      "1-2 Alpha + 5-6 Numeric"
+    ]
+  },
+  "DLWI": {
+    "rule": "^[A-Z]{1}[0-9]{13}$",
+    "description": [
+      "1 Alpha + 13 Numeric"
+    ]
+  },
+  "DLWY": {
+    "rule": "^[0-9]{9,10}$",
+    "description": [
+      "9-10 Numeric"
+    ]
+  },
+  "SSNDashes": {
+    "rule": "^\\d{3}-\\d{2}-\\d{4}$",
+    "description": [
+      "SSN with dashes",
+      "xxx-xx-xxx"
+    ]
+  }
+}

@@ -1,0 +1,90 @@
+﻿
+@using System.Globalization
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.RecordRequirements
+@model CreateOrEditRecordRequirementModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditRecordRequirement")) : L("CreateNewRecordRequirement")))
+
+<div class="modal-body">
+    <div id="RecordRequirementInformationsTab">
+        <form name="RecordRequirementInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.RecordRequirement.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="TenantDepartmentName">@L("TenantDepartment")</label>
+                <div class="input-group">
+                    <input class="form-control" id="TenantDepartmentName" name="tenantDepartmentName" value="@Model.TenantDepartmentName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenTenantDepartmentLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearTenantDepartmentNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="RecordRequirement_TenantDepartmentId" value="@Model.RecordRequirement.TenantDepartmentId" type="text" name="tenantDepartmentId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="RecordRequirement_TenantDepartmentId" value="" type="text" name="tenantDepartmentId" hidden />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="CohortName">@L("Cohort")</label>
+                <div class="input-group">
+                    <input class="form-control" id="CohortName" name="cohortName" value="@Model.CohortName" type="text" disabled>
+                    <button class="btn btn-primary blue" id="OpenCohortLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                    <button class="btn btn-danger btn-icon" type="button" id="ClearCohortNameButton"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+
+            @if (Model.IsEditMode)
+            {
+            <input class="form-control" id="RecordRequirement_CohortId" value="@Model.RecordRequirement.CohortId" type="text" name="cohortId" hidden />
+            }
+            else
+            {
+            <input class="form-control" id="RecordRequirement_CohortId" value="" type="text" name="cohortId" hidden />
+            }
+
+@*            <div class="my-3">
+                <label class="form-label" for="surpathServiceId">@L("SurpathService")</label>
+                @Html.DropDownList("surpathServiceId", new SelectList(Model.RecordRequirementSurpathServiceList,"Id","DisplayName", (Model.IsEditMode ? Model.RecordRequirement.SurpathServiceId.ToString() : "")),@L("SelectASurpathService"), new { @class = "form-control" })
+            </div>*@
+
+@*            <div class="my-3">
+                <label class="form-label" for="tenantSurpathServiceId">@L("TenantSurpathService")</label>
+                @Html.DropDownList("tenantSurpathServiceId", new SelectList(Model.RecordRequirementTenantSurpathServiceList,"Id","DisplayName", (Model.IsEditMode ? Model.RecordRequirement.TenantSurpathServiceId.ToString() : "")),@L("SelectATenantSurpathService"), new { @class = "form-control" , @required="required" })
+            </div>*@
+
+            <div class="my-3">
+                <label class="form-label" for="RecordRequirement_Name">@L("Name")</label>
+                <input class="form-control" id="RecordRequirement_Name" value="@Model.RecordRequirement.Name" type="text" name="name" required />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="RecordRequirement_Description">@L("Description")</label>
+                <input class="form-control" id="RecordRequirement_Description" value="@Model.RecordRequirement.Description" type="text" name="description" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="RecordRequirement_Metadata">@L("Metadata")</label>
+                <input class="form-control" id="RecordRequirement_Metadata" value="@Model.RecordRequirement.Metadata" type="text" name="metadata" />
+            </div>
+
+            <label class="form-check form-check-custom d-none">
+                <input id="RecordRequirement_IsSurpathOnly" name="isSurpathOnly" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.RecordRequirement.IsSurpathOnly ?"checked=\"checked\"":"") />
+                <span class="form-check-label">
+                    @L("IsSurpathOnly")
+                </span>
+            </label>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

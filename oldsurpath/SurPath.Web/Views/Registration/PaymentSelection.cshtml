@@ -1,0 +1,514 @@
+﻿@model SurPathWeb.Models.RegistrationDataModel
+@using SurPath.Enum
+@{
+    ViewBag.Title = "Payment Selection";
+    Layout = "~/Views/Shared/_LayoutRegistration.cshtml";
+}
+
+@section PageScript
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            function disableBack() { window.history.forward() }
+
+            window.onload = disableBack();
+            window.onpageshow = function (evt) { if (evt.persisted) disableBack() }
+        });
+
+        function SessionExpireEvent() {
+            window.location.href = "@Url.Action("SessionExpire", "Authentication")";
+        }
+
+        $(function () {
+
+            $(document).keydown(function (e) {
+                if (e.which == 116) {
+                    window.location.href = "@Url.Action("Signout", "Authentication")";
+                }
+            });
+
+            $("#divPaymetSelection").show();
+            $("#divAuthPay").hide();
+            $("#btnExit").hide();
+            if ("@ViewBag.PayType" != "") {
+                $('#hidPaymentType').val('@ViewBag.PayType');
+            }
+            if ("@ViewBag.AuthError" != "") {
+                $("#divAuthPaymentErr").show().find("div").html("@ViewBag.AuthError");
+                $("#divPaymetSelection").hide();
+                $("#divAuthPay").show();
+                $("#btnExit").show();
+                $('#hidPaymentType').val('@PaymentMethod.Card');
+            }
+            if ("@ViewBag.ServerErr" != "") {
+                $("#divServerErr").show().find("div").html("@ViewBag.ServerErr");
+            }
+
+            $("#btnExit").click(function () {
+                window.location.href = "@Url.Action("TestResult", "Donor")";
+            });
+
+            $("#PaymentData_CardNumber").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+            });
+
+            $("#PaymentData_CCV").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+            });
+
+            $("#PaymentData_CardExpiryDate").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+            });
+
+            $("#Card").click(function () {
+                //$("#btnPay").siblings("#creditcard").show();
+                //$("#btnPay").siblings("#cash").hide();
+                $("#creditcard").show();
+                $("#cash").hide();
+            });
+
+            if ($("#Card").is(":checked")) {
+                //$("#btnPay").siblings("#creditcard").show();
+                //$("#btnPay").siblings("#cash").hide();
+                $("#creditcard").show();
+                $("#cash").hide();
+            }
+
+            $("#Cash").click(function () {
+                //$("#btnPay").siblings("#creditcard").hide();
+                //$("#btnPay").siblings("#cash").show();
+                $("#creditcard").hide();
+                $("#cash").show();
+            });
+
+            if ($("#Cash").is(":checked")) {
+                //$("#btnPay").siblings("#creditcard").hide();
+                //$("#btnPay").siblings("#cash").show();
+                $("#creditcard").hide();
+                $("#cash").show();
+            }
+
+            $("#btnPay").click(function () {
+                //if (IsRequired($("form input:radio").map(function () { return this.testInfoId }).get().join(','))) {
+                //    return false;
+                //}
+                if (!$("#Card").is(":checked") && !$("#Cash").is(":checked")) {
+                    $("#divErr").show();
+                    return false;
+                }
+                return true;
+
+            });
+        });
+
+        function validatePayment() {
+            $("#divAuthPay").hide();
+            $("#divPaymetSelection").show();
+            if ($("#Card").is(":checked")) {
+                $("#divAuthPay").show();
+                $("#divPaymetSelection").hide();
+                setTimeout(SessionExpireEvent, 180000);
+                return false;
+            }
+            return true;
+        }
+
+        if ("@ViewBag.Timeout" == "1") {
+            setTimeout(SessionExpireEvent, 180000);
+        }
+
+        function ValidateFrm() {
+
+            $("#spnCardNo").hide();
+            $("#spnCardExp").hide();
+
+            var retVal = true;
+            if ($("#PaymentData_CardNumber").val() == "") {
+                $("#spnCardNo").show();
+                retVal = false;
+
+            }
+            if ($("#PaymentData_CardExpiryDate").val() == "") {
+                $("#spnCardExp").show();
+                retVal = false;
+            }
+            if ($("#PaymentData_Email").val() != "") {
+                if (!IsEmailValid("PaymentData_Email")) {
+                    $("#spnEmail").show();
+                    retVal = false;
+                }
+            }
+            if (retVal) {
+                $("#submit").css("display", "none");
+                $("#submitWait").css("display", "inline");
+            }
+            return retVal;
+        }
+
+        function assignPaymentType(opt) {
+            if (opt == '1') {
+                $('#hidPaymentType').val('@PaymentMethod.Cash');
+                $('#Card').prop('checked', false);
+            }
+            else {
+                $('#hidPaymentType').val('@PaymentMethod.Card');
+                $('#Cash').prop('checked', false);
+            }
+        }
+    </script>
+}
+
+@{using (Html.BeginForm())
+{
+    <div class="container">
+        <div style="display:none" class="alert alert-danger" role="alert" id="divAuthPaymentErr">
+            <i class="fa fa-exclamation-triangle fa-1x"></i> Enter correct details or Exit
+        </div>
+
+        <div id="divPaymetSelection">
+            <div style="display:none" class="alert alert-danger" role="alert" id="divServerErr">
+                <i class="fa fa-exclamation-triangle fa-1x"></i> @ViewBag.ServerErr
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3> Order Summary </h3>
+                    <div class="divider"></div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Program Name</th>
+                            <th>Client Name </th>
+                            <th>Program Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Model.DepartmentName</td>
+                            <td>@Model.ClientName</td>
+                            <td>$@Model.Amount</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <th>Final Amount Payable</th>
+                            <th>$@Model.Amount</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            @*<div class="row">
+                    <div class="col-md-4">
+                        <h3> Payment Mode </h3>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-8">
+                        <p class="text-primary">You have the option to pay the Full Amount OR Pay in parts. Please select your option and proceed.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="display:none" class="alert alert-danger" role="alert" id="divErr">
+                        <i class="fa fa-exclamation-triangle fa-1x"></i> Select your Payment mode.
+                    </div>
+                    <div class="col-md-4 col-md-offset-3">
+                        <label class="radio-inline">
+                            <input type="radio" id="Card" onclick="assignPaymentType('2');" required />
+                            Pay in Parts
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="radio-inline">
+                            <input type="radio" id="Cash" onclick="assignPaymentType('1');" required />
+                            Full Payment
+                        </label>
+                    </div>
+                </div>
+                <div class="row top-buffer"></div>
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-3">
+                        <p class="text-right" style="padding-top:5px;">Amount to be paid</p>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" id="" />
+                    </div>
+                </div>*@
+            <div class="row">
+                <div class="col-md-4">
+                    <h3> Payment Method </h3>
+                </div>
+                <div class="col-md-12">
+                    <hr />
+                </div>
+                <div class="col-md-6">
+                    
+                </div>
+            </div>
+            <div class="row top-buffer"></div>
+            <div class="row">
+                <div style="display:none" class="alert alert-danger" role="alert" id="divErr">
+                    <i class="fa fa-exclamation-triangle fa-1x"></i> Select your Payment type.
+                </div>
+                <div class="col-md-4 col-md-offset-5">
+                    <label class="radio-inline">
+                        <input type="radio" id="Card" name="namePaymentType" checked="checked" onclick="assignPaymentType('2');" required />
+                        Credit Card/Debit Card
+                    </label>
+                </div>
+                <div class="col-md-4" style="display:none">
+                    <label class="radio-inline">
+                        @*<input type="radio" id="Cash" name="namePaymentType" onclick="assignPaymentType('1');" required />
+                        Cash/Money Order*@
+                    </label>
+                </div>
+            </div>
+           
+            <div class="row top-buffer"></div>
+            <div class="row">
+                <div class="col-xs-4 col-xs-offset-4 col-sm-6 col-sm-offset-4 col-md-2 col-md-offset-5">
+                    <input type="submit" id="btnPay" value="Pay" class="btn btn-primary" onclick="return validatePayment()" />
+                </div>
+                <div class="row top-buffer"></div>
+                    @*<div class="col-md-4" style="padding-top:5px;padding-left:0px;">*@
+                    <div style="padding-top:5px;text-align:center">
+                        <small id="creditcard" class="text-primary" style="display:none"> (You will be redirected to a secured payment gateway) </small>
+                        <small id="cash" class="text-primary" style="display:none">Cash/Money Order</small>
+                        @*<small class="text-primary">(By clicking on pay you will be redirected to secured payment gateway system)</small>*@
+                    </div>
+                <div class="row top-buffer"></div>
+                <div class="row top-buffer"></div>
+            </div>
+        </div>
+        <div class="row top-buffer"></div>
+        <div class="row top-buffer"></div>
+        <div id="divAuthPay" style="display: none">
+            <div class="row">
+                <div class="col-md-3">
+                    <h3 class="text-primary">Payment Information</h3>
+                </div>
+                <div class="col-md-4 pull-right">
+                    <h3 class="text-primary">Total : $@Model.Amount</h3>
+                </div>
+            </div>
+            <hr />
+            <div class="row top-buffer"></div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-5">
+                    <img src="~/Images/cards.jpg" />
+                </div>
+            </div>
+            <div class="row top-buffer"></div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <label>Card Number<sup>*</sup></label>
+                    @Html.TextBoxFor(m => m.PaymentData.CardNumber, new
+                       {
+                           autocomplete = "off",
+                           @maxlength = "16",
+                           @class = "form-control",
+                           placeholder = "Enter your 16-digit card number",
+
+                       })
+                    <span class="alert-danger" id="spnCardNo" style="display: none">Enter card number</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-4">
+                    <label>Expiration Date<sup>*</sup><span class="text-danger">(mmyy)</span></label>
+                    @Html.TextBoxFor(m => m.PaymentData.CardExpiryDate, new
+                       {
+                           autocomplete = "off",
+                           @maxlength = "4",
+                           @class = "form-control",
+                           placeholder = "mmyy",
+                       })
+                    <span class="alert-danger" id="spnCardExp" style="display: none">Card expiration date</span>
+                </div>
+                <div class="col-md-2">
+                    <label>CVV</label>
+                    @Html.TextBoxFor(m => m.PaymentData.CCV, new
+                       {
+                           autocomplete = "off",
+                           @maxlength = "4",
+                           @class = "form-control",
+                           placeholder = "Enter CVV"
+                       })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 class="text-primary">Billing Information</h3>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-3 col-md-offset-3">
+                    <label>First Name</label>
+                    @Html.TextBoxFor(m => m.PaymentData.FirstName, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter your first name",
+                   })
+                </div>
+                <div class="col-md-3">
+                    <label>Last Name</label>
+                    @Html.TextBoxFor(m => m.PaymentData.LastName, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter your last name",
+                   })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <label>Address</label>
+                    @Html.TextBoxFor(m => m.PaymentData.Address, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter address",
+                   })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-md-offset-3">
+                    <label>City</label>
+                    @Html.TextBoxFor(m => m.PaymentData.City, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter city"
+                   })
+                </div>
+                <div class="col-md-3">
+                    <label>State / Province</label>
+                    @Html.TextBoxFor(m => m.PaymentData.State, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter state/province",
+                   })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-md-offset-3">
+                    <label>Country</label>
+                    @Html.TextBoxFor(m => m.PaymentData.Country, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter country",
+                   })
+                </div>
+                <div class="col-md-3">
+                    <label>Zip / Postal Code</label>
+                    @Html.TextBoxFor(m => m.PaymentData.ZIP, new
+                   {
+                       autocomplete = "off",
+                       @maxlength = "5",
+                       @class = "form-control",
+                       placeholder = "Enter zip/postal code"
+
+                   })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-md-offset-3">
+                    <label>Phone</label>
+                    @Html.TextBoxFor(m => m.PaymentData.Phone, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter phone no"
+
+                   })
+                </div>
+                <div class="col-md-3">
+                    <label>Fax</label>
+                    @Html.TextBoxFor(m => m.PaymentData.Fax, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter fax no"
+
+                   })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <label>Email Address</label>
+                    @Html.TextBoxFor(m => m.PaymentData.Email, new
+                   {
+                       autocomplete = "off",
+                       @class = "form-control",
+                       placeholder = "Enter email"
+                   })
+                    <span class="alert-danger" id="spnEmail" style="display: none">Invalid format of Email Address.</span>
+                </div>
+
+            </div>
+            <div class="row top-buffer"></div>
+            <div class="row top-buffer"></div>
+
+            <div class="row">
+                <div class="col-md-offset-4 center-div">
+                    <input type="submit" id="submit" class="btn btn-primary" value="Pay Now" onclick=" return ValidateFrm();" />
+                    <button id="submitWait" name="button" value="submitWait" class="btn btn-primary" disabled="disabled" style="display: none;">Please Wait</button>
+                </div>
+                <div class="col-md-2">
+                    <input type="button" class="btn btn-primary" value="Exit" id="btnExit" />
+
+                </div>
+            </div>
+            <div style="display: none">
+                @Html.HiddenFor(m => m.PaymentData.Amount)
+                @Html.HiddenFor(m => m.Amount)
+                @Html.HiddenFor(m => m.ClientName)
+                @Html.HiddenFor(m => m.DepartmentName)
+                @Html.HiddenFor(m => m.PaymentData.Description)
+                <input type="hidden" name="paymentType" id="hidPaymentType">
+            </div>
+            <div class="row top-buffer"></div>
+            <div class="row top-buffer"></div>
+            <div class="row top-buffer"></div>
+            <div class="row top-buffer"></div>
+        </div>
+
+        @*<div style="display: none">
+
+                <input id="HiddenValue" type="hidden" value="Initial Value" />
+                <input type='hidden' name='x_login' id='x_login' value="@ViewBag.loginID" />
+                <input type='hidden' name='x_amount' id='x_amount' value="@Model.Amount" />
+                <input type='hidden' name='x_description' id='x_description' value="@Model.DepartmentName" />/>
+                <input type='hidden' name='x_invoice_num' id='x_invoice_num' value="@ViewBag.invoice" />
+                <input type='hidden' name='x_fp_sequence' id='x_fp_sequence' value="@ViewBag.sequence" />
+                <input type='hidden' name='x_fp_timestamp' id='x_fp_timestamp' value="@ViewBag.timeStamp" />
+                <input type='hidden' name='x_fp_hash' id='x_fp_hash' value="@ViewBag.fingerprint" />
+                <input type='hidden' name='x_test_request' id='x_test_request' value="@ViewBag.testMode" />
+                <input type='hidden' name='x_show_form' value='PAYMENT_FORM' />
+
+                <input type=HIDDEN name="x_receipt_link_method" value="LINK">
+                <input type=HIDDEN name="x_receipt_link_text" value="Click here to return to SurPath">
+                <input type=HIDDEN name="x_receipt_link_URL" value="@System.Configuration.ConfigurationManager.AppSettings["MvcMailer.BaseURL"].ToString().Trim()Donor/PaymentConfirmationCard">
+
+            </div>*@
+    </div>
+
+}
+}

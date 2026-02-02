@@ -1,0 +1,122 @@
+name: prod-deploy
+
+on: 
+  push:
+    branches:
+      - deploy/prod
+      
+ # workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+
+    runs-on: [self-hosted, production]
+            
+    steps:
+    - name: Ping Github
+      run: ping github.com
+
+    - name: Get surpath112
+      uses: actions/checkout@v2.4.0
+      with:
+        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+        fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
+
+    - uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
+    - name: Get npm cache directory
+      id: npm-cache-dir
+      run: |
+        echo "::set-output name=dir::$(npm config get cache)"
+
+    - uses: actions/cache@v3
+      id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+      with:
+        path: ${{ steps.npm-cache-dir.outputs.dir }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Restore Solution
+      run: |
+        cd '${{ github.workspace }}'
+        dotnet restore inzibackend.Web.sln
+
+    - name: Yarn Builds
+      run: |
+        cd '${{ github.workspace }}\src\inzibackend.Web.Mvc\' 
+        yarn
+        yarn run build
+
+    - name: Build MVC
+      run: |
+        cd '${{ github.workspace }}\src\inzibackend.Web.Mvc\' 
+        dotnet publish --output '${{ github.workspace }}\public' --configuration Release
+
+    - name: Build Migrations
+      run: dotnet build '${{ github.workspace }}\src\inzibackend.Migrator\'
+
+    - name: Stop .NET Core site and app pool (conditional)
+      run: |
+        $appPoolName = 'surpath112'
+        $siteName = 'surpath112'
+    
+        Write-Output "Checking .NET Core app pool state..."
+        $appPoolState = & "$env:SystemRoot\System32\inetsrv\appcmd.exe" list apppool /name:$appPoolName | Select-String "State:(Started|Stopped)"
+        if ($appPoolState -match "State:Started") {
+          Write-Output "Stopping $appPoolName app pool..."
+          & "$env:SystemRoot\System32\inetsrv\appcmd.exe" stop apppool /apppool.name:$appPoolName
+          if ($LASTEXITCODE -ne 0) { throw "Failed to stop $appPoolName app pool" }
+        } else {
+          Write-Output "$appPoolName app pool already stopped"
+        }
+    
+        Write-Output "Checking .NET Core site state..."
+        $siteState = & "$env:SystemRoot\System32\inetsrv\appcmd.exe" list site /name:$siteName | Select-String "state:(Started|Stopped)"
+        if ($siteState -match "state:Started") {
+          Write-Output "Stopping $siteName..."
+          & "$env:SystemRoot\System32\inetsrv\appcmd.exe" stop site /site.name:$siteName
+          if ($LASTEXITCODE -ne 0) { throw "Failed to stop $siteName" }
+        } else {
+          Write-Output "$siteName already stopped"
+        }
+      shell: powershell
+      
+    - name: Running Migrations
+      run: |
+        cd '${{ github.workspace }}\src\inzibackend.Migrator\bin\Debug\net6.0\' 
+        .\inzibackend.Migrator.exe -s
+    
+    - name: Copy to IIS
+      run: Copy-Item  '${{ github.workspace }}\public\*' 'C:\inetpub\surpath112' -Recurse -Force
+    
+    - name: Start .NET Core site and app pool (conditional)
+      run: |
+        $appPoolName = 'surpath112'
+        $siteName = 'surpath112'
+    
+        Write-Output "Checking .NET Core app pool state..."
+        $appPoolState = & "$env:SystemRoot\System32\inetsrv\appcmd.exe" list apppool /name:$appPoolName | Select-String "State:(Started|Stopped)"
+        if ($appPoolState -match "State:Stopped") {
+          Write-Output "Starting $appPoolName app pool..."
+          & "$env:SystemRoot\System32\inetsrv\appcmd.exe" start apppool /apppool.name:$appPoolName
+          if ($LASTEXITCODE -ne 0) { throw "Failed to start $appPoolName app pool" }
+        } else {
+          Write-Output "$appPoolName app pool already started"
+        }
+    
+        Write-Output "Checking .NET Core site state..."
+        $siteState = & "$env:SystemRoot\System32\inetsrv\appcmd.exe" list site /name:$siteName | Select-String "state:(Started|Stopped)"
+        if ($siteState -match "state:Stopped") {
+          Write-Output "Starting $siteName..."
+          & "$env:SystemRoot\System32\inetsrv\appcmd.exe" start site /site.name:$siteName
+          if ($LASTEXITCODE -ne 0) { throw "Failed to start $siteName" }
+        } else {
+          Write-Output "$siteName already started"
+        }
+      shell: powershell

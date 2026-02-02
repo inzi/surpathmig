@@ -1,0 +1,78 @@
+﻿@using inzibackend.Web.Areas.App.Startup
+@using inzibackend.Web.Areas.App.Models.RecordCategoryRules
+@model RecordCategoryRuleViewModel
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.RecordCategoryRules;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/RecordCategoryRules/CreateOrEdit.js" asp-append-version="true"></script>
+}
+<div class="content d-flex flex-column flex-column-fluid">
+@{
+var breadcrumbs = new List<BreadcrumbItem>()
+    {
+    new BreadcrumbItem("/App/RecordCategoryRules", L("RecordCategoryRules")),
+    new BreadcrumbItem(L("Details")),
+    };
+    }
+    <abp-page-subheader title='@L("Details")' breadcrumbs="breadcrumbs">
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class=" card card-custom gutter-b">
+            <div class=" card-body">
+                <div id="RecordCategoryRuleInformationsTab">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <h6>@L("Name") :</h6>
+                            @Model.RecordCategoryRule.Name
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("Description") :</h6>
+                            @Model.RecordCategoryRule.Description
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("Notify") :</h6>
+                            @Model.RecordCategoryRule.Notify
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("ExpireInDays") :</h6>
+                            @Model.RecordCategoryRule.ExpireInDays
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("WarnDaysBeforeFirst") :</h6>
+                            @Model.RecordCategoryRule.WarnDaysBeforeFirst
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("Expires") :</h6>
+                            @Model.RecordCategoryRule.Expires
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("Required") :</h6>
+                            @Model.RecordCategoryRule.Required
+                        </div>
+                       @* <div class="col-6 mb-3">
+                            <h6>@L("IsSurpathOnly") :</h6>
+                            @Model.RecordCategoryRule.IsSurpathOnly
+                        </div>*@
+                        <div class="col-6 mb-3">
+                            <h6>@L("WarnDaysBeforeSecond") :</h6>
+                            @Model.RecordCategoryRule.WarnDaysBeforeSecond
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("WarnDaysBeforeFinal") :</h6>
+                            @Model.RecordCategoryRule.WarnDaysBeforeFinal
+                        </div>
+                       @* <div class="col-6 mb-3">
+                            <h6>@L("MetaData") :</h6>
+                            @Model.RecordCategoryRule.MetaData
+                        </div>*@
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>

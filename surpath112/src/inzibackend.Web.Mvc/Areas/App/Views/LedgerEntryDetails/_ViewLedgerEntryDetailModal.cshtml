@@ -1,0 +1,59 @@
+﻿
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.LedgerEntryDetails
+@model LedgerEntryDetailViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="LedgerEntryDetailInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("Note") :</h6>
+                @Model.LedgerEntryDetail.Note
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Amount") :</h6>
+                @Model.LedgerEntryDetail.Amount
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Discount") :</h6>
+                @Model.LedgerEntryDetail.Discount
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("DiscountAmount") :</h6>
+                @Model.LedgerEntryDetail.DiscountAmount
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("MetaData") :</h6>
+                @Model.LedgerEntryDetail.MetaData
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("AmountPaid") :</h6>
+                @Model.LedgerEntryDetail.AmountPaid
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("DatePaidOn") :</h6>
+                @Model.LedgerEntryDetail.DatePaidOn
+            </div>
+
+            <div class="col-6 mb-3">
+                <h6>(@L("LedgerEntry")) @L("TransactionId") :</h6>
+                @Model.LedgerEntryTransactionId
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("SurpathService")) @L("Name") :</h6>
+                @Model.SurpathServiceName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("TenantSurpathService")) @L("Name") :</h6>
+                @Model.TenantSurpathServiceName
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

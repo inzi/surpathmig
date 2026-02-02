@@ -1,0 +1,248 @@
+﻿@model SurPathWeb.Models.DonorProfileDataModel
+@using SurPath.Enum
+@using SurPath.Entity
+@{
+    ViewBag.Title = "ProfileUpdate";
+    Layout = "~/Views/Shared/_LayoutRegistration.cshtml";
+    int year = 1950;
+    int dobyear = Convert.ToInt32(DateTime.Now.Year) - year + 1;
+}
+
+@section PageScript
+{
+    <link href='@Url.Content("~/Content/themes/base/datepicker.css")' rel="stylesheet" type="text/css" />
+    <script src='@Url.Content("~/Scripts/bootstrap-datepicker.js")'></script>
+    <script src='@Url.Content("~/Scripts/jquery.maskedinput.min.js")'></script>
+
+    <script type="text/javascript">
+        $(function () {
+            if ("@ViewBag.ServerErr" != "") {
+                $("#divServerErr").show().find("div").html("@ViewBag.ServerErr");
+            }
+
+            if ("@ViewBag.SSNErr" != "") {
+                $("#spnError").show();
+            }
+            else {
+                $("#spnError").hide();
+            }
+
+            if ("@ViewBag.DOBERR" != "") {
+                $("#lblDateError").show();
+            }
+            else {
+                $("#lblDateError").hide();
+            }
+
+            $("#" + "@Model.Gender").click();
+            $("[name='Suffix']").val("@Model.Suffix");
+            $("[name='State']").val("@Model.State");
+
+            $("#SSN").mask("999-99-9999");
+            $("#Phone1").mask("(999) 999-9999");
+            $("#Phone2").mask("(999) 999-9999");
+
+            $("#SSN").focus();
+
+            $("form :radio").click(function () {
+                $(this).siblings(".alert-danger").hide();
+            });
+
+            $("#ZipCode").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    $("#ZipCode").siblings("#error").hide();
+                    return false;
+                }
+            });
+
+            $("#submit").click(function () {
+                console.log("submit clicked");
+                $("#lblDateError").hide();
+
+                var e = $("form sup").parent().next(),
+
+                e.keydown(function () {
+                    ClearBorder(this.id);
+                });
+
+                $("#submit").css("display", "none");
+                $("#submitWait").css("display", "inline");
+                return true;
+
+            });
+
+        });
+    </script>
+}
+
+@{using (Html.BeginForm(null, null, FormMethod.Post, new { name = "frm", id = "frm" }))
+    {
+        <div class="container">
+            <div style="display:none" class="alert alert-danger" role="alert" id="divServerErr">
+                <i class="fa fa-exclamation-triangle fa-1x"></i> @ViewBag.ServerErr
+            </div>
+            <div class="row">
+                <div class="text-primary">
+                    <h3> Review Your Profile Before Submitting </h3>
+                </div>
+            </div>
+
+            <!-- action is the place to attach the server side file php or asp -->
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <label>Email Address</label>
+                        @Html.DisplayFor(model => model.EmailID)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <label>First Name</label> @Html.DisplayFor(m => m.FirstName)
+                        <span class="alert-danger" style="display: none"></span>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <label>Middle Initial</label> @Html.DisplayFor(m => m.MiddleInitial)
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <label>Last Name</label> @Html.DisplayFor(m => m.LastName)
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <label>Suffix</label> @Html.DisplayFor(m => m.Suffix)
+                    </div>
+                    <div id="DOB">
+                        <div class="col-md-4 col-sm-4">
+                            <label>D.O.B</label>
+                            <span>@Html.DisplayFor(model => model.DonorDOBMonth) / @Html.DisplayFor(model => model.DonorDOBDate) / @Html.DisplayFor(model => model.DonorDOBYear)</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <label>Gender</label> @Html.DisplayFor(m => m.Gender)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <label>Address1</label> @Html.DisplayFor(m => m.Address1)
+
+                        <span class="alert-danger" style="display: none"></span>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <label>Address2</label> @Html.DisplayFor(m => m.Address2)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <label>City</label> @Html.DisplayFor(m => m.City)
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <label>State</label> @Html.DisplayFor(m => m.State)
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <label>Zipcode</label> @Html.DisplayFor(m => m.ZipCode)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <label>Phone1</label> @Html.DisplayFor(m => m.Phone1)
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <label>Phone2</label> @Html.DisplayFor(m => m.Phone2)
+                    </div>
+                </div>
+                <div class="pidframeset">
+                    <label class="pidframesetlegend">Personal Identification Fields:</label>
+                    <div class="row">
+                        <div class="col-md-8 col-sm-8">
+                            <label>Please verify your personal identification information, and be sure to use the same information when tested.</label>
+                        </div>
+                    </div>
+
+                    @for (var p = 0; p < Model.PIDTypeValues.Count; p++)
+                    {
+                        bool IsRequired = Model.PIDTypeValues[p].required == true;
+                        bool HasErr = !(string.IsNullOrEmpty(Model.PIDTypeValues[p].Err));
+                        if (!String.IsNullOrEmpty(Model.PIDTypeValues[p].PIDValue))
+                        {
+                            if (Model.PIDTypeValues[p].PIDType == (int)PidTypes.SSN)
+                            {
+                                string ssnM = "#####";
+                                string ssnV = Model.PIDTypeValues[p].PIDValue.PadLeft(9, '0');
+                                ssnV = ssnM + ssnV.Substring(ssnV.Length - 4, 4);
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <label>
+                                            SSN
+                                        </label> @ssnV
+                                    </div>
+                                </div>
+                            }
+                            else if (Model.PIDTypeValues[p].PIDType == (int)PidTypes.DL)
+                            {
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <label>
+                                            Driver's License
+                                        </label> @Html.DisplayFor(m => m.PIDTypeValues[p].PIDValue)
+
+                                    </div>
+                                </div>
+                            }
+                            else if (Model.PIDTypeValues[p].PIDType == (int)PidTypes.Passport)
+                            {
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <label>
+                                            Passport ID
+                                        </label> @Html.DisplayFor(m => m.PIDTypeValues[p].PIDValue)
+                                    </div>
+                                </div>
+                            }
+                            else if (Model.PIDTypeValues[p].PIDType == (int)PidTypes.StudentID)
+                            {
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <label>
+                                            Student ID
+                                        </label> @Html.DisplayFor(m => m.PIDTypeValues[p].PIDValue)
+                                    </div>
+                                </div>
+                            }
+                            else if (Model.PIDTypeValues[p].PIDType == (int)PidTypes.MCEID || Model.PIDTypeValues[p].PIDType == (int)PidTypes.PCID)
+                            {
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <label>
+                                            Integration ID:
+                                        </label> @Html.DisplayFor(m => m.PIDTypeValues[p].PIDValue)
+                                    </div>
+                                </div>
+                            }
+                        }
+
+
+                    }
+                </div>
+
+                <div class="row top-buffer"></div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-5">
+                        <button id="submit" name="button" value="Edit" class="btn btn-primary">Edit</button>
+                        <button id="submit" name="button" value="Submit" class="btn btn-primary">Submit</button>
+                        <button id="submitWait" name="button" value="submitWait" class="btn btn-primary" disabled="disabled" style="display: none;">Please Wait</button>
+                    </div>
+                </div>
+                <br />
+                <br />
+            </div>
+            <div class="row top-buffer"></div>
+            <div class="row top-buffer"></div>
+
+        </div>
+    }
+}

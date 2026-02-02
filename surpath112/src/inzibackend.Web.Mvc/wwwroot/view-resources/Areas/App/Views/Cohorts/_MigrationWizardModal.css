@@ -1,0 +1,957 @@
+/* Migration Wizard Styles */
+.wizard-progress {
+    margin-bottom: 2rem;
+}
+
+.wizard-progress .step-item {
+    text-align: center;
+    position: relative;
+    flex: 1;
+}
+
+.wizard-progress .step-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    right: -50%;
+    height: 2px;
+    background-color: #e9ecef;
+    z-index: 1;
+}
+
+.wizard-progress .step-item.completed:not(:last-child)::after {
+    background-color: #28a745;
+}
+
+.wizard-progress .step-number {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    color: #6c757d;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 8px;
+}
+
+.wizard-progress .step-item.active .step-number {
+    background-color: #007bff;
+    color: white;
+}
+
+.wizard-progress .step-item.completed .step-number {
+    background-color: #28a745;
+    color: white;
+}
+
+.wizard-progress .step-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: #6c757d;
+}
+
+.wizard-progress .step-item.active .step-title {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.wizard-progress .step-item.completed .step-title {
+    color: #28a745;
+}
+
+/* Wizard Step Content */
+.wizard-step {
+    min-height: 400px;
+}
+
+.wizard-step.active {
+    display: block !important;
+}
+
+/* Department Statistics */
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+.stat-value {
+    font-weight: 600;
+    color: #007bff;
+}
+
+/* Form Enhancements */
+.form-check-label strong {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.form-check-label small {
+    font-size: 0.875rem;
+}
+
+/* Migration Analysis Styles */
+#migrationAnalysis .card {
+    margin-top: 1rem;
+}
+
+.analysis-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.analysis-item:last-child {
+    border-bottom: none;
+}
+
+.analysis-label {
+    font-weight: 500;
+}
+
+.analysis-value {
+    font-weight: 600;
+}
+
+.complexity-simple {
+    color: #28a745;
+}
+
+.complexity-moderate {
+    color: #ffc107;
+}
+
+.complexity-complex {
+    color: #dc3545;
+}
+
+/* Loading States */
+.loading-spinner {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .wizard-progress .d-flex {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .wizard-progress .step-item:not(:last-child)::after {
+        display: none;
+    }
+    
+    .wizard-progress .step-item {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        gap: 1rem;
+    }
+    
+    .wizard-progress .step-number {
+        margin-bottom: 0;
+    }
+}
+
+/* Alert Enhancements */
+.alert-info {
+    border-left: 4px solid #17a2b8;
+}
+
+.alert-warning {
+    border-left: 4px solid #ffc107;
+}
+
+.alert-success {
+    border-left: 4px solid #28a745;
+}
+
+.alert-danger {
+    border-left: 4px solid #dc3545;
+}
+
+/* Category Mapping Styles */
+#categoryMappingTable {
+    font-size: 0.875rem;
+}
+
+#categoryMappingTable th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    border-bottom: 2px solid #dee2e6;
+    vertical-align: middle;
+}
+
+#categoryMappingTable td {
+    vertical-align: middle;
+    padding: 0.75rem 0.5rem;
+}
+
+.category-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.category-name {
+    font-weight: 600;
+    color: #495057;
+}
+
+.category-description {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.requirement-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.requirement-name {
+    font-weight: 500;
+    color: #495057;
+}
+
+.requirement-type {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+}
+
+.requirement-type.surpath-only {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.requirement-type.external {
+    background-color: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.impact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: center;
+}
+
+.impact-users {
+    font-weight: 600;
+    color: #dc3545;
+}
+
+.impact-records {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.mapping-action-select {
+    width: 100%;
+    font-size: 0.875rem;
+}
+
+.target-mapping-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.target-category-section,
+.new-category-section,
+.skip-warning-section {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: #f8f9fa;
+}
+
+.target-category-section {
+    border-left: 3px solid #007bff;
+}
+
+.new-category-section {
+    border-left: 3px solid #28a745;
+}
+
+.skip-warning-section {
+    border-left: 3px solid #dc3545;
+    background-color: #fff5f5;
+}
+
+.target-category-select,
+.new-category-input {
+    width: 100%;
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+}
+
+.skip-warning {
+    font-size: 0.8rem;
+    color: #dc3545;
+    font-weight: 500;
+}
+
+.suggestions-container {
+    position: relative;
+}
+
+.suggestions-btn {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.suggestions-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.suggestion-item {
+    padding: 0.5rem;
+    border-bottom: 1px solid #f8f9fa;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.suggestion-item:hover {
+    background-color: #f8f9fa;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-name {
+    font-weight: 500;
+    color: #495057;
+}
+
+.suggestion-score {
+    font-size: 0.7rem;
+    color: #6c757d;
+}
+
+.suggestion-match-high {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.suggestion-match-medium {
+    color: #ffc107;
+    font-weight: 500;
+}
+
+.suggestion-match-low {
+    color: #dc3545;
+}
+
+.mapping-status {
+    text-align: center;
+}
+
+.status-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-weight: 500;
+}
+
+.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-mapped {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-copied {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.status-skipped {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.status-invalid {
+    background-color: #f5c6cb;
+    color: #721c24;
+}
+
+/* Bulk Actions */
+.bulk-actions {
+    margin-bottom: 1rem;
+}
+
+.bulk-actions .btn-group {
+    margin-right: 1rem;
+}
+
+/* Migration Summary */
+#migrationSummary .badge {
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+}
+
+/* Validation Messages */
+#mappingValidationMessages {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#validationIssuesList li {
+    margin-bottom: 0.5rem;
+}
+
+/* Loading State */
+#categoryMappingLoading {
+    background-color: rgba(248, 249, 250, 0.8);
+}
+
+/* DataTable Customizations */
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter {
+    margin-bottom: 1rem;
+}
+
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+    margin-top: 1rem;
+}
+
+/* Responsive Table */
+@media (max-width: 992px) {
+    #categoryMappingTable {
+        font-size: 0.8rem;
+    }
+    
+    #categoryMappingTable th,
+    #categoryMappingTable td {
+        padding: 0.5rem 0.25rem;
+    }
+    
+    .target-mapping-section {
+        gap: 0.25rem;
+    }
+    
+    .suggestions-dropdown {
+        position: fixed;
+        left: 1rem;
+        right: 1rem;
+    }
+}
+
+/* Validation Styles */
+.validation-error {
+    background-color: #f8d7da !important;
+    border-left: 4px solid #dc3545 !important;
+}
+
+.validation-warning {
+    background-color: #fff3cd !important;
+    border-left: 4px solid #ffc107 !important;
+}
+
+.highlight-category {
+    background-color: #cce5ff !important;
+    animation: highlightPulse 2s ease-in-out;
+}
+
+@keyframes highlightPulse {
+    0% { background-color: #007bff !important; }
+    50% { background-color: #cce5ff !important; }
+    100% { background-color: #cce5ff !important; }
+}
+
+.validation-issue-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.validation-issue-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.validation-message {
+    font-weight: 500;
+}
+
+.goto-category-btn {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+}
+
+/* Bulk Action Progress Styles */
+#bulkActionProgress {
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+}
+
+#bulkActionProgress .spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+}
+
+#bulkActionProgress .progress {
+    height: 0.5rem;
+}
+
+#bulkActionProgress .progress-bar {
+    transition: width 0.3s ease;
+}
+
+/* Bulk Action Button States */
+.btn-group .btn {
+    position: relative;
+}
+
+.btn-group .btn:disabled {
+    opacity: 0.6;
+}
+
+.btn-group .btn.processing {
+    pointer-events: none;
+}
+
+.btn-group .btn.processing::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1rem;
+    height: 1rem;
+    margin: -0.5rem 0 0 -0.5rem;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spinButton 1s linear infinite;
+}
+
+@keyframes spinButton {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Migration Confirmation Styles */
+.migration-confirmation-summary .card {
+    border: 1px solid #dee2e6;
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+}
+
+.migration-confirmation-summary .card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.impact-stat {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #f8f9fa;
+    margin-bottom: 1rem;
+}
+
+.impact-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #007bff;
+    display: block;
+}
+
+.impact-stat small {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.badge-lg {
+    font-size: 1.25rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.migration-confirmation-summary .form-check {
+    background-color: #f8f9fa;
+    border: 2px solid #dee2e6;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+.migration-confirmation-summary .form-check:hover {
+    border-color: #007bff;
+    background-color: #e3f2fd;
+}
+
+.migration-confirmation-summary .form-check-input:checked ~ .form-check-label {
+    color: #007bff;
+}
+
+.migration-confirmation-summary .form-check-label {
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+/* Responsive confirmation layout */
+@media (max-width: 768px) {
+    .impact-stat {
+        margin-bottom: 0.5rem;
+    }
+    
+    .impact-number {
+        font-size: 1.5rem;
+    }
+    
+    .badge-lg {
+        font-size: 1rem;
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+/* Migration Progress Overlay */
+.migration-progress-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.migration-progress-content {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+    padding: 2rem;
+    max-width: 600px;
+    width: 100%;
+}
+
+.migration-progress-icon {
+    margin-bottom: 1rem;
+}
+
+.migration-progress-steps {
+    margin: 2rem 0;
+}
+
+.progress-step {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.progress-step.active {
+    background-color: #e3f2fd;
+    border-left: 4px solid #007bff;
+}
+
+.progress-step.completed {
+    background-color: #d4edda;
+    border-left: 4px solid #28a745;
+}
+
+.progress-step-icon {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    color: #6c757d;
+}
+
+.progress-step.active .progress-step-icon {
+    background-color: #007bff;
+    color: white;
+}
+
+.progress-step.completed .progress-step-icon {
+    background-color: #28a745;
+    color: white;
+}
+
+.progress-step-text {
+    font-weight: 500;
+    color: #495057;
+}
+
+.progress-step.active .progress-step-text {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.progress-step.completed .progress-step-text {
+    color: #28a745;
+}
+
+.migration-progress-details {
+    text-align: center;
+}
+
+/* Migration Success Styles */
+.migration-success-container {
+    padding: 2rem;
+}
+
+.migration-success-icon {
+    margin-bottom: 1rem;
+}
+
+.migration-results-summary {
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    margin: 2rem 0;
+}
+
+.result-stat {
+    text-align: center;
+    padding: 1rem;
+}
+
+.result-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #28a745;
+    margin-bottom: 0.5rem;
+}
+
+.result-stat small {
+    color: #6c757d;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.migration-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Migration Error Styles */
+.migration-error-container {
+    padding: 2rem;
+}
+
+.migration-error-icon {
+    margin-bottom: 1rem;
+}
+
+.migration-error-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Progress Bar Enhancements */
+.progress {
+    height: 0.75rem;
+    border-radius: 0.5rem;
+    background-color: #e9ecef;
+}
+
+.progress-bar {
+    border-radius: 0.5rem;
+    transition: width 0.6s ease;
+}
+
+.progress-bar-animated {
+    animation: progress-bar-stripes 1s linear infinite;
+}
+
+@keyframes progress-bar-stripes {
+    0% {
+        background-position: 1rem 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+/* Responsive Migration Progress */
+@media (max-width: 768px) {
+    .migration-progress-overlay {
+        padding: 1rem;
+    }
+    
+    .migration-progress-content {
+        padding: 1.5rem;
+    }
+    
+    .progress-step {
+        padding: 0.5rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .progress-step-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: 0.75rem;
+    }
+    
+    .progress-step-text {
+        font-size: 0.9rem;
+    }
+    
+    .migration-results-summary {
+        padding: 1rem;
+    }
+    
+    .result-stat {
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .result-number {
+        font-size: 1.5rem;
+    }
+    
+    .migration-actions,
+    .migration-error-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .migration-actions .btn,
+    .migration-error-actions .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* Animation for success/error transitions */
+.migration-success-container,
+.migration-error-container {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Disable pointer events during migration */
+.modal.migration-in-progress {
+    pointer-events: none;
+}
+
+.modal.migration-in-progress .migration-progress-overlay {
+    pointer-events: all;
+}
+
+/* Member Selection Styles */
+#memberSelectionSection {
+    margin-top: 1.5rem;
+}
+
+#memberSearchFilter {
+    border-radius: 20px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+#selectedMembersCount {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+}
+
+#cohortMembersTable {
+    font-size: 0.9rem;
+}
+
+#cohortMembersTable thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    font-weight: 600;
+}
+
+#cohortMembersTable tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+#cohortMembersTable .form-check {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+#cohortMembersTable .form-check-input {
+    margin-top: 0.25rem;
+}
+
+#memberLoadingState {
+    background-color: #f8f9fa;
+    border-radius: 0.375rem;
+    padding: 3rem;
+}

@@ -1,0 +1,163 @@
+﻿@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.Records
+@using inzibackend.Web.Areas.App.Startup
+@model RecordsViewModel
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.Records;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/Records/Index.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    <abp-page-subheader title='@L("Records")' description='@L("RecordsHeaderInfo")'>
+        <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+
+        @if (IsGranted(AppPermissions.Pages_Records_Create))
+        {
+        <button id="CreateNewRecordButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewRecord")</button>
+        }
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-xl-12">
+
+                            <div class="my-3">
+                                <div class="input-group">
+                                    <input type="text" id="RecordsTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                    <button id="GetRecordsButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="filenameFilterId">@L("filename")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="filenameFilter" id="filenameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="physicalfilepathFilterId">@L("physicalfilepath")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="physicalfilepathFilter" id="physicalfilepathFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="metadataFilterId">@L("metadata")</label>
+                            <input type="text" class="form-control reload-on-keyup" name="metadataFilter" id="metadataFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="BinaryObjIdFilterId">@L("BinaryObjId")</label>
+                            <input type="text" class="form-control" name="binaryObjIdFilter" id="BinaryObjIdFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinDateUploadedFilterId">@L("DateUploadedRange")</label>
+                            <div class="input-group">
+                                <input class="form-control m-input date-picker startDate date-picker-filter" type="text" placeholder="@L(" MinValue")" id="MinDateUploadedFilterId">
+                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                                <input class="form-control m-input date-picker endDate date-picker-filter" type="text" placeholder="@L(" MaxValue")" id="MaxDateUploadedFilterId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinDateLastUpdatedFilterId">@L("DateLastUpdatedRange")</label>
+                            <div class="input-group">
+                                <input class="form-control m-input date-picker startDate date-picker-filter" type="text" placeholder="@L(" MinValue")" id="MinDateLastUpdatedFilterId">
+                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                                <input class="form-control m-input date-picker endDate date-picker-filter" type="text" placeholder="@L(" MaxValue")" id="MaxDateLastUpdatedFilterId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="InstructionsConfirmedFilterId">@L("InstructionsConfirmed")</label>
+                            <select class="form-select reload-on-change" name="InstructionsConfirmedFilter" id="InstructionsConfirmedFilterId">
+                                <option value="-1">@L("All")</option>
+                                <option value="0">@L("False")</option>
+                                <option value="1">@L("True")</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinEffectiveDateFilterId">@L("EffectiveDateRange")</label>
+                            <div class="input-group">
+                                <input class="form-control m-input date-picker startDate date-picker-filter" type="text" placeholder="@L(" MinValue")" id="MinEffectiveDateFilterId">
+                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                                <input class="form-control m-input date-picker endDate date-picker-filter" type="text" placeholder="@L(" MaxValue")" id="MaxEffectiveDateFilterId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="MinExpirationDateFilterId">@L("ExpirationDateRange")</label>
+                            <div class="input-group">
+                                <input class="form-control m-input date-picker startDate date-picker-filter" type="text" placeholder="@L(" MinValue")" id="MinExpirationDateFilterId">
+                                <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                                <input class="form-control m-input date-picker endDate date-picker-filter" type="text" placeholder="@L(" MaxValue")" id="MaxExpirationDateFilterId">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="my-3">
+                            <label class="form-label" for="TenantDocumentCategoryNameFilterId">(@L("TenantDocumentCategory")) @L("Name")</label>
+                            <input type="text" class="form-control" name="tenantDocumentCategoryNameFilter" id="TenantDocumentCategoryNameFilterId">
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-5">
+                        <button class="btn btn-secondary btn-sm" id="btn-reset-filters">Reset</button>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <table id="RecordsTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                        <thead>
+                            <tr>
+                                <th></th>
+
+                                <th>@L("Actions")</th>
+                                <th>@L("filedata")</th>
+                                <th>@L("filename")</th>
+                                <th>@L("physicalfilepath")</th>
+                                <th>@L("metadata")</th>
+                                <th>@L("BinaryObjId")</th>
+                                <th>@L("DateUploaded")</th>
+                                <th>@L("DateLastUpdated")</th>
+                                <th>@L("InstructionsConfirmed")</th>
+@*                                <th>@L("EffectiveDate")</th>
+                                <th>@L("ExpirationDate")</th>
+                                <th>@L("MetaData")</th>*@
+                                <th>@L("TenantDocumentCategoryName")</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

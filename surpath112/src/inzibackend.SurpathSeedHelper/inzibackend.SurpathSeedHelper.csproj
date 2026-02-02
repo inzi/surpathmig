@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+<Import Project="..\..\common.props"></Import>
+<PropertyGroup>
+	<TargetFramework>net6.0</TargetFramework>
+	<AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+	<AssemblyName>inzibackend.SurpathSeedHelper</AssemblyName>
+	<PackageId>inzibackend.SurpathSeedHelper</PackageId>
+	<GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+	<GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+	<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+	<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+	<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+	<UserSecretsId>MyCompanyName-inzibackend-894FDFC1-6482-4A56-926A-3C46C9FE0329</UserSecretsId>
+	<RootNamespace>inzibackend</RootNamespace>
+</PropertyGroup>
+	<ItemGroup>
+		<!--<EmbeddedResource Include="Localization\inzibackend\*.xml;Net\Emailing\EmailTemplates\default.html" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />-->
+	</ItemGroup>
+  <ItemGroup>
+    <!--<PackageReference Include="Abp" Version="7.2.1" />-->
+	  <!--<PackageReference Include="Abp.ZeroCore.IdentityServer4.vNext.EntityFrameworkCore" Version="7.0.1" />
+	  <PackageReference Include="Abp.AutoMapper" Version="7.0.1" />
+	  <PackageReference Include="Abp.MailKit" Version="7.0.1" />
+	  <PackageReference Include="Abp.Zero.Ldap" Version="7.0.1" />-->
+	  <PackageReference Include="MySql.Data" Version="8.0.29" />
+  </ItemGroup>
+
+</Project>

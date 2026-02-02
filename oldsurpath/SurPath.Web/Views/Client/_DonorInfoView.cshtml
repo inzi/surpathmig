@@ -1,0 +1,57 @@
+﻿@model SurPathWeb.Models.TestResultDataModel
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="text-danger fa fa-times"></i></button>
+            <h4 class="modal-title" id="myModalLabel">Test Results Details</h4>
+        </div>
+        <div class="modal-body">
+            <table class="col-md-8 col-md-offset-2 ">
+                <tbody>
+                    <tr>
+                        <td class="h6"><strong>First Name</strong></td>
+                        <td></td>
+                        <td class="h5">@Model.FirstName</td>
+                    </tr>
+                    <tr>
+                        <td class="h6"><strong>Last Name</strong></td>
+                        <td></td>
+                        <td class="h5">@Model.LastName</td>
+                    </tr>
+                    <tr>
+                        <td class="h6"><strong>SSN</strong></td>
+                        <td></td>
+                        <td class="h5">@Model.SSN</td>
+                    </tr>
+                    <tr>
+                        <td class="h6"><strong>Program</strong></td>
+                        <td></td>
+                        <td class="h5">@Model.DepartmentName</td>
+                    </tr>
+                    <tr>
+                        <td class="h6"><strong>Status</strong></td>
+                        <td></td>
+                        <td class="h5">@Model.TestStatus</td>
+                    </tr>
+                    <tr>
+                        <td class="h6"><strong>Date Tested</strong></td>
+                        <td></td>
+                        <td class="h5">@Model.TestDate</td>
+
+                    <tr>
+                        <td class="h6"><strong>Final Result</strong></td>
+                        <td></td>
+                        <td class="h5">@Model.TestOverallResult</td>
+                    </tr>
+                    <tr> </tr>
+                </tbody>
+            </table>
+            <div class="col-md-8 col-md-offset-3">
+                <div class="row top-buffer"></div>
+                <input type="submit" class="button" value="View Report" onclick="JavaScript: alert('Under Development.'); return false;" />
+            </div>
+        </div>
+    </div>
+</div>
+

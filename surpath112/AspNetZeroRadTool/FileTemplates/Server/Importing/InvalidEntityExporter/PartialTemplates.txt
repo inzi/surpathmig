@@ -1,0 +1,18 @@
+{
+"propertyTemplates":[
+		{
+			"placeholder" : "{{Property_Template_Looped_Here}}",
+			"templates" : [
+					{
+					"type" : "default",
+					"content" : ",
+					{L(\"{{Property_Name_Here}}\"), {{entity_Name_Here}}.{{Property_Name_Here}}}"
+					}
+				]
+		},
+	],
+"navigationPropertyTemplates":[
+	],
+	"conditionalTemplates":[
+	]
+}

@@ -1,0 +1,3 @@
+Accept.js
+https://developer.authorize.net/api/reference/features/acceptjs.html#Using_the_Payment_Nonce_in_an_API_Request_From_Your_Server
+

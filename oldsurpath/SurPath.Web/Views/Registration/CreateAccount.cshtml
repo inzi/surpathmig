@@ -1,0 +1,547 @@
+﻿@model SurPathWeb.Models.DonorProfileDataModel
+@{
+    ViewBag.Title = "CreateAccount";
+    Layout = "~/Views/Shared/_LayoutRegistration.cshtml";
+    var retryLogin = ViewBag.RetryLogin;
+    var _retryLogin = "false";
+    if (retryLogin == true) { _retryLogin = "true"; }
+
+}
+
+<style type="text/css">
+    p {
+        max-height: 200px;
+        overflow: auto;
+    }
+
+    ​;
+</style>
+@section PageScript
+{
+    <script type="text/javascript">
+
+        var _mustlogin = false;
+        var _email = '@Model.EmailID';
+
+        var _available = false;
+        var _verifiedEmail = false;
+
+
+        function IsValidEmail() {
+            // debugger;
+            console.log('validEmail');
+            var _data = {};
+            _data.userName = $("#userName").val();
+
+            if (_data.userName) {
+                $.post("/registration/validEmail", _data, function (data) {
+                    _mustlogin = false;
+                    console.log(data);
+                    if (data.Success == 1) {
+
+                        _mustlogin = true;
+                        $(".loginInputs").removeClass("hidden");
+                        $("#create").text("Login to Continue");
+                        $(".extidfield").removeClass("hidden");
+                        $("#create").removeAttr("disabled");
+                        $("#verifyemail").addClass("hidden");
+                        //$("#msgAvailableFalse span").text("");
+                        //$("#msgAvailableFalse").addClass("hidden");
+
+                        // enableVerify();
+                        return true;
+                    }
+                    else if (data.Success == 0) {
+                        $("#msgAvailableFalse span").text("");
+                        $("#msgAvailableFalse").addClass("hidden");
+                        enableVerify();
+                    }
+                    else {
+                        //$(".verificationinputs").addClass("hidden");
+                        //$("#msgAvailableTrue").addClass("hidden");
+                        //// show ErrorMsg
+                        //$("#msgAvailableFalse span").text(data.ErrorMsg);
+                        //$("#msgAvailableFalse").removeClass("hidden");
+                        //$("#create").attr("disabled", true);
+                        return false;
+                    }
+                })
+                    .done(function () {
+
+                    })
+                    .fail(function () {
+                        alert('There was a problem check if the account exists!');
+                    })
+            }
+        }
+
+        function LoginRegistrant() {
+            console.log('LoginRegistrant');
+            var _data = {};
+            _data.userName = $("#userName").val();
+            _data.password = $("#password").val();
+            if (_data.userName && _data.password) {
+                $.post("/registration/LoginRegistrant", _data, function (data) {
+                    console.log(data);
+                    if (data.Success == 1) {
+                        //$("#msgAvailableTrue").removeClass("hidden");
+                        //$("#msgAvailableFalse span").text("");
+                        //$("#msgAvailableFalse").addClass("hidden");
+                        //$("#create").removeAttr("disabled");
+                        //enableVerify();
+                        return true;
+                    }
+                    //else if (data.Success == 0) {
+                    //    $("#msgAvailableFalse span").text("");
+                    //    $("#msgAvailableFalse").addClass("hidden");
+                    //    enableVerify();
+
+                    //}
+                    else {
+                        //$(".verificationinputs").addClass("hidden");
+                        //$("#msgAvailableTrue").addClass("hidden");
+                        //// show ErrorMsg
+                        //$("#msgAvailableFalse span").text(data.ErrorMsg);
+                        //$("#msgAvailableFalse").removeClass("hidden");
+                        //$("#create").attr("disabled", true);
+                        return false;
+                    }
+                })
+                    .done(function () {
+
+                    })
+                    .fail(function () {
+                        alert('There was a problem check if the account exists!');
+                    })
+            }
+        }
+
+
+
+        function enableVerify() {
+            console.log("enableVerify");
+            console.log(_verifiedEmail);
+            if (_verifiedEmail == false) {
+                $("#verifyemail").removeAttr("disabled");
+                $("#confirmemail").removeAttr("disabled");
+            }
+        };
+        function showVerify() {
+            console.log('showVerify');
+            console.log(_verifiedEmail);
+                console.log('unhiding show verify');
+                $(".verificationinputs").removeClass("hidden");
+        }
+        function AccountAvailable() {
+            // debugger;
+            console.log('AccountAvailable');
+            var _data = {};
+            _data.userName = $("#userName").val();
+            _data.programId = $("#programid").val();
+
+            if (_data.userName) {
+                $.post("/registration/accountavailable", _data, function (data) {
+                    console.log(data);
+                    if (data.Success == 1) {
+                        $("#msgAvailableTrue").removeClass("hidden");
+                        $("#msgAvailableFalse span").text("");
+                        $("#msgAvailableFalse").addClass("hidden");
+                        $("#create").removeAttr("disabled");
+                         enableVerify();
+                    }
+                    else if (data.Success == 0)
+                    {
+                        $("#msgAvailableFalse span").text("");
+                        $("#msgAvailableFalse").addClass("hidden");
+                         enableVerify();
+
+                    }
+                    else {
+                        $(".verificationinputs").addClass("hidden");
+                        $("#msgAvailableTrue").addClass("hidden");
+                        // show ErrorMsg
+                        $("#msgAvailableFalse span").text(data.ErrorMsg);
+                        $("#msgAvailableFalse").removeClass("hidden");
+                        $("#create").attr("disabled", true);
+                    }
+                })
+                    .done(function () {
+
+                    })
+                    .fail(function () {
+                        alert('There was a problem check if the account exists!');
+                    })
+            }
+        }
+
+        //
+
+        function accountavailableForProgram() {
+            // debugger;
+            console.log('accountavailableForProgram');
+            var _data = {};
+            _data.userName = $("#userName").val();
+
+            if (_data.userName) {
+                $.post("/registration/accountavailableForProgram", _data, function (data) {
+                    console.log(data);
+                    if (data.Success == 1) {
+                        $("#msgAvailableTrue").removeClass("hidden");
+                        $("#msgAvailableFalse span").text("");
+                        $("#msgAvailableFalse").addClass("hidden");
+                        $("#create").removeAttr("disabled");
+                        enableVerify();
+                    }
+                    else if (data.Success == 0) {
+                        $("#msgAvailableFalse span").text("");
+                        $("#msgAvailableFalse").addClass("hidden");
+                        enableVerify();
+
+                    }
+                    else {
+                        $(".verificationinputs").addClass("hidden");
+                        $("#msgAvailableTrue").addClass("hidden");
+                        // show ErrorMsg
+                        $("#msgAvailableFalse span").text(data.ErrorMsg);
+                        $("#msgAvailableFalse").removeClass("hidden");
+                        $("#create").attr("disabled", true);
+                    }
+                })
+                    .done(function () {
+
+                    })
+                    .fail(function () {
+                        alert('There was a problem check if the account exists!');
+                    })
+            }
+        }
+
+
+        $(function () {
+            console.log('$ function');
+            function disableBack() { window.history.forward() }
+
+            window.onload = disableBack();
+            window.onpageshow = function (evt) { if (evt.persisted) disableBack() }
+
+            // $('#divTermsOfServices').show();
+
+            //$("form input:text").bind("cut copy paste", function (e) {
+            //    e.preventDefault();
+            //});
+            $("form #userName").keyup(function (e) {
+
+                 var _input = $("#" + e.target.id);
+                var _validemail = IsEmailValid(e.target.id);
+                // $("#create").attr("disabled", _validemail);
+                if (_validemail == true) {
+                    $("#verifyemail").removeAttr("disabled");
+                }
+                else {
+                    $("#verifyemail").prop('disabled', true);
+
+                }
+
+            });
+            $("#userName").on('blur', function (e) {
+                console.log("username blur");
+                //AccountAvailable();
+                IsValidEmail();
+            })
+            if ("@ViewBag.ServerErr" != "") {
+                $("#divServerErr").show().find("div").html("@ViewBag.ServerErr");
+            }
+
+            if (localStorage.rememberme && localStorage.rememberme != '') {
+                $("#login-remember").attr('checked', 'checked');
+                $("#userName").val(localStorage.username);
+                $("#password").val(localStorage.password);
+            }
+            else {
+                $("#login-remember").removeAttr('checked');
+                $("#userName").val('');
+                $("#password").val('');
+                $("#userName").val(_email);
+
+            }
+
+            $("#confirmemail").on("click", function (e) {
+                e.preventDefault();
+
+                console.log('confirmemail');
+
+                var _data = {};
+                _data.userName = $("#userName").val();
+                _data.verificationCode = $("#verifycode").val();
+                _data.programId = $("#programid").val();
+
+                $.post("/registration/CheckVerifyEmail", _data, function (data) {
+                    console.log(data);
+                    if (data.Success == 1) {
+
+                        $(".extidfield").removeClass("hidden");
+                        $("#confirmemail").addClass("disabled");
+                        $("#confirmemail").html("Verified!");
+                        accountavailableForProgram();
+                    }
+                    else if (data.Success == 0) {
+
+                    }
+                    else {
+
+                    }
+
+                })
+                    .done(function () {
+
+                    })
+                    .fail(function () {
+                        alert('There was a problem check if the account exists!');
+                    });
+            });
+
+            $("#verifyemail").on("click", function (e) {
+                e.preventDefault();
+                console.log('verifyemail clicked');
+                IsValidEmail();
+                if (_mustlogin == true) return false;
+
+                var _data = {};
+                _data.userName = $("#userName").val();
+                _data.programId = $("#programid").val();
+                $.post("/registration/SendVerifyEmail", _data, function (data) {
+                    console.log(data);
+                    if (data.Success == 1) {
+                        showVerify();
+
+                    }
+                    else if (data.Success !=1) {
+
+                    }
+                    else {
+
+                    }
+
+                })
+                    .done(function () {
+
+                    })
+                    .fail(function () {
+                        alert('There was a problem sending a verification email!');
+                    });
+            })
+
+            $("#login-remember").click(function () {
+                if ($("#login-remember").is(':checked')) {
+                    localStorage.username = $("#userName").val();
+                    localStorage.password = $("#password").val();
+                    localStorage.rememberme = $("#login-remember").val();
+                }
+                else {
+                    localStorage.username = '';
+                    localStorage.password = '';
+                    localStorage.rememberme = '';
+                }
+
+            });
+
+            $("#login-show-password").change(function () {
+
+                if ($(this).is(":checked")) {
+                    $("#password").attr('type', 'text');
+                    $("#password").attr('autocomplete', 'off');
+                }
+                else {
+                    $("#password").attr('type', 'password');
+                }
+            });
+
+
+            $("#submit").click(function () {
+                console.log('submit');
+                var e = $("form sup").parent().next(),
+                    status = true;
+
+                e.keydown(function () {
+                    ClearBorder(this.id);
+                });
+
+                if (!IsRequired(e.map(function () { return this.id }).get().join(','))) {
+                    status = false;
+                    $("#divServerErr").hide();
+                }
+
+                return status;
+            });
+
+              if ( @_retryLogin == true)
+            {
+                console.log("retry login");
+                _mustlogin = true;
+                $(".loginInputs").removeClass("hidden");
+                $("#create").text("Login to Continue");
+                $(".extidfield").removeClass("hidden");
+                $("#create").removeAttr("disabled");
+                $("#verifyemail").addClass("hidden");
+                $("#userName").val(_email);
+            }
+        });
+
+        function showDiv(opt) {
+            if (opt == '1') {
+                $('#divTermsOfServices').show();
+                $('#divCustDisAgrement').hide();
+                $('#divPrivacyPolicy').hide();
+            }
+            else if (opt == '2') {
+                $('#divTermsOfServices').hide();
+                $('#divCustDisAgrement').show();
+                $('#divPrivacyPolicy').hide();
+            }
+            else {
+                $('#divTermsOfServices').hide();
+                $('#divCustDisAgrement').hide();
+                $('#divPrivacyPolicy').show();
+            }
+        }
+        function goToRegistration() {
+            window.location.href = "@Url.Action("PreRegistration", "Registration")";
+        }
+
+
+          
+
+
+    </script>
+}
+
+@{using (Html.BeginForm("CreateAccount", "Registration", FormMethod.Post, new { id = "createaccountform" }))
+    {
+        <div class="container">
+
+
+            <div class="container">
+                <div style="display:none" class="col-md-8 col-centered alert alert-danger text-center" role="alert" id="divServerErr">
+                    <i class="fa fa-exclamation-triangle fa-1x"></i>@ViewBag.ServerErr
+                </div>
+                <div class="omb_login">
+                    <div class="row">
+                        <div class="col-xs-3 col-xs-offset-1 col-sm-7 col-sm-offset-4 col-md-2 col-md-offset-4 logo-push">
+                            <h2><img src="~/Images/Surscan-Application-Logo.png" /></h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-3  col-md-3 col-md-offset-4">
+                            @*<h2 class="omb_authTitle" style="color:#cd2028;">Sur<span style="color:#00579b;">Path</span></h2>*@
+                            <h4 class="omb_authTitle"><span class="span-bl">This program requires an account.</span></h4>
+                            <h4 class="omb_authTitle"><span class="span-bl">Please create an account.</span></h4>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-3  col-md-3 col-md-offset-4">
+                            <span class="span-bl"><a href="@Url.Action("Login", "Authentication")">Already have an account? Login here</a></span>
+                        </div>
+                    </div>
+                    <div class="col-xs-10 col-sm-6 col-centered">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-10">
+                                <label><sup>*</sup>Email address</label>
+                               
+                                        <input id="userName" type="text" class="form-control" data-errormsg="Email address can not be empty<br>" name="userName" value="@Model.EmailID" placeholder="Enter your Email address / User name" autofocus>
+                               
+                                <span class="alert-danger" style="display: none"></span>
+                            </div>
+                        </div>
+                        <div class="row omb_row verifyemailsend" style="padding-left:20px;">
+                            <div class="col-xs 6 col-xs-offset-4">
+                                <button id="verifyemail" name="verifyemail" value="Verify" class="btn btn-default" disabled>Send verification email</button>
+                            </div>
+                        </div>
+                        <div class="row hidden verificationinputs" id="verifyrow">
+                            <div class="col-xs-12 col-sm-12 col-md-10">
+                                <label>Verify Email address</label>
+                                <input id="verifycode" type="text" class="form-control" data-errormsg="Code not valid<br>" name="verifycode" value="" placeholder="Enter verification code sent to your email" autofocus>
+                                <span class="alert-danger" style="display: none"></span>
+                            </div>
+                        </div>
+                        <div class="row omb_row hidden verificationinputs" style="padding-left:20px;">
+                            <div class="col-xs 6 col-xs-offset-4">
+                                <button id="confirmemail" name="confirmemail" value="Verify" class="btn btn-default" disabled>Verify Code</button>
+                            </div>
+                        </div>
+                        <div class="row hidden loginInputs">
+                            <div class="col-xs-12 col-sm-12 col-md-10">
+                                <label><sup>*</sup>Password </label>
+                                <input id="password" type="password" class="form-control" data-errormsg="Password can not be empty" name="password" placeholder="Enter your Password">
+                                <span class="alert-danger" style="display:none"></span>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <label class="checkbox-inline">
+                                    <input id="login-show-password" type="checkbox" name="Show password" value="1">
+                                    Show Password
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row hidden">
+                            <div class="col-xs-12 col-sm-3 col-md-10">
+                                <label class="checkbox-inline">
+                                    <input id="login-remember" type="checkbox" name="remember" value="1">
+                                    Remember me
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row omb_row hidden createaccountbtn extidfield" style="padding-left:20px;">
+                            <div class="col-xs 6 col-xs-offset-4">
+                                <button id="create" name="button" value="Create" class="btn btn-default" disabled>Create Account</button>
+                            </div>
+                        </div>
+                        <div class="row omb_row" style="padding-left:20px;">
+                            <div id="msgAvailableTrue" class="col-xs 6 col-xs-offset-4 hidden">
+                                <span>Available</span>
+                            </div>
+                            <div id="msgAvailableFalse" class="col-xs 6 col-xs-offset-4 hidden">
+                                <span>Not Available</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row omb_loginOr" style="display:none">
+                        <div class="col-md-7 col-md-offset-2">
+                            <hr class="omb_hrOr">
+                            <span class="omb_spanOr">or</span>
+                        </div>
+                    </div>
+                    <div class="row omb_login" style="display:none">
+                        <div class="col-xs-12 col-sm-4 col-sm-offset-4 col-md-3">
+                            <h4 class="omb_authTitle">New Customer</h4>
+                        </div>
+                        <div class="row top-buffer"></div>
+
+                        <div class="row omb_row">
+                            @*<div class="col-xs-5 col-sm-5 col-md-10 col-md-offset-4">
+                                <a href="@Url.Action("PreRegistration", "Registration")" class="button">Create an account</a>
+                                                        </div>*@
+                            <div class="col-xs-6 col-xs-offset-1 col-sm-3 col-sm-offset-4 col-md-2 col-md-offset-4">
+                                <input id="submitButton" name="submitButton" type="button" class="btn btn-primary" value="Create an Account" onclick="goToRegistration()" style="margin-left:56px;">
+                            </div>
+                        </div>
+                        <div class="row top-buffer"></div>
+                        <div class="row top-buffer"></div>
+                        <div class="row">
+                            <div class=" col-sm-8 col-sm-offset-5 col-md-7 buffer-left">
+                                <p class="omb_forgotPwd"> <a onclick="showDiv('1')" style="cursor: pointer">Terms of Service</a> | <a onclick="showDiv('2')" style="cursor: pointer">Legal Disclaimer</a> | <a onclick="showDiv('3')" style="cursor: pointer">Privacy Policy</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row top-buffer"></div>
+                <div class="row top-buffer"></div>
+                <div class="navbar navbar-default navbar-fixed-bottom">
+                    <div class="container">
+                        <div class="col-sm-12 text-center" style="margin-top:10px;">
+                            <p> All Rights Reserved <i class="fa fa-copyright"></i> 2016, SurScan.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

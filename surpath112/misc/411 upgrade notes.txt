@@ -1,0 +1,26 @@
+in application - it has sixlabors.imagesharp - not sure if need that
+<PackageReference Include="SixLabors.ImageSharp" Version="2.1.1" />
+
+
+check if DateTimeOffsetFormat is still used
+
+check localization xml for inzibackend
+
+
+in .core proj
+<PackageReference Include="EntityFramework" Version="6.4.4" /> do I need?
+
+<PackageReference Include="EntityFramework" Version="6.4.4" /> Do I need in frameworkcore?
+
+
+CustomizableDashboard file - 
+
+In "if (widgetDefinition != null)
+                                    {"
+									
+									I create KVP for datasettings... keep this?
+									
+									
+inzibackenddbcontextmodelsnapshot - 
+
+Very different - are this SQL specific or what?									

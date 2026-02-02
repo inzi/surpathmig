@@ -1,0 +1,107 @@
+# Category Management Feature - Product Requirements Document
+
+## Project Overview
+Implement a comprehensive category management system for the inzibackend application that allows administrators to move and copy categories between requirements, handle requirement deletion, and provide proper warnings for destructive operations.
+
+## Problem Statement
+Currently, when migrating cohorts between departments, categories cannot be easily reorganized. For example, the "General Immunizations" requirement in ADN has multiple categories, but in LVN-RN Bridge, each immunization is its own requirement with a single category. This creates data inconsistencies and compliance calculation issues.
+
+## Technical Stack
+- ASP.NET Zero 11.4 framework
+- ASP.NET Core MVC
+- Entity Framework Core
+- C# application services and DTOs
+- JavaScript/jQuery for frontend
+- Razor views and modals
+- SQL Server database
+
+## Core Features Required
+
+### 1. Backend Infrastructure
+- Create CategoryManagementAppService with interface
+- Implement comprehensive DTOs for move/copy operations
+- Add proper permissions and authorization
+- Ensure transaction management and data integrity
+- Implement audit logging for all operations
+
+### 2. Category Move Operations
+- Move categories from one requirement to another (existing)
+- Move categories to newly created requirements
+- Handle automatic requirement deletion when last category is moved
+- Provide validation and impact analysis before operations
+- Support for both single and bulk category moves
+
+### 3. Category Copy Operations
+- Copy categories between requirements
+- Option to copy existing record states with categories
+- Support for multiple category selection
+- Maintain data integrity during copy operations
+
+### 4. User Interface Components
+- Category Management modal for requirement administration
+- Move Category modal with target selection
+- Copy Category modal with source/target selection
+- Integration with existing RecordRequirements index page
+- Clear warnings and confirmations for destructive operations
+
+### 5. Validation and Safety Features
+- Comprehensive validation before any operation
+- Impact analysis showing affected users and record states
+- Confirmation dialogs for destructive operations
+- Rollback capability for failed operations
+- Prevention of invalid operations (circular dependencies, etc.)
+
+### 6. Data Management
+- Maintain referential integrity across all operations
+- Ensure compliance calculations remain accurate
+- Handle multi-tenant scenarios properly
+- Preserve audit trails for all category operations
+
+## Business Rules
+1. Every requirement must have at least one category
+2. Category names must be unique within a requirement
+3. Record states must always reference valid categories
+4. All operations must be atomic (all succeed or all fail)
+5. Users must confirm destructive operations
+6. Audit trail must be maintained for all operations
+
+## Performance Requirements
+- Operations should complete within 30 seconds for typical scenarios
+- UI should be responsive during operations
+- Large-scale operations should provide progress feedback
+- Database operations should be optimized for performance
+
+## Security Requirements
+- Proper permission checks for all operations
+- Multi-tenant data isolation
+- Audit logging for security compliance
+- Input validation and sanitization
+
+## Integration Requirements
+- Integration with existing compliance calculation system
+- Compatibility with current requirement management workflows
+- Support for existing cohort migration processes
+- Maintain compatibility with existing API endpoints
+
+## Testing Requirements
+- Unit tests for all service methods
+- Integration tests for end-to-end workflows
+- UI tests for modal functionality
+- Performance tests for large-scale operations
+- Data integrity tests for all scenarios
+
+## Success Criteria
+1. Administrators can successfully move categories between requirements
+2. Administrators can copy categories with optional record states
+3. System maintains data integrity throughout all operations
+4. Compliance calculations remain accurate after operations
+5. User interface provides clear feedback and prevents errors
+6. All operations complete within performance requirements
+7. Comprehensive audit trail is maintained
+
+## Future Enhancements
+- Bulk operations for multiple categories
+- Category templates for common requirements
+- Category versioning and history tracking
+- REST API for external integrations
+- Advanced validation with ML-based suggestions 

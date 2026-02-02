@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Session Expire";
+    Layout = "~/Views/Shared/_LayoutRegistration.cshtml";
+}
+
+@section PageScript
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            function disableBack() { window.history.forward() }
+
+            window.onload = disableBack();
+            window.onpageshow = function (evt) { if (evt.persisted) disableBack() }
+        });
+
+        $(function () {
+            $("#btnSessionExpire").click(function () {
+                window.location.href = "@Url.Action("Signout", "Authentication")";
+            });
+        });
+    </script>
+}
+
+@{using (Html.BeginForm())
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-5 tout">
+                <img src="~/Images/session-expired.jpg" alt="session-timeout">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-danger text-center"> Ooops !!</h1>
+                <h2 class="text-info text-center">Your Session Expired</h2>
+                <div class="row top-buffer"></div>
+                <h3 class="text-center"><span class="btn btn-primary btn-lg" id="btnSessionExpire">Click Here to Login Again</span></h3>
+            </div>
+        </div>
+    </div>
+}
+}
+

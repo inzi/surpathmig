@@ -1,0 +1,85 @@
+﻿
+@using System.Globalization
+@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.DeptCodes
+@using inzibackend.Web.Areas.App.Startup
+@model CreateOrEditDeptCodeViewModel
+@using Abp.Extensions
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.DeptCodes;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/DeptCodes/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+    var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/App/DeptCodes", L("DeptCodes")),
+        new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
+        };
+        }
+        <abp-page-subheader title='@(Model.IsEditMode ? (L("EditDeptCode")) : L("CreateNewDeptCode"))' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+
+        <div class="@(await GetContainerClass())">
+            <div class="card card-custom gutter-b">
+                <form name="DeptCodeInformationsForm" role="form" novalidate class="form-validation">
+                    <div class="card-body">
+                        <div class="form">
+                            <div id="DeptCodeInformationsTab">
+                                @if (Model.IsEditMode)
+                                {
+                                <input type="hidden" name="id" value="@Model.DeptCode.Id" />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="codeTypeId">@L("CodeType")</label>
+                                    @Html.DropDownList("codeTypeId", new SelectList(Model.DeptCodeCodeTypeList,"Id","DisplayName", (Model.IsEditMode ? Model.DeptCode.CodeTypeId.ToString() : "")),@L("SelectACodeType"), new { @class = "form-control" , @required="required" })
+                                </div>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="TenantDepartmentName">@L("TenantDepartment")</label>
+                                    <div class="input-group">
+                                        <input class="form-control" id="TenantDepartmentName" name="tenantDepartmentName" value="@Model.TenantDepartmentName" type="text" disabled>
+                                        <button class="btn btn-primary blue" id="OpenTenantDepartmentLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                        <button class="btn btn-danger btn-icon" type="button" id="ClearTenantDepartmentNameButton"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+
+                                @if (Model.IsEditMode)
+                                {
+                                <input class="form-control" id="DeptCode_TenantDepartmentId" value="@Model.DeptCode.TenantDepartmentId" type="text" name="tenantDepartmentId" required hidden />
+                                }
+                                else
+                                {
+                                <input class="form-control" id="DeptCode_TenantDepartmentId" value="" type="text" name="tenantDepartmentId" required hidden />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="DeptCode_Code">@L("Code")</label>
+                                    <input class="form-control" id="DeptCode_Code" value="@Model.DeptCode.Code" type="text" name="code" required maxlength="@inzibackend.Surpath.DeptCodeConsts.MaxCodeLength" minlength="@inzibackend.Surpath.DeptCodeConsts.MinCodeLength" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12">
+                                <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                @if (!Model.IsEditMode)
+                                {
+                                <button type="button" id="saveAndNewBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>

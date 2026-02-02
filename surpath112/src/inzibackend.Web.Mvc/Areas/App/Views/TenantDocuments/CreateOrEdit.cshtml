@@ -1,0 +1,111 @@
+﻿
+@using System.Globalization
+@using inzibackend.Authorization
+@using inzibackend.Web.Areas.App.Models.TenantDocuments
+@using inzibackend.Web.Areas.App.Startup
+@model CreateOrEditTenantDocumentViewModel
+@using Abp.Extensions
+@using inzibackend.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppPageNames.Common.TenantDocuments;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/App/Views/TenantDocuments/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+<div class="content d-flex flex-column flex-column-fluid">
+
+    @{
+    var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/App/TenantDocuments", L("TenantDocuments")),
+        new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
+        };
+        }
+        <abp-page-subheader title='@(Model.IsEditMode ? (L("EditTenantDocument")) : L("CreateNewTenantDocument"))' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+
+        <div class="@(await GetContainerClass())">
+            <div class="card card-custom gutter-b">
+                <form name="TenantDocumentInformationsForm" role="form" novalidate class="form-validation">
+                    <div class="card-body">
+                        <div class="form">
+                            <div id="TenantDocumentInformationsTab">
+                                @if (Model.IsEditMode)
+                                {
+                                <input type="hidden" name="id" value="@Model.TenantDocument.Id" />
+                                <input type="hidden" name="tenantDocumentCategoryId" value="@Model.TenantDocument.TenantDocumentCategoryId" />
+                                }
+
+                                <div class="my-3 d-none">
+                                    <label class="form-label" for="TenantDocumentCategoryName">@L("TenantDocumentCategory")</label>
+                                    <div class="input-group">
+                                        <input class="form-control" id="TenantDocumentCategoryName" name="tenantDocumentCategoryName" value="@Model.TenantDocumentCategoryName" type="text" disabled>
+                                        <button class="btn btn-primary blue" id="OpenTenantDocumentCategoryLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                        <button class="btn btn-danger btn-icon" type="button" id="ClearTenantDocumentCategoryNameButton"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+
+                                @if (Model.IsEditMode)
+                                {
+                                <input class="form-control" id="TenantDocument_TenantDocumentCategoryId" value="@Model.TenantDocument.TenantDocumentCategoryId" type="text" name="tenantDocumentCategoryId" required hidden />
+                                }
+                                else
+                                {
+                                <input class="form-control" id="TenantDocument_TenantDocumentCategoryId" value="" type="text" name="tenantDocumentCategoryId" required hidden />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="Recordfilename">@L("Record")</label>
+                                    <div class="input-group">
+                                        <input class="form-control" id="Recordfilename" name="recordfilename" value="@Model.Recordfilename" type="text" disabled>
+                                        <button class="btn btn-primary blue" id="OpenRecordLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                        <button class="btn btn-danger btn-icon" type="button" id="ClearRecordfilenameButton"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+
+                                @if (Model.IsEditMode)
+                                {
+                                <input class="form-control" id="TenantDocument_RecordId" value="@Model.TenantDocument.RecordId" type="text" name="recordId" hidden />
+                                }
+                                else
+                                {
+                                <input class="form-control" id="TenantDocument_RecordId" value="" type="text" name="recordId" hidden />
+                                }
+
+                                <div class="my-3">
+                                    <label class="form-label" for="TenantDocument_Name">@L("Name")</label>
+                                    <input class="form-control" id="TenantDocument_Name" value="@Model.TenantDocument.Name" type="text" name="name" />
+                                </div>
+
+                                <label class="form-check form-check-custom">
+                                    <input id="TenantDocument_AuthorizedOnly" name="authorizedOnly" type="checkbox" class="form-check-input" value="true" @Html.Raw(Model.TenantDocument.AuthorizedOnly ?"checked=\"checked\"":"") />
+                                    <span class="form-check-label">
+                                        @L("AuthorizedOnly")
+                                    </span>
+                                </label>
+
+                                <div class="my-3">
+                                    <label class="form-label" for="TenantDocument_Description">@L("Description")</label>
+                                    <input class="form-control" id="TenantDocument_Description" value="@Model.TenantDocument.Description" type="text" name="description" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12">
+                                <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                @if (!Model.IsEditMode)
+                                {
+                                <button type="button" id="saveAndNewBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>

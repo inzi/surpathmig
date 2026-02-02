@@ -1,0 +1,387 @@
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.Users
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model UserTransferWizardViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("TransferUsers") + " - " + Model.CohortName))
+
+<div class="modal-body">
+    <!-- Wizard Progress Indicator -->
+    <div class="wizard-progress mb-4">
+        <div class="d-flex justify-content-between">
+            <div class="step-item @(Model.CurrentStep >= 1 ? "active" : "") @(Model.CurrentStep > 1 ? "completed" : "")">
+                <div class="step-number">1</div>
+                <div class="step-title">@L("TargetCohortSelection")</div>
+            </div>
+            <div class="step-item @(Model.CurrentStep >= 2 ? "active" : "") @(Model.CurrentStep > 2 ? "completed" : "")">
+                <div class="step-number">2</div>
+                <div class="step-title">@L("UserSelection")</div>
+            </div>
+            <div class="step-item @(Model.CurrentStep >= 3 ? "active" : "") @(Model.CurrentStep > 3 ? "completed" : "")">
+                <div class="step-number">3</div>
+                <div class="step-title">@L("CategoryMapping")</div>
+            </div>
+            <div class="step-item @(Model.CurrentStep >= 4 ? "active" : "") @(Model.CurrentStep > 4 ? "completed" : "")">
+                <div class="step-number">4</div>
+                <div class="step-title">@L("Confirmation")</div>
+            </div>
+        </div>
+        <div class="progress mt-2">
+            <div class="progress-bar" role="progressbar" style="width: @((Model.CurrentStep - 1) * 33.33)%" aria-valuenow="@((Model.CurrentStep - 1) * 33.33)" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
+
+    <!-- Hidden model data for JavaScript access (outside form to prevent submission) -->
+    <div class="d-none" id="transferWizardModelData">
+        <input type="hidden" name="UserTransferWizardViewModel_CohortId" value="@Model.CohortId" />
+        <input type="hidden" name="UserTransferWizardViewModel_CohortName" value="@Model.CohortName" />
+        <input type="hidden" name="UserTransferWizardViewModel_SourceDepartmentName" value="@Model.SourceDepartmentName" />
+        <input type="hidden" name="UserTransferWizardViewModel_DepartmentOption" value="@Model.DepartmentOption" />
+        <input type="hidden" name="UserTransferWizardViewModel_TargetDepartmentId" value="@Model.TargetDepartmentId" />
+        <input type="hidden" name="UserTransferWizardViewModel_NewDepartmentName" value="@Model.NewDepartmentName" />
+        <input type="hidden" name="UserTransferWizardViewModel_NewDepartmentDescription" value="@Model.NewDepartmentDescription" />
+        <input type="hidden" name="UserTransferWizardViewModel_CurrentStep" value="@Model.CurrentStep" />
+    </div>
+
+    <!-- Transfer Wizard Form -->
+    <form name="TransferWizardForm" role="form" novalidate class="form-validation">
+        <input type="hidden" name="cohortId" value="@Model.CohortId" />
+        <input type="hidden" name="currentStep" value="@Model.CurrentStep" />
+
+        <!-- Step 1: Target Cohort Selection -->
+        <div id="step1" class="wizard-step @(Model.CurrentStep == 1 ? "active" : "d-none")">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">@L("SelectTargetCohort")</h5>
+                    <p class="text-muted mb-0">@L("ChooseDestinationCohortForUsers")</p>
+                </div>
+                <div class="card-body">
+                    <!-- Source Department Info -->
+                    <div class="alert alert-info mb-4">
+                        <h6 class="alert-heading">@L("CurrentDepartment")</h6>
+                        <p class="mb-0">
+                            <strong>@L("Cohort"):</strong> @Model.CohortName<br />
+                            <strong>@L("Department"):</strong> @(Model.SourceDepartmentName ?? L("NoDepartment"))
+                        </p>
+                    </div>
+
+                    <!-- Department Selection -->
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="targetDepartmentId">@L("SelectDepartment")</label>
+                        <select class="form-control" id="targetDepartmentId" name="targetDepartmentId">
+                            <option value="">@L("PleaseSelect")</option>
+                            <option value="00000000-0000-0000-0000-000000000000">@L("None") - @L("CohortsWithoutDepartment")</option>
+                            @foreach (var dept in Model.AvailableDepartments)
+                            {
+                                <option value="@dept.DepartmentId">@dept.DepartmentName</option>
+                            }
+                        </select>
+                    </div>
+
+                    <!-- Cohort Selection (populated after department selection) -->
+                    <div class="form-group mb-3" id="targetCohortSection" style="display: none;">
+                        <label class="form-label" for="targetCohortId">@L("SelectCohort") <span class="text-danger">*</span></label>
+                        <select class="form-control" id="targetCohortId" name="targetCohortId">
+                            <option value="">@L("PleaseSelectDepartmentFirst")</option>
+                        </select>
+                    </div>
+
+                    <!-- Cohort Statistics -->
+                    <div id="cohortStats" class="d-none">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title">@L("TargetCohortStatistics")</h6>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <small class="text-muted">@L("CurrentUsers")</small>
+                                        <p class="mb-0"><strong id="cohortUsersCount">-</strong></p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <small class="text-muted">@L("Department")</small>
+                                        <p class="mb-0"><strong id="cohortDepartmentName">-</strong></p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <small class="text-muted">@L("DefaultCohort")</small>
+                                        <p class="mb-0"><strong id="isDefaultCohort">-</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Loading Indicator -->
+                    <div id="analysisLoading" class="d-none mt-4 text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">@L("Loading")</span>
+                        </div>
+                        <p class="mt-2 text-muted">@L("AnalyzingTransfer")</p>
+                    </div>
+
+                    <!-- Analysis Results -->
+                    <div id="analysisResults" class="d-none mt-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">@L("TransferAnalysisResults")</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <small class="text-muted">@L("UsersToTransfer")</small>
+                                        <p class="mb-0"><strong id="usersToTransfer">-</strong></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <small class="text-muted">@L("EstimatedDuration")</small>
+                                        <p class="mb-0"><strong id="estimatedDuration">-</strong></p>
+                                    </div>
+                                </div>
+                                <div id="analysisWarnings" class="alert alert-warning d-none">
+                                    <h6 class="alert-heading">@L("Warnings")</h6>
+                                    <ul class="mb-0" id="warningsList"></ul>
+                                </div>
+                                <div id="requirementCategories" class="mt-3">
+                                    <h6>@L("RequirementCategoriesToMap")</h6>
+                                    <p class="text-muted" id="categoriesInfo">-</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Step 2: User Selection -->
+        <div id="step2" class="wizard-step @(Model.CurrentStep == 2 ? "active" : "d-none")">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">@L("SelectUsersToTransfer")</h5>
+                    <p class="text-muted mb-0">@L("ChooseWhichUsersToMove")</p>
+                </div>
+                <div class="card-body">
+                    <!-- User Selection Controls -->
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="userSearchFilter" placeholder="@L("SearchUsers")">
+                                    <button class="btn btn-outline-secondary" type="button" id="searchUsersBtn">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <button type="button" class="btn btn-sm btn-outline-primary" id="selectAllUsersBtn">
+                                    <i class="fas fa-check-square"></i> @L("SelectAll")
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" id="selectNoneUsersBtn">
+                                    <i class="fas fa-square"></i> @L("SelectNone")
+                                </button>
+                                <span class="ms-3">
+                                    <strong id="selectedUsersCount">0</strong> @L("SelectedUsers")
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Users Table -->
+                    <div class="table-responsive">
+                        <table id="userSelectionTable" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="40">
+                                        <input type="checkbox" id="selectAllCheckbox" class="form-check-input">
+                                    </th>
+                                    <th>@L("UserName")</th>
+                                    <th>@L("FullName")</th>
+                                    <th>@L("Email")</th>
+                                    <th>@L("ComplianceStatus")</th>
+                                    <th>@L("RecordStates")</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Users will be loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Category Mapping -->
+        <div id="step3" class="wizard-step @(Model.CurrentStep == 3 ? "active" : "d-none")">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">@L("MapRequirementCategories")</h5>
+                    <p class="text-muted mb-0">@L("ChooseHowToHandleCategories")</p>
+                </div>
+                <div class="card-body">
+                    <!-- Migration Analysis Summary -->
+                    <div id="categoryMappingSummary" class="alert alert-info mb-4 d-none">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <h6 class="mb-1">@L("TotalCategories")</h6>
+                                    <span class="badge bg-primary" id="totalCategoriesToMap">0</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <h6 class="mb-1">@L("AffectedUsers")</h6>
+                                    <span class="badge bg-warning" id="totalAffectedUsersMapping">0</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <h6 class="mb-1">@L("RecordStates")</h6>
+                                    <span class="badge bg-info" id="totalRecordStatesMapping">0</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <h6 class="mb-1">@L("MappingProgress")</h6>
+                                    <span class="badge bg-success" id="mappingProgressBadge">0/0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- No Migration Required Section (shown first) -->
+                    <div id="noMigrationRequiredSection" class="mb-4 d-none">
+                        <div class="card border-success">
+                            <div class="card-header bg-success bg-opacity-10">
+                                <h6 class="mb-0 text-success">
+                                    <i class="fas fa-check-circle"></i>
+                                    @L("RequirementsWithNoMigrationRequired")
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted mb-3">
+                                    <i class="fas fa-info-circle"></i>
+                                    @L("TheseRequirementsApplyBothBeforeAndAfterMigrationNoActionRequired")
+                                </p>
+                                <div id="noMigrationRequiredList">
+                                    <!-- List will be populated via JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bulk Actions -->
+                    <div class="row mb-3" id="bulkActionsSection">
+                        <div class="col-md-6">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" id="bulkMapBtn">
+                                    <i class="fas fa-link"></i> @L("Bulk Map")
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" id="bulkCopyBtn">
+                                    <i class="fas fa-copy"></i> @L("Bulk Copy")
+                                </button>
+                                <button type="button" class="btn btn-warning btn-sm" id="bulkSkipBtn">
+                                    @L("Bulk Skip")
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <button type="button" class="btn btn-outline-info btn-sm" id="autoSuggestBtn">
+                                <i class="fas fa-magic"></i> @L("AutoSuggest")
+                            </button>
+                            <button type="button" class="btn btn-outline-success btn-sm" id="validateMappingsBtn">
+                                <i class="fas fa-check"></i> @L("ValidateMappings")
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Category Mapping Table -->
+                    <div class="table-responsive" id="categoryMappingTableContainer" style="display: none;">
+                        <table id="categoryMappingTable" class="table table-striped table-bordered table-hover" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th width="5%">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="selectAllCategories">
+                                        </div>
+                                    </th>
+                                    <th width="20%">@L("SourceCategory")</th>
+                                    <th width="15%">@L("Requirement")</th>
+                                    <th width="10%">@L("Impact")</th>
+                                    <th width="15%">@L("MappingAction")</th>
+                                    <th width="20%">@L("TargetMapping")</th>
+                                    <th width="10%">@L("Suggestions")</th>
+                                    <th width="5%">@L("Status")</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data will be loaded via DataTable -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="categoryMappingLoading" class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">@L("Loading")</span>
+                        </div>
+                        <p class="mt-2 text-muted">@L("LoadingCategoryData")</p>
+                    </div>
+
+                    <!-- Validation Messages -->
+                    <div id="mappingValidationMessages" class="mt-3 d-none">
+                        <div class="alert alert-warning">
+                            <h6 class="alert-heading">@L("ValidationIssues")</h6>
+                            <ul id="validationIssuesList" class="mb-0">
+                                <!-- Validation issues will be populated here -->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- No Categories Message -->
+                    <div id="noCategoriesMessage" class="text-center py-5 d-none">
+                        <i class="fas fa-check-circle text-success" style="font-size: 3rem;"></i>
+                        <p class="mt-3">@L("NoCategoryMappingRequired")</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Confirmation -->
+        <div id="step4" class="wizard-step @(Model.CurrentStep == 4 ? "active" : "d-none")">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">@L("ConfirmTransfer")</h5>
+                    <p class="text-muted mb-0">@L("ReviewTransferDetailsBeforeExecution")</p>
+                </div>
+                <div class="card-body">
+                    <div id="transferSummary">
+                        <!-- Transfer summary will be loaded dynamically -->
+                    </div>
+                    
+                    <div class="form-check mt-4">
+                        <input class="form-check-input" type="checkbox" id="confirmTransfer" name="confirmTransfer">
+                        <label class="form-check-label" for="confirmTransfer">
+                            <strong>@L("IConfirmTransferDetails")</strong>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <div class="d-flex justify-content-between w-100">
+        <div>
+            <button type="button" class="btn btn-secondary" id="prevStepBtn" style="display: none;">
+                <i class="fas fa-arrow-left"></i> @L("Previous")
+            </button>
+        </div>
+        <div>
+            <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">@L("Cancel")</button>
+            <button type="button" class="btn btn-primary" id="nextStepBtn">
+                @L("Next") <i class="fas fa-arrow-right"></i>
+            </button>
+            <button type="button" class="btn btn-success" id="executeTransferBtn" style="display: none;">
+                <i class="fas fa-check"></i> @L("ExecuteTransfer")
+            </button>
+        </div>
+    </div>
+</div>

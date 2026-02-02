@@ -1,0 +1,55 @@
+﻿
+@using inzibackend.Web.Areas.App.Models.Common.Modals
+@using inzibackend.Web.Areas.App.Models.TenantSurpathServices
+@model TenantSurpathServiceViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="TenantSurpathServiceInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("Name") :</h6>
+                @Model.TenantSurpathService.Name
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Price") :</h6>
+                @Model.TenantSurpathService.Price
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Description") :</h6>
+                @Model.TenantSurpathService.Description
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("IsEnabled") :</h6>
+                @Model.TenantSurpathService.IsPricingOverrideEnabled
+            </div>
+
+            <div class="col-6 mb-3">
+                <h6>(@L("SurpathService")) @L("Name") :</h6>
+                @Model.SurpathServiceName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("TenantDepartment")) @L("Name") :</h6>
+                @Model.TenantDepartmentName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("Cohort")) @L("Name") :</h6>
+                @Model.CohortName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("User")) @L("Name") :</h6>
+                @Model.UserName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("RecordCategoryRule")) @L("Name") :</h6>
+                @Model.RecordCategoryRuleName
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

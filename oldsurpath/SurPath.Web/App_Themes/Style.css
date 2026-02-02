@@ -1,0 +1,454 @@
+﻿@charset "utf-8";
+/* CSS Document */
+/*@font-face {
+    font-family: "OpenSans Semibold" !important;
+    src: url(../fonts/OpenSans-Semibold.ttf);
+}
+ @font face {
+ font-family:"OpenSans Regular" !important;
+ src:url(../fonts/OpenSans-Regular.ttf);
+}
+ @font face {
+ font-family:"OpenSans Light" !important;
+ src:url(../fonts/OpenSans-Light.ttf);
+}
+h1, h2, h3, h4, h5 {
+    font-family: "OpenSans Semibold" !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+}
+
+h1{font-size:1.8em; font-style:inherit !important;} h2 {font-size:1.6em; font-style:inherit !important;} h3 {font-size:1.4em; font-style:inherit !important;} h4 {font-size:1.3em; font-style:inherit !important;} h5{font-size:1.1em; font-weight:lighter !important;} h6{font-size:0.7em; font-weight:lighter !important;}
+label, th, a {
+    font-family: "OpenSans Semibold" !important;
+    font-weight: lighter !important;
+    font-size: 1.1em !important;
+}
+
+tr, td, p {
+    font-family: 'verdana'!important;
+    font-size: 1em !important;
+    font-weight:lighter !important;
+    line-height: 1.42857143 !important;
+    color: #333 !important;
+}
+
+input, button, select, textarea {
+    font-family: "OpenSans Semibold" !important;
+    font-size: 1.1em !important;
+}**/
+
+.panel {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08) !important;
+}
+
+label {
+    margin-top: 10px;
+    margin-bottom: 10px !important;
+}
+
+.page-wrap {
+    float: right;
+    width: 100%;
+    transition: width 0.3s ease;
+}
+
+
+label.radio {
+    cursor: pointer;
+    text-indent: 35px;
+    overflow: visible;
+    display: inline-block;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.wrap {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #E9E9E9;
+    height: 80px;
+}
+
+.label {
+    font-size: 13px;
+    width: 150px;
+    display: inline-block;
+    padding-right: 15px !important;
+}
+
+.fieldset {
+    border: 1px thin #999999;
+    margin-bottom: 10px !important;
+}
+
+input, select, textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 4px 5px;
+    font-family: Verdana, Geneva, sans-serif;
+    !important;
+}
+
+    input[type="radio"], input[type="checkbox"] {
+        width: auto !important;
+    }
+
+.btn-primary {
+    margin-top: 10px !important;
+}
+
+.login {
+    width: 280px;
+    padding: 20px;
+    background-color: #F6F5F3;
+    margin: 50px auto;
+    box-shadow: 10px 10px 5px #888888;
+}
+
+.text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #FF0000;
+}
+
+
+.col-md-4 col-md-offset-4 {
+    width: 250px;
+    text-align: left;
+    float: right;
+}
+
+/*# sourceMappingURL=bootstrap.css.map */
+
+/* Input group donor prefile */
+.input-group-addon.primary {
+    color: rgb(255, 255, 255);
+    background-color: rgb(50, 118, 177);
+    border-color: rgb(40, 94, 142);
+}
+
+.input-group-addon.success {
+    color: rgb(255, 255, 255);
+    background-color: rgb(92, 184, 92);
+    border-color: rgb(76, 174, 76);
+}
+
+.input-group-addon.info {
+    color: rgb(255, 255, 255);
+    background-color: rgb(57, 179, 215);
+    border-color: rgb(38, 154, 188);
+}
+
+.input-group-addon.warning {
+    color: rgb(255, 255, 255);
+    background-color: rgb(240, 173, 78);
+    border-color: rgb(238, 162, 54);
+}
+
+.input-group-addon.danger {
+    color: rgb(255, 255, 255);
+    background-color: rgb(217, 83, 79);
+    border-color: rgb(212, 63, 58);
+}
+
+/* input group ends here */
+
+.button {
+    border: 1px solid #d7dada;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-family: 'arial', helvetica, sans-serif;
+    padding: 4px 12px 4px 12px;
+    text-decoration: none;
+    display: inline-block;
+    color: #333333;
+    background-color: #f4f5f5;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f4f5f5), to(#dfdddd));
+    background-image: -webkit-linear-gradient(top, #f4f5f5, #dfdddd);
+    background-image: -moz-linear-gradient(top, #f4f5f5, #dfdddd);
+    background-image: -ms-linear-gradient(top, #f4f5f5, #dfdddd);
+    background-image: -o-linear-gradient(top, #f4f5f5, #dfdddd);
+    background-image: linear-gradient(to bottom, #f4f5f5, #dfdddd);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#f4f5f5, endColorstr=#dfdddd);
+    width: auto;
+}
+
+    .button:hover, .button:focus {
+        color: #333;
+        border: 1px solid #bfc4c4;
+        background-color: #333;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#d9dddd), to(#9d9b9b));
+        background-image: -webkit-linear-gradient(top, #d9dddd, #9d9b9b);
+        background-image: -moz-linear-gradient(top, #d9dddd, #9d9b9b);
+        background-image: -ms-linear-gradient(top, #d9dddd, #9d9b9b);
+        background-image: -o-linear-gradient(top, #d9dddd, #9d9b9b);
+        background-image: linear-gradient(to bottom, #d9dddd, #9d9b9b);
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#d9dddd, endColorstr=#9d9b9b);
+    }
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+
+.center-div
+{
+     margin: 0 auto;
+     width: 100px; 
+}
+
+.form-horizontal .radio, .form-horizontal .checkbox, .form-horizontal .radio-inline, .form-horizontal .checkbox-inline {
+    margin-bottom: 7px !important;
+    margin-left: 10px !important;
+    margin-top: 0 !important;
+    padding-top: 7px !important;
+}
+
+.top-buffer {
+    margin-top: 20px;
+}
+
+.copyright {
+    display: block;
+    background: none repeat scroll 0 0 #e9e9e9;
+    color: #6d6d6d;
+    padding: 20px 0;
+}
+
+
+a:hover, .navbar-default .navbar-nav > li > a:focus {
+    background-color: none;
+    color: #B5121B !important;
+}
+
+tbody > tr {
+    cursor: pointer;
+}
+
+.result {
+    margin-top: 20px;
+}
+
+.modal-content {
+    width: auto;
+    height: 350px;
+}
+
+td {
+    padding-top: .5em;
+    padding-bottom: .5em;
+}
+
+.body {
+    cursor: pointer;
+}
+
+#search {
+    border: thin #CCCCCC;
+}
+
+#footer {
+    background-image: linear-gradient(to bottom, #e9e9e9 0%, #fff 100%);
+    background-repeat: repeat-x;
+    border-radius: 4px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 1px 5px rgba(0, 0, 0, 0.075);
+}
+
+#footer, .push {
+    height: 4em;
+    clear: both;
+}
+
+.navbar-static-bottom {
+    border-radius: 0;
+    z-index: 1000;
+    border-width: 0 0 1px;
+    padding-right: 0;
+    padding-left: 0;
+    margin: 20px 0 0 !important;
+}
+
+.headerDivider {
+    border-left: 1px solid #38546d;
+    border-right: 1px solid #16222c;
+    height: 80px;
+    position: absolute;
+    right: 249px;
+    top: 10px;
+}
+
+.login {
+    text-align: center;
+}
+
+.center {
+    *display: inline; /* ie 7 */
+    display: inline-block;
+    text-align: left;
+    zoom: 1;
+}
+/* login- new-2 css */
+
+/*
+    Note: It is best to use a less version of this file ( see http://css2less.cc
+    For the media queries use @screen-sm-min instead of 768px.
+    For .omb_spanOr use @body-bg instead of white.
+*/
+
+@media (min-width: 768px) {
+    .omb_row-sm-offset-3 div:first-child[class*="col-"] {
+        margin-left: 25%;
+    }
+}
+
+.omb_login .omb_authTitle {
+    text-align: center;
+    line-height: 150%;
+    left: 50%;
+}
+
+.omb_authTitle, .h3 {
+    text-transform: none;
+}
+
+.omb_authTitle, .h5 {
+    text-transform: none;
+    text-align: center;
+}
+
+.omb_login .omb_socialButtons a {
+    color: white;
+    opacity: 0.9;
+}
+
+    .omb_login .omb_socialButtons a:hover {
+        color: white;
+        opacity: 1;
+    }
+
+.omb_login .omb_socialButtons .omb_btn-facebook {
+    background: #3b5998;
+}
+
+.omb_login .omb_socialButtons .omb_btn-twitter {
+    background: #00aced;
+}
+
+.omb_login .omb_socialButtons .omb_btn-google {
+    background: #c32f10;
+}
+
+
+.omb_login .omb_loginOr {
+    position: relative;
+    font-size: 1.5em;
+    color: #aaa;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+    .omb_login .omb_loginOr .omb_hrOr {
+        background-color: #cdcdcd;
+        height: 1px;
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+    }
+
+    .omb_login .omb_loginOr .omb_spanOr {
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: -0.6em;
+        margin-left: -1.5em;
+        background-color: white;
+        width: 3em;
+        text-align: center;
+    }
+
+.omb_login .omb_loginForm .input-group.i {
+    width: 2em;
+}
+
+.omb_login .omb_loginForm .help-block {
+    color: red;
+}
+
+
+@media (min-width: 768px) {
+    .omb_login .omb_forgotPwd {
+        text-align: right;
+        margin-top: 10px;
+    }
+}
+
+/* margin bottom*/
+.bottom-buffer {
+    margin-bottom: 20px;
+}
+
+/*align surscan-logo*/
+.logo-push {
+    padding-left: 63px;
+}
+
+/*surscan colors*/
+.span-r {
+    color: #cd2028;
+    font-weight: 600;
+}
+
+.span-b {
+    color: #333;
+    font-weight: 600;
+}
+
+.span-bl {
+    color: #00579b;
+}
+
+/*top-margin-class*/
+.buffer {
+    margin-top: 40px;
+}
+
+.buffer-align {
+    margin-top: -10px;
+}
+
+.btn-primary {
+    margin-top: 0px !important;
+}
+
+.buffer-left {
+    margin-left: 40px;
+}
+
+.tout {
+    margin-top: 200px;
+}
+
+.pidframeset {
+    padding: 6px;
+    border: solid lightblue 1px;
+    margin: 5px;
+}
+
+.pidframesetlegend {
+    font-family: 'open sans-serif',Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+    margin-bottom: 0px;
+    width: unset;
+    border-bottom: unset;
+}
+
+.pidframesetErr {
+    border: solid red 1px;
+}

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\..\common.props"></Import>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<RootNamespace>inzibackend</RootNamespace>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Abp" Version="7.3.0" />
+		<PackageReference Include="Abp.Zero.Common" Version="7.3.0" />
+		<PackageReference Include="AuthorizeNet.NetStandard" Version="0.1.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+		<PackageReference Include="PdfPig" Version="0.1.8" />
+		<PackageReference Include="System.Text.Json" Version="6.0.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Surpath\AuthNetManager\" />
+		<Folder Include="Surpath\dtos\" />
+		<Folder Include="Surpath\MetaData\" />
+		<Folder Include="Surpath\Models\" />
+	</ItemGroup>
+</Project>
