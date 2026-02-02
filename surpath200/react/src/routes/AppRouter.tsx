@@ -26,6 +26,7 @@ const SubscriptionManagement = React.lazy(
 );
 const TenantsPage = React.lazy(() => import("../pages/admin/tenants"));
 const EditionsPage = React.lazy(() => import("../pages/admin/editions"));
+const CodeTypesPage = React.lazy(() => import("../pages/admin/code-types"));
 const InvoicePage = React.lazy(
   () => import("../pages/admin/subscription-management/invoice"),
 );
@@ -188,6 +189,7 @@ const AppRouter = () => {
               />
               <Route path="admin/tenants" element={<TenantsPage />} />
               <Route path="admin/editions" element={<EditionsPage />} />
+              <Route path="admin/code-types" element={<CodeTypesPage />} />
               <Route
                 path="admin/invoice/:paymentId"
                 element={<InvoicePage />}

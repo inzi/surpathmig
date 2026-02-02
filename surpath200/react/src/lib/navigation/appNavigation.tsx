@@ -130,6 +130,13 @@ export const buildRawMenu = (): AppMenuItem[] => [
         route: "/app/admin/dynamic-property",
       },
       {
+        id: "CodeTypes",
+        title: L("CodeTypes"),
+        permissionName: "Pages.Administration.CodeTypes",
+        icon: "code",
+        route: "/app/admin/code-types",
+      },
+      {
         id: "Notifications",
         title: L("Notifications"),
         icon: "notification",
