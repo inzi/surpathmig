@@ -19,6 +19,7 @@ using inzibackend.MultiTenancy.Accounting;
 using inzibackend.MultiTenancy.Payments;
 using inzibackend.Storage;
 using inzibackend.Authorization.Users;
+using inzibackend.Surpath;
 
 namespace inzibackend.EntityFrameworkCore;
 
@@ -53,6 +54,66 @@ public class inzibackendDbContext : AbpZeroDbContext<Tenant, Role, User, inzibac
     public virtual DbSet<RecentPassword> RecentPasswords { get; set; }
 
 	public virtual DbSet<UserAccountLink> UserAccountLinks { get; set; }
+
+    // Surpath entities
+    public virtual DbSet<CodeType> CodeTypes { get; set; }
+    public virtual DbSet<Cohort> Cohorts { get; set; }
+    public virtual DbSet<CohortUser> CohortUsers { get; set; }
+    // DISABLED: Missing entity file - temporarily commented out
+    // public virtual DbSet<ComplianceInfo> ComplianceInfos { get; set; }
+    public virtual DbSet<ConfirmationValue> ConfirmationValues { get; set; }
+    public virtual DbSet<DepartmentUser> DepartmentUsers { get; set; }
+    public virtual DbSet<DeptCode> DeptCodes { get; set; }
+    public virtual DbSet<Drug> Drugs { get; set; }
+    public virtual DbSet<DrugPanel> DrugPanels { get; set; }
+    public virtual DbSet<DrugTestCategory> DrugTestCategories { get; set; }
+    public virtual DbSet<Hospital> Hospitals { get; set; }
+    public virtual DbSet<LedgerEntry> LedgerEntries { get; set; }
+    public virtual DbSet<LedgerEntryDetail> LedgerEntryDetails { get; set; }
+    public virtual DbSet<LegalDocument> LegalDocuments { get; set; }
+    public virtual DbSet<MedicalUnit> MedicalUnits { get; set; }
+    // DISABLED: Missing entity files - temporarily commented out
+    // public virtual DbSet<MetaData> MetaDatas { get; set; }
+    // public virtual DbSet<MetaDataNotifications> MetaDataNotifications { get; set; }
+    public virtual DbSet<MigrationAuditLog> MigrationAuditLogs { get; set; }
+    public virtual DbSet<Panel> Panels { get; set; }
+    // DISABLED: Depends on AuthorizeNet SDK - temporarily commented out
+    // public virtual DbSet<PaymentLogHelper> PaymentLogHelpers { get; set; }
+    // DISABLED: Missing entity file - temporarily commented out
+    // public virtual DbSet<PIDType> PIDTypes { get; set; }
+    public virtual DbSet<ProcessedTransactions> ProcessedTransactions { get; set; }
+    public virtual DbSet<Record> Records { get; set; }
+    public virtual DbSet<RecordCategory> RecordCategories { get; set; }
+    public virtual DbSet<RecordCategoryRule> RecordCategoryRules { get; set; }
+    public virtual DbSet<RecordNote> RecordNotes { get; set; }
+    public virtual DbSet<RecordRequirement> RecordRequirements { get; set; }
+    public virtual DbSet<RecordState> RecordStates { get; set; }
+    public virtual DbSet<RecordStatus> RecordStatuses { get; set; }
+    // DISABLED: Missing entity files - temporarily commented out
+    // public virtual DbSet<RegistrationValidationRequest> RegistrationValidationRequests { get; set; }
+    // public virtual DbSet<RegistrationValidationResult> RegistrationValidationResults { get; set; }
+    public virtual DbSet<RotationSlot> RotationSlots { get; set; }
+    public virtual DbSet<ServicePricingDecision> ServicePricingDecisions { get; set; }
+    public virtual DbSet<SlotAvailableDay> SlotAvailableDays { get; set; }
+    public virtual DbSet<SlotRotationDay> SlotRotatationDays { get; set; }
+    // DISABLED: Missing AppFeatures constants - temporarily commented out
+    // public virtual DbSet<SurpathOnlyRequirements> SurpathOnlyRequirements { get; set; }
+    public virtual DbSet<SurpathService> SurpathServices { get; set; }
+    public virtual DbSet<TenantDepartment> TenantDepartments { get; set; }
+    // DISABLED: Missing entity file - temporarily commented out
+    // public virtual DbSet<TenantDepartmentOrganizationUnit> TenantDepartmentOrganizationUnits { get; set; }
+    public virtual DbSet<TenantDepartmentUser> TenantDepartmentUsers { get; set; }
+    public virtual DbSet<TenantDocument> TenantDocuments { get; set; }
+    public virtual DbSet<TenantDocumentCategory> TenantDocumentCategories { get; set; }
+    // DISABLED: Missing entity file - temporarily commented out
+    // public virtual DbSet<TenantRequirement> TenantRequirements { get; set; }
+    public virtual DbSet<TenantSurpathService> TenantSurpathServices { get; set; }
+    public virtual DbSet<TestCategory> TestCategories { get; set; }
+    // DISABLED: Missing entity file - temporarily commented out
+    // public virtual DbSet<UserMembership> UserMemberships { get; set; }
+    public virtual DbSet<UserPid> UserPids { get; set; }
+    public virtual DbSet<UserPurchase> UserPurchases { get; set; }
+    public virtual DbSet<Welcomemessage> Welcomemessages { get; set; }
 
     public inzibackendDbContext(DbContextOptions<inzibackendDbContext> options)
         : base(options)
