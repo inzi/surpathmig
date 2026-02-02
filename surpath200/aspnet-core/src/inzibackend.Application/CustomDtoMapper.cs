@@ -44,6 +44,8 @@ using inzibackend.Notifications.Dto;
 using inzibackend.Organizations.Dto;
 using inzibackend.Sessions.Dto;
 using inzibackend.WebHooks.Dto;
+using inzibackend.Surpath;
+using inzibackend.Surpath.Dtos;
 
 namespace inzibackend;
 
@@ -178,5 +180,10 @@ internal static class CustomDtoMapper
         configuration.CreateMap<CreateUserDelegationDto, UserDelegation>();
 
         /* ADD YOUR OWN CUSTOM AUTOMAPPER MAPPINGS HERE */
+
+        //CodeTypes
+        configuration.CreateMap<CodeType, CodeTypeDto>();
+        configuration.CreateMap<CreateOrEditCodeTypeDto, CodeType>();
+        configuration.CreateMap<CodeType, CreateOrEditCodeTypeDto>();
     }
 }

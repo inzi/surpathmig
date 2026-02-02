@@ -80,6 +80,13 @@ public static class AppPermissions
 
     public const string Pages_Administration_EntityChanges_FullHistory = "Pages.Administration.EntityChanges.FullHistory";
 
+    //SURPATH ADMINISTRATION PERMISSIONS
+
+    public const string Pages_Administration_CodeTypes = "Pages.Administration.CodeTypes";
+    public const string Pages_Administration_CodeTypes_Create = "Pages.Administration.CodeTypes.Create";
+    public const string Pages_Administration_CodeTypes_Edit = "Pages.Administration.CodeTypes.Edit";
+    public const string Pages_Administration_CodeTypes_Delete = "Pages.Administration.CodeTypes.Delete";
+
     //TENANT-SPECIFIC PERMISSIONS
 
     public const string Pages_Tenant_Dashboard = "Pages.Tenant.Dashboard";

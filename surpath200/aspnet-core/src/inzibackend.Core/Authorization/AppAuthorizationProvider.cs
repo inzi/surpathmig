@@ -96,6 +96,13 @@ public class AppAuthorizationProvider : AuthorizationProvider
 
         administration.CreateChildPermission(AppPermissions.Pages_Administration_EntityChanges_FullHistory, L("EntityChanges_FullHistory"));
 
+        //SURPATH ADMINISTRATION PERMISSIONS
+
+        var codeTypes = administration.CreateChildPermission(AppPermissions.Pages_Administration_CodeTypes, L("CodeTypes"));
+        codeTypes.CreateChildPermission(AppPermissions.Pages_Administration_CodeTypes_Create, L("CreateNewCodeType"));
+        codeTypes.CreateChildPermission(AppPermissions.Pages_Administration_CodeTypes_Edit, L("EditCodeType"));
+        codeTypes.CreateChildPermission(AppPermissions.Pages_Administration_CodeTypes_Delete, L("DeleteCodeType"));
+
         //TENANT-SPECIFIC PERMISSIONS
 
         pages.CreateChildPermission(AppPermissions.Pages_Tenant_Dashboard, L("Dashboard"), multiTenancySides: MultiTenancySides.Tenant);
