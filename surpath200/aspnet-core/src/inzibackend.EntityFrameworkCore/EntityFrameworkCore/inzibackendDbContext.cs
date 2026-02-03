@@ -95,7 +95,7 @@ public class inzibackendDbContext : AbpZeroDbContext<Tenant, Role, User, inzibac
     public virtual DbSet<RotationSlot> RotationSlots { get; set; }
     public virtual DbSet<ServicePricingDecision> ServicePricingDecisions { get; set; }
     public virtual DbSet<SlotAvailableDay> SlotAvailableDays { get; set; }
-    public virtual DbSet<SlotRotationDay> SlotRotatationDays { get; set; }
+    public virtual DbSet<SlotRotationDay> SlotRotationDays { get; set; }
     // DISABLED: Missing AppFeatures constants - temporarily commented out
     // public virtual DbSet<SurpathOnlyRequirements> SurpathOnlyRequirements { get; set; }
     public virtual DbSet<SurpathService> SurpathServices { get; set; }
