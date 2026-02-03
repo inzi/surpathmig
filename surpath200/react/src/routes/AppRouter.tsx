@@ -30,6 +30,12 @@ const CodeTypesPage = React.lazy(() => import("../pages/admin/code-types"));
 const InvoicePage = React.lazy(
   () => import("../pages/admin/subscription-management/invoice"),
 );
+
+// Compliance pages
+const RecordCategoriesPage = React.lazy(() => import("../pages/compliance/record-categories"));
+const RecordCategoryRulesIndex = React.lazy(() => import("../pages/compliance/record-category-rules"));
+const RecordCategoryRulesCreateOrEdit = React.lazy(() => import("../pages/compliance/record-category-rules/CreateOrEdit"));
+const RecordCategoryRulesView = React.lazy(() => import("../pages/compliance/record-category-rules/View"));
 const UiCustomization = React.lazy(
   () => import("../pages/admin/ui-customization"),
 );
@@ -194,6 +200,13 @@ const AppRouter = () => {
                 path="admin/invoice/:paymentId"
                 element={<InvoicePage />}
               />
+
+              {/* Compliance routes */}
+              <Route path="compliance/record-categories" element={<RecordCategoriesPage />} />
+              <Route path="compliance/record-category-rules" element={<RecordCategoryRulesIndex />} />
+              <Route path="compliance/record-category-rules/create" element={<RecordCategoryRulesCreateOrEdit />} />
+              <Route path="compliance/record-category-rules/edit/:id" element={<RecordCategoryRulesCreateOrEdit />} />
+              <Route path="compliance/record-category-rules/view/:id" element={<RecordCategoryRulesView />} />
               <Route
                 path="admin/ui-customization"
                 element={<UiCustomization />}
