@@ -166,7 +166,7 @@ namespace inzibackend.Surpath
 
                 var codeTypeListDtos = await query.ToListAsync();
 
-                return _codeTypesExcelExporter.ExportToFile(codeTypeListDtos);
+                return await _codeTypesExcelExporter.ExportToFile(codeTypeListDtos);
         }
 
     }

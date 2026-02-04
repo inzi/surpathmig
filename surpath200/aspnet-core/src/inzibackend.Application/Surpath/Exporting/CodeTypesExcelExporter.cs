@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Abp.Runtime.Session;
 using Abp.Timing.Timezone;
-using inzibackend.DataExporting.Excel.NPOI;
+using inzibackend.DataExporting.Excel.MiniExcel;
 using inzibackend.Surpath.Dtos;
 using inzibackend.Dto;
 using inzibackend.Storage;
 
 namespace inzibackend.Surpath.Exporting
 {
-    public class CodeTypesExcelExporter : NpoiExcelExporterBase, ICodeTypesExcelExporter
+    public class CodeTypesExcelExporter : MiniExcelExcelExporterBase, ICodeTypesExcelExporter
     {
 
         private readonly ITimeZoneConverter _timeZoneConverter;
@@ -24,26 +26,14 @@ namespace inzibackend.Surpath.Exporting
             _abpSession = abpSession;
         }
 
-        public FileDto ExportToFile(List<GetCodeTypeForViewDto> codeTypes)
+        public async Task<FileDto> ExportToFile(List<GetCodeTypeForViewDto> codeTypes)
         {
-            return CreateExcelPackage(
-                "CodeTypes.xlsx",
-                excelPackage =>
-                {
+            var items = codeTypes.Select(codeType => new Dictionary<string, object>
+            {
+                { L("Name"), codeType.CodeType.Name }
+            }).ToList();
 
-                    var sheet = excelPackage.CreateSheet(L("CodeTypes"));
-
-                    AddHeader(
-                        sheet,
-                        L("Name")
-                        );
-
-                    AddObjects(
-                        sheet, codeTypes,
-                        _ => _.CodeType.Name
-                        );
-
-                });
+            return await CreateExcelPackageAsync("CodeTypes.xlsx", items);
         }
     }
 }

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir /s /b \"C:\\\\Users\\\\chris\\\\.claude\\\\plans\\\\*.md\")",
+      "Bash(find:*)"
+    ]
+  }
+}

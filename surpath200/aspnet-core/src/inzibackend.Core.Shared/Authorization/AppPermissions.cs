@@ -87,6 +87,14 @@ public static class AppPermissions
     public const string Pages_Administration_CodeTypes_Edit = "Pages.Administration.CodeTypes.Edit";
     public const string Pages_Administration_CodeTypes_Delete = "Pages.Administration.CodeTypes.Delete";
 
+    public const string Pages_Administration_RecordRequirements = "Pages.Administration.RecordRequirements";
+    public const string Pages_Administration_RecordRequirements_Create = "Pages.Administration.RecordRequirements.Create";
+    public const string Pages_Administration_RecordRequirements_Edit = "Pages.Administration.RecordRequirements.Edit";
+    public const string Pages_Administration_RecordRequirements_Delete = "Pages.Administration.RecordRequirements.Delete";
+    public const string Pages_Administration_RecordRequirements_ManageCategories = "Pages.Administration.RecordRequirements.ManageCategories";
+    public const string Pages_Administration_RecordRequirements_MoveCategories = "Pages.Administration.RecordRequirements.MoveCategories";
+    public const string Pages_Administration_RecordRequirements_CopyCategories = "Pages.Administration.RecordRequirements.CopyCategories";
+
     //TENANT-SPECIFIC PERMISSIONS
 
     public const string Pages_Tenant_Dashboard = "Pages.Tenant.Dashboard";

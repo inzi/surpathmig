@@ -1,0 +1,42 @@
+﻿using System;
+using Abp.Application.Services.Dto;
+
+namespace inzibackend.Surpath.Dtos
+{
+    public class RecordCategoryRuleDto : EntityDto<Guid>
+    {
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public bool Notify { get; set; }
+
+        public int ExpireInDays { get; set; }
+
+        public int WarnDaysBeforeFirst { get; set; }
+
+        public bool Expires { get; set; }
+
+        public bool Required { get; set; }
+
+        public bool IsSurpathOnly { get; set; }
+
+        public int WarnDaysBeforeSecond { get; set; }
+
+        public int WarnDaysBeforeFinal { get; set; }
+
+        public string MetaData { get; set; }
+
+        public Guid? FirstWarnStatusId { get; set; }
+        public string FirstWarnStatusName { get; set; }
+
+        public Guid? SecondWarnStatusId { get; set; }
+        public string SecondWarnStatusName { get; set; }
+
+        public Guid? FinalWarnStatusId { get; set; }
+        public string FinalWarnStatusName { get; set; }
+
+        public Guid? ExpiredStatusId { get; set; }
+        public string ExpiredStatusName { get; set; }
+    }
+}
