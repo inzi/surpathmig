@@ -4,3 +4,6 @@
 /.vs/slnx.sqlite-journal
 /.vs/surpathmig/FileContentIndex
 /.vs/surpathmig/CopilotIndices/17.14.1561.44479
+*.Mobile.sln
+*.All.sln
+*.ConsoleApiClient.sln
